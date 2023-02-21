@@ -11,8 +11,11 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": "npm run lint",
-    "**/*.{vue,js,jsx,tsx,ts,css,less,md,json}": [
+    "*.{js,vue,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{html,css,less,scss,md}": [
       "prettier --write"
     ]
   },
