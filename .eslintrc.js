@@ -10,21 +10,9 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
-    'prettier/prettier': 'error'
-  },
-  overrides: [
-    {
-      files: [
-        '**/pages/**/*.{js,ts,vue}',
-        '**/layouts/**/*.{js,ts,vue}',
-        '**/app.{js,ts,vue}',
-        '**/error.{js,ts,vue}'
-      ],
-      rules: {
-        'vue/multi-word-component-names': 'off',
-        'vue/no-multiple-template-root': 'off',
-        'no-console': 'off'
-      }
-    }
-  ]
+    'prettier/prettier': 'error',
+    'no-console': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vue/no-multiple-template-root': 'off'
+  }
 }
