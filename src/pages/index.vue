@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { use } from 'h3'
+
 interface IUser {
   name: string
   age?: number
@@ -7,6 +9,8 @@ interface IUser {
 const user: IUser = {
   name: 'vinson'
 }
+
+user.age = 'abc'
 
 console.log(user)
 
