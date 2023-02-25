@@ -5,3 +5,41 @@
 .btn {
   @apply p-4;
 }
+
+/* 动画类名 */
+.tik-tok-shake:hover {
+  -webkit-animation: TikTokShake 0.5s linear infinite;
+  animation: TikTokShake 0.5s linear infinite;
+}
+
+/* TikTok文字抖动效果 */
+@keyframes TikTokShake {
+  0%,
+  100% {
+    text-shadow: -1.5px -1.5px 0 #0ff, 1.5px 1.5px 0 #f00;
+  }
+  25% {
+    text-shadow: 1.5px 1.5px 0 #0ff, -1.5px -1.5px 0 #f00;
+  }
+  50% {
+    text-shadow: 1.5px -1.5px 0 #0ff, 1.5px -1.5px 0 #f00;
+  }
+  75% {
+    text-shadow: -1.5px 1.5px 0 #0ff, -1.5px 1.5px 0 #f00;
+  }
+}
+@-webkit-keyframes TikTokShake {
+  0%,
+  100% {
+    text-shadow: -1.5px -1.5px 0 #0ff, 1.5px 1.5px 0 #f00;
+  }
+  25% {
+    text-shadow: 1.5px 1.5px 0 #0ff, -1.5px -1.5px 0 #f00;
+  }
+  50% {
+    text-shadow: 1.5px -1.5px 0 #0ff, 1.5px -1.5px 0 #f00;
+  }
+  75% {
+    text-shadow: -1.5px 1.5px 0 #0ff, -1.5px 1.5px 0 #f00;
+  }
+}

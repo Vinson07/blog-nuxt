@@ -30,25 +30,29 @@ const menuList = [
 
 <template>
   <div>
-    <header class="flex h-14 items-center justify-between bg-[rgba(0,0,0,.5)] px-4">
+    <header
+      class="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between bg-transparent px-4"
+    >
       <h1 class="cursor-pointer text-2xl">Vinson</h1>
       <nav>
         <ul class="flex">
           <li
             v-for="(item, index) in menuList"
             :key="index"
-            class="flex cursor-pointer items-center px-1"
+            class="group mx-2 flex cursor-pointer items-center"
           >
-            <Icon :name="item.icon" />
+            <Icon class="group-hover:animate-ping" :name="item.icon" />
             <span class="pl-1">{{ item.text }}</span>
           </li>
         </ul>
       </nav>
-      <div class="flex">
-        <div class="cursor-pointer pr-1">
+      <div class="flex items-center">
+        <div class="cursor-pointer pr-2">
           <Icon name="icon-park:search" size="1.2em" />
         </div>
-        <div class="cursor-pointer">头像</div>
+        <div>
+          <Avatar />
+        </div>
       </div>
     </header>
     <slot />

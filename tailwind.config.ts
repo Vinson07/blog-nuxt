@@ -5,9 +5,10 @@ export default <Partial<Config>>{
   darkMode: 'class',
   theme: {
     extend: {
-      // colors: {
-      //   primary: defaultTheme.colors.green
-      // },
+      animation: {
+        'bounce-slow': 'bounce 3s ease infinite',
+        'spin-slow': 'spin 3s linear infinite'
+      },
       transitionProperty: {
         flow: 'background-position'
       },
