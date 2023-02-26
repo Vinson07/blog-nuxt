@@ -1,18 +1,17 @@
-node_modules
-nuxt.config.js
-Dockerfile
-dist
-
+/node_modules
+/Dockerfile
+/dist
 /public
 /docs
 /bin
+/package-lock.json
 
-.nuxt
-.vscode
-.husky
+.nuxt/*
+.husky/*
 .idea
 .local
 .npmrc
+.DS_Store
 
 *.yaml
 *.sh

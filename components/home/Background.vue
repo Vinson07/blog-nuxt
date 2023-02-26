@@ -3,26 +3,59 @@ const showVideo = ref(false)
 const showPlay = ref(true)
 const titleTop = ref('50%')
 const videoRef = ref<HTMLVideoElement>()
+const props = defineProps({
+  videoSrc: {
+    type: String,
+    default: 'https://cdn.sakura520.co/static/video/007.mp4'
+  },
+  bgSrc: {
+    type: String,
+    default: 'https://static.sakura520.co/config/8400a6590acfc36ee9c75592566407cf.jpg'
+  }
+})
 
+const styleBgSrc = computed(() => `url(${props.bgSrc})`)
+
+// 触发播放暂停按钮
 function handlePlay() {
-  showVideo.value = true
-  showPlay.value = false
-  titleTop.value = '-50%'
   if (videoRef.value) {
     videoRef.value.play()
   }
 }
 function handlePause() {
-  showPlay.value = true
-  titleTop.value = '50%'
   if (videoRef.value) {
     videoRef.value.pause()
   }
 }
+// 视频播放
+function onPlay() {
+  showVideo.value = true
+  showPlay.value = false
+  titleTop.value = '-50%'
+}
+// 视频暂停
+function onPause() {
+  showPlay.value = true
+  titleTop.value = '50%'
+}
+// 视频播放结束触发事件
+function onEnded() {
+  showVideo.value = false
+  showPlay.value = true
+  titleTop.value = '50%'
+}
+
+function handleDown(selector: string) {
+  const pageId: HTMLDivElement = document.querySelector(selector) as HTMLDivElement
+  window.scrollTo({
+    top: pageId.offsetTop,
+    behavior: 'smooth'
+  })
+}
 </script>
 
 <template>
-  <div id="headertop" class="filter-grid relative h-screen">
+  <div id="headertop" class="filter-dot relative h-screen">
     <figure id="centerbg">
       <div
         :style="{ top: titleTop }"
@@ -61,10 +94,14 @@ function handlePause() {
       <video
         v-show="showVideo"
         ref="videoRef"
-        src="https://cdn.sakura520.co/static/video/002.mp4"
-        preload="auto"
+        preload="metadata"
         class="h-full w-full object-fill"
-      ></video>
+        @play="onPlay"
+        @pause="onPause"
+        @ended="onEnded"
+      >
+        <source :src="props.videoSrc" type="video/mp4" />
+      </video>
       <div
         class="absolute bottom-4 right-6 z-10 animate-bounce cursor-pointer text-3xl text-[#baac9f]"
       >
@@ -73,7 +110,12 @@ function handlePause() {
       </div>
     </div>
     <div class="animate-bounce-slow absolute bottom-5 left-2/4 z-10 cursor-pointer">
-      <Icon name="ic:sharp-keyboard-arrow-down" size="58" color="#fff" />
+      <Icon
+        name="ic:sharp-keyboard-arrow-down"
+        size="58"
+        color="#fff"
+        @click="handleDown('.page-content')"
+      />
     </div>
   </div>
 </template>
@@ -113,14 +155,17 @@ function handlePause() {
       background-image: url(~/assets/img/dot.webp);
     }
   }
-  #centerbg {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-image: url('https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg');
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-  }
+}
+</style>
+
+<style>
+#centerbg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-image: v-bind(styleBgSrc);
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
 }
 </style>
