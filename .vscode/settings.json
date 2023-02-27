@@ -7,5 +7,9 @@
   // 保存的时候自动格式化
   "editor.formatOnSave": true,
   // 默认格式化工具选择prettier
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // 禁用所有内置CSS验证,由Stylelint处理。
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
 }
