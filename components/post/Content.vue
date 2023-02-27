@@ -27,15 +27,15 @@
       Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
       MySQL）暂时还没做，以后补上。
     </article>
-    <div class="mt-3 flex items-center">
+    <div class="mt-4 mb-7 flex items-center">
       <span class="mr-1">Q.E.D. </span>
       <Icon name="cryptocurrency-color:data" />
     </div>
-    <div
+    <!-- <div
       class="my-9 mx-auto h-10 w-10 cursor-pointer rounded-full bg-red-500 text-center text-lg leading-10 text-white"
     >
       赏
-    </div>
+    </div> -->
     <!-- <div class="absolute top-10 left-1/2 w-[335px] -translate-x-1/2 pt-3">
         <Icon
           name="uis:triangle"
@@ -61,19 +61,22 @@
         <span class="ml-1">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</span>
       </p>
       <div class="mt-2 flex justify-between">
-        <div class="tag">
-          <Icon class="mr-2" name="fluent:tag-multiple-16-regular" />
+        <div class="tag flex items-center">
+          <Icon class="mr-2" name="fluent:tag-multiple-16-regular" size="16" />
           <span>DOM</span>
           <span>JS</span>
         </div>
-        <div class="flex items-center">
-          <Icon
-            name="icon-park-twotone:share-two"
-            class="mr-3 cursor-pointer"
-            size="18"
-            color="#FE9600"
-          />
-          <Icon name="ph:heart-duotone" class="cursor-pointer" size="18" color="#FE9600" />
+        <div class="flex">
+          <Icon name="ci:share" class="mr-3 cursor-pointer" size="20" />
+          <div class="flex items-center">
+            <Icon
+              name="bx:bxs-like"
+              class="cursor-pointer"
+              :class="{ 'text-red-600': false }"
+              size="20"
+            />
+            <span class="ml-1 text-sm">20</span>
+          </div>
         </div>
       </div>
     </div>

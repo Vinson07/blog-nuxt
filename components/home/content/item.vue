@@ -46,7 +46,11 @@ const { active } = toRefs(props)
         </p>
       </div>
       <div class="content-ellipsis">
-        <Icon name="ion:ellipsis-horizontal" size="26" color="#4b5563" />
+        <Icon
+          name="ion:ellipsis-horizontal"
+          size="26"
+          class="text-[#4b5563] dark:text-neutral-400"
+        />
       </div>
     </div>
   </li>
@@ -54,7 +58,7 @@ const { active } = toRefs(props)
 
 <style lang="less">
 .post__list {
-  @apply mb-10 flex h-80 cursor-pointer overflow-hidden rounded-2xl;
+  @apply mb-10 flex h-80 cursor-pointer overflow-hidden rounded-2xl dark:hover:shadow-lg dark:hover:shadow-indigo-500/50;
   &.active {
     @apply flex-row-reverse;
     .content-ellipsis {
@@ -71,19 +75,19 @@ const { active } = toRefs(props)
   &__content {
     @apply flex-1 px-8 pt-5;
     .content-time {
-      @apply flex items-center text-xs text-gray-400;
+      @apply flex items-center text-xs text-gray-400 dark:text-neutral-500;
     }
     .content-title {
-      @apply py-6 text-xl text-gray-600;
+      @apply py-6 text-xl text-gray-600 dark:text-neutral-400;
     }
     .content-info {
-      @apply flex text-xs text-gray-400;
+      @apply flex text-xs text-gray-400 dark:text-neutral-500;
     }
     .info-item {
       @apply mr-4 flex items-center;
     }
     .content-text {
-      @apply text-gray-600;
+      @apply text-gray-600 dark:text-neutral-400;
     }
     .content-ellipsis {
       @apply flex justify-end;

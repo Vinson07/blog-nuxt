@@ -42,9 +42,9 @@ function handleNextPage() {
 }
 
 .next-page {
-  @apply rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500;
-  &:hover {
-    box-shadow: 0 0 4px rgb(255 165 0 0.85);
-  }
+  @apply rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400;
+  // &:hover {
+  //   box-shadow: 0 0 4px rgb(255 165 0 0.85);
+  // }
 }
 </style>
