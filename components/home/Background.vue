@@ -10,7 +10,7 @@ const props = defineProps({
   },
   bgSrc: {
     type: String,
-    default: 'https://static.sakura520.co/config/8400a6590acfc36ee9c75592566407cf.jpg'
+    default: ''
   }
 })
 

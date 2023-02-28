@@ -1,4 +1,17 @@
 <script setup lang="ts">
+import { getBlogInfo } from '@/apis/home'
+const homeBgImg = ref('')
+try {
+  const { code, data } = await getBlogInfo()
+  if (code === 20000) {
+    data.pageList.forEach((item) => {
+      if (item.pageLabel === 'home') {
+        homeBgImg.value = item.pageCover
+      }
+    })
+  }
+} catch (error) {}
+
 const nextPageLoad = ref(false)
 function handleNextPage() {
   nextPageLoad.value = true
@@ -10,7 +23,7 @@ function handleNextPage() {
 
 <template>
   <div>
-    <HomeBackground />
+    <HomeBackground :bgSrc="homeBgImg" />
     <div class="page-content mx-auto max-w-[800px] pt-14">
       <HomeContentBanner />
       <main>
@@ -43,8 +56,5 @@ function handleNextPage() {
 
 .next-page {
   @apply rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400;
-  // &:hover {
-  //   box-shadow: 0 0 4px rgb(255 165 0 0.85);
-  // }
 }
 </style>

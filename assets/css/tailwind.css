@@ -1,3 +1,4 @@
+@import url(./animation.css);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,66 +26,4 @@
 }
 ::-webkit-scrollbar-thumb {
   @apply bg-orange-400 dark:bg-indigo-500;
-}
-
-/* 动画类名 */
-.tik-tok-shake:hover {
-  -webkit-animation: TikTokShake 0.5s linear infinite;
-  animation: TikTokShake 0.5s linear infinite;
-}
-
-/* TikTok文字抖动效果 */
-@keyframes TikTokShake {
-  0%,
-  100% {
-    text-shadow: -1.5px -1.5px 0 #0ff, 1.5px 1.5px 0 #f00;
-  }
-  25% {
-    text-shadow: 1.5px 1.5px 0 #0ff, -1.5px -1.5px 0 #f00;
-  }
-  50% {
-    text-shadow: 1.5px -1.5px 0 #0ff, 1.5px -1.5px 0 #f00;
-  }
-  75% {
-    text-shadow: -1.5px 1.5px 0 #0ff, -1.5px 1.5px 0 #f00;
-  }
-}
-@-webkit-keyframes TikTokShake {
-  0%,
-  100% {
-    text-shadow: -1.5px -1.5px 0 #0ff, 1.5px 1.5px 0 #f00;
-  }
-  25% {
-    text-shadow: 1.5px 1.5px 0 #0ff, -1.5px -1.5px 0 #f00;
-  }
-  50% {
-    text-shadow: 1.5px -1.5px 0 #0ff, 1.5px -1.5px 0 #f00;
-  }
-  75% {
-    text-shadow: -1.5px 1.5px 0 #0ff, -1.5px 1.5px 0 #f00;
-  }
-}
-
-/* 缓慢的跳动 */
-@keyframes bounce-slow {
-  0%,
-  100% {
-    transform: translateY(10px);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-}
-@-webkit-keyframes bounce-slow {
-  0%,
-  100% {
-    transform: translateY(10px);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
 }
