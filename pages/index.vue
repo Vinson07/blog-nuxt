@@ -24,7 +24,7 @@ function handleNextPage() {
 <template>
   <div>
     <HomeBackground :bgSrc="homeBgImg" />
-    <div class="page-content mx-auto max-w-[800px] pt-14">
+    <div class="page-content mx-auto max-w-[768px] pt-14 max-md:px-4">
       <HomeContentBanner />
       <main>
         <h3 class="h-title">

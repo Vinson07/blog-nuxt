@@ -19,10 +19,10 @@
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {
-  @apply h-[6px] w-[6px] bg-gray-200 dark:bg-[#1e1e20];
+  @apply h-[6px] w-[6px] bg-gray-200 dark:bg-[#202124];
 }
 ::-webkit-scrollbar-track {
-  @apply bg-gray-200 dark:bg-[#1e1e20];
+  @apply bg-gray-200 dark:bg-[#202124];
 }
 ::-webkit-scrollbar-thumb {
   @apply bg-orange-400 dark:bg-indigo-500;

@@ -58,7 +58,7 @@ const { active } = toRefs(props)
 
 <style lang="less">
 .post__list {
-  @apply mb-10 flex h-80 cursor-pointer overflow-hidden rounded-2xl dark:hover:shadow-lg dark:hover:shadow-indigo-500/50;
+  @apply mb-10 cursor-pointer overflow-hidden rounded-2xl dark:hover:shadow-lg dark:hover:shadow-indigo-500/50 md:flex md:h-80;
   &.active {
     @apply flex-row-reverse;
     .content-ellipsis {
@@ -67,7 +67,7 @@ const { active } = toRefs(props)
   }
   box-shadow: 0 1px 20px -6px rgb(0 0 0 0.5);
   &__img {
-    @apply flex-1 overflow-hidden;
+    @apply overflow-hidden max-md:h-64 md:flex-1;
     img {
       @apply transition-transform duration-500 hover:rotate-12 hover:scale-125;
     }

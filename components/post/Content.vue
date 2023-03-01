@@ -1,5 +1,5 @@
 <template>
-  <main class="post-main mx-auto w-[800px] pt-10">
+  <main class="post-main mx-auto pt-10 max-md:px-3 md:w-[800px]">
     <article>
       两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
       的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
@@ -80,8 +80,8 @@
         </div>
       </div>
     </div>
-    <div class="my-14 flex h-[150px] overflow-hidden rounded">
-      <div class="group/previous relative flex-1 cursor-pointer">
+    <div class="my-14 overflow-hidden rounded md:flex">
+      <div class="group/previous relative h-[150px] flex-1 cursor-pointer">
         <img
           class="h-full w-full object-cover"
           src="https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg"
@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="group/next relative flex-1 cursor-pointer">
+      <div class="group/next relative h-[150px] flex-1 cursor-pointer">
         <img
           class="h-full w-full object-cover"
           src="https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg"

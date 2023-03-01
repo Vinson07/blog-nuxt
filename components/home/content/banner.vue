@@ -4,7 +4,7 @@
       <Icon name="zondicons:anchor" />
       <span class="ml-2">START:DASH!!</span>
     </h3>
-    <div class="flex">
+    <div class="md:flex">
       <div class="nav-feature group">
         <img
           class="nav-feature__img"
@@ -15,7 +15,7 @@
           <p class="text-tip">本站 WordPress 主题</p>
         </div>
       </div>
-      <div class="nav-feature group mx-1">
+      <div class="nav-feature group md:mx-1">
         <img
           class="nav-feature__img"
           src="https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg"
@@ -41,9 +41,9 @@
 
 <style lang="less">
 .nav-feature {
-  @apply relative h-40 flex-1 cursor-pointer overflow-hidden rounded-xl;
+  @apply relative h-40 flex-1 cursor-pointer overflow-hidden rounded-xl max-md:mb-3;
   &__img {
-    @apply h-full w-full transition-transform duration-500 group-hover:scale-125;
+    @apply h-full w-full object-cover transition-transform duration-500 group-hover:scale-125;
   }
   &__text {
     @apply absolute top-0 left-0 right-0 bottom-0 text-center transition-colors duration-1000 hover:bg-[rgba(0,0,0,.5)];

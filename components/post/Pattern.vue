@@ -5,7 +5,7 @@
       src="https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg"
       alt=""
     />
-    <div class="absolute bottom-0 left-1/2 w-[800px] -translate-x-1/2">
+    <div class="absolute bottom-0 left-3 md:left-1/2 md:w-[800px] md:-translate-x-1/2">
       <h3 class="text-[32px] text-white">Docker 部署 Zabbix + Grafana</h3>
       <div class="flex items-center py-5 text-white">
         <Avatar class="mr-3" />

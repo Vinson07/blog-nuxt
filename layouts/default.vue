@@ -11,7 +11,7 @@ const toggleDark = useToggle(isDark)
 </script>
 
 <template>
-  <div class="transition-colors duration-700 dark:bg-[#1e1e20] dark:text-neutral-400">
+  <div class="transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400">
     <TheHeader :isDark="isDark" @toggle-dark="toggleDark()" />
     <TheBackTop />
     <slot />
