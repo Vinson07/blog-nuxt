@@ -1,32 +1,35 @@
 <template>
   <main class="post-main mx-auto pt-10 max-md:px-3 md:w-[800px]">
-    <article>
-      两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
-      的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
-      Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
-      Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
-      MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
-      的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
-      Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
-      Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
-      MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
-      的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
-      Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
-      Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
-      MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
-      的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
-      Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
-      Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
-      MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
-      的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
-      Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
-      Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
-      MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
-      的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
-      Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
-      Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
-      MySQL）暂时还没做，以后补上。
-    </article>
+    <div>
+      <article>
+        两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
+        的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
+        Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
+        Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
+        MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
+        的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
+        Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
+        Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
+        MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
+        的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
+        Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
+        Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
+        MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
+        的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
+        Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
+        Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
+        MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
+        的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
+        Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
+        Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
+        MySQL）暂时还没做，以后补上。 两年前在服务器上放了一套 Grafana + Zabbix + Prometheus
+        的监控系统，当时是照着文档和网上各路教程一个一个编译的，插件和配置文件丢得七零八落，很难维护，故这几天借迁移服务器的机会，改用
+        Docker 安装，基本只用一个配置文件，今后随时可以一键部署。目前写好了 MySQL + Grafana +
+        Zabbix-Server + Zabbix-Agent 的配置，Prometheus（以前主要用来监控
+        MySQL）暂时还没做，以后补上。
+      </article>
+      <div id="toc"></div>
+    </div>
     <div class="mt-4 mb-7 flex items-center">
       <span class="mr-1">Q.E.D. </span>
       <Icon name="cryptocurrency-color:data" />

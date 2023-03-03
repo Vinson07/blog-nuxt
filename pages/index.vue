@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { PostList } from '@/types/article'
 import { getBlogInfo } from '@/apis/home'
+import { getPostList } from '@/apis/article'
 const homeBgImg = ref('')
+const postList = ref<PostList[]>([])
 try {
   const { code, data } = await getBlogInfo()
   if (code === 20000) {
@@ -9,6 +12,13 @@ try {
         homeBgImg.value = item.pageCover
       }
     })
+  }
+} catch (error) {}
+
+try {
+  const { code, data } = await getPostList()
+  if (code === 20000) {
+    postList.value = data
   }
 } catch (error) {}
 
@@ -31,9 +41,14 @@ function handleNextPage() {
           <Icon name="entypo:leaf" />
           <span class="ml-2">Discovery</span>
         </h3>
-        <ul class="post">
-          <HomeContentItem />
-          <HomeContentItem :active="true" />
+        <ul class="max-md:px-1">
+          <HomeContentItem
+            v-for="(item, index) in postList"
+            :key="item.id"
+            :item="item"
+            :active="(index + 1) % 2 === 0"
+          />
+          <!-- <HomeContentItem :active="true" /> -->
         </ul>
         <div class="text-center">
           <button v-if="!nextPageLoad" class="next-page" @click="handleNextPage">Previous</button>

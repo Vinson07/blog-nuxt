@@ -4,11 +4,45 @@ export interface Result<T = any> {
   data: T
 }
 
+export interface PageList {
+  id: number
+  pageCover: string
+  pageLabel: string
+  pageName: string
+}
+
+export interface WebsiteConfig {
+  alipayQRCode: string
+  articleCover: string
+  gitee: string
+  github: string
+  isChatRoom: number
+  isCommentReview: number
+  isEmailNotice: number
+  isMessageReview: number
+  isMusicPlayer: number
+  isReward: number
+  qq: string
+  socialLoginList?: any[]
+  socialUrlList?: any[]
+  touristAvatar: string
+  userAvatar: string
+  websiteAuthor: string
+  websiteAvatar: string
+  websiteCreateTime: string
+  websiteIntro: string
+  websiteName: string
+  websiteNotice: string
+  websiteRecordNo: string
+  websocketUrl: string
+  weiXinQRCode: string
+}
+
 export interface BlogInfo {
   articleCount: number
   categoryCount: number
-  pageList: Array<any>
+  pageList: PageList[]
   tagCount: number
   viewsCount: string
-  websiteConfig: object
+  websiteConfig: WebsiteConfig
 }

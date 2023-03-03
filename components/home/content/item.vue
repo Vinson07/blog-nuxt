@@ -4,26 +4,31 @@ const props = defineProps({
   active: {
     type: Boolean,
     default: false
+  },
+  item: {
+    type: Object,
+    default: () => {}
   }
 })
 
-const { active } = toRefs(props)
+const { active, item } = toRefs(props)
 </script>
 
 <template>
-  <li class="post__list" :class="{ active: active }" @click="router.push({ path: '/post/1' })">
+  <li
+    class="post__list"
+    :class="{ active: active }"
+    @click="router.push({ path: `/post/${item.id}` })"
+  >
     <div class="post__list__img">
-      <img
-        class="h-full w-full object-cover"
-        src="https://2heng.xin/wp-content/uploads//2021/07/20210729_025259-1024x877.jpg"
-      />
+      <img class="h-full w-full object-cover" :src="item.articleCover" />
     </div>
     <div class="post__list__content">
       <div class="content-time">
         <Icon name="mingcute:time-fill" size="18" class="pr-1" />
-        发布于 2021-07-30
+        发布于 {{ item.createTime }}
       </div>
-      <h4 class="content-title">基于 SCSS mixin 的 flex gap polyfill</h4>
+      <h4 class="content-title">{{ item.articleTitle }}</h4>
       <div class="content-info">
         <p class="info-item">
           <Icon name="mdi:eye" size="16" />
@@ -35,15 +40,11 @@ const { active } = toRefs(props)
         </p>
         <p class="info-item">
           <Icon name="material-symbols:files" size="16" />
-          <span class="ml-1">碎碎念</span>
+          <span class="ml-1">{{ item.categoryName }}</span>
         </p>
       </div>
       <div class="py-7">
-        <p class="content-text multiline-ellipsis">
-          一直以来，习惯在 flex 布局中使用 gap 这个属性设置间距，一直以来也都是在最新的 Chrome
-          上调试，所以从来没有想在 flex gap 在其他一直以来，习惯在 flex 布局中使用 gap
-          这个属性设置间距，一直以来也都是在最新的 Chrome 上调试，所以从来没有想在 flex gap 在其他
-        </p>
+        <p class="content-text multiline-ellipsis">{{ item.articleContent }}</p>
       </div>
       <div class="content-ellipsis">
         <Icon
@@ -73,7 +74,7 @@ const { active } = toRefs(props)
     }
   }
   &__content {
-    @apply flex-1 px-8 pt-5;
+    @apply px-8 pt-5 md:flex-1;
     .content-time {
       @apply flex items-center text-xs text-gray-400 dark:text-neutral-500;
     }

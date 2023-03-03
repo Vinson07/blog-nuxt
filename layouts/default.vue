@@ -6,13 +6,46 @@ const isDark = useDark({
   valueDark: 'dark',
   valueLight: 'light'
 })
-
 const toggleDark = useToggle(isDark)
+
+// 菜单
+const menuList = [
+  {
+    icon: 'noto:house-with-garden',
+    text: '首页',
+    path: '/'
+  },
+  {
+    icon: 'icon-park:message',
+    text: '留言',
+    path: ''
+  },
+  {
+    icon: 'icon-park:friends-circle',
+    text: '友链',
+    path: ''
+  },
+  {
+    icon: 'flat-color-icons:gallery',
+    text: '图库',
+    path: ''
+  }
+]
+
+// 适配移动端 屏幕宽度小于768显示
+const divRef = ref(null)
+const { width } = useElementSize(divRef)
 </script>
 
 <template>
-  <div class="transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400">
-    <TheHeader :isDark="isDark" @toggle-dark="toggleDark()" />
+  <div ref="divRef" class="transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400">
+    <TheHeader
+      v-if="width > 768"
+      :isDark="isDark"
+      :menuList="menuList"
+      @toggle-dark="toggleDark()"
+    />
+    <TheMdHeader v-else :mdDark="isDark" :mdMenuList="menuList" @toggle-md-dark="toggleDark()" />
     <TheBackTop />
     <slot />
     <TheFooter />

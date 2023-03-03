@@ -4,7 +4,7 @@
       <Icon name="zondicons:anchor" />
       <span class="ml-2">START:DASH!!</span>
     </h3>
-    <div class="md:flex">
+    <div class="max-md:px-1 md:flex">
       <div class="nav-feature group">
         <img
           class="nav-feature__img"
