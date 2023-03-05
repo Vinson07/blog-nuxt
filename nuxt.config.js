@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  buidl: {
+    transpile: ['markdown-it', 'highlight.js', 'clipboard']
+  },
   typescript: {
     typeCheck: false // ts语法检查
   },

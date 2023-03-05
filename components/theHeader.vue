@@ -8,6 +8,7 @@ interface Menu {
 interface Props {
   isDark: boolean
   menuList: Array<Menu>
+  title?: string
 }
 
 const props = defineProps<Props>()
@@ -34,7 +35,7 @@ function handleToggleDark() {
 
 <template>
   <header class="header-nav group/nav" :class="headerStyle">
-    <h1 class="cursor-pointer text-2xl" @click="router.push('/')">Vinson</h1>
+    <h1 class="cursor-pointer text-2xl" @click="router.push('/')">{{ props.title || 'Vinson' }}</h1>
     <nav class="group-hover/nav:block" :class="{ hidden: y == 0 }">
       <ul class="flex">
         <li

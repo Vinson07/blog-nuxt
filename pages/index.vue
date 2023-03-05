@@ -1,39 +1,51 @@
 <script setup lang="ts">
-import { PostList } from '@/types/article'
-import { getBlogInfo } from '@/apis/home'
+import type { PostList } from '@/types/article'
 import { getPostList } from '@/apis/article'
-const homeBgImg = ref('')
+
+const userStore = useUserStore()
 const postList = ref<PostList[]>([])
-try {
-  const { code, data } = await getBlogInfo()
-  if (code === 20000) {
-    data.pageList.forEach((item) => {
-      if (item.pageLabel === 'home') {
-        homeBgImg.value = item.pageCover
+const current = ref<number>(1)
+const nextPage = ref(true)
+const loading = ref(false)
+
+// 获取博客基本数据
+userStore.blogInfoData()
+
+// 获取post列表
+async function addPostList(current: number) {
+  try {
+    const { code, data } = await getPostList(current)
+    if (code === 20000) {
+      if (data && data.length > 0) {
+        postList.value = postList.value.concat(data)
+        nextPage.value = true
+        loading.value = false
+      } else {
+        nextPage.value = false
+        loading.value = false
       }
-    })
-  }
-} catch (error) {}
+    }
+  } catch (error) {}
+}
 
-try {
-  const { code, data } = await getPostList()
-  if (code === 20000) {
-    postList.value = data
-  }
-} catch (error) {}
+// 首次获取post列表
+addPostList(current.value)
 
-const nextPageLoad = ref(false)
+// 下一页
 function handleNextPage() {
-  nextPageLoad.value = true
-  setTimeout(() => {
-    nextPageLoad.value = false
-  }, 1000)
+  nextPage.value = false
+  loading.value = true
+  current.value++
+  addPostList(current.value)
 }
 </script>
 
 <template>
   <div>
-    <HomeBackground :bgSrc="homeBgImg" />
+    <HomeBackground
+      :bg-src="userStore.pageList.home"
+      :sub-title="userStore.websiteConfig.websiteIntro"
+    />
     <div class="page-content mx-auto max-w-[768px] pt-14 max-md:px-4">
       <HomeContentBanner />
       <main>
@@ -48,16 +60,16 @@ function handleNextPage() {
             :item="item"
             :active="(index + 1) % 2 === 0"
           />
-          <!-- <HomeContentItem :active="true" /> -->
         </ul>
         <div class="text-center">
-          <button v-if="!nextPageLoad" class="next-page" @click="handleNextPage">Previous</button>
+          <button v-show="nextPage" class="next-page" @click="handleNextPage">Previous</button>
           <img
-            v-else
+            v-show="loading"
             src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
             class="mx-auto w-11 py-3"
             alt=""
           />
+          <p v-show="!nextPage && !loading">我也是有底线的～</p>
         </div>
       </main>
     </div>

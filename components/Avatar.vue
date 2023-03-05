@@ -25,7 +25,7 @@ function handleError() {
 </script>
 
 <template>
-  <div :style="sizeStyle" class="cursor-pointer rounded-full bg-slate-300">
+  <div :style="sizeStyle" class="cursor-pointer select-none rounded-full bg-slate-300">
     <img
       v-if="props.src && !hasImgLoad"
       class="rounded-full object-cover"

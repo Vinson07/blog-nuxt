@@ -1,11 +1,32 @@
+import { getBlogInfo } from '@/apis/home'
+import { WebsiteConfig } from '@/types'
+
 export const useUserStore = defineStore('user', {
   state: () => ({
-    name: 'vinson',
-    age: 18
+    websiteConfig: {} as WebsiteConfig,
+    pageList: {
+      home: 'https://cdn.sakura520.co/images/2018112111632_x5CSu.jpeg'
+    },
+    articleCount: 0,
+    categoryCount: 0,
+    tagCount: 0,
+    viewsCount: ''
   }),
   actions: {
-    setName(text: string) {
-      this.name = text
+    async blogInfoData() {
+      try {
+        const { code, data } = await getBlogInfo()
+        if (code === 20000) {
+          const { websiteConfig, categoryCount, articleCount, tagCount, viewsCount } = data
+          this.websiteConfig = websiteConfig
+          this.articleCount = articleCount
+          this.categoryCount = categoryCount
+          this.tagCount = tagCount
+          this.viewsCount = viewsCount
+        }
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 })

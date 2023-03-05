@@ -11,6 +11,14 @@ const props = defineProps({
   bgSrc: {
     type: String,
     default: ''
+  },
+  title: {
+    type: String,
+    default: 'Hi, Mashiro!'
+  },
+  subTitle: {
+    type: String,
+    default: 'You got to put the past behind you before you can move on.'
   }
 })
 
@@ -64,12 +72,12 @@ function handleDown(selector: string) {
         <h1
           class="tik-tok-shake mb-7 cursor-pointer select-none text-7xl font-bold uppercase text-slate-50"
         >
-          Hi, Mashiro!
+          {{ props.title }}
         </h1>
         <div class="rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
           <p class="mb-1 text-base font-bold text-gray-300">
             <Icon name="ooui:quotes-ltr" />
-            You got to put the past behind you before you can move on.
+            {{ props.subTitle }}
             <Icon name="ooui:quotes-rtl" />
           </p>
           <div class="text-3xl">

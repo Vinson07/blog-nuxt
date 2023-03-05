@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const userStore = useUserStore()
 // 切换暗黑模式
 const isDark = useDark({
   selector: 'html',
@@ -41,11 +42,12 @@ const { width } = useElementSize(divRef)
   <div ref="divRef" class="transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400">
     <TheHeader
       v-if="width > 768"
-      :isDark="isDark"
-      :menuList="menuList"
+      :title="userStore.websiteConfig.websiteAuthor"
+      :is-dark="isDark"
+      :menu-list="menuList"
       @toggle-dark="toggleDark()"
     />
-    <TheMdHeader v-else :mdDark="isDark" :mdMenuList="menuList" @toggle-md-dark="toggleDark()" />
+    <TheMdHeader v-else :md-dark="isDark" :md-menu-list="menuList" @toggle-md-dark="toggleDark()" />
     <TheBackTop />
     <slot />
     <TheFooter />
