@@ -14,15 +14,7 @@ const router = useRouter()
 const { post } = toRefs(props)
 
 // markdown解析插件
-const { $markdownit, $copy } = useNuxtApp()
-
-// 引入文章格式
-useHead(
-  {
-    link: [{ rel: 'stylesheet', href: '/css/cyanosis.css' }]
-  },
-  { mode: 'client' }
-)
+const { $markdownIt, $copy } = useNuxtApp()
 
 onMounted(() => {
   nextTick(() => {
@@ -49,7 +41,7 @@ onMounted(() => {
   <main class="post-main mx-auto pt-10 max-md:px-3 md:w-[800px]">
     <div>
       <!-- eslint-disable -->
-      <article class="markdown-body" v-html="$markdownit(post.articleContent)"></article>
+      <article class="markdown-body" v-html="$markdownIt(post.articleContent)"></article>
       <!-- eslint-enable -->
       <div id="toc"></div>
     </div>
@@ -228,9 +220,8 @@ pre.hljs {
     top: 3px;
     right: 10px;
     z-index: 10;
-    // color: #333;
+    color: #999;
     cursor: pointer;
-    // background-color: #fff;
     border: 0;
     border-radius: 2px;
     user-select: none;

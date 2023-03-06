@@ -3,7 +3,8 @@ import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { Result } from '@/types'
 
-const baseURL = 'https://sakura520.co'
+// 获取环境变量
+const baseURL = import.meta.env.VITE_API_BASE_URL as string
 // 导出Request类，可以用来自定义传递配置来创建实例
 export class Request {
   // axios 实例
@@ -40,7 +41,7 @@ export class Request {
       (err: any) => {
         // 这里用来处理http常见错误，进行全局提示
         let message = ''
-        switch (err.response.status) {
+        switch (err.response?.status) {
           case 400:
             message = '请求错误(400)'
             break
@@ -76,7 +77,7 @@ export class Request {
             message = 'HTTP版本不受支持(505)'
             break
           default:
-            message = `连接出错(${err.response.status})!`
+            message = `连接出错(${err.response?.status})!`
         }
         console.error(message)
         // 这里错误消息可以使用全局弹框展示出来

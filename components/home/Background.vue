@@ -19,6 +19,10 @@ const props = defineProps({
   subTitle: {
     type: String,
     default: 'You got to put the past behind you before you can move on.'
+  },
+  bgMask: {
+    type: String,
+    default: 'filter-grid' // filter-grid filter-dot filter-dim filter-undertint pattern-center
   }
 })
 
@@ -63,7 +67,7 @@ function handleDown(selector: string) {
 </script>
 
 <template>
-  <div id="headertop" class="filter-dot relative h-screen">
+  <div id="headertop" class="relative h-screen" :class="props.bgMask">
     <figure id="centerbg">
       <div
         :style="{ top: titleTop }"

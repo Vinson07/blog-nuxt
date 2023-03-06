@@ -1,11 +1,11 @@
-import markdownit from 'markdown-it'
+import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 
 export default defineNuxtPlugin(() => {
   return {
     provide: {
-      markdownit: (data) => {
-        return markdownit({
+      markdownIt: (data) => {
+        const md = new MarkdownIt({
           html: true,
           linkify: true,
           typographer: true,
@@ -35,7 +35,7 @@ export default defineNuxtPlugin(() => {
                   '&lt;/textarea>'
                 )}</textarea>`
               } catch (error) {
-                console.log(error)
+                console.error(error)
               }
             }
 
@@ -46,7 +46,10 @@ export default defineNuxtPlugin(() => {
               '&lt;/textarea>'
             )}</textarea>`
           }
-        }).render(data)
+        })
+        // 渲染成html
+        const result = md.render(data)
+        return result
       }
     }
   }

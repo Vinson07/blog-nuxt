@@ -44,6 +44,7 @@ function handleNextPage() {
   <div>
     <HomeBackground
       :bg-src="userStore.pageList.home"
+      :title="userStore.websiteConfig.websiteName"
       :sub-title="userStore.websiteConfig.websiteIntro"
     />
     <div class="page-content mx-auto max-w-[768px] pt-14 max-md:px-4">
@@ -82,6 +83,6 @@ function handleNextPage() {
 }
 
 .next-page {
-  @apply rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400;
+  @apply rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500;
 }
 </style>
