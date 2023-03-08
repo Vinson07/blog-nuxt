@@ -5,8 +5,31 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     websiteConfig: {} as WebsiteConfig,
     pageList: {
-      home: 'https://cdn.sakura520.co/images/2018112111632_x5CSu.jpeg'
+      home: 'https://service-dn725wcs-1306777571.gz.apigw.tencentcs.com/release/'
     },
+    // 菜单
+    menuList: [
+      {
+        icon: 'noto:house-with-garden',
+        text: '首页',
+        path: '/'
+      },
+      {
+        icon: 'icon-park:message',
+        text: '留言',
+        path: ''
+      },
+      {
+        icon: 'icon-park:friends-circle',
+        text: '友链',
+        path: ''
+      },
+      {
+        icon: 'flat-color-icons:gallery',
+        text: '图库',
+        path: ''
+      }
+    ],
     articleCount: 0,
     categoryCount: 0,
     tagCount: 0,

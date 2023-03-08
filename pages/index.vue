@@ -8,9 +8,6 @@ const current = ref<number>(1)
 const nextPage = ref(true)
 const loading = ref(false)
 
-// 获取博客基本数据
-userStore.blogInfoData()
-
 // 获取post列表
 async function addPostList(current: number) {
   try {

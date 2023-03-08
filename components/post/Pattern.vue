@@ -24,17 +24,23 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="pattern relative h-[400px]">
-    <img class="h-full w-full object-cover" :src="props.imgSrc" alt="" />
-    <div class="absolute bottom-0 left-3 md:left-1/2 md:w-[800px] md:-translate-x-1/2">
-      <h3 class="text-[32px] text-white">{{ props.title }}</h3>
-      <div class="flex items-center py-5 text-white">
-        <Avatar class="mr-3" />
-        <span class="text-sm">{{ props.author }}</span>
-        <Icon name="bi:dot" />
-        <span class="text-sm">{{ props.time }}</span>
-        <Icon name="bi:dot" />
-        <span class="text-sm">{{ props.view }} 次阅读</span>
+  <div class="pattern relative h-[500px] md:h-[400px]">
+    <img class="h-full w-full object-cover dark:brightness-50" :src="props.imgSrc" alt="" />
+    <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 text-center text-white">
+      <h3 class="text-5xl">{{ props.title }}</h3>
+      <div class="my-3 flex flex-wrap items-center justify-center text-sm">
+        <Icon name="ic:baseline-calendar-month" />
+        <span class="ml-1">发表于 {{ props.time }}</span>
+        <span class="mx-2">|</span>
+        <Icon name="ic:outline-access-time" />
+        <span class="ml-1">更新于 2023-02-15</span>
+      </div>
+      <div class="flex items-center justify-center text-sm">
+        <Icon name="ph:user-duotone" />
+        <span class="ml-1">{{ props.author }}</span>
+        <span class="mx-2">|</span>
+        <Icon name="majesticons:eye-line" />
+        <span class="ml-1">阅读量 {{ props.view }}</span>
       </div>
     </div>
   </div>

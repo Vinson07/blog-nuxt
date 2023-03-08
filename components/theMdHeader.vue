@@ -6,17 +6,17 @@ interface Menu {
 }
 
 interface Props {
-  mdDark: boolean
-  mdMenuList: Array<Menu>
+  dark: boolean
+  menuList: Array<Menu>
 }
 
 const props = defineProps<Props>()
 const router = useRouter()
-const emit = defineEmits(['toggle-md-dark'])
+const emit = defineEmits(['toggle-dark'])
 
 // 切换主题
 function handleToggleDark() {
-  emit('toggle-md-dark')
+  emit('toggle-dark')
 }
 
 const menuToggle = ref(false)
@@ -34,7 +34,7 @@ function handleHdMenu() {
       <h1 class="cursor-pointer text-2xl" @click="router.push('/')">Vinson</h1>
       <div class="flex items-center">
         <div class="mr-4 cursor-pointer" @click="handleToggleDark">
-          <Icon v-if="props.mdDark" name="line-md:sun-rising-filled-loop" size="22" />
+          <Icon v-if="props.dark" name="line-md:sun-rising-filled-loop" size="22" />
           <Icon v-else name="line-md:moon-filled-loop" size="22" />
         </div>
         <div class="mr-4 cursor-pointer">
@@ -66,7 +66,7 @@ function handleHdMenu() {
           </li>
         </ul>
         <ul class="flex flex-wrap pt-8 text-center">
-          <li v-for="(item, index) in props.mdMenuList" :key="index" class="basis-1/2 p-1">
+          <li v-for="(item, index) in props.menuList" :key="index" class="basis-1/2 p-1">
             <div class="menu-item">
               <Icon :name="item.icon" />
               <p>{{ item.text }}</p>

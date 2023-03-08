@@ -2,6 +2,8 @@
 // 代码高亮 引入个性化的vs2015样式
 // import 'highlight.js/styles/vs2015.css'
 import 'highlight.js/styles/atom-one-dark.css'
+import tocbot from 'tocbot'
+import Clipboard from 'clipboard'
 
 const props = defineProps({
   post: {
@@ -10,16 +12,19 @@ const props = defineProps({
   }
 })
 const router = useRouter()
+const articleRef = ref<HTMLElement | null>(null)
 
 const { post } = toRefs(props)
 
 // markdown解析插件
-const { $markdownIt, $copy } = useNuxtApp()
+const { $markdownIt, $toc } = useNuxtApp()
+// 文章目录 定位方法
+$toc()
 
 onMounted(() => {
   nextTick(() => {
     // 复制代码
-    const copy = $copy('.copy-btn')
+    const copy = new Clipboard('.copy-btn')
     // 复制成功失败的提示
     copy.on('success', (e) => {
       console.log('复制成功', e)
@@ -33,106 +38,111 @@ onMounted(() => {
     a.forEach((el) => {
       el.setAttribute('target', '_blank')
     })
+
+    // 文章目录
+    if (articleRef.value) {
+      const nodes = articleRef.value.children
+      if (nodes.length) {
+        for (let i = 0; i < nodes.length; i++) {
+          const node = nodes[i]
+          // const reg = /^H[1-4]{1}$/
+          const reg = /^H[1-2]{1}$/
+          if (reg.exec(node.tagName)) {
+            node.id = 'header-' + i.toString()
+          }
+        }
+      }
+    }
+    tocbot.init({
+      tocSelector: '#toc', // 要把目录添加元素位置，支持选择器
+      contentSelector: '.markdown-body', // 获取html的元素
+      headingSelector: 'h1, h2', // 要显示的id的目录
+      hasInnerContainers: true,
+      onClick: function (e) {
+        e.preventDefault()
+      }
+    })
   })
 })
 </script>
 
 <template>
-  <main class="post-main mx-auto pt-10 max-md:px-3 md:w-[800px]">
-    <div>
+  <main class="post-main relative mx-auto mt-4 max-w-[1140px]">
+    <div class="relative rounded p-4 shadow-md xl:w-[820px]">
       <!-- eslint-disable -->
-      <article class="markdown-body" v-html="$markdownIt(post.articleContent)"></article>
+      <article
+        class="markdown-body"
+        ref="articleRef"
+        v-html="$markdownIt(post.articleContent)"
+      ></article>
       <!-- eslint-enable -->
-      <div id="toc"></div>
-    </div>
-    <div class="mt-4 mb-7 flex items-center">
-      <span class="mr-1">Q.E.D. </span>
-      <Icon name="cryptocurrency-color:data" />
-    </div>
-    <!-- <div
-      class="my-9 mx-auto h-10 w-10 cursor-pointer rounded-full bg-red-500 text-center text-lg leading-10 text-white"
-    >
-      赏
-    </div> -->
-    <!-- <div class="absolute top-10 left-1/2 w-[335px] -translate-x-1/2 pt-3">
-        <Icon
-          name="uis:triangle"
-          class="absolute top-0 left-1/2 -translate-x-1/2"
-          color="#f3f4f6"
-        />
+      <div class="my-14 border-t border-b border-dashed py-5 text-sm text-zinc-500">
+        <p class="flex items-center justify-center">
+          <Icon name="bi:cc-circle" />
+          <span class="ml-1">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</span>
+        </p>
+        <div class="mt-2 flex justify-between">
+          <div class="tag flex items-center">
+            <Icon name="fluent:tag-multiple-16-regular" size="16" />
+            <span>{{ post.categoryName }}</span>
+            <span v-for="tag in post.tagDTOList" :key="tag.id">{{ tag.tagName }}</span>
+          </div>
+          <div class="flex">
+            <Icon name="ci:share" class="mr-3 cursor-pointer" size="20" />
+            <div class="flex items-center">
+              <Icon
+                name="bx:bxs-like"
+                class="cursor-pointer"
+                :class="{ 'text-red-600': false }"
+                size="20"
+              />
+              <span class="ml-1 text-sm">{{ post.likeCount || 0 }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="overflow-hidden rounded md:flex">
         <div
-          class="flex justify-between rounded-md bg-gray-100 px-6 pt-5 pb-2 text-center text-sm text-zinc-500"
+          v-if="post.lastArticle.id"
+          class="group/previous relative h-[150px] flex-1 cursor-pointer"
+          @click="router.push(`/post/${post.lastArticle.id}`)"
         >
-          <div>
-            <img class="h-32 w-32" src="~/assets/img/AliPayQR.jpeg" alt="" />
-            <p class="mt-2">支付宝</p>
-          </div>
-          <div>
-            <img class="h-32 w-32" src="~/assets/img/AliPayQR.jpeg" alt="" />
-            <p class="mt-2">支付宝</p>
+          <img class="h-full w-full object-cover" :src="post.lastArticle.articleCover" alt="" />
+          <div
+            class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/previous:bg-transparent"
+          >
+            <div class="mx-10 mt-10 text-sm uppercase">
+              <p class="mb-2 text-slate-300">Previous Post</p>
+              <h4 class="single-line-ellipsis text-white">
+                {{ post.lastArticle.articleTitle }}
+              </h4>
+            </div>
           </div>
         </div>
-      </div> -->
-    <div class="border-t border-b border-dashed py-5 text-sm text-zinc-500">
-      <p class="flex items-center justify-center">
-        <Icon name="bi:cc-circle" />
-        <span class="ml-1">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</span>
-      </p>
-      <div class="mt-2 flex justify-between">
-        <div class="tag flex items-center">
-          <Icon name="fluent:tag-multiple-16-regular" size="16" />
-          <span>{{ post.categoryName }}</span>
-          <span v-for="tag in post.tagDTOList" :key="tag.id">{{ tag.tagName }}</span>
-        </div>
-        <div class="flex">
-          <Icon name="ci:share" class="mr-3 cursor-pointer" size="20" />
-          <div class="flex items-center">
-            <Icon
-              name="bx:bxs-like"
-              class="cursor-pointer"
-              :class="{ 'text-red-600': false }"
-              size="20"
-            />
-            <span class="ml-1 text-sm">{{ post.likeCount || 0 }}</span>
+        <div
+          v-if="post.nextArticle.id"
+          class="group/next relative h-[150px] flex-1 cursor-pointer"
+          @click="router.push(`/post/${post.nextArticle.id}`)"
+        >
+          <img class="h-full w-full object-cover" :src="post.nextArticle.articleCover" alt="" />
+          <div
+            class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/next:bg-transparent"
+          >
+            <div class="mx-10 mt-10 text-sm uppercase">
+              <p class="mb-2 text-slate-300">Next Post</p>
+              <h4 class="single-line-ellipsis text-white">
+                {{ post.nextArticle.articleTitle }}
+              </h4>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="my-14 overflow-hidden rounded md:flex">
-      <div
-        v-if="post.lastArticle.id"
-        class="group/previous relative h-[150px] flex-1 cursor-pointer"
-        @click="router.push(`/post/${post.lastArticle.id}`)"
-      >
-        <img class="h-full w-full object-cover" :src="post.lastArticle.articleCover" alt="" />
-        <div
-          class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/previous:bg-transparent"
-        >
-          <div class="mx-10 mt-10 text-sm uppercase">
-            <p class="mb-2 text-slate-300">Previous Post</p>
-            <h4 class="single-line-ellipsis text-white">
-              {{ post.lastArticle.articleTitle }}
-            </h4>
-          </div>
-        </div>
-      </div>
-      <div
-        v-if="post.nextArticle.id"
-        class="group/next relative h-[150px] flex-1 cursor-pointer"
-        @click="router.push(`/post/${post.nextArticle.id}`)"
-      >
-        <img class="h-full w-full object-cover" :src="post.nextArticle.articleCover" alt="" />
-        <div
-          class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/next:bg-transparent"
-        >
-          <div class="mx-10 mt-10 text-sm uppercase">
-            <p class="mb-2 text-slate-300">Next Post</p>
-            <h4 class="single-line-ellipsis text-white">
-              {{ post.nextArticle.articleTitle }}
-            </h4>
-          </div>
-        </div>
-      </div>
+    <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
+      <nav id="toc-nav" class="fixed w-[inherit] rounded shadow-md transition-all duration-500">
+        <!-- <div class="mx-5 border-b py-4 font-medium">目录</div> -->
+        <div id="toc" ref="tocRef" class="max-h-[500px] overflow-y-auto"></div>
+      </nav>
     </div>
   </main>
 </template>
@@ -144,6 +154,19 @@ onMounted(() => {
       margin: 0 5px;
       cursor: pointer;
     }
+  }
+}
+
+// 目录
+#toc {
+  ol {
+    @apply px-4;
+    a {
+      @apply block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500;
+    }
+  }
+  .is-active-link {
+    @apply text-orange-500 dark:text-[#007fff];
   }
 }
 
@@ -225,6 +248,9 @@ pre.hljs {
     border: 0;
     border-radius: 2px;
     user-select: none;
+    &:hover {
+      color: #fff;
+    }
   }
 }
 </style>

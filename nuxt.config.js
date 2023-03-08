@@ -5,15 +5,15 @@ export default defineNuxtConfig({
     typeCheck: false // ts语法检查
   },
   // 代理
-  server: false,
-  nitro: {
-    devProxy: {
-      '/api': {
-        target: 'https://sakura520.co/api',
-        changeOrigin: true
-      }
-    }
-  },
+  // server: true,
+  // nitro: {
+  //   devProxy: {
+  //     '/api': {
+  //       target: 'https://sakura520.co/api',
+  //       changeOrigin: true
+  //     }
+  //   }
+  // },
   css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css'],
   buidl: {
     transpile: ['markdown-it', 'highlight.js', 'clipboard']

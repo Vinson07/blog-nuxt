@@ -5,7 +5,7 @@
       <span class="ml-2">START:DASH!!</span>
     </h3>
     <div class="max-md:px-1 md:flex">
-      <div class="nav-feature group">
+      <div class="nav-feature group max-md:hidden">
         <img
           class="nav-feature__img"
           src="https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg"
@@ -15,7 +15,7 @@
           <p class="text-tip">本站 WordPress 主题</p>
         </div>
       </div>
-      <div class="nav-feature group md:mx-1">
+      <div class="nav-feature group max-md:hidden md:mx-1">
         <img
           class="nav-feature__img"
           src="https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg"

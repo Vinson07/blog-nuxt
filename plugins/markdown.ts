@@ -4,14 +4,14 @@ import hljs from 'highlight.js'
 export default defineNuxtPlugin(() => {
   return {
     provide: {
-      markdownIt: (data) => {
+      markdownIt: (data: string) => {
         const md = new MarkdownIt({
           html: true,
           linkify: true,
           typographer: true,
           highlight: function (str, lang) {
             // 当前时间加随机数生成唯一的id标识
-            const codeIndex = parseInt(Date.now()) + Math.floor(Math.random() * 10000000)
+            const codeIndex = parseInt(Date.now().toString()) + Math.floor(Math.random() * 10000000)
             // 复制功能主要使用的是 clipboard.js
             let html = `<button class="copy-btn" type="button" data-clipboard-action="copy" data-clipboard-target="#copy${codeIndex}">复制</button>`
             const linesLength = str.split(/\n/).length - 1

@@ -15,7 +15,7 @@ try {
 </script>
 
 <template>
-  <div>
+  <ClientOnly>
     <PostPattern
       :img-src="post?.articleCover"
       :title="post?.articleTitle"
@@ -24,5 +24,5 @@ try {
       :view="post?.viewsCount"
     />
     <PostContent :post="post" />
-  </div>
+  </ClientOnly>
 </template>

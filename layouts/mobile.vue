@@ -13,13 +13,7 @@ const toggleDark = useToggle(isDark)
 
 <template>
   <div>
-    <TheHeader
-      :title="userStore.websiteConfig.websiteAuthor"
-      :is-dark="isDark"
-      :menu-list="userStore.menuList"
-      @toggle-dark="toggleDark()"
-    />
-    <TheBackTop />
+    <TheMdHeader :dark="isDark" :menu-list="userStore.menuList" @toggle-dark="toggleDark" />
     <slot />
     <TheFooter />
   </div>
