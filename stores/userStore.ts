@@ -1,12 +1,9 @@
 import { getBlogInfo } from '@/apis/home'
-import { WebsiteConfig } from '@/types'
+import type { WebsiteConfig } from '@/types'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     websiteConfig: {} as WebsiteConfig,
-    pageList: {
-      home: 'https://service-dn725wcs-1306777571.gz.apigw.tencentcs.com/release/'
-    },
     // 菜单
     menuList: [
       {
@@ -33,7 +30,12 @@ export const useUserStore = defineStore('user', {
     articleCount: 0,
     categoryCount: 0,
     tagCount: 0,
-    viewsCount: ''
+    viewsCount: '',
+    link: {
+      gitHub: 'https://gitee.com/vinson007',
+      zhiHu: '',
+      music: 'https://music.163.com/playlist?id=7568550728&userid=1288893816'
+    }
   }),
   actions: {
     async blogInfoData() {

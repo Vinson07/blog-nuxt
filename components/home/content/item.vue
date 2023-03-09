@@ -21,7 +21,7 @@ const { active, item } = toRefs(props)
     @click="router.push({ path: `/post/${item.id}` })"
   >
     <div class="post__list__img">
-      <img class="h-full w-full object-cover" :src="item.articleCover" />
+      <TheImage :src="item.articleCover" />
     </div>
     <div class="post__list__content">
       <div class="content-time">

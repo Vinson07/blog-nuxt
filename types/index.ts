@@ -4,6 +4,10 @@ export interface Result<T = any> {
   data: T
 }
 
+export interface PageListStore {
+  home: string
+}
+
 export interface PageList {
   id: number
   pageCover: string

@@ -3,6 +3,7 @@ import type { PostList } from '@/types/article'
 import { getPostList } from '@/apis/article'
 
 const userStore = useUserStore()
+const imageStore = useImageStore()
 const postList = ref<PostList[]>([])
 const current = ref<number>(1)
 const nextPage = ref(true)
@@ -35,14 +36,28 @@ function handleNextPage() {
   current.value++
   addPostList(current.value)
 }
+
+// 切换背景图片
+const onLeft = () => {
+  imageStore.togglePage('home', imageStore.randomImage[0] + `?t=${Date.now()}`)
+}
+const onRight = () => {
+  imageStore.togglePage('home', imageStore.randomImage[1] + `?t=${Date.now()}`)
+}
 </script>
 
 <template>
   <div>
     <HomeBackground
-      :bg-src="userStore.pageList.home"
+      :bg-src="imageStore.pageList.home"
       :title="userStore.websiteConfig.websiteName"
       :sub-title="userStore.websiteConfig.websiteIntro"
+      :git-hub="userStore.link.gitHub"
+      :zhi-hu="userStore.link.zhiHu"
+      :music="userStore.link.music"
+      :video-src="imageStore.videoUrl[0]"
+      @on-left="onLeft"
+      @on-right="onRight"
     />
     <div class="page-content mx-auto max-w-[768px] pt-14 max-md:px-4">
       <HomeContentBanner />

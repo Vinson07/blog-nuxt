@@ -15,16 +15,12 @@ export default defineNuxtConfig({
   //   }
   // },
   css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css'],
-  buidl: {
-    transpile: ['markdown-it', 'highlight.js', 'clipboard']
-  },
+  // buidl: {
+  //   transpile: ['markdown-it', 'highlight.js', 'clipboard']
+  // },
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',
     configPath: 'tailwind.config'
-    // exposeConfig: false,
-    // config: {},
-    // injectPosition: 0,
-    // viewer: true,
   },
   imports: {
     dirs: ['stores']
