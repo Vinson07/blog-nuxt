@@ -6,17 +6,19 @@
     </h3>
     <div class="max-md:px-1 md:flex">
       <div class="nav-feature group max-md:hidden">
-        <TheImage src="https://cdn.sakura520.co/images/20180325154208_GYwna.jpeg" />
-        <div class="nav-feature__text">
-          <h4 class="text-title">sakura</h4>
-          <p class="text-tip">本站 WordPress 主题</p>
-        </div>
+        <NuxtLink target="_blank" to="https://music.sakura520.co/">
+          <TheImage src="https://cdn.sakura520.co/images/20180325154208_GYwna.jpeg" />
+          <div class="nav-feature__text">
+            <h4 class="text-title">Web音乐播放器</h4>
+            <p class="text-tip">高颜值的第三方网易云播放器</p>
+          </div>
+        </NuxtLink>
       </div>
       <div class="nav-feature group max-md:hidden md:mx-2">
         <TheImage src="https://cdn.sakura520.co/images/20170416215602_iNAM4.jpeg" />
         <div class="nav-feature__text">
           <h4 class="text-title">sakura</h4>
-          <p class="text-tip">本站 WordPress 主题</p>
+          <p class="text-tip">本站 Sakura 主题</p>
         </div>
       </div>
       <div class="nav-feature group">
@@ -25,7 +27,7 @@
         />
         <div class="nav-feature__text">
           <h4 class="text-title">sakura</h4>
-          <p class="text-tip">本站 WordPress 主题</p>
+          <p class="text-tip">本站 Sakura 主题</p>
         </div>
       </div>
     </div>
