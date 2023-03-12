@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const userStore = useUserStore()
+const darkStore = useDarkStore()
 
 // 切换暗黑模式
 const isDark = useDark({
@@ -8,7 +9,11 @@ const isDark = useDark({
   valueDark: 'dark',
   valueLight: 'light'
 })
-const toggleDark = useToggle(isDark)
+
+const toggleDark = () => {
+  isDark.value = !isDark.value
+  darkStore.setDark(isDark.value)
+}
 </script>
 
 <template>
@@ -17,7 +22,7 @@ const toggleDark = useToggle(isDark)
       :title="userStore.websiteConfig.websiteAuthor"
       :is-dark="isDark"
       :menu-list="userStore.menuList"
-      @toggle-dark="toggleDark()"
+      @toggle-dark="toggleDark"
     />
     <TheBackTop />
     <slot />

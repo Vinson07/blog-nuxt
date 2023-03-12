@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 import type { PostList } from '@/types/article'
 import { getPostList } from '@/apis/article'
 
@@ -8,26 +9,15 @@ const postList = ref<PostList[]>([])
 const current = ref<number>(1)
 const nextPage = ref(true)
 const loading = ref(false)
+const msg = useMessage()
 
-// 获取post列表
-async function addPostList(current: number) {
-  try {
-    const { code, data } = await getPostList(current)
-    if (code === 20000) {
-      if (data && data.length > 0) {
-        postList.value = postList.value.concat(data)
-        nextPage.value = true
-        loading.value = false
-      } else {
-        nextPage.value = false
-        loading.value = false
-      }
-    }
-  } catch (error) {}
+// 切换背景图片
+const onLeft = () => {
+  imageStore.togglePage('home', imageStore.randomImage[0] + `?t=${Date.now()}`)
 }
-
-// 首次获取post列表
-addPostList(current.value)
+const onRight = () => {
+  imageStore.togglePage('home', imageStore.randomImage[1] + `?t=${Date.now()}`)
+}
 
 // 下一页
 function handleNextPage() {
@@ -37,12 +27,28 @@ function handleNextPage() {
   addPostList(current.value)
 }
 
-// 切换背景图片
-const onLeft = () => {
-  imageStore.togglePage('home', imageStore.randomImage[0] + `?t=${Date.now()}`)
-}
-const onRight = () => {
-  imageStore.togglePage('home', imageStore.randomImage[1] + `?t=${Date.now()}`)
+// 首次获取post列表
+addPostList(current.value)
+
+// 获取post列表
+async function addPostList(current: number) {
+  try {
+    const { code, data, message } = await getPostList(current)
+    if (code === 20000) {
+      if (data && data.length > 0) {
+        postList.value = postList.value.concat(data)
+        nextPage.value = true
+        loading.value = false
+      } else {
+        nextPage.value = false
+        loading.value = false
+      }
+    } else {
+      msg.warning(message)
+    }
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
 

@@ -1,5 +1,8 @@
+import { useMessage } from 'naive-ui'
 import { getBlogInfo } from '@/apis/home'
 import type { WebsiteConfig } from '@/types'
+
+const msg = useMessage()
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -40,7 +43,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     async blogInfoData() {
       try {
-        const { code, data } = await getBlogInfo()
+        const { code, data, message } = await getBlogInfo()
         if (code === 20000) {
           const { websiteConfig, categoryCount, articleCount, tagCount, viewsCount } = data
           this.websiteConfig = websiteConfig
@@ -48,6 +51,8 @@ export const useUserStore = defineStore('user', {
           this.categoryCount = categoryCount
           this.tagCount = tagCount
           this.viewsCount = viewsCount
+        } else {
+          msg.warning(message)
         }
       } catch (error) {
         console.error(error)

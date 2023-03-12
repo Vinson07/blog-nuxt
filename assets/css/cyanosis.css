@@ -70,7 +70,7 @@
 
 .markdown-body h1 {
   padding-bottom: 4px;
-  margin-top: 36px;
+  /* margin-top: 36px; */
   margin-bottom: 10px;
   font-size: 30px;
   line-height: 1.5;

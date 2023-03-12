@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
+import iterator from 'markdown-it-for-inline'
 
 export default defineNuxtPlugin(() => {
   return {
@@ -47,9 +48,20 @@ export default defineNuxtPlugin(() => {
             )}</textarea>`
           }
         })
+        // a标签 新窗口打开
+        md.use(iterator, 'url_new_win', 'link_open', function (tokens: any, idx: number) {
+          const aIndex = tokens[idx].attrIndex('target')
+          if (aIndex < 0) {
+            tokens[idx].attrPush(['target', '_blank'])
+          } else {
+            tokens[idx].attrs[aIndex][1] = '_blank'
+          }
+        })
+        // md.use(iterator, 'image_replace', 'image', function (tokens, idx) {
+        //   console.log(tokens[idx])
+        // })
         // 渲染成html
-        const result = md.render(data)
-        return result
+        return md.render(data)
       }
     }
   }

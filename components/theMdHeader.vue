@@ -12,6 +12,7 @@ interface Props {
 
 const props = defineProps<Props>()
 const router = useRouter()
+const userStore = useUserStore()
 const emit = defineEmits(['toggle-dark'])
 
 // 切换主题
@@ -52,22 +53,22 @@ function handleHdMenu() {
       @click="handleHdMenu"
     >
       <div class="h-full w-2/3 rounded-lg bg-white shadow-xl dark:bg-[#1e1e20]">
-        <div class="flex justify-center py-8">
+        <div class="flex justify-center py-7">
           <Avatar size="60" />
         </div>
         <ul class="menu-info">
           <li>
             <p>文章</p>
-            <span>59</span>
+            <span>{{ userStore.articleCount || 0 }}</span>
           </li>
           <li>
             <p>分类</p>
-            <span>0</span>
+            <span>{{ userStore.categoryCount || 0 }}</span>
           </li>
         </ul>
-        <ul class="flex flex-wrap pt-8 text-center">
+        <ul class="flex flex-wrap pt-7 text-center">
           <li v-for="(item, index) in props.menuList" :key="index" class="basis-1/2 p-1">
-            <div class="menu-item">
+            <div class="menu-item" @click="router.push(`${item.path}`)">
               <Icon :name="item.icon" />
               <p>{{ item.text }}</p>
             </div>

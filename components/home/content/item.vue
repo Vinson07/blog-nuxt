@@ -15,11 +15,7 @@ const { active, item } = toRefs(props)
 </script>
 
 <template>
-  <li
-    class="post__list"
-    :class="{ active: active }"
-    @click="router.push({ path: `/post/${item.id}` })"
-  >
+  <li class="post__list" :class="{ active: active }" @click="router.push(`/post/${item.id}`)">
     <div class="post__list__img">
       <TheImage :src="item.articleCover" />
     </div>

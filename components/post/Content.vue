@@ -4,6 +4,7 @@
 import 'highlight.js/styles/atom-one-dark.css'
 import tocbot from 'tocbot'
 import Clipboard from 'clipboard'
+import { useMessage } from 'naive-ui'
 
 const props = defineProps({
   post: {
@@ -11,32 +12,43 @@ const props = defineProps({
     default: () => {}
   }
 })
-const router = useRouter()
+
 const articleRef = ref<HTMLElement | null>(null)
+const tocRef = ref<HTMLElement | null>(null)
+const recommendRef = ref<HTMLElement | null>(null)
+const router = useRouter()
+const message = useMessage()
 
 const { post } = toRefs(props)
 
 // markdown解析插件
-const { $markdownIt, $toc } = useNuxtApp()
-// 文章目录 定位方法
-$toc()
+const { $markdownIt } = useNuxtApp()
+
+// 滚动事件
+const handleScroll = () => {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  if (tocRef.value && recommendRef.value) {
+    const height = recommendRef.value.offsetHeight + 400
+    if (scrollTop > height) {
+      tocRef.value.style.position = 'fixed'
+      tocRef.value.style.top = '80px'
+    } else {
+      tocRef.value.style.position = ''
+      tocRef.value.style.top = ''
+    }
+  }
+}
 
 onMounted(() => {
   nextTick(() => {
     // 复制代码
     const copy = new Clipboard('.copy-btn')
     // 复制成功失败的提示
-    copy.on('success', (e) => {
-      console.log('复制成功', e)
+    copy.on('success', () => {
+      message.success('复制成功')
     })
-    copy.on('error', (e) => {
-      console.log('复制成功失败', e)
-    })
-
-    // a标签 新窗口打开
-    const a = document.querySelectorAll('.markdown-body a')
-    a.forEach((el) => {
-      el.setAttribute('target', '_blank')
+    copy.on('error', () => {
+      message.error('复制成功失败')
     })
 
     // 文章目录
@@ -62,7 +74,13 @@ onMounted(() => {
         e.preventDefault()
       }
     })
+
+    addEventListener('scroll', handleScroll, false)
   })
+})
+
+onUnmounted(() => {
+  removeEventListener('scroll', handleScroll)
 })
 </script>
 
@@ -101,48 +119,36 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div class="overflow-hidden rounded md:flex">
-        <div
-          v-if="post.lastArticle.id"
-          class="group/previous relative h-[150px] flex-1 cursor-pointer"
-          @click="router.push(`/post/${post.lastArticle.id}`)"
-        >
-          <img class="h-full w-full object-cover" :src="post.lastArticle.articleCover" alt="" />
-          <div
-            class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/previous:bg-transparent"
-          >
-            <div class="mx-10 mt-10 text-sm uppercase">
-              <p class="mb-2 text-slate-300">Previous Post</p>
-              <h4 class="single-line-ellipsis text-white">
-                {{ post.lastArticle.articleTitle }}
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div
-          v-if="post.nextArticle.id"
-          class="group/next relative h-[150px] flex-1 cursor-pointer"
-          @click="router.push(`/post/${post.nextArticle.id}`)"
-        >
-          <img class="h-full w-full object-cover" :src="post.nextArticle.articleCover" alt="" />
-          <div
-            class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/next:bg-transparent"
-          >
-            <div class="mx-10 mt-10 text-sm uppercase">
-              <p class="mb-2 text-slate-300">Next Post</p>
-              <h4 class="single-line-ellipsis text-white">
-                {{ post.nextArticle.articleTitle }}
-              </h4>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PostTogglePost :last-article="post.lastArticle" :next-article="post.nextArticle" />
     </div>
     <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
-      <nav id="toc-nav" class="fixed w-[inherit] rounded shadow-md transition-all duration-500">
-        <!-- <div class="mx-5 border-b py-4 font-medium">目录</div> -->
-        <div id="toc" ref="tocRef" class="max-h-[500px] overflow-y-auto"></div>
-      </nav>
+      <div
+        v-if="post.recommendArticleList && post.recommendArticleList.length > 0"
+        ref="recommendRef"
+        class="mb-5 w-[inherit] rounded px-5 shadow-md"
+      >
+        <div class="border-b py-4 font-medium">推荐文章</div>
+        <ul class="pb-1 text-sm">
+          <li
+            v-for="item in post.recommendArticleList"
+            :key="item.id"
+            class="my-3 cursor-pointer rounded py-1 px-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
+            @click="router.push(`/post/${item.id}`)"
+          >
+            <p>{{ item.articleTitle }}</p>
+            <p class="pt-1 text-gray-400">
+              <span>2699点赞</span>
+              <Icon name="bi:dot" />
+              <span>163评论</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <nav
+        id="toc"
+        ref="tocRef"
+        class="max-h-[500px] w-[inherit] overflow-y-auto rounded shadow-md"
+      ></nav>
     </div>
   </main>
 </template>
