@@ -2,8 +2,6 @@ import { useMessage } from 'naive-ui'
 import { getBlogInfo } from '@/apis/home'
 import type { WebsiteConfig } from '@/types'
 
-const msg = useMessage()
-
 export const useUserStore = defineStore('user', {
   state: () => ({
     websiteConfig: {} as WebsiteConfig,
@@ -52,7 +50,7 @@ export const useUserStore = defineStore('user', {
           this.tagCount = tagCount
           this.viewsCount = viewsCount
         } else {
-          msg.warning(message)
+          useMessage().warning(message)
         }
       } catch (error) {
         console.error(error)

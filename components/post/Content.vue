@@ -127,7 +127,7 @@ onUnmounted(() => {
         ref="recommendRef"
         class="mb-5 w-[inherit] rounded px-5 shadow-md"
       >
-        <div class="border-b py-4 font-medium">推荐文章</div>
+        <div class="border-b py-4 font-medium dark:border-amber-300">推荐文章</div>
         <ul class="pb-1 text-sm">
           <li
             v-for="item in post.recommendArticleList"
@@ -137,9 +137,9 @@ onUnmounted(() => {
           >
             <p>{{ item.articleTitle }}</p>
             <p class="pt-1 text-gray-400">
-              <span>2699点赞</span>
+              <span>20点赞</span>
               <Icon name="bi:dot" />
-              <span>163评论</span>
+              <span>10评论</span>
             </p>
           </li>
         </ul>

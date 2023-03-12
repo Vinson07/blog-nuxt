@@ -4,6 +4,10 @@
   animation: TikTokShake 0.5s linear infinite;
 }
 
+.heart {
+  animation: heartbit 0.5s alternate infinite;
+}
+
 .shake-lr {
   -webkit-animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
   animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
@@ -22,6 +26,16 @@
 .vibrate-1 {
   -webkit-animation: vibrate-1 0.3s linear infinite both;
   animation: vibrate-1 0.3s linear infinite both;
+}
+
+/* 跳动 */
+@keyframes heartbit {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* TikTok文字抖动效果 */

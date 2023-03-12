@@ -10,11 +10,13 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: 'Hi, Mashiro!'
+    // default: 'Hi, Mashiro!'
+    default: ''
   },
   subTitle: {
     type: String,
-    default: 'You got to put the past behind you before you can move on.'
+    // default: 'You got to put the past behind you before you can move on.'
+    default: ''
   },
   bgMask: {
     type: String,
@@ -89,83 +91,81 @@ const handleRight = () => {
 </script>
 
 <template>
-  <ClientOnly>
-    <div id="headertop" class="relative h-screen" :class="bgMask">
-      <figure id="centerbg">
-        <div
-          :style="{ top: titleTop }"
-          class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center transition-[top] duration-700"
+  <div id="headertop" class="relative h-screen" :class="bgMask">
+    <figure id="centerbg">
+      <div
+        :style="{ top: titleTop }"
+        class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center transition-[top] duration-700"
+      >
+        <h1
+          class="tik-tok-shake mb-7 cursor-pointer select-none text-7xl font-bold uppercase text-slate-50"
         >
-          <h1
-            class="tik-tok-shake mb-7 cursor-pointer select-none text-7xl font-bold uppercase text-slate-50"
-          >
-            {{ title }}
-          </h1>
-          <div class="rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
-            <p class="mb-1 text-base font-bold text-gray-300">
-              <Icon name="ooui:quotes-ltr" />
-              {{ subTitle }}
-              <Icon name="ooui:quotes-rtl" />
-            </p>
-            <div class="text-3xl">
+          {{ title }}
+        </h1>
+        <div class="rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
+          <p class="mb-1 text-base font-bold text-gray-300">
+            <Icon name="ooui:quotes-ltr" />
+            {{ subTitle }}
+            <Icon name="ooui:quotes-rtl" />
+          </p>
+          <div class="text-3xl">
+            <Icon
+              name="ic:round-keyboard-double-arrow-left"
+              class="mr-4 cursor-pointer"
+              color="#3b82f6"
+              @click="handleLeft"
+            />
+            <NuxtLink target="_blank" :to="gitHub">
+              <Icon name="grommet-icons:github" class="mx-1.5 cursor-pointer" />
+            </NuxtLink>
+            <NuxtLink target="_blank" :to="zhiHu">
+              <Icon name="ri:zhihu-line" class="mx-1.5 cursor-pointer" color="#fff" />
+            </NuxtLink>
+            <NuxtLink target="_blank" :to="music">
               <Icon
-                name="ic:round-keyboard-double-arrow-left"
-                class="mr-4 cursor-pointer"
-                color="#3b82f6"
-                @click="handleLeft"
+                name="tabler:brand-netease-music"
+                class="mx-1.5 cursor-pointer"
+                color="#e15a3c"
               />
-              <NuxtLink target="_blank" :to="gitHub">
-                <Icon name="grommet-icons:github" class="mx-1.5 cursor-pointer" />
-              </NuxtLink>
-              <NuxtLink target="_blank" :to="zhiHu">
-                <Icon name="ri:zhihu-line" class="mx-1.5 cursor-pointer" color="#fff" />
-              </NuxtLink>
-              <NuxtLink target="_blank" :to="music">
-                <Icon
-                  name="tabler:brand-netease-music"
-                  class="mx-1.5 cursor-pointer"
-                  color="#e15a3c"
-                />
-              </NuxtLink>
-              <Icon
-                name="ic:baseline-keyboard-double-arrow-right"
-                class="ml-4 cursor-pointer"
-                color="#3b82f6"
-                @click="handleRight"
-              />
-            </div>
+            </NuxtLink>
+            <Icon
+              name="ic:baseline-keyboard-double-arrow-right"
+              class="ml-4 cursor-pointer"
+              color="#3b82f6"
+              @click="handleRight"
+            />
           </div>
         </div>
-      </figure>
-      <div class="absolute top-0 left-0 right-0 h-full">
-        <video
-          v-show="showVideo"
-          ref="videoRef"
-          preload="metadata"
-          class="h-full w-full object-fill"
-          @play="onPlay"
-          @pause="onPause"
-          @ended="onEnded"
-        >
-          <source :src="videoSrc" type="video/mp4" />
-        </video>
-        <div
-          class="absolute bottom-4 right-6 z-10 animate-bounce cursor-pointer text-3xl text-[#baac9f]"
-        >
-          <Icon v-if="showPlay" name="icomoon-free:play2" @click="handlePlay" />
-          <Icon v-else name="zondicons:pause-outline" @click="handlePause" />
-        </div>
       </div>
-      <div class="animate-bounce-slow absolute bottom-5 left-2/4 z-10 cursor-pointer">
-        <Icon
-          name="ic:sharp-keyboard-arrow-down"
-          size="58"
-          color="#fff"
-          @click="handleDown('.page-content')"
-        />
+    </figure>
+    <div class="absolute top-0 left-0 right-0 h-full">
+      <video
+        v-show="showVideo"
+        ref="videoRef"
+        preload="metadata"
+        class="h-full w-full object-fill"
+        @play="onPlay"
+        @pause="onPause"
+        @ended="onEnded"
+      >
+        <source :src="videoSrc" type="video/mp4" />
+      </video>
+      <div
+        class="absolute bottom-4 right-6 z-10 animate-bounce cursor-pointer text-3xl text-[#baac9f]"
+      >
+        <Icon v-if="showPlay" name="icomoon-free:play2" @click="handlePlay" />
+        <Icon v-else name="zondicons:pause-outline" @click="handlePause" />
       </div>
     </div>
-  </ClientOnly>
+    <div class="animate-bounce-slow absolute bottom-5 left-2/4 z-10 cursor-pointer">
+      <Icon
+        name="ic:sharp-keyboard-arrow-down"
+        size="58"
+        color="#fff"
+        @click="handleDown('.page-content')"
+      />
+    </div>
+  </div>
 </template>
 
 <style lang="less">
