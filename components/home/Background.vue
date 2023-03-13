@@ -157,7 +157,9 @@ const handleRight = () => {
         <Icon v-else name="zondicons:pause-outline" @click="handlePause" />
       </div>
     </div>
-    <div class="animate-bounce-slow absolute bottom-5 left-2/4 z-10 cursor-pointer">
+    <div
+      class="animate-bounce-slow absolute bottom-5 left-1/2 z-10 -translate-x-1/2 cursor-pointer"
+    >
       <Icon
         name="ic:sharp-keyboard-arrow-down"
         size="58"

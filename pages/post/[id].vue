@@ -6,7 +6,7 @@ import type { ArticleDetail } from '@/types/article'
 const route = useRoute()
 const userStore = useUserStore()
 const post = ref<ArticleDetail>()
-const msg = useMessage()
+const message = useMessage()
 
 useHead({
   titleTemplate: (titleChunk) => {
@@ -15,11 +15,11 @@ useHead({
 })
 
 try {
-  const { code, data, message } = await getArticleDetail(route.params.id)
+  const { code, data, message: msg } = await getArticleDetail(route.params.id)
   if (code === 20000) {
     post.value = data
   } else {
-    msg.warning(message)
+    message.warning(msg)
   }
 } catch (error) {
   console.error(error)

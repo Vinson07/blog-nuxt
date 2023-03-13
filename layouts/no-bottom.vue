@@ -38,7 +38,6 @@ const toggleDark = () => {
       :title="userStore.websiteConfig.websiteAuthor"
       :is-dark="isDark"
       :menu-list="userStore.menuList"
-      :is-style="true"
       @toggle-dark="toggleDark"
     />
     <TheMdHeader
@@ -47,8 +46,6 @@ const toggleDark = () => {
       :menu-list="userStore.menuList"
       @toggle-dark="toggleDark"
     />
-    <TheBackTop v-show="!isMobile" />
     <slot />
-    <TheFooter />
   </div>
 </template>

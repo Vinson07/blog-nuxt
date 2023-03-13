@@ -25,7 +25,7 @@ export const useUserStore = defineStore('user', {
       {
         icon: 'flat-color-icons:gallery',
         text: '图库',
-        path: ''
+        path: '/album'
       }
     ],
     articleCount: 0,

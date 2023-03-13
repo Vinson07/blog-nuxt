@@ -10,7 +10,7 @@ export class Request {
   // axios 实例
   instance: AxiosInstance
   // 基础配置，url和超时时间
-  baseConfig: AxiosRequestConfig = { baseURL, timeout: 60000 }
+  baseConfig: AxiosRequestConfig = { timeout: 60000 }
 
   constructor(config: AxiosRequestConfig) {
     // 使用axios.create创建axios实例
@@ -115,5 +115,9 @@ export class Request {
   }
 }
 
+const http = new Request({ baseURL })
+
+const qiniuHttp = new Request({ baseURL: '' })
+
 // 默认导出Request实例
-export default new Request({})
+export { http, qiniuHttp }

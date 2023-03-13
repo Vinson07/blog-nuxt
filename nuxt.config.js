@@ -35,15 +35,16 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css'],
   // 代理
-  // server: true,
-  // nitro: {
-  //   devProxy: {
-  //     '/api': {
-  //       target: 'https://sakura520.co/api',
-  //       changeOrigin: true
-  //     }
-  //   }
-  // },
+  server: true,
+  nitro: {
+    devProxy: {
+      '/qiniuApi': {
+        target: 'https://sakura520.co/qiniuApi',
+        changeOrigin: true
+        // prependPath: true
+      }
+    }
+  },
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',
     configPath: 'tailwind.config'

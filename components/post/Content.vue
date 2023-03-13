@@ -17,6 +17,7 @@ const articleRef = ref<HTMLElement | null>(null)
 const tocRef = ref<HTMLElement | null>(null)
 const recommendRef = ref<HTMLElement | null>(null)
 const router = useRouter()
+let clipboard: Clipboard | null = null
 const message = useMessage()
 
 const { post } = toRefs(props)
@@ -42,12 +43,12 @@ const handleScroll = () => {
 onMounted(() => {
   nextTick(() => {
     // 复制代码
-    const copy = new Clipboard('.copy-btn')
+    clipboard = new Clipboard('.copy-btn')
     // 复制成功失败的提示
-    copy.on('success', () => {
+    clipboard.on('success', () => {
       message.success('复制成功')
     })
-    copy.on('error', () => {
+    clipboard.on('error', () => {
       message.error('复制成功失败')
     })
 
@@ -81,6 +82,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   removeEventListener('scroll', handleScroll)
+  if (clipboard) {
+    clipboard.destroy()
+  }
 })
 </script>
 
