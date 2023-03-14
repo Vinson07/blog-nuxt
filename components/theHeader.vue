@@ -9,7 +9,6 @@ interface Props {
   isDark: boolean
   menuList: Array<Menu>
   title?: string
-  isStyle?: boolean
 }
 
 const props = defineProps<Props>()
@@ -19,7 +18,7 @@ const { y } = useWindowScroll()
 const emit = defineEmits(['toggle-dark'])
 
 const headerStyle = computed(() => {
-  if (y.value === 0 && props.isStyle) {
+  if (y.value === 0) {
     return ['bg-transparent']
   } else if (props.isDark) {
     return ['bg-[#1e1e20]', 'dark:shadow-md', 'dark:shadow-indigo-500']
@@ -37,7 +36,7 @@ function handleToggleDark() {
 <template>
   <header class="header-nav group/nav" :class="headerStyle">
     <h1 class="cursor-pointer text-2xl" @click="router.push('/')">{{ props.title || 'Vinson' }}</h1>
-    <nav class="group-hover/nav:block" :class="{ hidden: y == 0 && isStyle }">
+    <nav class="group-hover/nav:block" :class="{ hidden: y == 0 }">
       <ul class="flex">
         <li
           v-for="(item, index) in props.menuList"

@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', {
       {
         icon: 'icon-park:friends-circle',
         text: '友链',
-        path: ''
+        path: '/link'
       },
       {
         icon: 'flat-color-icons:gallery',

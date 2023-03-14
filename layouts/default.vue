@@ -38,7 +38,6 @@ const toggleDark = () => {
       :title="userStore.websiteConfig.websiteAuthor"
       :is-dark="isDark"
       :menu-list="userStore.menuList"
-      :is-style="true"
       @toggle-dark="toggleDark"
     />
     <TheMdHeader

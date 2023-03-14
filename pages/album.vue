@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NImage, NImageGroup } from 'naive-ui'
 import { getQiniuImg } from '@/apis/qiniu'
 import type { List } from '@/types/qiniu'
 
@@ -53,9 +54,12 @@ getImageList()
 
 <template>
   <div class="shell bg-gradient-to-r from-sky-500 to-indigo-500">
-    <div v-for="item in imgList" :key="item.hash" class="images" :class="classRandom()">
-      <img :src="baseImgUrl + item.key" alt="" />
-    </div>
+    <n-image-group>
+      <div v-for="item in imgList" :key="item.hash" class="images" :class="classRandom()">
+        <!-- <img :src="baseImgUrl + item.key" alt="" /> -->
+        <n-image :src="baseImgUrl + item.key" />
+      </div>
+    </n-image-group>
   </div>
 </template>
 
