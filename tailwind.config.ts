@@ -24,7 +24,11 @@ export default <Partial<Config>>{
       },
       backgroundImage: {
         'nuxt-gradient':
-          'linear-gradient(30deg,#475569,#475569 25%,#0007dc 50%,#5400dc 75%,#dc00bf)'
+          'linear-gradient(30deg,#475569,#475569 25%,#0007dc 50%,#5400dc 75%,#dc00bf)',
+        'link-white-gradient':
+          'linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.8) 40%)',
+        'link-black-gradien':
+          'linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.9) 40%)'
       }
     }
   }

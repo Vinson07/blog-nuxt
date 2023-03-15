@@ -12,7 +12,7 @@ userStore.blogInfoData()
 
 <template>
   <n-config-provider
-    class="transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400"
+    class="font-serif subpixel-antialiased transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400 md:font-mono"
     inline-theme-disabled
     preflight-style-disabled
     :theme="darkStore.isDark ? darkTheme : null"

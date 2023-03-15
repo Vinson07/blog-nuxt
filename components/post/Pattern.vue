@@ -1,39 +1,21 @@
 <script setup lang="ts">
-defineProps({
-  imgSrc: {
-    type: String,
-    default: 'https://static.sakura520.co/config/274a3851ab099df4b062848dca18bf84.jpg'
-  },
-  title: {
-    type: String,
-    default: ''
-  },
-  time: {
-    type: String,
-    default: ''
-  },
-  author: {
-    type: String,
-    default: ''
-  },
-  view: {
-    type: Number,
-    default: 0
-  },
-  updateTime: {
-    type: String,
-    default: ''
-  }
-})
+interface Props {
+  imgSrc: string
+  title: string
+  time: string
+  author: string
+  view: number
+  updateTime: string
+}
+
+defineProps<Props>()
 </script>
 
 <template>
   <div class="pattern relative h-[500px] md:h-[400px]">
-    <img class="h-full w-full object-cover dark:brightness-50" :src="imgSrc" alt="" />
+    <img class="h-full w-full object-cover brightness-75 dark:brightness-50" :src="imgSrc" alt="" />
     <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 text-center text-white">
-      <ClientOnly>
-        <h3 class="text-5xl">{{ title }}</h3>
-      </ClientOnly>
+      <h3 class="text-5xl">{{ title }}</h3>
       <div class="my-3 flex flex-wrap items-center justify-center text-sm">
         <Icon name="ic:baseline-calendar-month" />
         <span class="ml-1">发表于 {{ time }}</span>
@@ -43,7 +25,9 @@ defineProps({
       </div>
       <div class="flex items-center justify-center text-sm">
         <Icon name="ph:user-duotone" />
-        <span class="ml-1">{{ author }}</span>
+        <ClientOnly>
+          <span class="ml-1">{{ author }}</span>
+        </ClientOnly>
         <span class="mx-2">|</span>
         <Icon name="majesticons:eye-line" />
         <ClientOnly>

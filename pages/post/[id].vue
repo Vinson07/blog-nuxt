@@ -33,12 +33,13 @@ try {
       <Meta name="description" :content="post?.categoryName ?? '个人博客'" />
     </Head>
     <PostPattern
-      :img-src="post?.articleCover"
-      :title="post?.articleTitle"
-      :time="post?.createTime"
-      :author="userStore.websiteConfig.websiteAuthor"
-      :view="post?.viewsCount"
-      :update-time="post?.updateTime"
+      v-if="post"
+      :img-src="post.articleCover"
+      :title="post.articleTitle"
+      :time="post.createTime"
+      :author="userStore.websiteConfig.websiteAuthor || ''"
+      :view="post.viewsCount"
+      :update-time="post.updateTime"
     />
     <PostContent v-if="post" :post="post" />
   </div>

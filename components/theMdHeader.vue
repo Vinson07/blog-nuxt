@@ -83,7 +83,7 @@ function handleHdMenu() {
 .md-header {
   @apply fixed top-0 left-0 right-0 z-50;
   .md-header-operate {
-    @apply flex h-12 items-center justify-between bg-white px-4 shadow-md dark:bg-[#1e1e20] dark:shadow-md dark:shadow-indigo-500;
+    @apply flex h-14 items-center justify-between bg-white px-4 shadow-md dark:bg-[#1e1e20] dark:shadow-md dark:shadow-indigo-500;
   }
   .md-deader-menu {
     @apply absolute top-0 left-0 bottom-0 h-screen w-full;

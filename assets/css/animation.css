@@ -28,6 +28,10 @@
   animation: vibrate-1 0.3s linear infinite both;
 }
 
+.slide-bottom {
+  animation: slide-bottom 1s;
+}
+
 /* 跳动 */
 @keyframes heartbit {
   0% {
@@ -35,6 +39,18 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+/* 下移 */
+@keyframes slide-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NImage, NImageGroup } from 'naive-ui'
+import { NImage } from 'naive-ui'
 import { getQiniuImg } from '@/apis/qiniu'
 import type { List } from '@/types/qiniu'
 
@@ -53,13 +53,13 @@ getImageList()
 </script>
 
 <template>
-  <div class="shell bg-gradient-to-r from-sky-500 to-indigo-500">
-    <n-image-group>
-      <div v-for="item in imgList" :key="item.hash" class="images" :class="classRandom()">
-        <!-- <img :src="baseImgUrl + item.key" alt="" /> -->
-        <n-image :src="baseImgUrl + item.key" />
-      </div>
-    </n-image-group>
+  <div
+    class="shell bg-gradient-to-r from-lime-400 to-orange-400 dark:from-sky-500 dark:to-indigo-500"
+  >
+    <div v-for="item in imgList" :key="item.hash" class="images" :class="classRandom()">
+      <!-- <img :src="baseImgUrl + item.key" alt="" /> -->
+      <n-image :src="baseImgUrl + item.key" />
+    </div>
   </div>
 </template>
 
@@ -110,11 +110,15 @@ getImageList()
       max-width: 45vh;
       max-height: 50vh;
       transition: 0.5s;
+      // &:hover {
+      //   box-shadow: 0 10px 30px #86c4f7;
+      //   transform: scale(1.05);
+      // }
     }
-    &:hover img {
-      box-shadow: 0 10px 30px #86c4f7;
-      transform: scale(1.05);
-    }
+    // &:hover img {
+    //   box-shadow: 0 10px 30px #86c4f7;
+    //   transform: scale(1.05);
+    // }
   }
   .slower {
     transform: rotate(90deg) translateZ(-0.12px) scale(1.3) translateX(0%) translateY(-8vh);

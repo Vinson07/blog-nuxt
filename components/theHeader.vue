@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 interface Menu {
   icon: string
   text: string
@@ -16,6 +17,7 @@ const router = useRouter()
 // 监听滚动
 const { y } = useWindowScroll()
 const emit = defineEmits(['toggle-dark'])
+const message = useMessage()
 
 const headerStyle = computed(() => {
   if (y.value === 0) {
@@ -30,6 +32,10 @@ const headerStyle = computed(() => {
 // 切换主题
 function handleToggleDark() {
   emit('toggle-dark')
+}
+
+function handleAvatar() {
+  message.warning('努力开发中，敬请期待...')
 }
 </script>
 
@@ -58,7 +64,7 @@ function handleToggleDark() {
         <Icon name="icon-park:search" size="22" />
       </div>
       <div>
-        <Avatar />
+        <Avatar @click="handleAvatar" />
       </div>
     </div>
   </header>
