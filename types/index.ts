@@ -6,6 +6,7 @@ export interface Result<T = any> {
 
 export interface PageListStore {
   home: string
+  link: string
 }
 
 export interface PageList {

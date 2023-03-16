@@ -16,7 +16,7 @@ const props = defineProps<Props>()
 const router = useRouter()
 // 监听滚动
 const { y } = useWindowScroll()
-const emit = defineEmits(['toggle-dark'])
+const emit = defineEmits(['toggle-dark', 'handle-search'])
 const message = useMessage()
 
 const headerStyle = computed(() => {
@@ -32,6 +32,11 @@ const headerStyle = computed(() => {
 // 切换主题
 function handleToggleDark() {
   emit('toggle-dark')
+}
+
+// 搜索
+function handleSearch() {
+  emit('handle-search')
 }
 
 function handleAvatar() {
@@ -61,7 +66,7 @@ function handleAvatar() {
         <Icon v-else name="line-md:moon-filled-loop" size="22" />
       </div>
       <div class="mr-4 cursor-pointer">
-        <Icon name="icon-park:search" size="22" />
+        <Icon name="icon-park:search" size="22" @click="handleSearch" />
       </div>
       <div>
         <Avatar @click="handleAvatar" />

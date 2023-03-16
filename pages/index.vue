@@ -27,8 +27,10 @@ function handleNextPage() {
   addPostList(current.value)
 }
 
-// 首次获取post列表
-addPostList(current.value)
+onMounted(() => {
+  // 首次获取post列表
+  addPostList(current.value)
+})
 
 // 获取post列表
 async function addPostList(current: number) {

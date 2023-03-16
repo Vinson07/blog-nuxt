@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const userStore = useUserStore()
 const darkStore = useDarkStore()
+const searchStore = useSearchStore()
 
 const isMobile = ref(false)
 const el = ref(null)
@@ -29,6 +30,10 @@ const toggleDark = () => {
   isDark.value = !isDark.value
   darkStore.setDark(isDark.value)
 }
+
+const handleSearch = () => {
+  searchStore.setModal(true)
+}
 </script>
 
 <template>
@@ -39,6 +44,7 @@ const toggleDark = () => {
       :is-dark="isDark"
       :menu-list="userStore.menuList"
       @toggle-dark="toggleDark"
+      @handle-search="handleSearch"
     />
     <TheMdHeader
       v-show="isMobile"
