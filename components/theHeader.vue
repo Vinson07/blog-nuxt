@@ -16,8 +16,9 @@ const props = defineProps<Props>()
 const router = useRouter()
 // 监听滚动
 const { y } = useWindowScroll()
-const emit = defineEmits(['toggle-dark', 'handle-search'])
+const emit = defineEmits(['toggle-dark'])
 const message = useMessage()
+const searchStore = useSearchStore()
 
 const headerStyle = computed(() => {
   if (y.value === 0) {
@@ -36,7 +37,7 @@ function handleToggleDark() {
 
 // 搜索
 function handleSearch() {
-  emit('handle-search')
+  searchStore.setModal(true)
 }
 
 function handleAvatar() {

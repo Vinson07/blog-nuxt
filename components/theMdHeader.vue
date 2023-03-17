@@ -13,6 +13,7 @@ interface Props {
 const props = defineProps<Props>()
 const router = useRouter()
 const userStore = useUserStore()
+const searchStore = useSearchStore()
 const emit = defineEmits(['toggle-dark'])
 
 // 切换主题
@@ -39,7 +40,7 @@ function handleHdMenu() {
           <Icon v-else name="line-md:moon-filled-loop" size="22" />
         </div>
         <div class="mr-4 cursor-pointer">
-          <Icon name="icon-park:search" size="22" />
+          <Icon name="icon-park:search" size="22" @click="searchStore.setModal(true)" />
         </div>
         <div class="cursor-pointer md:hidden" @click="handleIconMenu">
           <Icon v-if="menuToggle" name="line-md:menu-to-close-alt-transition" size="22" />

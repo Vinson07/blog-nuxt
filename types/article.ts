@@ -66,3 +66,16 @@ export interface ArticleDetail {
   updateTime: string
   viewsCount: number
 }
+
+export interface SearchArticle {
+  articleContent: string
+  articleTitle: string
+  id: number
+  isDelete: number
+  status: number
+}
+
+export interface SearchArticleParams {
+  current: number
+  keywords: string
+}

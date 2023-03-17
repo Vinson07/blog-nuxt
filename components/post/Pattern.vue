@@ -21,7 +21,7 @@ defineProps<Props>()
         <span class="ml-1">发表于 {{ time }}</span>
         <span class="mx-2">|</span>
         <Icon name="ic:outline-access-time" />
-        <span class="ml-1">更新于 {{ updateTime }}</span>
+        <span class="ml-1">更新于 {{ updateTime || '' }}</span>
       </div>
       <div class="flex items-center justify-center text-sm">
         <Icon name="ph:user-duotone" />

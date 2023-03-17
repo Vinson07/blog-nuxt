@@ -13,6 +13,14 @@ const isDark = useDark({
   valueLight: 'light'
 })
 
+watch(
+  isDark,
+  (v) => {
+    darkStore.setDark(v)
+  },
+  { immediate: true }
+)
+
 // 适配移动端 屏幕宽度小于768显示
 useResizeObserver(el, (entries) => {
   const entry = entries[0]
@@ -25,10 +33,7 @@ useResizeObserver(el, (entries) => {
   }
 })
 
-const toggleDark = () => {
-  isDark.value = !isDark.value
-  darkStore.setDark(isDark.value)
-}
+const toggleDark = useToggle(isDark)
 </script>
 
 <template>
