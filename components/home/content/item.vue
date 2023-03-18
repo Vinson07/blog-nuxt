@@ -12,6 +12,7 @@ const props = defineProps({
 })
 
 const { active, item } = toRefs(props)
+const { $markdownItContent } = useNuxtApp()
 </script>
 
 <template>
@@ -40,7 +41,7 @@ const { active, item } = toRefs(props)
         </p>
       </div>
       <div class="py-7">
-        <p class="content-text multiline-ellipsis">{{ item.articleContent }}</p>
+        <p class="content-text multiline-ellipsis">{{ $markdownItContent(item.articleContent) }}</p>
       </div>
       <div class="content-ellipsis">
         <Icon

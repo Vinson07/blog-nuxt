@@ -57,11 +57,32 @@ export default defineNuxtPlugin(() => {
             tokens[idx].attrs[aIndex][1] = '_blank'
           }
         })
-        // md.use(iterator, 'image_replace', 'image', function (tokens, idx) {
-        //   console.log(tokens[idx])
-        // })
+        // 图片处理
+        md.use(iterator, 'image_replace', 'image', function (tokens: any, idx: number) {
+          const aIndex = tokens[idx].attrIndex('preview')
+          if (aIndex < 0) {
+            tokens[idx].attrPush(['preview', ''])
+          } else {
+            tokens[idx].attrs[aIndex][1] = ''
+          }
+        })
         // 渲染成html
         return md.render(data)
+      },
+      markdownItSearch: (data: string) => {
+        const md = new MarkdownIt({
+          html: true
+        }).disable(['link', 'image'])
+        return md.renderInline(data)
+      },
+      markdownItContent: (data: string) => {
+        const md = new MarkdownIt()
+        // 去除markdown标签
+        return md
+          .render(data)
+          .replace(/<\/?[^>]*>/g, '')
+          .replace(/[|]*\n/, '')
+          .replace(/&npsp;/gi, '')
       }
     }
   }

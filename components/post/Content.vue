@@ -23,7 +23,7 @@ const message = useMessage()
 const { post } = toRefs(props)
 
 // markdown解析插件
-const { $markdownIt } = useNuxtApp()
+const { $markdownIt, $imagePreview } = useNuxtApp()
 
 // 滚动事件
 const handleScroll = () => {
@@ -75,6 +75,9 @@ onMounted(() => {
         e.preventDefault()
       }
     })
+
+    // 文章图片预览
+    $imagePreview(articleRef)
 
     addEventListener('scroll', handleScroll, false)
   })
@@ -178,6 +181,10 @@ onUnmounted(() => {
   .is-active-link {
     @apply text-orange-500 dark:text-[#007fff];
   }
+}
+
+.markdown-body img {
+  cursor: zoom-in;
 }
 
 // 添加行号样式

@@ -8,6 +8,7 @@ const userStore = useUserStore()
 const darkStore = useDarkStore()
 const searchStore = useSearchStore()
 const router = useRouter()
+const { $markdownItSearch } = useNuxtApp()
 
 const placement = ref<MessageProviderProps['placement']>('bottom-left')
 const articleList = ref<SearchArticle[]>([])
@@ -20,7 +21,7 @@ onMounted(() => {
 
 watch(keyword, async (value) => {
   try {
-    const { code, data, message: msg } = await searchArticle({ current: 1, keywords: value })
+    const { code, data, message: msg } = await searchArticle({ current: 1, keywords: value.trim() })
     if (code === 20000) {
       articleList.value = data
     } else {
@@ -73,21 +74,20 @@ const gotoArticle = (id: number) => {
           </div>
           <ul
             class="search-article divide-y divide-blue-200 overflow-y-auto overflow-x-hidden transition-all duration-500 dark:divide-gray-500"
-            :class="articleList.length === 0 ? 'max-h-0' : 'max-h-[600px]'"
+            :class="articleList.length === 0 ? 'max-h-0' : 'max-h-[500px]'"
           >
-            <li
-              v-for="item in articleList"
-              :key="item.id"
-              class="p-4"
-              @click="gotoArticle(item.id)"
-            >
+            <li v-for="item in articleList" :key="item.id" class="p-4">
               <!-- eslint-disable -->
               <h2
-                class="mb-2 cursor-pointer text-base font-semibold"
+                class="mb-2 inline-block cursor-pointer text-base font-semibold underline"
                 v-html="item.articleTitle"
+                @click="gotoArticle(item.id)"
               ></h2>
+              <p
+                class="multiline-ellipsis h-[70px]"
+                v-html="$markdownItSearch(item.articleContent)"
+              ></p>
               <!-- eslint-enable -->
-              <p class="multiline-ellipsis cursor-pointer">{{ item.articleContent }}</p>
             </li>
           </ul>
           <template #action>
