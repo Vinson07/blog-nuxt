@@ -1,42 +1,31 @@
-# Nuxt 3 Minimal Starter
+# 个人博客前台
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## 地址
+- <a href="https://sakura520.co" target="_blank">前台</a>
+- <a href="https://admin.sakura520.co" target="_blank">后台</a>
 
-## Setup
+## 使用技术
+- nuxt3 ts pinia axios vueuse tailwind
+- device(判断使用设备)
+- nuxt-icon（图标）
 
-Make sure to install the dependencies:
+## 使用建议
+- 因为项目使用eslint husky, 所以建议使用编辑器 vscode 下载插件 ESLint Prettier
+- 保存自动格式化，不喜欢的可以在.vscode目录下setting.json修改
 
-```bash
-# yarn
-yarn install
 
-# npm
-npm install
-
-# pnpm
+## 启动项目
+```shell
+#首先安装依赖
 pnpm install
+
+# 本地运行
+pnpm dev
+
+# 打包
+pnpm build
+
 ```
 
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 部署
+- <a href="https://blog.csdn.net/m0_48489737/article/details/127796979" target="_blank">部署到服务器</a>
