@@ -151,15 +151,13 @@ const handleRight = () => {
         <source :src="videoSrc" type="video/mp4" />
       </video>
       <div
-        class="absolute bottom-4 right-6 z-10 animate-bounce cursor-pointer text-3xl text-[#baac9f]"
+        class="absolute bottom-4 right-6 z-10 animate-bounce cursor-pointer text-3xl text-[#baac9f] max-md:hidden"
       >
         <Icon v-if="showPlay" name="icomoon-free:play2" @click="handlePlay" />
         <Icon v-else name="zondicons:pause-outline" @click="handlePause" />
       </div>
     </div>
-    <div
-      class="animate-bounce-slow absolute bottom-5 left-1/2 z-10 -translate-x-1/2 cursor-pointer"
-    >
+    <div class="animate-bounce-slow absolute bottom-5 left-1/2 z-10 cursor-pointer max-md:hidden">
       <Icon
         name="ic:sharp-keyboard-arrow-down"
         size="58"
@@ -213,8 +211,7 @@ const handleRight = () => {
   width: 100%;
   height: 100%;
   position: relative;
-  background-image: v-bind(styleBgSrc);
-  background-position: center;
+  background: v-bind(styleBgSrc) no-repeat center;
   background-attachment: fixed;
   background-size: cover;
 }

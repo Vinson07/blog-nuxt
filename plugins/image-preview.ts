@@ -44,6 +44,7 @@ export default defineNuxtPlugin(() => {
           // 注册事件
           mask.addEventListener('click', clickFunc)
           img.addEventListener('dblclick', doubleFunc)
+          img.addEventListener('mousewheel', zoom, { passive: false })
 
           // 遮罩点击事件
           function clickFunc() {
@@ -56,7 +57,7 @@ export default defineNuxtPlugin(() => {
               el.style.opacity = '1'
             }, 300)
             mask.removeEventListener('click', clickFunc)
-            img.removeEventListener('dblclick', doubleFunc)
+            // img.removeEventListener('dblclick', doubleFunc)
           }
 
           // 双击图片事件
@@ -73,6 +74,26 @@ export default defineNuxtPlugin(() => {
               img.style.cursor = 'zoom-in'
               toggleScale = true
             }
+          }
+
+          // 缩放
+          let scale = 1
+          function zoom(e: any) {
+            if (!e.deltaY) {
+              return
+            }
+            e.preventDefault()
+            // 缩放执行
+            if (e.deltaY < 0) {
+              img.style.cursor = 'zoom-in'
+              scale <= 2.5 && (scale += 0.1) // 放大
+            } else if (e.deltaY > 0) {
+              img.style.cursor = 'zoom-out'
+              scale >= 0.5 && (scale -= 0.1) // 缩小
+            }
+            const centerHeight = (winHeight - offsetHeight) / 2 - top
+            const centerWidth = (winWidth - offsetWidth) / 2 - left
+            img.style.transform = `translate(${centerWidth}px, ${centerHeight}px) scale(${scale})`
           }
         }
       }

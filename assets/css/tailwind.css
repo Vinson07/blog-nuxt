@@ -4,12 +4,14 @@
 
 /* 单行省略号 */
 .single-line-ellipsis {
+  word-break: break-all;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 /* 超三行省略号 */
 .multiline-ellipsis {
+  word-break: break-all;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -47,5 +49,4 @@
   z-index: 100;
   transition: transform 0.3s;
   cursor: zoom-in;
-  -webkit-user-drag: none;
 }

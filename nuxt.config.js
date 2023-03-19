@@ -3,9 +3,10 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      // viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
       title: 'Vinson',
       meta: [
+        // { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'keywords', content: 'vinson 博客 前端 全栈' },
         { name: 'description', content: '个人博客，知识库' }
       ]
