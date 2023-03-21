@@ -5,6 +5,8 @@ import 'highlight.js/styles/atom-one-dark.css'
 import tocbot from 'tocbot'
 import Clipboard from 'clipboard'
 import { useMessage } from 'naive-ui'
+import Viewer from 'viewerjs'
+import 'viewerjs/dist/viewer.css'
 
 const props = defineProps({
   post: {
@@ -19,11 +21,12 @@ const recommendRef = ref<HTMLElement | null>(null)
 const router = useRouter()
 let clipboard: Clipboard | null = null
 const message = useMessage()
+const gallery = ref()
 
 const { post } = toRefs(props)
 
 // markdown解析插件
-const { $markdownIt, $imagePreview } = useNuxtApp()
+const { $markdownIt } = useNuxtApp()
 
 // 滚动事件
 const handleScroll = () => {
@@ -76,8 +79,14 @@ onMounted(() => {
       }
     })
 
-    // 文章图片预览
-    $imagePreview(articleRef)
+    // 图片预览
+    const markdownBody: HTMLElement | null = document.querySelector('.markdown-body')
+    if (markdownBody) {
+      gallery.value = new Viewer(markdownBody, {
+        button: false,
+        navbar: false
+      })
+    }
 
     addEventListener('scroll', handleScroll, false)
   })
@@ -266,7 +275,7 @@ pre.hljs {
     border-radius: 2px;
     user-select: none;
     &:hover {
-      color: #fff;
+      color: #7ee787;
     }
   }
 }

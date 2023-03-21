@@ -58,14 +58,14 @@ export default defineNuxtPlugin(() => {
           }
         })
         // 图片处理
-        md.use(iterator, 'image_replace', 'image', function (tokens: any, idx: number) {
-          const aIndex = tokens[idx].attrIndex('preview')
-          if (aIndex < 0) {
-            tokens[idx].attrPush(['preview', ''])
-          } else {
-            tokens[idx].attrs[aIndex][1] = ''
-          }
-        })
+        // md.use(iterator, 'image_replace', 'image', function (tokens: any, idx: number) {
+        //   const aIndex = tokens[idx].attrIndex('class')
+        //   if (aIndex < 0) {
+        //     tokens[idx].attrPush(['class', 'img-preview'])
+        //   } else {
+        //     tokens[idx].attrs[aIndex][1] = 'img-preview'
+        //   }
+        // })
         // 渲染成html
         return md.render(data)
       },

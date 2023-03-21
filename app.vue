@@ -14,10 +14,8 @@ const placement = ref<MessageProviderProps['placement']>('bottom-left')
 const articleList = ref<SearchArticle[]>([])
 const keyword = ref('')
 
-onMounted(() => {
-  // 获取博客基本数据
-  userStore.blogInfoData()
-})
+// 获取博客基本数据
+userStore.blogInfoData()
 
 watch(keyword, async (value) => {
   try {
