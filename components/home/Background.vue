@@ -10,13 +10,11 @@ const props = defineProps({
   },
   title: {
     type: String,
-    // default: 'Hi, Mashiro!'
-    default: ''
+    default: 'Hi, Mashiro!'
   },
   subTitle: {
     type: String,
-    // default: 'You got to put the past behind you before you can move on.'
-    default: ''
+    default: 'You got to put the past behind you before you can move on.'
   },
   bgMask: {
     type: String,
@@ -208,11 +206,7 @@ const handleRight = () => {
 
 <style>
 #centerbg {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: v-bind(styleBgSrc) no-repeat center;
-  background-attachment: fixed;
-  background-size: cover;
+  @apply relative h-full w-full bg-cover bg-center bg-no-repeat md:bg-fixed;
+  background-image: v-bind(styleBgSrc);
 }
 </style>

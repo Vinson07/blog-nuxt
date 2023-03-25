@@ -7,12 +7,22 @@ export default defineNuxtConfig({
       title: 'Vinson',
       meta: [
         // { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'keywords', content: 'vinson 博客 前端 全栈' },
-        { name: 'description', content: '个人博客，知识库' }
+        { name: 'keywords', content: '博客，前端' },
+        { name: 'description', content: 'Vinson个人博客，知识库' }
       ]
     }
   },
   build: {
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+          }
+        }
+      }
+    },
     transpile:
       process.env.NODE_ENV === 'production'
         ? [

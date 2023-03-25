@@ -11,7 +11,27 @@ export const useImageStore = defineStore('image', {
       'https://imgapi.xl0408.top/index.php',
       'https://service-5z0sdahv-1306777571.sh.apigw.tencentcs.com/release/'
     ],
-    videoUrl: ['https://cdn.sakura520.co/static/video/007.mp4']
+    videoUrl: ['https://cdn.sakura520.co/static/video/007.mp4'],
+    colors: [
+      '#ee7752',
+      '#e73c7e',
+      '#23a6d5',
+      '#23d5ab',
+      'rgb(131, 123, 199)',
+      '#23d5ab',
+      '#ff4757',
+      '#ff7f50',
+      '#eccc68',
+      '#7bed9f',
+      '#2ed573',
+      '#1e90ff',
+      '#5352ed',
+      '#2f3542',
+      '#fd79a8',
+      '#6c5ce7',
+      '#63cdda',
+      '#2bcbba'
+    ]
   }),
   actions: {
     togglePage(page: keyof PageListStore, url: string) {

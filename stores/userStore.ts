@@ -12,11 +12,11 @@ export const useUserStore = defineStore('user', {
         text: '首页',
         path: '/'
       },
-      // {
-      //   icon: 'icon-park:message',
-      //   text: '留言',
-      //   path: ''
-      // },
+      {
+        icon: 'icon-park:message',
+        text: '留言',
+        path: '/barrage'
+      },
       {
         icon: 'icon-park:friends-circle',
         text: '友链',

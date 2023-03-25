@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 代码高亮 引入个性化的vs2015样式
 // import 'highlight.js/styles/vs2015.css'
-import 'highlight.js/styles/atom-one-dark.css'
+// import 'highlight.js/styles/atom-one-dark.css'
 import tocbot from 'tocbot'
 import Clipboard from 'clipboard'
 import { useMessage } from 'naive-ui'
@@ -27,6 +27,25 @@ const { post } = toRefs(props)
 
 // markdown解析插件
 const { $markdownIt } = useNuxtApp()
+
+useHead({
+  link: [
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.staticfile.org/highlight.js/11.7.0/styles/atom-one-dark.min.css'
+    }
+  ]
+  // script: [
+  //   {
+  //     src: 'https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js'
+  //     // tagPosition: 'bodyClose',
+  //     // onload: (el) => {
+  //     //   console.log(el)
+  //     //   articleContent.value = $markdownIt(hljs, post.value.articleContent)
+  //     // }
+  //   }
+  // ]
+})
 
 // 滚动事件
 const handleScroll = () => {

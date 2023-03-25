@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { NBackTop } from 'naive-ui'
+
 const userStore = useUserStore()
 const darkStore = useDarkStore()
 
@@ -38,20 +40,21 @@ const toggleDark = useToggle(isDark)
 
 <template>
   <div ref="el">
+    <TheMdHeader
+      v-if="isMobile"
+      :dark="isDark"
+      :menu-list="userStore.menuList"
+      @toggle-dark="toggleDark"
+    />
     <TheHeader
-      v-show="!isMobile"
+      v-else
       :title="userStore.websiteConfig.websiteAuthor"
       :is-dark="isDark"
       :menu-list="userStore.menuList"
       @toggle-dark="toggleDark"
     />
-    <TheMdHeader
-      v-show="isMobile"
-      :dark="isDark"
-      :menu-list="userStore.menuList"
-      @toggle-dark="toggleDark"
-    />
-    <TheBackTop v-show="!isMobile" />
+    <n-back-top v-if="isMobile" :right="20" />
+    <TheBackTop v-else />
     <slot />
     <TheFooter />
   </div>

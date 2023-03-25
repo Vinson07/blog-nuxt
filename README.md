@@ -22,6 +22,9 @@ pnpm install
 # 本地运行
 pnpm dev
 
+# 打包分析
+pnpm analyze
+
 # 打包
 pnpm build
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMessage } from 'naive-ui'
+import { useMessage, NCarousel } from 'naive-ui'
 import type { PostList } from '@/types/article'
 import { getPostList } from '@/apis/article'
 
@@ -10,6 +10,8 @@ const current = ref<number>(1)
 const nextPage = ref(true)
 const loading = ref(false)
 const msg = useMessage()
+const homeRef = ref(null)
+const isMobile = ref(false)
 
 // 切换背景图片
 const onLeft = () => {
@@ -27,8 +29,10 @@ function handleNextPage() {
   addPostList(current.value)
 }
 
-// 首次获取post列表
-addPostList(current.value)
+onMounted(() => {
+  // 首次获取post列表
+  addPostList(current.value)
+})
 
 // 获取post列表
 async function addPostList(current: number) {
@@ -50,10 +54,22 @@ async function addPostList(current: number) {
     console.error(error)
   }
 }
+
+// 适配移动端 屏幕宽度小于768显示
+useResizeObserver(homeRef, (entries) => {
+  const entry = entries[0]
+  const { width } = entry.contentRect
+  // 更换布局
+  if (width > 768) {
+    isMobile.value = false
+  } else {
+    isMobile.value = true
+  }
+})
 </script>
 
 <template>
-  <div>
+  <div ref="homeRef">
     <HomeBackground
       :bg-src="imageStore.pageList.home"
       :title="userStore.websiteConfig.websiteName"
@@ -66,7 +82,27 @@ async function addPostList(current: number) {
       @on-right="onRight"
     />
     <div class="page-content mx-auto max-w-[768px] pt-14 max-md:px-4">
-      <HomeContentBanner />
+      <n-carousel v-if="isMobile" draggable autoplay class="rounded-md">
+        <nuxt-link target="_blank" to="https://music.sakura520.co">
+          <img
+            class="carousel-img"
+            src="https://cdn.sakura520.co/images/20180325154208_GYwna.jpeg"
+          />
+        </nuxt-link>
+        <nuxt-link target="_blank" to="https://chatmindai.com">
+          <img
+            class="carousel-img"
+            src="https://cdn.sakura520.co/images/20170416215602_iNAM4.jpeg"
+          />
+        </nuxt-link>
+        <nuxt-link target="_blank" to="">
+          <img
+            class="carousel-img"
+            src="https://cdn.sakura520.co/images/38bf42ad37a6eba0b927e10e8d544ac498e9c4c0.jpeg"
+          />
+        </nuxt-link>
+      </n-carousel>
+      <HomeContentBanner v-else />
       <main>
         <h3 class="h-title">
           <Icon name="entypo:leaf" />
@@ -102,5 +138,11 @@ async function addPostList(current: number) {
 
 .next-page {
   @apply rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 </style>

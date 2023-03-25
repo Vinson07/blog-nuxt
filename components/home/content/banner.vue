@@ -4,8 +4,8 @@
       <Icon name="zondicons:anchor" />
       <span class="ml-2">START:DASH!!</span>
     </h3>
-    <div class="max-md:px-1 md:flex">
-      <div class="nav-feature group max-md:hidden">
+    <div class="flex">
+      <div class="nav-feature group">
         <NuxtLink target="_blank" to="https://music.sakura520.co/">
           <TheImage src="https://cdn.sakura520.co/images/20180325154208_GYwna.jpeg" />
           <div class="nav-feature__text">
@@ -14,8 +14,8 @@
           </div>
         </NuxtLink>
       </div>
-      <div class="nav-feature group max-md:hidden md:mx-2">
-        <nuxt-link target="_blank" to="">
+      <div class="nav-feature group mx-2">
+        <nuxt-link target="_blank" to="https://chatmindai.com">
           <TheImage src="https://cdn.sakura520.co/images/20170416215602_iNAM4.jpeg" />
           <div class="nav-feature__text">
             <h4 class="text-title">sakura</h4>
@@ -24,7 +24,7 @@
         </nuxt-link>
       </div>
       <div class="nav-feature group">
-        <nuxt-link target="_blank" to="https://chatmindai.com">
+        <nuxt-link target="_blank" to="">
           <TheImage
             src="https://cdn.sakura520.co/images/38bf42ad37a6eba0b927e10e8d544ac498e9c4c0.jpeg"
           />
@@ -40,7 +40,7 @@
 
 <style lang="less">
 .nav-feature {
-  @apply relative h-40 flex-1 cursor-pointer overflow-hidden rounded-xl max-md:mb-3;
+  @apply relative h-40 flex-1 cursor-pointer overflow-hidden rounded-xl;
   &__img {
     @apply h-full w-full object-cover transition-transform duration-500 group-hover:scale-125;
   }
