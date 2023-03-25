@@ -73,23 +73,21 @@ async function send() {
 <template>
   <client-only>
     <div class="barrage-bg relative h-screen w-screen pt-14">
-      <n-card
-        class="absolute top-1/2 left-1/2 z-10 max-w-sm -translate-x-1/2 -translate-y-1/2 bg-transparent"
-        title="弹幕"
-        hoverable
-      >
-        <n-input-group>
-          <n-input
-            v-model:value="barrageValue"
-            placeholder="留下点什么啦~"
-            show-count
-            :maxlength="30"
-            clearable
-            @keyup.enter="send"
-          />
-          <n-button type="primary" ghost @click="send"> 发射 </n-button>
-        </n-input-group>
-      </n-card>
+      <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2">
+        <n-card title="弹幕" hoverable class="bg-transparent">
+          <n-input-group>
+            <n-input
+              v-model:value="barrageValue"
+              placeholder="留下点什么啦~"
+              show-count
+              :maxlength="30"
+              clearable
+              @keyup.enter="send"
+            />
+            <n-button type="primary" ghost @click="send"> 发射 </n-button>
+          </n-input-group>
+        </n-card>
+      </div>
       <vue-danmaku
         ref="danmakuRef"
         v-model:danmus="danmus"

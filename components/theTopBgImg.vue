@@ -12,7 +12,7 @@ const { error } = useImage({ src: props.bgCover })
 </script>
 
 <template>
-  <div class="slide-bottom relative h-72 cursor-pointer select-none max-md:h-[500px]">
+  <div class="slide-bottom relative h-80 cursor-pointer select-none">
     <img
       v-if="error"
       class="h-full w-full object-cover brightness-75 dark:brightness-50"

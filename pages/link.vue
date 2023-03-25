@@ -26,9 +26,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="h-screen">
+  <div class="min-h-screen">
     <TheTopBgImg :bg-cover="imageStore.pageList.link" bg-title="友链" />
-    <div class="flex flex-wrap justify-center pt-24">
+    <div class="flex flex-wrap justify-center py-24">
       <LinkRecommend
         v-for="(item, index) in linkList"
         :key="item.id"

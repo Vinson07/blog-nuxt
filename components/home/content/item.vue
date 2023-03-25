@@ -29,11 +29,11 @@ const { $markdownItContent } = useNuxtApp()
       <div class="content-info">
         <p class="info-item">
           <Icon name="mdi:eye" size="16" />
-          <span class="ml-1">18,105 热度</span>
+          <span class="ml-1">181 热度</span>
         </p>
         <p class="info-item">
           <Icon name="fe:comment" size="16" />
-          <span class="ml-1">49 条评论</span>
+          <span class="ml-1">4 条评论</span>
         </p>
         <p class="info-item">
           <Icon name="material-symbols:files" size="16" />
