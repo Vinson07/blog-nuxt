@@ -18,8 +18,8 @@
         <nuxt-link target="_blank" to="https://chatmindai.com">
           <TheImage src="https://cdn.sakura520.co/images/20170416215602_iNAM4.jpeg" />
           <div class="nav-feature__text">
-            <h4 class="text-title">sakura</h4>
-            <p class="text-tip">本站 Sakura 主题</p>
+            <h4 class="text-title">Chat GPT</h4>
+            <p class="text-tip">免费国内可访问 GPT</p>
           </div>
         </nuxt-link>
       </div>
@@ -29,8 +29,8 @@
             src="https://cdn.sakura520.co/images/38bf42ad37a6eba0b927e10e8d544ac498e9c4c0.jpeg"
           />
           <div class="nav-feature__text">
-            <h4 class="text-title">Chat GPT</h4>
-            <p class="text-tip">免费国内可访问 GPT</p>
+            <h4 class="text-title">sakura</h4>
+            <p class="text-tip">本站 Sakura 主题</p>
           </div>
         </nuxt-link>
       </div>

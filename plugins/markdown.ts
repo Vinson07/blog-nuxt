@@ -1,5 +1,5 @@
 import MarkdownIt from 'markdown-it'
-import hljs from 'highlight.js'
+import hljs from 'highlight.js/lib/common'
 import iterator from 'markdown-it-for-inline'
 
 export default defineNuxtPlugin(() => {
@@ -25,7 +25,8 @@ export default defineNuxtPlugin(() => {
             if (lang && hljs.getLanguage(lang)) {
               try {
                 // highlight.js 高亮代码
-                const preCode = hljs.highlight(lang, str, true).value
+                // const preCode = hljs.highlight(lang, str, true).value
+                const preCode = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value
                 html = html + preCode
                 if (linesLength) {
                   html += '<b class="name">' + lang + '</b>'

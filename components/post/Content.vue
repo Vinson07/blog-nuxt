@@ -32,7 +32,7 @@ useHead({
   link: [
     {
       rel: 'stylesheet',
-      href: 'https://cdn.staticfile.org/highlight.js/11.7.0/styles/atom-one-dark.min.css'
+      href: 'https://cdn.staticfile.org/highlight.js/11.7.0/styles/atom-one-dark.min.css' // 代码块高亮样式
     }
   ]
   // script: [

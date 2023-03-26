@@ -38,6 +38,14 @@ onMounted(async () => {
         :link="item.linkAddress"
         :intro="item.linkIntro"
       />
+      <link-buddy
+        v-for="item in linkList"
+        :key="item.id"
+        :avatar="item.linkAvatar"
+        :title="item.linkName"
+        :link="item.linkAddress"
+        :intro="item.linkIntro"
+      />
     </div>
   </div>
 </template>

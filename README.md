@@ -5,7 +5,7 @@
 - <a href="https://admin.sakura520.co" target="_blank">后台</a>
 
 ## 使用技术
-- nuxt3 ts pinia axios vueuse tailwind
+- nuxt3 ts pinia axios vueuse tailwind NaiveUI
 - device(判断使用设备)
 - nuxt-icon（图标）
 

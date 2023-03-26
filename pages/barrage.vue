@@ -4,9 +4,9 @@ import vueDanmaku from 'vue3-danmaku'
 import { getBarrage, addBarrage } from '@/apis/barrage'
 import type { BarrageList } from '@/types/barrage'
 
-// const bgImg = ref(
-//   'https://cdn.sakura520.co/images/0c03b2b018f649be81c665d46528d185e6609d7a2bbb7a-AIRyCY.jpg'
-// )
+const bgImg = ref(
+  'https://cdn.sakura520.co/images/0c03b2b018f649be81c665d46528d185e6609d7a2bbb7a-AIRyCY.jpg'
+)
 const danmus = ref<BarrageList[]>([])
 const msg = useMessage()
 const imageStore = useImageStore()
@@ -14,7 +14,8 @@ const userStore = useUserStore()
 const barrageValue = ref('')
 const danmakuRef = ref<any>(null)
 
-const styleBgSrc = computed(() => `url(${imageStore.randomImage[1]})`)
+// const styleBgSrc = computed(() => `url(${imageStore.randomImage[1]})`)
+const styleBgSrc = computed(() => `url(${bgImg.value})`)
 const styleColor = computed(
   () => () => imageStore.colors[Math.floor(Math.random() * imageStore.colors.length)]
 )
