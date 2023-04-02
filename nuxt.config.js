@@ -9,12 +9,6 @@ export default defineNuxtConfig({
         { name: 'keywords', content: '博客，前端' },
         { name: 'description', content: 'Vinson个人博客，知识库' }
       ],
-      // link: [
-      //   {
-      //     rel: 'stylesheet',
-      //     href: 'https://cdn.sakura520.co/static/live2d/all.min.css'
-      //   }
-      // ],
       script: [
         {
           src: 'https://cdn.sakura520.co/static/live2d/autoload.js',
@@ -64,6 +58,10 @@ export default defineNuxtConfig({
         target: 'https://sakura520.co/qiniuApi',
         changeOrigin: true
         // prependPath: true
+      },
+      '/api': {
+        target: 'https://sakura520.co/api',
+        changeOrigin: true
       }
     }
   },

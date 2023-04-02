@@ -3,6 +3,7 @@ import { NBackTop } from 'naive-ui'
 
 const userStore = useUserStore()
 const darkStore = useDarkStore()
+const searchStore = useSearchStore()
 
 const isMobile = ref(false)
 const el = ref(null)
@@ -36,6 +37,10 @@ useResizeObserver(el, (entries) => {
 })
 
 const toggleDark = useToggle(isDark)
+
+const toggleSearch = () => {
+  searchStore.setModal(true)
+}
 </script>
 
 <template>
@@ -45,6 +50,7 @@ const toggleDark = useToggle(isDark)
       :dark="isDark"
       :menu-list="userStore.menuList"
       @toggle-dark="toggleDark"
+      @toggle-search="toggleSearch"
     />
     <TheHeader
       v-else
@@ -52,6 +58,7 @@ const toggleDark = useToggle(isDark)
       :is-dark="isDark"
       :menu-list="userStore.menuList"
       @toggle-dark="toggleDark"
+      @toggle-search="toggleSearch"
     />
     <n-back-top v-if="isMobile" :right="20" />
     <TheBackTop v-else />

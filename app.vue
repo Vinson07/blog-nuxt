@@ -10,7 +10,7 @@ const searchStore = useSearchStore()
 const router = useRouter()
 const { $markdownItSearch } = useNuxtApp()
 
-const placement = ref<MessageProviderProps['placement']>('bottom-left')
+const placement = ref<MessageProviderProps['placement']>('top-right')
 const articleList = ref<SearchArticle[]>([])
 const keyword = ref('')
 
@@ -41,7 +41,7 @@ const gotoArticle = (id: number) => {
 
 <template>
   <n-config-provider
-    class="font-serif subpixel-antialiased transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400 md:font-mono"
+    class="font-mono transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400"
     inline-theme-disabled
     preflight-style-disabled
     :theme="darkStore.isDark ? darkTheme : null"

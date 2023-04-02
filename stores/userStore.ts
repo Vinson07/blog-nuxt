@@ -1,9 +1,11 @@
 import { useMessage } from 'naive-ui'
 import { getBlogInfo } from '@/apis/home'
 import type { WebsiteConfig } from '@/types'
+import type { IUserInfo } from '@/types/user'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
+    userInfo: {},
     websiteConfig: {} as WebsiteConfig,
     // 菜单
     menuList: [
@@ -39,6 +41,10 @@ export const useUserStore = defineStore('user', {
     }
   }),
   actions: {
+    setUserInfo(userInfo: IUserInfo) {
+      this.userInfo = userInfo
+      useLocalStorage('user-info', userInfo)
+    },
     async blogInfoData() {
       try {
         const { code, data, message } = await getBlogInfo()
