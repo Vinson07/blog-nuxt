@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useMessage } from 'naive-ui'
+import { NDropdown } from 'naive-ui'
+import type { IUserInfo } from '@/types/user'
 interface Menu {
   icon: string
   text: string
@@ -12,12 +13,63 @@ interface Props {
   title?: string
 }
 
+interface IOption {
+  label: string
+  key: string | number
+}
+
 const props = defineProps<Props>()
 const router = useRouter()
+const userStore = useUserStore()
 // 监听滚动
 const { y } = useWindowScroll()
 const emit = defineEmits(['toggle-dark', 'toggle-search'])
-const message = useMessage()
+
+const options = ref<IOption[]>([])
+
+watch(
+  () => userStore.userInfo.userInfoId,
+  (val) => {
+    if (val) {
+      options.value = [
+        {
+          label: '个人中心',
+          key: 'user'
+        },
+        {
+          label: '登出',
+          key: 'logout'
+        }
+      ]
+    } else {
+      options.value = [
+        {
+          label: '登录',
+          key: 'login'
+        }
+      ]
+    }
+  },
+  { immediate: true }
+)
+
+const handleSelect = (key: string | number) => {
+  switch (key) {
+    case 'user':
+      router.push('/user')
+      break
+    case 'logout':
+      useLocalStorage('user-info', {}).value = null
+      userStore.setUserInfo({} as IUserInfo)
+      router.push('/')
+      break
+    case 'login':
+      router.push('/login')
+      break
+    default:
+      break
+  }
+}
 
 const headerStyle = computed(() => {
   if (y.value === 0) {
@@ -37,10 +89,6 @@ function handleToggleDark() {
 // 搜索
 function handleSearch() {
   emit('toggle-search')
-}
-
-function handleAvatar() {
-  message.warning('努力开发中，敬请期待...')
 }
 </script>
 
@@ -69,7 +117,9 @@ function handleAvatar() {
         <Icon name="icon-park:search" size="22" />
       </div>
       <div>
-        <Avatar @click="handleAvatar" />
+        <n-dropdown :options="options" @select="handleSelect">
+          <Avatar :src="userStore.userInfo.avatar" />
+        </n-dropdown>
       </div>
     </div>
   </header>

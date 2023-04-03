@@ -50,67 +50,69 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div class="login">
-    <div class="box h-[500px]" :class="{ active: toggleForm }">
-      <div class="form bg-[hsla(0,0%,10%,0.1)]">
-        <h3 class="text-center text-3xl">Login</h3>
-        <LoginInput
-          v-model:value="formLogin.account"
-          class="my-10"
-          icon="ph:user-duotone"
-          placeholder="Email"
-        />
-        <LoginInput
-          v-model:value="formLogin.password"
-          class="mb-5"
-          type="password"
-          icon="ph:lock-key-bold"
-          placeholder="Password"
-        />
-        <div class="flex justify-end">
-          <nuxt-link to="">Forgot Password?</nuxt-link>
+  <client-only>
+    <div class="login">
+      <div class="box h-[500px]" :class="{ active: toggleForm }">
+        <div class="form bg-[hsla(0,0%,10%,0.1)]">
+          <h3 class="text-center text-3xl">Login</h3>
+          <LoginInput
+            v-model:value="formLogin.account"
+            class="my-10"
+            icon="ph:user-duotone"
+            placeholder="Email"
+          />
+          <LoginInput
+            v-model:value="formLogin.password"
+            class="mb-5"
+            type="password"
+            icon="ph:lock-key-bold"
+            placeholder="Password"
+          />
+          <div class="flex justify-end">
+            <nuxt-link to="">Forgot Password?</nuxt-link>
+          </div>
+          <div class="pt-5">
+            <button class="w-full rounded-lg bg-white py-4 text-lg text-black" @click="handleLogin">
+              Login
+            </button>
+          </div>
+          <div class="pt-9 text-center">
+            <span>Don't have an account? </span>
+            <button @click="handleToggleForm">Register</button>
+          </div>
         </div>
-        <div class="pt-5">
-          <button class="w-full rounded-lg bg-white py-4 text-lg text-black" @click="handleLogin">
-            Login
-          </button>
-        </div>
-        <div class="pt-9 text-center">
-          <span>Don't have an account? </span>
-          <button @click="handleToggleForm">Register</button>
-        </div>
-      </div>
-      <div class="form register bg-[hsla(0,0%,10%,0.1)]">
-        <h3 class="text-center text-3xl">Register</h3>
-        <LoginInput
-          v-model:value="fromRegister.account"
-          class="my-10"
-          icon="ph:user-duotone"
-          placeholder="Email"
-        />
-        <LoginInput
-          v-model:value="fromRegister.code"
-          class="mb-10"
-          icon="material-symbols:code-rounded"
-          placeholder="Code"
-        />
-        <LoginInput
-          v-model:value="fromRegister.password"
-          class="mb-5"
-          type="password"
-          icon="ph:lock-key-bold"
-          placeholder="Password"
-        />
-        <div class="pt-5">
-          <button class="w-full rounded-lg bg-white py-4 text-lg text-black">Register</button>
-        </div>
-        <div class="pt-9 text-center">
-          <span>Existing account! </span>
-          <button @click="handleToggleForm">Login</button>
+        <div class="form register bg-[hsla(0,0%,10%,0.1)]">
+          <h3 class="text-center text-3xl">Register</h3>
+          <LoginInput
+            v-model:value="fromRegister.account"
+            class="my-10"
+            icon="ph:user-duotone"
+            placeholder="Email"
+          />
+          <LoginInput
+            v-model:value="fromRegister.code"
+            class="mb-10"
+            icon="material-symbols:code-rounded"
+            placeholder="Code"
+          />
+          <LoginInput
+            v-model:value="fromRegister.password"
+            class="mb-5"
+            type="password"
+            icon="ph:lock-key-bold"
+            placeholder="Password"
+          />
+          <div class="pt-5">
+            <button class="w-full rounded-lg bg-white py-4 text-lg text-black">Register</button>
+          </div>
+          <div class="pt-9 text-center">
+            <span>Existing account! </span>
+            <button @click="handleToggleForm">Login</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </client-only>
 </template>
 
 <style lang="less">

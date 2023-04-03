@@ -30,6 +30,10 @@ function handleHdMenu() {
 function handleSearch() {
   emit('toggle-search')
 }
+
+function handleAvatar() {
+  router.push('/user')
+}
 </script>
 
 <template>
@@ -57,7 +61,7 @@ function handleSearch() {
     >
       <div class="h-full w-2/3 rounded-lg bg-white shadow-xl dark:bg-[#1e1e20]">
         <div class="flex justify-center py-7">
-          <Avatar size="60" />
+          <Avatar size="60" :src="userStore.userInfo.avatar" @click="handleAvatar" />
         </div>
         <ul class="menu-info">
           <li>

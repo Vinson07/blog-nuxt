@@ -13,4 +13,5 @@ export interface IUserInfo {
   talkLikeSet?: any[]
   userInfoId: number
   username: string
+  webSite: string
 }

@@ -3,12 +3,14 @@ import type { FormRules, FormInst } from 'naive-ui'
 import { NAvatar, NForm, NFormItem, NInput, NButton, useMessage } from 'naive-ui'
 
 definePageMeta({
-  layout: 'no-bottom'
+  layout: 'no-bottom',
+  middleware: ['auth']
 })
 
 const message = useMessage()
+const userStore = useUserStore()
 const formRef = ref<FormInst | null>(null)
-const model = reactive({ nickname: '', email: '', website: '', introduction: '' })
+// const model = reactive({ nickname: '', email: '', website: '', introduction: '' })
 const rules = reactive<FormRules>({
   nickname: [
     {
@@ -56,42 +58,40 @@ const onSubmit = (e: Event) => {
 </script>
 
 <template>
-  <div class="user">
-    <div class="box bg-[hsla(0,0%,10%,0.1)]">
-      <div class="mb-5 text-center">
-        <n-avatar
-          round
-          :size="60"
-          src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-        />
-      </div>
-      <n-form ref="formRef" :model="model" :rules="rules">
-        <n-form-item label="昵称" path="nickname">
-          <n-input v-model:value="model.nickname" placeholder="昵称" />
-        </n-form-item>
-        <n-form-item label="邮箱" path="email">
-          <n-input v-model:value="model.email" placeholder="邮箱" />
-        </n-form-item>
-        <n-form-item label="个人网站" path="website">
-          <n-input v-model:value="model.website" placeholder="个人网站" />
-        </n-form-item>
-        <n-form-item label="简介" path="introduction">
-          <n-input
-            v-model:value="model.introduction"
-            type="textarea"
-            :autosize="{
-              minRows: 3,
-              maxRows: 5
-            }"
-            placeholder="简介"
-          />
-        </n-form-item>
-        <div class="text-center">
-          <n-button @click="onSubmit"> 提交 </n-button>
+  <client-only>
+    <div class="user">
+      <div class="box bg-[hsla(0,0%,10%,0.1)]">
+        <div class="mb-5 text-center">
+          <n-avatar round :size="60" :src="userStore.userInfo?.avatar" />
         </div>
-      </n-form>
+        <n-form ref="formRef" :model="userStore.userInfo" :rules="rules">
+          <n-form-item label="昵称" path="nickname">
+            <n-input v-model:value="userStore.userInfo.nickname" placeholder="昵称" />
+          </n-form-item>
+          <n-form-item label="邮箱" path="email">
+            <n-input v-model:value="userStore.userInfo.email" placeholder="邮箱" />
+          </n-form-item>
+          <n-form-item label="个人网站" path="website">
+            <n-input v-model:value="userStore.userInfo.webSite" placeholder="个人网站" />
+          </n-form-item>
+          <n-form-item label="简介" path="introduction">
+            <n-input
+              v-model:value="userStore.userInfo.intro"
+              type="textarea"
+              :autosize="{
+                minRows: 3,
+                maxRows: 5
+              }"
+              placeholder="简介"
+            />
+          </n-form-item>
+          <div class="text-center">
+            <n-button @click="onSubmit"> 提交 </n-button>
+          </div>
+        </n-form>
+      </div>
     </div>
-  </div>
+  </client-only>
 </template>
 
 <style lang="less">

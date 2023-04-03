@@ -5,7 +5,7 @@ import type { IUserInfo } from '@/types/user'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    userInfo: {},
+    userInfo: {} as IUserInfo,
     websiteConfig: {} as WebsiteConfig,
     // 菜单
     menuList: [
@@ -42,8 +42,9 @@ export const useUserStore = defineStore('user', {
   }),
   actions: {
     setUserInfo(userInfo: IUserInfo) {
+      const info = useLocalStorage('user-info', {})
       this.userInfo = userInfo
-      useLocalStorage('user-info', userInfo)
+      info.value = userInfo
     },
     async blogInfoData() {
       try {

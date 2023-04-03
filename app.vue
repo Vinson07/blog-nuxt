@@ -3,7 +3,7 @@ import { NMessageProvider, NConfigProvider, darkTheme, NModal, NCard, useMessage
 import type { MessageProviderProps } from 'naive-ui'
 import { searchArticle } from '@/apis/article'
 import type { SearchArticle } from '@/types/article'
-
+import type { IUserInfo } from '@/types/user'
 const userStore = useUserStore()
 const darkStore = useDarkStore()
 const searchStore = useSearchStore()
@@ -17,6 +17,9 @@ const keyword = ref('')
 onMounted(() => {
   // 获取博客基本数据
   userStore.blogInfoData()
+  // 用户信息
+  const info = useLocalStorage('user-info', {} as IUserInfo)
+  userStore.setUserInfo(info.value)
 })
 
 watch(keyword, async (value) => {
