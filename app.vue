@@ -18,7 +18,7 @@ onMounted(() => {
   // 获取博客基本数据
   userStore.blogInfoData()
   // 用户信息
-  const info = useLocalStorage('user-info', {} as IUserInfo)
+  const info = useSessionStorage('user-info', {} as IUserInfo)
   userStore.setUserInfo(info.value)
 })
 
@@ -44,7 +44,7 @@ const gotoArticle = (id: number) => {
 
 <template>
   <n-config-provider
-    class="font-mono transition-colors duration-500 dark:bg-[#202124] dark:text-neutral-400"
+    class="font-mono dark:text-slate-400"
     inline-theme-disabled
     preflight-style-disabled
     :theme="darkStore.isDark ? darkTheme : null"
@@ -103,5 +103,10 @@ const gotoArticle = (id: number) => {
         </n-card>
       </n-modal>
     </n-message-provider>
+    <div
+      class="fixed top-0 left-0 -z-50 h-full w-full transition-colors duration-500 dark:bg-[#202124]"
+    >
+      <canvas id="particle-space" class="fixed top-0 left-0 -z-50 h-full w-full"></canvas>
+    </div>
   </n-config-provider>
 </template>

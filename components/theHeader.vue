@@ -1,31 +1,35 @@
 <script setup lang="ts">
 import { NDropdown } from 'naive-ui'
 import type { IUserInfo } from '@/types/user'
-interface Menu {
-  icon: string
-  text: string
-  path: string
-}
-
-interface Props {
-  isDark: boolean
-  menuList: Array<Menu>
-  title?: string
-}
 
 interface IOption {
   label: string
   key: string | number
 }
 
-const props = defineProps<Props>()
 const router = useRouter()
 const userStore = useUserStore()
+const darkStore = useDarkStore()
+const searchStore = useSearchStore()
 // 监听滚动
 const { y } = useWindowScroll()
-const emit = defineEmits(['toggle-dark', 'toggle-search'])
 
 const options = ref<IOption[]>([])
+// 切换暗黑模式
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'class',
+  valueDark: 'dark',
+  valueLight: 'light'
+})
+
+watch(
+  isDark,
+  (v) => {
+    darkStore.setDark(v)
+  },
+  { immediate: true }
+)
 
 watch(
   () => userStore.userInfo.userInfoId,
@@ -59,9 +63,9 @@ const handleSelect = (key: string | number) => {
       router.push('/user')
       break
     case 'logout':
-      useLocalStorage('user-info', {}).value = null
+      useSessionStorage('user-info', {}).value = null
       userStore.setUserInfo({} as IUserInfo)
-      router.push('/')
+      router.push('/login')
       break
     case 'login':
       router.push('/login')
@@ -74,7 +78,7 @@ const handleSelect = (key: string | number) => {
 const headerStyle = computed(() => {
   if (y.value === 0) {
     return ['bg-transparent']
-  } else if (props.isDark) {
+  } else if (isDark.value) {
     return ['bg-[#1e1e20]', 'dark:shadow-md', 'dark:shadow-indigo-500']
   } else {
     return ['bg-white', 'shadow-md']
@@ -82,23 +86,23 @@ const headerStyle = computed(() => {
 })
 
 // 切换主题
-function handleToggleDark() {
-  emit('toggle-dark')
-}
+const toggleDark = useToggle(isDark)
 
 // 搜索
 function handleSearch() {
-  emit('toggle-search')
+  searchStore.setModal(true)
 }
 </script>
 
 <template>
   <header class="header-nav group/nav" :class="headerStyle">
-    <h1 class="cursor-pointer text-2xl" @click="router.push('/')">{{ props.title || 'Vinson' }}</h1>
+    <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
+      {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
+    </h1>
     <nav class="group-hover/nav:block" :class="{ hidden: y == 0 }">
       <ul class="flex">
         <li
-          v-for="(item, index) in props.menuList"
+          v-for="(item, index) in userStore.menuList"
           :key="index"
           class="nav-item mx-4 flex cursor-pointer items-center"
           @click="router.push(`${item.path}`)"
@@ -109,9 +113,9 @@ function handleSearch() {
       </ul>
     </nav>
     <div class="flex items-center">
-      <div class="mr-4 cursor-pointer" @click="handleToggleDark">
-        <Icon v-if="props.isDark" name="line-md:sun-rising-filled-loop" size="22" />
-        <Icon v-else name="line-md:moon-filled-loop" size="22" />
+      <div class="mr-4 cursor-pointer" @click="toggleDark()">
+        <Icon v-if="isDark" name="line-md:sun-rising-filled-loop" size="22" />
+        <Icon v-if="!isDark" name="line-md:moon-filled-loop" size="22" />
       </div>
       <div class="mr-4 cursor-pointer" @click="handleSearch">
         <Icon name="icon-park:search" size="22" />

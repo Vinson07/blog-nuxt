@@ -35,23 +35,16 @@ useHead({
       href: 'https://cdn.staticfile.org/highlight.js/11.7.0/styles/atom-one-dark.min.css' // 代码块高亮样式
     }
   ]
-  // script: [
-  //   {
-  //     src: 'https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js'
-  //     // tagPosition: 'bodyClose',
-  //     // onload: (el) => {
-  //     //   console.log(el)
-  //     //   articleContent.value = $markdownIt(hljs, post.value.articleContent)
-  //     // }
-  //   }
-  // ]
 })
 
 // 滚动事件
 const handleScroll = () => {
   const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-  if (tocRef.value && recommendRef.value) {
-    const height = recommendRef.value.offsetHeight + 400
+  if (tocRef.value) {
+    let height = 400
+    if (recommendRef.value) {
+      height += recommendRef.value.offsetHeight
+    }
     if (scrollTop > height) {
       tocRef.value.style.position = 'fixed'
       tocRef.value.style.top = '80px'

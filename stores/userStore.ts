@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', {
   }),
   actions: {
     setUserInfo(userInfo: IUserInfo) {
-      const info = useLocalStorage('user-info', {})
+      const info = useSessionStorage('user-info', {})
       this.userInfo = userInfo
       info.value = userInfo
     },

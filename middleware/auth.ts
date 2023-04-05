@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware(() => {
   if (process.client) {
-    const info = useLocalStorage('user-info', { userInfoId: '' })
+    const info = useSessionStorage('user-info', { userInfoId: '' })
     if (!info.value.userInfoId) {
       return navigateTo({ path: '/login' })
     }

@@ -11,7 +11,11 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: 'https://cdn.sakura520.co/static/live2d/autoload.js',
+          src: 'https://cdn.sakura520.co/static/blog-plugin/js/particleSpace.min.js', // 粒子空间背景
+          body: true
+        },
+        {
+          src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
           body: true
         }
       ]

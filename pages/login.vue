@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { useMessage } from 'naive-ui'
-import { login } from '@/apis/user'
+import { useMessage, NButton } from 'naive-ui'
+import { login, sendCode, register } from '@/apis/user'
 
 definePageMeta({
   layout: 'no-bottom'
 })
 
 const message = useMessage()
+const { text: codeText, flag, timer } = useTimer('发送')
 const userStore = useUserStore()
 const router = useRouter()
 const toggleForm = ref(false)
 const formLogin = reactive({ account: '', password: '' })
-const fromRegister = reactive({ account: '', code: '', password: '' })
+const fromRegister = reactive({ username: '', code: '', password: '' })
 
 function handleToggleForm() {
   toggleForm.value = !toggleForm.value
@@ -47,6 +48,67 @@ const handleLogin = async () => {
     console.warn(error)
   }
 }
+
+const onSendCode = async () => {
+  const reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+  if (!fromRegister.username.trim()) {
+    message.warning('请输入邮箱号！')
+    return
+  }
+  if (!reg.test(fromRegister.username)) {
+    message.warning('邮箱格式有误！')
+    return
+  }
+
+  try {
+    const { code, message: msg } = await sendCode(fromRegister.username)
+    if (code === 20000) {
+      timer(60)
+      message.success('验证码已发送，请注意查收')
+    } else {
+      message.warning(msg)
+    }
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+const handleRegister = async () => {
+  const reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+  if (!fromRegister.username.trim()) {
+    message.warning('请输入邮箱号！')
+    return
+  }
+
+  if (!reg.test(fromRegister.username)) {
+    message.warning('邮箱格式有误！')
+    return
+  }
+
+  if (fromRegister.code.trim().length !== 6) {
+    message.warning('请输入6位验证码！')
+    return
+  }
+
+  if (!fromRegister.password.trim()) {
+    message.warning('请输入密码！')
+    return
+  }
+
+  try {
+    const { code, message: msg } = await register(fromRegister)
+    if (code === 20000) {
+      message.success('注册成功！')
+      fromRegister.username = ''
+      fromRegister.code = ''
+      fromRegister.password = ''
+    } else {
+      message.warning(msg)
+    }
+  } catch (error) {
+    console.warn(error)
+  }
+}
 </script>
 
 <template>
@@ -68,10 +130,10 @@ const handleLogin = async () => {
             icon="ph:lock-key-bold"
             placeholder="Password"
           />
-          <div class="flex justify-end">
+          <!-- <div class="flex justify-end">
             <nuxt-link to="">Forgot Password?</nuxt-link>
-          </div>
-          <div class="pt-5">
+          </div> -->
+          <div class="pt-10">
             <button class="w-full rounded-lg bg-white py-4 text-lg text-black" @click="handleLogin">
               Login
             </button>
@@ -84,7 +146,7 @@ const handleLogin = async () => {
         <div class="form register bg-[hsla(0,0%,10%,0.1)]">
           <h3 class="text-center text-3xl">Register</h3>
           <LoginInput
-            v-model:value="fromRegister.account"
+            v-model:value="fromRegister.username"
             class="my-10"
             icon="ph:user-duotone"
             placeholder="Email"
@@ -94,7 +156,20 @@ const handleLogin = async () => {
             class="mb-10"
             icon="material-symbols:code-rounded"
             placeholder="Code"
-          />
+          >
+            <template #right-icon>
+              <n-button
+                size="small"
+                style="background: transparent"
+                secondary
+                strong
+                :disabled="flag"
+                @click="onSendCode"
+              >
+                {{ codeText }}
+              </n-button>
+            </template>
+          </LoginInput>
           <LoginInput
             v-model:value="fromRegister.password"
             class="mb-5"
@@ -103,7 +178,12 @@ const handleLogin = async () => {
             placeholder="Password"
           />
           <div class="pt-5">
-            <button class="w-full rounded-lg bg-white py-4 text-lg text-black">Register</button>
+            <button
+              class="w-full rounded-lg bg-white py-4 text-lg text-black"
+              @click="handleRegister"
+            >
+              Register
+            </button>
           </div>
           <div class="pt-9 text-center">
             <span>Existing account! </span>
@@ -124,7 +204,7 @@ const handleLogin = async () => {
     transform-style: preserve-3d;
     transition: 1s;
     .form {
-      @apply absolute top-0 left-0 h-full w-full rounded-3xl border-2 border-solid border-white  py-10 px-6 text-sm text-white backdrop-blur;
+      @apply absolute top-0 left-0 h-full w-full rounded-3xl border-2 border-solid border-white  py-10 px-6 text-sm text-white;
       backface-visibility: hidden;
     }
     .register {

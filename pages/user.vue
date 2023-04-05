@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FormRules, FormInst } from 'naive-ui'
 import { NAvatar, NForm, NFormItem, NInput, NButton, useMessage } from 'naive-ui'
+import { updateUserInfo } from '@/apis/user'
 
 definePageMeta({
   layout: 'no-bottom',
@@ -10,7 +11,8 @@ definePageMeta({
 const message = useMessage()
 const userStore = useUserStore()
 const formRef = ref<FormInst | null>(null)
-// const model = reactive({ nickname: '', email: '', website: '', introduction: '' })
+const model = reactive({ nickname: '', intro: '', webSite: '', email: '' })
+
 const rules = reactive<FormRules>({
   nickname: [
     {
@@ -44,11 +46,29 @@ const rules = reactive<FormRules>({
   ]
 })
 
+onMounted(() => {
+  const { nickname, intro, webSite, email } = userStore.userInfo
+  model.nickname = nickname
+  model.intro = intro
+  model.webSite = webSite
+  model.email = email
+})
+
 const onSubmit = (e: Event) => {
   e.preventDefault()
-  formRef.value?.validate((errors) => {
+  formRef.value?.validate(async (errors) => {
     if (!errors) {
-      message.success('验证成功')
+      try {
+        const { code, message: msg } = await updateUserInfo(model)
+        if (code === 20000) {
+          message.success('更新成功！')
+          userStore.setUserInfo({ ...userStore.userInfo, ...model })
+        } else {
+          message.warning(msg)
+        }
+      } catch (error) {
+        console.warn(error)
+      }
     } else {
       console.log(errors)
       message.error('验证失败')
@@ -64,19 +84,19 @@ const onSubmit = (e: Event) => {
         <div class="mb-5 text-center">
           <n-avatar round :size="60" :src="userStore.userInfo?.avatar" />
         </div>
-        <n-form ref="formRef" :model="userStore.userInfo" :rules="rules">
+        <n-form ref="formRef" :model="model" :rules="rules">
           <n-form-item label="昵称" path="nickname">
-            <n-input v-model:value="userStore.userInfo.nickname" placeholder="昵称" />
+            <n-input v-model:value="model.nickname" placeholder="昵称" />
           </n-form-item>
           <n-form-item label="邮箱" path="email">
-            <n-input v-model:value="userStore.userInfo.email" placeholder="邮箱" />
+            <n-input v-model:value="model.email" disabled placeholder="邮箱" />
           </n-form-item>
           <n-form-item label="个人网站" path="website">
-            <n-input v-model:value="userStore.userInfo.webSite" placeholder="个人网站" />
+            <n-input v-model:value="model.webSite" placeholder="个人网站" />
           </n-form-item>
           <n-form-item label="简介" path="introduction">
             <n-input
-              v-model:value="userStore.userInfo.intro"
+              v-model:value="model.intro"
               type="textarea"
               :autosize="{
                 minRows: 3,

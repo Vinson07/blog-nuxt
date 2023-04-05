@@ -1,24 +1,26 @@
 <script setup lang="ts">
-interface Menu {
-  icon: string
-  text: string
-  path: string
-}
-
-interface Props {
-  dark: boolean
-  menuList: Array<Menu>
-}
-
-const props = defineProps<Props>()
 const router = useRouter()
 const userStore = useUserStore()
-const emit = defineEmits(['toggle-dark', 'toggle-search'])
+const darkStore = useDarkStore()
+const searchStore = useSearchStore()
 
 // 切换主题
-function handleToggleDark() {
-  emit('toggle-dark')
-}
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'class',
+  valueDark: 'dark',
+  valueLight: 'light'
+})
+
+watch(
+  isDark,
+  (v) => {
+    darkStore.setDark(v)
+  },
+  { immediate: true }
+)
+
+const toggleDark = useToggle(isDark)
 
 const menuToggle = ref(false)
 function handleIconMenu() {
@@ -28,7 +30,7 @@ function handleHdMenu() {
   menuToggle.value = false
 }
 function handleSearch() {
-  emit('toggle-search')
+  searchStore.setModal(true)
 }
 
 function handleAvatar() {
@@ -39,18 +41,20 @@ function handleAvatar() {
 <template>
   <header class="md-header">
     <div class="md-header-operate">
-      <h1 class="cursor-pointer text-2xl" @click="router.push('/')">Vinson</h1>
+      <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
+        {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
+      </h1>
       <div class="flex items-center">
-        <div class="mr-4 cursor-pointer" @click="handleToggleDark">
-          <Icon v-if="props.dark" name="line-md:sun-rising-filled-loop" size="22" />
+        <div class="mr-4 cursor-pointer" @click="toggleDark()">
+          <Icon v-if="isDark" name="line-md:sun-rising-filled-loop" size="22" />
           <Icon v-else name="line-md:moon-filled-loop" size="22" />
         </div>
         <div class="mr-4 cursor-pointer">
           <Icon name="icon-park:search" size="22" @click="handleSearch" />
         </div>
         <div class="cursor-pointer md:hidden" @click="handleIconMenu">
-          <Icon v-if="menuToggle" name="line-md:menu-to-close-alt-transition" size="22" />
-          <Icon v-else name="line-md:close-to-menu-transition" size="22" />
+          <Icon v-if="menuToggle" name="line-md:menu-to-close-alt-transition" size="26" />
+          <Icon v-else name="line-md:close-to-menu-transition" size="26" />
         </div>
       </div>
     </div>
@@ -74,7 +78,7 @@ function handleAvatar() {
           </li>
         </ul>
         <ul class="flex flex-wrap pt-7 text-center">
-          <li v-for="(item, index) in props.menuList" :key="index" class="basis-1/2 p-1">
+          <li v-for="(item, index) in userStore.menuList" :key="index" class="basis-1/2 p-1">
             <div class="menu-item" @click="router.push(`${item.path}`)">
               <Icon :name="item.icon" />
               <p>{{ item.text }}</p>

@@ -15,3 +15,21 @@ export interface IUserInfo {
   username: string
   webSite: string
 }
+
+export interface IChangePasswordParams {
+  code: string
+  username: string
+  password: string
+}
+
+export interface IRegisterParams {
+  username: string
+  password: string
+  code: string
+}
+
+export interface IUpdateUserInfoParams {
+  nickname: string
+  intro: string
+  webSite: string
+}

@@ -53,9 +53,7 @@ getImageList()
 </script>
 
 <template>
-  <div
-    class="shell bg-gradient-to-r from-lime-400 to-orange-400 dark:from-sky-500 dark:to-indigo-500"
-  >
+  <div class="shell bg-gradient-to-r from-[#F2994A] to-[#F2C94C] dark:bg-none">
     <div v-for="item in imgList" :key="item.hash" class="images" :class="classRandom()">
       <!-- <img :src="baseImgUrl + item.key" alt="" /> -->
       <n-image :src="baseImgUrl + item.key" />
@@ -64,20 +62,10 @@ getImageList()
 </template>
 
 <style lang="less">
-// body {
-//   overflow: hidden;
-//   height: 100vh;
-// }
-// 设置滚动条
-// ::-webkit-scrollbar {
-//   width: '1px';
-//   height: '1px';
-// }
 .no-scroll {
   overflow: hidden;
   height: 100vh;
 }
-// 创建一个水平滚动的包裹容器，用于展示内容
 .shell {
   // background-image: linear-gradient(-225deg, #ffe29f 0%, #ffa99f 48%, #ff719a 100%);
   display: flex;

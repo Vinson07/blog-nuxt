@@ -22,7 +22,7 @@ const val = ref('')
 const style = ref(['top-2'])
 const passShow = ref(false)
 
-const emits = defineEmits(['update:value'])
+const emits = defineEmits(['update:value', 'right-icon'])
 
 const onFocus = () => {
   style.value = ['-top-5', 'scale-90']
@@ -60,6 +60,9 @@ const togglePassShow = () => {
       >
         <Icon v-if="passShow" class="text-xl" name="ph:eye-light" />
         <Icon v-else class="text-xl" name="ph:eye-slash" />
+      </div>
+      <div v-else class="absolute top-2 right-0 cursor-pointer">
+        <slot name="right-icon"></slot>
       </div>
     </div>
   </div>

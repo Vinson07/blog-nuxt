@@ -44,11 +44,7 @@ const { $markdownItContent } = useNuxtApp()
         <p class="content-text multiline-ellipsis">{{ $markdownItContent(item.articleContent) }}</p>
       </div>
       <div class="content-ellipsis">
-        <Icon
-          name="ion:ellipsis-horizontal"
-          size="26"
-          class="text-[#4b5563] dark:text-neutral-400"
-        />
+        <Icon name="ion:ellipsis-horizontal" size="26" />
       </div>
     </div>
   </li>
@@ -73,19 +69,16 @@ const { $markdownItContent } = useNuxtApp()
   &__content {
     @apply px-8 pt-5 md:flex-1;
     .content-time {
-      @apply flex items-center text-xs text-gray-400 dark:text-neutral-500;
+      @apply flex items-center text-xs;
     }
     .content-title {
-      @apply py-6 text-xl text-gray-600 dark:text-neutral-400;
+      @apply py-6 text-xl;
     }
     .content-info {
-      @apply flex text-xs text-gray-400 dark:text-neutral-500;
+      @apply flex text-xs;
     }
     .info-item {
       @apply mr-4 flex items-center;
-    }
-    .content-text {
-      @apply text-gray-600 dark:text-neutral-400;
     }
     .content-ellipsis {
       @apply flex justify-end;
