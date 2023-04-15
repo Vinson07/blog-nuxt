@@ -34,3 +34,8 @@ export function register(data: IRegisterParams) {
 export function updateUserInfo(data: IUpdateUserInfoParams) {
   return http.put('/api/users/info', data)
 }
+
+// 更新用户头像
+export function updateAvatar(data: FormData) {
+  return http.post('/api/users/avatar', data)
+}

@@ -2,6 +2,7 @@
 import { useMessage } from 'naive-ui'
 import { getLink } from '@/apis/link'
 import type { Link } from '@/types/link'
+import { getPoetry } from '@/apis/poetry'
 
 const linkList = ref<Link[]>([])
 const message = useMessage()
@@ -10,42 +11,56 @@ const cover = [
   'https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/anzhiy.cn.jpg',
   'https://doc.panjingyi.top/blog/202207031648703.jpg'
 ]
+const poetryText = ref('')
 
 definePageMeta({
   layout: 'no-bottom'
 })
 
 onMounted(async () => {
-  const { code, data, message: msg } = await getLink()
-  if (code === 20000) {
-    linkList.value = data
-  } else {
-    message.warning(msg)
+  try {
+    const { code, data, message: msg } = await getLink()
+    if (code === 20000) {
+      linkList.value = data
+    } else {
+      message.warning(msg)
+    }
+  } catch (error) {
+    console.warn(error)
+  }
+
+  try {
+    const { data } = await getPoetry()
+    poetryText.value = `${data.content} —— ${data.author}`
+  } catch (error) {
+    console.warn(error)
   }
 })
 </script>
 
 <template>
-  <div class="min-h-screen">
-    <TheTopBgImg :bg-cover="imageStore.pageList.link" bg-title="友链" />
-    <div class="flex flex-wrap justify-center py-24">
-      <LinkRecommend
-        v-for="(item, index) in linkList"
-        :key="item.id"
-        :avatar="item.linkAvatar"
-        :title="item.linkName"
-        :cover="cover[index]"
-        :link="item.linkAddress"
-        :intro="item.linkIntro"
-      />
-      <link-buddy
-        v-for="item in linkList"
-        :key="item.id"
-        :avatar="item.linkAvatar"
-        :title="item.linkName"
-        :link="item.linkAddress"
-        :intro="item.linkIntro"
-      />
+  <ClientOnly>
+    <div class="min-h-screen">
+      <TheTopBgImg :poetry-text="poetryText" :bg-cover="imageStore.pageList.link" bg-title="友链" />
+      <div class="flex flex-wrap justify-center py-24">
+        <LinkRecommend
+          v-for="(item, index) in linkList"
+          :key="item.id"
+          :avatar="item.linkAvatar"
+          :title="item.linkName"
+          :cover="cover[index]"
+          :link="item.linkAddress"
+          :intro="item.linkIntro"
+        />
+        <link-buddy
+          v-for="item in linkList"
+          :key="item.id"
+          :avatar="item.linkAvatar"
+          :title="item.linkName"
+          :link="item.linkAddress"
+          :intro="item.linkIntro"
+        />
+      </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>

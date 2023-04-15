@@ -9,6 +9,12 @@ export default defineNuxtConfig({
         { name: 'keywords', content: '博客，前端' },
         { name: 'description', content: 'Vinson个人博客，知识库' }
       ],
+      // link: [
+      //   {
+      //     rel: 'stylesheet',
+      //     href: 'https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css'
+      //   }
+      // ],
       script: [
         {
           src: 'https://cdn.sakura520.co/static/blog-plugin/js/particleSpace.min.js', // 粒子空间背景

@@ -16,16 +16,18 @@ const { $markdownItContent } = useNuxtApp()
 </script>
 
 <template>
-  <li class="post__list" :class="{ active: active }" @click="router.push(`/post/${item.id}`)">
-    <div class="post__list__img">
+  <li class="post__list" :class="{ active: active }">
+    <div class="post__list__img md:flex-[1.2]">
       <TheImage :src="item.articleCover" />
     </div>
-    <div class="post__list__content">
+    <div class="post__list__content" @click="router.push(`/post/${item.id}`)">
       <div class="content-time">
         <Icon name="mingcute:time-fill" size="18" class="pr-1" />
         发布于 {{ item.createTime }}
       </div>
-      <h4 class="content-title">{{ item.articleTitle }}</h4>
+      <h4 class="content-title">
+        {{ item.articleTitle }}
+      </h4>
       <div class="content-info">
         <p class="info-item">
           <Icon name="mdi:eye" size="16" />
@@ -52,16 +54,16 @@ const { $markdownItContent } = useNuxtApp()
 
 <style lang="less">
 .post__list {
-  @apply mb-10 cursor-pointer overflow-hidden rounded-2xl dark:hover:shadow-lg dark:hover:shadow-indigo-500/50 md:flex md:h-80;
+  @apply mb-10 overflow-hidden rounded-2xl shadow-md hover:shadow-xl dark:hover:shadow-lg dark:hover:shadow-indigo-500/50 md:flex md:h-80;
   &.active {
     @apply flex-row-reverse;
     .content-ellipsis {
       @apply justify-start;
     }
   }
-  box-shadow: 0 1px 20px -6px rgb(0 0 0 0.5);
+  // box-shadow: 0 1px 20px -6px rgb(0 0 0 0.5);
   &__img {
-    @apply overflow-hidden max-md:h-64 md:flex-1;
+    @apply overflow-hidden max-md:h-64;
     img {
       @apply transition-transform duration-500 hover:rotate-12 hover:scale-125;
     }
@@ -72,7 +74,7 @@ const { $markdownItContent } = useNuxtApp()
       @apply flex items-center text-xs;
     }
     .content-title {
-      @apply py-6 text-xl;
+      @apply my-6 cursor-pointer text-xl hover:text-orange-500 hover:dark:text-[#007fff];
     }
     .content-info {
       @apply flex text-xs;

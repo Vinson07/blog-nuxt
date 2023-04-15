@@ -25,7 +25,7 @@ defineProps<Props>()
           <h4>{{ title }}</h4>
         </div>
       </div>
-      <div class="link-intro top-72">
+      <div class="link-intro top-52">
         {{ intro }}
       </div>
     </div>

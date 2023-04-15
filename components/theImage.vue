@@ -22,7 +22,7 @@ const { isLoading, error } = useImage({ src: props.src })
 .the-image {
   @apply h-full w-full;
   .img {
-    @apply h-full w-full object-cover;
+    @apply h-full w-full object-cover transition-transform duration-500 group-hover:scale-125;
   }
 }
 </style>

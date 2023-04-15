@@ -11,8 +11,7 @@ const router = useRouter()
 const userStore = useUserStore()
 const darkStore = useDarkStore()
 const searchStore = useSearchStore()
-// 监听滚动
-const { y } = useWindowScroll()
+const showMenu = ref(true)
 
 const options = ref<IOption[]>([])
 // 切换暗黑模式
@@ -75,14 +74,17 @@ const handleSelect = (key: string | number) => {
   }
 }
 
-const headerStyle = computed(() => {
-  if (y.value === 0) {
-    return ['bg-transparent']
-  } else if (isDark.value) {
-    return ['bg-[#1e1e20]', 'dark:shadow-md', 'dark:shadow-indigo-500']
-  } else {
-    return ['bg-white', 'shadow-md']
+onMounted(() => {
+  const handleScroll = () => {
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+    if (scrollTop === 0) {
+      showMenu.value = true
+    } else {
+      showMenu.value = false
+    }
   }
+
+  window.addEventListener('scroll', handleScroll)
 })
 
 // 切换主题
@@ -95,16 +97,16 @@ function handleSearch() {
 </script>
 
 <template>
-  <header class="header-nav group/nav" :class="headerStyle">
+  <header class="header-nav group/nav" :class="{ active: showMenu }">
     <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
       {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
     </h1>
-    <nav class="group-hover/nav:block" :class="{ hidden: y == 0 }">
+    <nav class="group-hover/nav:block" :class="{ hidden: showMenu }">
       <ul class="flex">
         <li
           v-for="(item, index) in userStore.menuList"
           :key="index"
-          class="nav-item mx-4 flex cursor-pointer items-center"
+          class="nav-item mx-4 flex cursor-pointer items-center font-semibold"
           @click="router.push(`${item.path}`)"
         >
           <Icon :class="`icon-${index + 1}`" :name="item.icon" />
@@ -131,7 +133,10 @@ function handleSearch() {
 
 <style lang="less">
 .header-nav {
-  @apply fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between px-4 transition-all duration-500 hover:bg-white dark:hover:bg-[#1e1e20];
+  @apply fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between px-4 backdrop-blur transition-all;
+  &.active {
+    @apply bg-transparent backdrop-blur-none hover:backdrop-blur;
+  }
   .nav-item {
     &:hover .icon-1 {
       -webkit-animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;

@@ -45,18 +45,18 @@ async function send() {
 
   try {
     const params = {
-      avatar: userStore.websiteConfig.touristAvatar,
+      avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
       messageContent: barrageValue.value,
-      nickname: '游客',
+      nickname: userStore.userInfo?.nickname ?? '游客',
       time: Math.floor(Math.random() * (10 - 7)) + 7
     }
     const { code, message } = await addBarrage(params)
     if (code === 20000) {
       if (danmakuRef.value) {
         danmakuRef.value.add({
-          avatar: userStore.websiteConfig.touristAvatar,
+          avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
           messageContent: barrageValue.value,
-          nickname: '游客',
+          nickname: userStore.userInfo?.nickname ?? '游客',
           time: Math.floor(Math.random() * (10 - 7)) + 7
         })
       }

@@ -198,7 +198,7 @@ const handleRegister = async () => {
 <style lang="less">
 .login {
   @apply flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat;
-  background-image: url(https://cdn.sakura520.co/images/login-bg.png);
+  background-image: url(https://cdn.sakura520.co/images/1603095777_8.jpg);
   .box {
     @apply relative w-96 max-md:w-80;
     transform-style: preserve-3d;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { FormRules, FormInst } from 'naive-ui'
-import { NAvatar, NForm, NFormItem, NInput, NButton, useMessage } from 'naive-ui'
-import { updateUserInfo } from '@/apis/user'
+import type { FormRules, FormInst, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
+import { NAvatar, NForm, NFormItem, NInput, NButton, NUpload, useMessage } from 'naive-ui'
+import { updateUserInfo, updateAvatar } from '@/apis/user'
 
 definePageMeta({
   layout: 'no-bottom',
@@ -54,6 +54,34 @@ onMounted(() => {
   model.email = email
 })
 
+const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
+  const fileSize = data.file.file?.size ?? 0
+  if (fileSize > 1024 * 1024) {
+    message.error('图片不能超过1M，请重新上传')
+    return false
+  }
+  return true
+}
+
+const customUpload = async ({ file, onFinish, onError }: UploadCustomRequestOptions) => {
+  try {
+    const formData = new FormData()
+    formData.append('file', file.file as File)
+    const { code, data, message: msg } = await updateAvatar(formData)
+    if (code === 20000) {
+      userStore.setUserInfo({ ...userStore.userInfo, avatar: data })
+      message.success('更新头像成功')
+      onFinish()
+    } else {
+      message.warning(msg)
+      onError()
+    }
+  } catch (error) {
+    onError()
+    console.warn(error)
+  }
+}
+
 const onSubmit = (e: Event) => {
   e.preventDefault()
   formRef.value?.validate(async (errors) => {
@@ -82,7 +110,17 @@ const onSubmit = (e: Event) => {
     <div class="user">
       <div class="box bg-[hsla(0,0%,10%,0.1)]">
         <div class="mb-5 text-center">
-          <n-avatar round :size="60" :src="userStore.userInfo?.avatar" />
+          <n-upload
+            accept="image/*"
+            :show-file-list="false"
+            :custom-request="customUpload"
+            @before-upload="beforeUpload"
+          >
+            <div class="avatar-box">
+              <n-avatar round :size="64" :src="userStore.userInfo?.avatar" />
+              <div class="avatar bg-[rgba(0,0,0,0.3)]">上传头像</div>
+            </div>
+          </n-upload>
         </div>
         <n-form ref="formRef" :model="model" :rules="rules">
           <n-form-item label="昵称" path="nickname">
@@ -120,6 +158,15 @@ const onSubmit = (e: Event) => {
   background-image: url(https://cdn.sakura520.co/images/2b27097722fce411b7ae68d6c68b23dec94f8ede27a471-p1kDmK.png);
   .box {
     @apply w-96 rounded-3xl border-2 border-solid border-white py-10  px-6 text-sm text-white backdrop-blur max-md:w-80;
+    .avatar-box {
+      @apply relative cursor-pointer;
+      &:hover .avatar {
+        @apply flex;
+      }
+      .avatar {
+        @apply absolute top-0 left-0 hidden h-16 w-16 items-center justify-center rounded-full text-xs;
+      }
+    }
   }
 }
 </style>
