@@ -3,12 +3,16 @@ interface Props {
   imgSrc: string
   title: string
   time: string
-  author: string
-  view: number
-  updateTime: string
+  author?: string
+  view?: number
+  updateTime?: string
 }
 
-defineProps<Props>()
+withDefaults(defineProps<Props>(), {
+  author: 'Vinson',
+  updateTime: '',
+  view: 0
+})
 </script>
 
 <template>
@@ -21,18 +25,14 @@ defineProps<Props>()
         <span class="ml-1">发表于 {{ time }}</span>
         <span class="mx-2">|</span>
         <Icon name="ic:outline-access-time" />
-        <span class="ml-1">更新于 {{ updateTime || '' }}</span>
+        <span class="ml-1">更新于 {{ updateTime }}</span>
       </div>
       <div class="flex items-center justify-center text-sm">
         <Icon name="ph:user-duotone" />
-        <ClientOnly>
-          <span class="ml-1">{{ author }}</span>
-        </ClientOnly>
+        <span class="ml-1">{{ author }}</span>
         <span class="mx-2">|</span>
         <Icon name="majesticons:eye-line" />
-        <ClientOnly>
-          <span class="ml-1">阅读量 {{ view }}</span>
-        </ClientOnly>
+        <span class="ml-1">阅读量 {{ view }}</span>
       </div>
     </div>
   </div>

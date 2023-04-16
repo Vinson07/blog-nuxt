@@ -15,6 +15,11 @@ export const useUserStore = defineStore('user', {
         path: '/'
       },
       {
+        icon: 'flat-color-icons:calendar',
+        text: '归档',
+        path: '/archives'
+      },
+      {
         icon: 'icon-park:message',
         text: '留言',
         path: '/barrage'

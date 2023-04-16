@@ -1,5 +1,11 @@
 import { http } from './request'
-import { PostList, ArticleDetail, SearchArticle, SearchArticleParams } from '@/types/article'
+import {
+  PostList,
+  ArticleDetail,
+  SearchArticle,
+  SearchArticleParams,
+  archives
+} from '@/types/article'
 
 // 查看首页文章
 export function getPostList(current: number) {
@@ -14,4 +20,9 @@ export function getArticleDetail(articleId: string | string[]) {
 // 搜索文章
 export function searchArticle(data: SearchArticleParams) {
   return http.get<SearchArticle[]>('/api/articles/search', { params: data })
+}
+
+// 查看文章归档
+export function getArchives(current: number) {
+  return http.get<archives>('/api/articles/archives', { params: { current } })
 }

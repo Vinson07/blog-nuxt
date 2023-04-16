@@ -37,7 +37,7 @@ try {
       :img-src="post.articleCover"
       :title="post.articleTitle"
       :time="post.createTime"
-      :author="userStore.websiteConfig.websiteAuthor || ''"
+      :author="userStore.websiteConfig.websiteAuthor"
       :view="post.viewsCount"
       :update-time="post.updateTime"
     />

@@ -204,7 +204,7 @@ const handleRegister = async () => {
     transform-style: preserve-3d;
     transition: 1s;
     .form {
-      @apply absolute top-0 left-0 h-full w-full rounded-3xl border-2 border-solid border-white  py-10 px-6 text-sm text-white;
+      @apply absolute top-0 left-0 h-full w-full rounded-3xl border-2 border-solid border-white  py-10 px-6 text-sm text-white backdrop-blur;
       backface-visibility: hidden;
     }
     .register {

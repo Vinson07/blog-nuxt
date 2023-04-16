@@ -94,7 +94,7 @@ function handleAvatar() {
 .md-header {
   @apply fixed top-0 left-0 right-0 z-50;
   .md-header-operate {
-    @apply flex h-14 items-center justify-between px-4 shadow-md backdrop-blur dark:shadow-md dark:shadow-indigo-500;
+    @apply flex h-14 items-center justify-between px-4 shadow-md backdrop-blur;
   }
   .md-deader-menu {
     @apply absolute top-0 left-0 bottom-0 h-screen w-full;

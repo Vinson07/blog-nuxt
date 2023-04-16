@@ -79,3 +79,13 @@ export interface SearchArticleParams {
   current: number
   keywords: string
 }
+
+export interface RecordList {
+  articleTitle: string
+  createTime: string
+  id: number
+}
+export interface archives {
+  count: number
+  recordList: RecordList[]
+}

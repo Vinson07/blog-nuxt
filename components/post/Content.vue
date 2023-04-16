@@ -114,7 +114,7 @@ onUnmounted(() => {
 
 <template>
   <main class="post-main relative mx-auto mt-4 max-w-[1140px]">
-    <div class="relative rounded p-4 shadow-md xl:w-[820px]">
+    <div class="relative rounded p-4 shadow-md dark:bg-[#242525] xl:w-[820px]">
       <!-- eslint-disable -->
       <article
         class="markdown-body"
