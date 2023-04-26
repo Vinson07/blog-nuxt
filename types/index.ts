@@ -7,6 +7,7 @@ export interface Result<T = any> {
 export interface PageListStore {
   home: string
   link: string
+  archive: string
 }
 
 export interface PageList {

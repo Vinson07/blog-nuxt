@@ -54,7 +54,7 @@ const { $markdownItContent } = useNuxtApp()
 
 <style lang="less">
 .post__list {
-  @apply mb-10 overflow-hidden rounded-2xl shadow-md hover:shadow-xl dark:hover:shadow-lg dark:hover:shadow-indigo-500/50 md:flex md:h-80;
+  @apply mb-10 overflow-hidden rounded-2xl shadow-md hover:shadow-xl dark:bg-neutral-800 dark:hover:shadow-lg dark:hover:shadow-indigo-500/50 md:flex md:h-80;
   &.active {
     @apply flex-row-reverse;
     .content-ellipsis {

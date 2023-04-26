@@ -72,11 +72,11 @@ onMounted(() => {
       const nodes = articleRef.value.children
       if (nodes.length) {
         for (let i = 0; i < nodes.length; i++) {
-          const node = nodes[i]
+          const node = nodes[i] as HTMLElement
           // const reg = /^H[1-4]{1}$/
           const reg = /^H[1-2]{1}$/
           if (reg.exec(node.tagName)) {
-            node.id = 'header-' + i.toString()
+            node.id = `header-${i}`
           }
         }
       }
@@ -114,7 +114,7 @@ onUnmounted(() => {
 
 <template>
   <main class="post-main relative mx-auto mt-4 max-w-[1140px]">
-    <div class="relative rounded p-4 shadow-md dark:bg-[#242525] xl:w-[820px]">
+    <div class="relative rounded p-4 shadow-md dark:bg-neutral-800 xl:w-[820px]">
       <!-- eslint-disable -->
       <article
         class="markdown-body"
@@ -153,7 +153,7 @@ onUnmounted(() => {
       <div
         v-if="post.recommendArticleList && post.recommendArticleList.length > 0"
         ref="recommendRef"
-        class="mb-5 w-[inherit] rounded px-5 shadow-md"
+        class="mb-5 w-[inherit] rounded px-5 shadow-md dark:bg-neutral-800"
       >
         <div class="border-b py-4 font-medium dark:border-amber-300">推荐文章</div>
         <ul class="pb-1 text-sm">
@@ -175,8 +175,9 @@ onUnmounted(() => {
       <nav
         id="toc"
         ref="tocRef"
-        class="max-h-[500px] w-[inherit] overflow-y-auto rounded shadow-md"
+        class="max-h-[500px] w-[inherit] overflow-y-auto rounded py-2 shadow-md dark:bg-neutral-800"
       ></nav>
+      <!-- <PostToc :toc-list="tocList" /> -->
     </div>
   </main>
 </template>

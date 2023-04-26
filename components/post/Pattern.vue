@@ -8,11 +8,13 @@ interface Props {
   updateTime?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   author: 'Vinson',
   updateTime: '',
   view: 0
 })
+
+const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
 </script>
 
 <template>
@@ -22,17 +24,15 @@ withDefaults(defineProps<Props>(), {
       <h3 class="text-5xl">{{ title }}</h3>
       <div class="my-3 flex flex-wrap items-center justify-center text-sm">
         <Icon name="ic:baseline-calendar-month" />
-        <span class="ml-1">发表于 {{ time }}</span>
+        <span class="ml-1">发表于 {{ publicationTime }}</span>
         <span class="mx-2">|</span>
-        <Icon name="ic:outline-access-time" />
-        <span class="ml-1">更新于 {{ updateTime }}</span>
-      </div>
-      <div class="flex items-center justify-center text-sm">
         <Icon name="ph:user-duotone" />
         <span class="ml-1">{{ author }}</span>
         <span class="mx-2">|</span>
         <Icon name="majesticons:eye-line" />
         <span class="ml-1">阅读量 {{ view }}</span>
+        <!-- <Icon name="ic:outline-access-time" /> -->
+        <!-- <span class="ml-1">更新于 {{ updateTime }}</span> -->
       </div>
     </div>
   </div>

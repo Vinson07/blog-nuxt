@@ -104,7 +104,7 @@ const gotoArticle = (id: number) => {
       </n-modal>
     </n-message-provider>
     <div
-      class="fixed top-0 left-0 -z-50 h-full w-full transition-colors duration-500 dark:bg-[#242525]"
+      class="fixed top-0 left-0 -z-50 h-full w-full transition-colors duration-500 dark:bg-zinc-900"
     >
       <canvas id="particle-space" class="fixed top-0 left-0 -z-50 h-full w-full"></canvas>
     </div>

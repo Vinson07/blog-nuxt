@@ -114,7 +114,7 @@ const handleRegister = async () => {
 <template>
   <client-only>
     <div class="login">
-      <div class="box h-[500px]" :class="{ active: toggleForm }">
+      <div class="box" :class="{ 'h-[500px]': toggleForm }">
         <div class="form bg-[hsla(0,0%,10%,0.1)]">
           <h3 class="text-center text-3xl">Login</h3>
           <LoginInput
@@ -134,16 +134,14 @@ const handleRegister = async () => {
             <nuxt-link to="">Forgot Password?</nuxt-link>
           </div> -->
           <div class="pt-10">
-            <button class="w-full rounded-lg bg-white py-4 text-lg text-black" @click="handleLogin">
-              Login
-            </button>
+            <button class="btn-grad" @click="handleLogin">Login</button>
           </div>
           <div class="pt-9 text-center">
             <span>Don't have an account? </span>
             <button @click="handleToggleForm">Register</button>
           </div>
         </div>
-        <div class="form register bg-[hsla(0,0%,10%,0.1)]">
+        <div class="form register bg-[hsla(0,0%,10%,0.1)]" :class="{ active: toggleForm }">
           <h3 class="text-center text-3xl">Register</h3>
           <LoginInput
             v-model:value="fromRegister.username"
@@ -178,12 +176,7 @@ const handleRegister = async () => {
             placeholder="Password"
           />
           <div class="pt-5">
-            <button
-              class="w-full rounded-lg bg-white py-4 text-lg text-black"
-              @click="handleRegister"
-            >
-              Register
-            </button>
+            <button class="btn-grad" @click="handleRegister">Register</button>
           </div>
           <div class="pt-9 text-center">
             <span>Existing account! </span>
@@ -200,18 +193,36 @@ const handleRegister = async () => {
   @apply flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat;
   background-image: url(https://cdn.sakura520.co/images/1603095777_8.jpg);
   .box {
-    @apply relative w-96 max-md:w-80;
-    transform-style: preserve-3d;
-    transition: 1s;
+    @apply relative w-96 overflow-hidden rounded-3xl border-2 border-solid  border-white max-md:w-80;
     .form {
-      @apply absolute top-0 left-0 h-full w-full rounded-3xl border-2 border-solid border-white  py-10 px-6 text-sm text-white backdrop-blur;
-      backface-visibility: hidden;
+      @apply h-full w-full rounded-3xl py-10 px-6 text-sm text-white backdrop-blur transition-all duration-500;
+
+      .btn-grad {
+        width: 100%;
+        background-image: linear-gradient(to right, #e8cbc0 0%, #636fa4 51%, #e8cbc0 100%);
+        // margin: 10px;
+        padding: 15px 45px;
+        text-align: center;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: white;
+        box-shadow: 0 0 20px #eee;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .btn-grad:hover {
+        background-position: right center; /* change the direction of the change here */
+        color: #fff;
+        text-decoration: none;
+      }
     }
     .register {
-      transform: rotateY(180deg);
-    }
-    &.active {
-      transform: rotateY(180deg);
+      @apply absolute top-0 left-96;
+      &.active {
+        @apply left-0;
+      }
     }
   }
 }

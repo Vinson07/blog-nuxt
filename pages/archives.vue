@@ -62,7 +62,7 @@ onMounted(async () => {
   <div id="archives">
     <TheTopBgImg
       :poetry-text="poetryText"
-      :bg-cover="imageStore.pageList.link"
+      :bg-cover="imageStore.pageList.archive"
       bg-title="文章归档"
     />
     <div class="m-auto mt-10 max-w-[844px] pl-7 pr-4">

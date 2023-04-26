@@ -3,8 +3,10 @@ import type { PageListStore } from '@/types'
 export const useImageStore = defineStore('image', {
   state: () => ({
     pageList: {
-      home: 'https://service-5z0sdahv-1306777571.sh.apigw.tencentcs.com/release/',
-      link: 'https://cdn.sakura520.co/images/5e8889652e7a2148e48797202.png'
+      home: 'https://imgapi.xl0408.top/index.php',
+      link: 'https://cdn.sakura520.co/images/5e8889652e7a2148e48797202.png',
+      archive:
+        'https://cdn.sakura520.co/images/36b8935e9968f1c530b7f5f5544bdac1fcf5c05d215902-DPCqjQ.jpeg'
     } as PageListStore,
     randomImage: [
       'https://api.ghser.com/random/api.php',
