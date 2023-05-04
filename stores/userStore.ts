@@ -1,5 +1,6 @@
 import { useMessage } from 'naive-ui'
 import { getBlogInfo } from '@/apis/home'
+import { getYiYan } from '@/apis/poetry'
 import type { WebsiteConfig } from '@/types'
 import type { IUserInfo } from '@/types/user'
 
@@ -43,7 +44,8 @@ export const useUserStore = defineStore('user', {
       gitHub: 'https://gitee.com/vinson007',
       zhiHu: '',
       music: 'https://music.163.com/playlist?id=7568550728&userid=1288893816'
-    }
+    },
+    yiYan: 'You got to put the past behind you before you can move on.'
   }),
   actions: {
     setUserInfo(userInfo: IUserInfo) {
@@ -66,6 +68,17 @@ export const useUserStore = defineStore('user', {
         }
       } catch (error) {
         console.error(error)
+      }
+    },
+    async setYiYan() {
+      // 每日一言
+      try {
+        const { data } = await getYiYan()
+        if (data.yiyan) {
+          this.yiYan = data.yiyan
+        }
+      } catch (error) {
+        console.warn(error)
       }
     }
   }

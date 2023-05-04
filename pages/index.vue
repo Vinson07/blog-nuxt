@@ -71,7 +71,7 @@ useResizeObserver(homeRef, (entries) => {
     <HomeBackground
       :bg-src="imageStore.pageList.home"
       :title="userStore.websiteConfig.websiteName"
-      :sub-title="userStore.websiteConfig.websiteIntro"
+      :sub-title="userStore.yiYan"
       :git-hub="userStore.link.gitHub"
       :zhi-hu="userStore.link.zhiHu"
       :music="userStore.link.music"

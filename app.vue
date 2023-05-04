@@ -16,6 +16,8 @@ const keyword = ref('')
 
 // 获取博客基本数据
 userStore.blogInfoData()
+// 一言
+userStore.setYiYan()
 onMounted(() => {
   // 用户信息
   const info = useSessionStorage('user-info', {} as IUserInfo)

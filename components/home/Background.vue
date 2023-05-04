@@ -1,37 +1,24 @@
 <script setup lang="ts">
-const props = defineProps({
-  videoSrc: {
-    type: String,
-    default: ''
-  },
-  bgSrc: {
-    type: String,
-    default: ''
-  },
-  title: {
-    type: String,
-    default: 'Hi, Mashiro!'
-  },
-  subTitle: {
-    type: String,
-    default: 'You got to put the past behind you before you can move on.'
-  },
-  bgMask: {
-    type: String,
-    default: 'filter-grid' // filter-grid filter-dot filter-dim filter-undertint pattern-center
-  },
-  gitHub: {
-    type: String,
-    default: ''
-  },
-  zhiHu: {
-    type: String,
-    default: ''
-  },
-  music: {
-    type: String,
-    default: ''
-  }
+interface Props {
+  videoSrc?: string
+  bgSrc?: string
+  title?: string
+  subTitle?: string
+  bgMask?: string
+  gitHub?: string
+  zhiHu?: string
+  music?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  videoSrc: '',
+  bgSrc: '',
+  title: '',
+  subTitle: '',
+  bgMask: 'filter-grid', // filter-grid filter-dot filter-dim filter-undertint pattern-center
+  gitHub: '',
+  zhiHu: '',
+  music: ''
 })
 
 const showVideo = ref(false)
