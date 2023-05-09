@@ -6,13 +6,13 @@
     </h3>
     <div class="flex">
       <div class="nav-feature group">
-        <NuxtLink target="_blank" to="https://music.sakura520.co/">
+        <nuxt-link target="_blank" to="https://music.sakura520.co/">
           <TheImage src="https://cdn.sakura520.co/images/20180325154208_GYwna.jpeg" />
           <div class="nav-feature__text">
             <h4 class="text-title">Web音乐播放器</h4>
             <p class="text-tip">高颜值的第三方网易云播放器</p>
           </div>
-        </NuxtLink>
+        </nuxt-link>
       </div>
       <div class="nav-feature group mx-2">
         <nuxt-link target="_blank" to="">

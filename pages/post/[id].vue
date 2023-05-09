@@ -32,7 +32,7 @@ try {
       <Title>{{ post?.articleTitle ?? '' }}</Title>
       <Meta name="description" :content="post?.categoryName ?? '个人博客'" />
     </Head>
-    <PostPattern
+    <post-pattern
       v-if="post"
       :img-src="post.articleCover"
       :title="post.articleTitle"
@@ -41,6 +41,6 @@ try {
       :view="post.viewsCount"
       :update-time="post.updateTime"
     />
-    <PostContent v-if="post" :post="post" />
+    <post-content v-if="post" :post="post" />
   </div>
 </template>

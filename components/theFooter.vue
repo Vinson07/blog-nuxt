@@ -26,11 +26,11 @@ const day = computed(() => {
       </p>
       <p class="text-neutral-400">
         <span class="mr-1">© 2023 Vinson</span>
-        <ClientOnly>
+        <client-only>
           <nuxt-link to="https://beian.miit.gov.cn" target="_blank">
             {{ userStore.websiteConfig.websiteRecordNo }}
           </nuxt-link>
-        </ClientOnly>
+        </client-only>
       </p>
     </div>
   </footer>

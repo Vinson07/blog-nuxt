@@ -18,7 +18,7 @@ const { $markdownItContent } = useNuxtApp()
 <template>
   <li class="post__list" :class="{ active: active }">
     <div class="post__list__img md:flex-[1.2]">
-      <TheImage :src="item.articleCover" />
+      <the-image :src="item.articleCover" />
     </div>
     <div class="post__list__content" @click="router.push(`/post/${item.id}`)">
       <div class="content-time">

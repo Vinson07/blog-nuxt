@@ -100,19 +100,19 @@ const handleRight = () => {
               color="#3b82f6"
               @click="handleLeft"
             />
-            <NuxtLink target="_blank" :to="gitHub">
+            <nuxt-link target="_blank" :to="gitHub">
               <Icon name="grommet-icons:github" class="mx-1.5 cursor-pointer" />
-            </NuxtLink>
-            <NuxtLink target="_blank" :to="zhiHu">
+            </nuxt-link>
+            <nuxt-link target="_blank" :to="zhiHu">
               <Icon name="ri:zhihu-line" class="mx-1.5 cursor-pointer" color="#fff" />
-            </NuxtLink>
-            <NuxtLink target="_blank" :to="music">
+            </nuxt-link>
+            <nuxt-link target="_blank" :to="music">
               <Icon
                 name="tabler:brand-netease-music"
                 class="mx-1.5 cursor-pointer"
                 color="#e15a3c"
               />
-            </NuxtLink>
+            </nuxt-link>
             <Icon
               name="ic:baseline-keyboard-double-arrow-right"
               class="ml-4 cursor-pointer"

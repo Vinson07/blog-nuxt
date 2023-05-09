@@ -147,7 +147,7 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-      <PostTogglePost :last-article="post.lastArticle" :next-article="post.nextArticle" />
+      <post-toggle-post :last-article="post.lastArticle" :next-article="post.nextArticle" />
     </div>
     <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
       <div

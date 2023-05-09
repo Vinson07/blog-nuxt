@@ -68,7 +68,7 @@ useResizeObserver(homeRef, (entries) => {
 
 <template>
   <div ref="homeRef">
-    <HomeBackground
+    <home-background
       :bg-src="imageStore.pageList.home"
       :title="userStore.websiteConfig.websiteName"
       :sub-title="userStore.yiYan"
@@ -100,14 +100,14 @@ useResizeObserver(homeRef, (entries) => {
           />
         </nuxt-link>
       </n-carousel>
-      <HomeContentBanner v-else />
+      <home-content-banner v-else />
       <main>
         <h3 class="h-title">
           <Icon name="entypo:leaf" />
           <span class="ml-2">Discovery</span>
         </h3>
         <ul class="max-md:px-1">
-          <HomeContentItem
+          <home-content-item
             v-for="(item, index) in postList"
             :key="item.id"
             :item="item"

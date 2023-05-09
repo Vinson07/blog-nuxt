@@ -52,9 +52,9 @@ const gotoArticle = (id: number) => {
     :theme="darkStore.isDark ? darkTheme : null"
   >
     <n-message-provider :placement="placement">
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
+      <nuxt-layout>
+        <nuxt-page />
+      </nuxt-layout>
       <n-modal
         v-model:show="searchStore.showModal"
         transform-origin="center"

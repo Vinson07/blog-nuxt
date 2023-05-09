@@ -39,11 +39,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <ClientOnly>
+  <client-only>
     <div class="min-h-screen">
-      <TheTopBgImg :poetry-text="poetryText" :bg-cover="imageStore.pageList.link" bg-title="友链" />
+      <the-top-bg-img
+        :poetry-text="poetryText"
+        :bg-cover="imageStore.pageList.link"
+        bg-title="友链"
+      />
       <div class="flex flex-wrap justify-center py-24">
-        <LinkRecommend
+        <link-recommend
           v-for="(item, index) in linkList"
           :key="item.id"
           :avatar="item.linkAvatar"
@@ -62,5 +66,5 @@ onMounted(async () => {
         />
       </div>
     </div>
-  </ClientOnly>
+  </client-only>
 </template>

@@ -117,13 +117,13 @@ const handleRegister = async () => {
       <div class="box" :class="{ 'h-[500px]': toggleForm }">
         <div class="form bg-[hsla(0,0%,10%,0.1)]">
           <h3 class="text-center text-3xl">Login</h3>
-          <LoginInput
+          <login-input
             v-model:value="formLogin.account"
             class="my-10"
             icon="ph:user-duotone"
             placeholder="Email"
           />
-          <LoginInput
+          <login-input
             v-model:value="formLogin.password"
             class="mb-5"
             type="password"
@@ -143,13 +143,13 @@ const handleRegister = async () => {
         </div>
         <div class="form register bg-[hsla(0,0%,10%,0.1)]" :class="{ active: toggleForm }">
           <h3 class="text-center text-3xl">Register</h3>
-          <LoginInput
+          <login-input
             v-model:value="fromRegister.username"
             class="my-10"
             icon="ph:user-duotone"
             placeholder="Email"
           />
-          <LoginInput
+          <login-input
             v-model:value="fromRegister.code"
             class="mb-10"
             icon="material-symbols:code-rounded"
@@ -167,8 +167,8 @@ const handleRegister = async () => {
                 {{ codeText }}
               </n-button>
             </template>
-          </LoginInput>
-          <LoginInput
+          </login-input>
+          <login-input
             v-model:value="fromRegister.password"
             class="mb-5"
             type="password"

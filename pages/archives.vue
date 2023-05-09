@@ -60,7 +60,7 @@ onMounted(async () => {
 
 <template>
   <div id="archives">
-    <TheTopBgImg
+    <the-top-bg-img
       :poetry-text="poetryText"
       :bg-cover="imageStore.pageList.archive"
       bg-title="文章归档"

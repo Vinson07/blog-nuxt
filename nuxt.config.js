@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import viteCompression from 'vite-plugin-compression'
 
 export default defineNuxtConfig({
   app: {
@@ -28,16 +29,6 @@ export default defineNuxtConfig({
     }
   },
   build: {
-    chunkSizeWarningLimit: 1500,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toString()
-          }
-        }
-      }
-    },
     transpile:
       process.env.NODE_ENV === 'production'
         ? [
@@ -52,6 +43,19 @@ export default defineNuxtConfig({
         : ['@juggle/resize-observer']
   },
   vite: {
+    plugins: [viteCompression()],
+    build: {
+      chunkSizeWarningLimit: 1500,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return id.toString().split('node_modules/')[1].split('/')[0].toString()
+            }
+          }
+        }
+      }
+    },
     optimizeDeps: {
       include:
         process.env.NODE_ENV === 'development'
