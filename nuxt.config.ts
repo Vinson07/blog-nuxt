@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import viteCompression from 'vite-plugin-compression'
-
 export default defineNuxtConfig({
+  typescript: {
+    shim: false
+  },
   app: {
     head: {
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
@@ -10,12 +11,6 @@ export default defineNuxtConfig({
         { name: 'keywords', content: '博客，前端' },
         { name: 'description', content: 'Vinson个人博客，知识库' }
       ],
-      // link: [
-      //   {
-      //     rel: 'stylesheet',
-      //     href: 'https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css'
-      //   }
-      // ],
       script: [
         {
           src: 'https://cdn.sakura520.co/static/blog-plugin/js/particleSpace.min.js', // 粒子空间背景
@@ -43,18 +38,17 @@ export default defineNuxtConfig({
         : ['@juggle/resize-observer']
   },
   vite: {
-    plugins: [viteCompression()],
     build: {
-      chunkSizeWarningLimit: 1500,
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return id.toString().split('node_modules/')[1].split('/')[0].toString()
-            }
-          }
-        }
-      }
+      chunkSizeWarningLimit: 1500
+      // rollupOptions: {
+      //   output: {
+      //     manualChunks(id) {
+      //       if (id.includes('node_modules')) {
+      //         return id.toString().split('node_modules/')[1].split('/')[0].toString()
+      //       }
+      //     }
+      //   }
+      // }
     },
     optimizeDeps: {
       include:

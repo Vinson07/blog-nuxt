@@ -13,6 +13,10 @@ const props = defineProps({
 
 const { active, item } = toRefs(props)
 const { $markdownItContent } = useNuxtApp()
+
+const createTime = computed(
+  () => (time: string) => useDateFormat(time, 'YYYY-MM-DD hh:mm:ss').value
+)
 </script>
 
 <template>
@@ -23,7 +27,7 @@ const { $markdownItContent } = useNuxtApp()
     <div class="post__list__content" @click="router.push(`/post/${item.id}`)">
       <div class="content-time">
         <Icon name="mingcute:time-fill" size="18" class="pr-1" />
-        发布于 {{ item.createTime }}
+        发布于 {{ createTime(item.createTime) }}
       </div>
       <h4 class="content-title">
         {{ item.articleTitle }}
