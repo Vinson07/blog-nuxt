@@ -1,20 +1,42 @@
 <script setup lang="ts">
-import { useImage } from '@vueuse/core'
+import loadingImgUrl from '../assets/img/loading.gif'
 
 interface Props {
   src: string
 }
 const props = defineProps<Props>()
 const imageStore = useImageStore()
+const imgRef = ref<HTMLElement | null>(null)
+const imgSrc = ref(loadingImgUrl)
 
-const { isLoading, error } = useImage({ src: props.src })
+const loadingImage = () => {
+  const img = new Image()
+  img.src = props.src
+  img.onload = () => {
+    imgSrc.value = props.src
+  }
+  img.onerror = () => {
+    imgSrc.value = imageStore.randomImage[1]
+  }
+}
+
+onMounted(() => {
+  // 图片懒加载
+  const observer = new IntersectionObserver((arr) => {
+    if (arr[0].isIntersecting) {
+      // 进入可视区，加载图片
+      loadingImage()
+      imgRef.value && observer.unobserve(imgRef.value)
+    }
+  })
+
+  imgRef.value && observer.observe(imgRef.value)
+})
 </script>
 
 <template>
-  <div class="the-image">
-    <img v-if="isLoading" class="img" src="~/assets/img/loading-two.gif" alt="" />
-    <img v-else-if="error" class="img" :src="imageStore.randomImage[1]" alt="" />
-    <img v-else :src="src" class="img" alt="" />
+  <div ref="imgRef" class="the-image">
+    <img class="img" :src="imgSrc" alt="" />
   </div>
 </template>
 

@@ -20,6 +20,9 @@ const styleColor = computed(
   () => () => imageStore.colors[Math.floor(Math.random() * imageStore.colors.length)]
 )
 
+// 随机颜色
+// const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
+
 definePageMeta({
   layout: 'no-bottom'
 })
@@ -93,6 +96,8 @@ async function send() {
         ref="danmakuRef"
         v-model:danmus="danmus"
         class="h-full"
+        :speeds="100"
+        :debounce="500"
         use-slot
         random-channel
         is-suspend

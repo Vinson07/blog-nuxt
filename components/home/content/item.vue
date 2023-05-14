@@ -87,7 +87,7 @@ const createTime = computed(
       @apply mr-4 flex items-center;
     }
     .content-ellipsis {
-      @apply flex justify-end;
+      @apply flex justify-end max-md:hidden;
     }
   }
 }
