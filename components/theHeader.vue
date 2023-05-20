@@ -97,7 +97,10 @@ function handleSearch() {
 </script>
 
 <template>
-  <header class="header-nav group/nav" :class="{ active: showMenu }">
+  <header
+    class="header-nav group/nav fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between bg-[rgba(255,255,255,0.7)] px-4 transition-colors duration-700 dark:bg-[rgba(38,38,38,0.7)]"
+    :class="{ active: showMenu }"
+  >
     <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
       {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
     </h1>
@@ -106,7 +109,7 @@ function handleSearch() {
         <li
           v-for="(item, index) in userStore.menuList"
           :key="index"
-          class="nav-item mx-4 flex cursor-pointer items-center font-semibold"
+          class="nav-item mx-4 flex cursor-pointer items-center font-semibold hover:text-orange-500 dark:hover:text-indigo-500"
           @click="router.push(`${item.path}`)"
         >
           <Icon :class="`icon-${index + 1}`" :name="item.icon" />
@@ -117,7 +120,7 @@ function handleSearch() {
     <div class="flex items-center">
       <div class="mr-4 cursor-pointer" @click="toggleDark()">
         <Icon v-if="isDark" name="line-md:sun-rising-filled-loop" size="22" />
-        <Icon v-if="!isDark" name="line-md:moon-filled-loop" size="22" />
+        <Icon v-else name="line-md:moon-filled-loop" size="22" />
       </div>
       <div class="mr-4 cursor-pointer" @click="handleSearch">
         <Icon name="icon-park:search" size="22" />
@@ -133,9 +136,10 @@ function handleSearch() {
 
 <style lang="less">
 .header-nav {
-  @apply fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between px-4 backdrop-blur transition-all;
+  // @apply fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between px-4 transition-colors duration-700 dark:bg-[rgba(38,38,38,0.7)];
+
   &.active {
-    @apply bg-transparent backdrop-blur-none hover:backdrop-blur;
+    @apply bg-transparent hover:bg-[rgba(255,255,255,0.7)] dark:hover:bg-[rgba(38,38,38,0.7)];
   }
   .nav-item {
     &:hover .icon-1 {

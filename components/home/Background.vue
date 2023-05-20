@@ -87,7 +87,7 @@ const handleRight = () => {
         >
           {{ title }}
         </h1>
-        <div class="rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
+        <div class="max-w-3xl rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
           <p class="mb-1 text-base font-bold text-gray-300">
             <Icon name="ooui:quotes-ltr" />
             {{ subTitle }}

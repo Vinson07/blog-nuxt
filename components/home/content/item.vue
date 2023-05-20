@@ -14,14 +14,15 @@ const props = defineProps({
 const { active, item } = toRefs(props)
 const { $markdownItContent } = useNuxtApp()
 
-const createTime = computed(
-  () => (time: string) => useDateFormat(time, 'YYYY-MM-DD hh:mm:ss').value
-)
+const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM-DD').value)
 </script>
 
 <template>
-  <li class="post__list" :class="{ active: active }">
-    <div class="post__list__img md:flex-[1.2]">
+  <li
+    class="post__list bg-[rgba(255,255,255,0.9)] shadow-[0_1px_30px_-4px_#e8e8e8] md:h-[300px]"
+    :class="{ active: active }"
+  >
+    <div class="post__list__img md:flex-[1.4]">
       <the-image :src="item.articleCover" />
     </div>
     <div class="post__list__content" @click="router.push(`/post/${item.id}`)">
@@ -46,7 +47,7 @@ const createTime = computed(
           <span class="ml-1">{{ item.categoryName }}</span>
         </p>
       </div>
-      <div class="py-7">
+      <div class="py-3">
         <p class="content-text multiline-ellipsis">{{ $markdownItContent(item.articleContent) }}</p>
       </div>
       <div class="content-ellipsis">
@@ -58,14 +59,22 @@ const createTime = computed(
 
 <style lang="less">
 .post__list {
-  @apply mb-10 overflow-hidden rounded-2xl shadow-md hover:shadow-xl dark:bg-neutral-800 dark:hover:shadow-lg dark:hover:shadow-indigo-500/50 md:flex md:h-80;
+  @apply mb-10 overflow-hidden rounded-lg transition-shadow duration-500 hover:shadow-[0_1px_20px_10px_#e8e8e8] dark:bg-[rgba(51,51,51,0.7)] dark:shadow-[0_1px_35px_-8px_rgba(26,26,26,0.6)] dark:hover:shadow-[0_1px_20px_0px_rgb(99,102,241)] md:flex;
   &.active {
     @apply flex-row-reverse;
-    .content-ellipsis {
-      @apply justify-start;
+    .post__list__content {
+      @apply text-left;
+      // .content-time {
+      //   @apply justify-start;
+      // }
+      .content-info {
+        @apply justify-start;
+      }
+      .content-ellipsis {
+        @apply justify-start;
+      }
     }
   }
-  // box-shadow: 0 1px 20px -6px rgb(0 0 0 0.5);
   &__img {
     @apply overflow-hidden max-md:h-64;
     img {
@@ -73,18 +82,21 @@ const createTime = computed(
     }
   }
   &__content {
-    @apply px-8 pt-5 md:flex-1;
+    @apply px-8 pt-5 text-right md:flex-1;
     .content-time {
-      @apply flex items-center text-xs;
+      @apply flex w-max items-center rounded-md bg-[#fccd0026] py-1 px-2 text-xs text-orange-500 dark:bg-[#333333] dark:text-[#888];
     }
     .content-title {
-      @apply my-6 cursor-pointer text-xl hover:text-orange-500 hover:dark:text-[#007fff];
+      @apply my-6 cursor-pointer text-xl hover:text-orange-500 hover:dark:text-indigo-500;
     }
     .content-info {
-      @apply flex text-xs;
+      @apply flex justify-end text-xs;
     }
     .info-item {
       @apply mr-4 flex items-center;
+      svg {
+        @apply text-orange-500 dark:text-[#888];
+      }
     }
     .content-ellipsis {
       @apply flex justify-end max-md:hidden;

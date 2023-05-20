@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMessage, NCarousel } from 'naive-ui'
+import { useMessage, NCarousel, NSkeleton } from 'naive-ui'
 import type { PostList } from '@/types/article'
 import { getPostList } from '@/apis/article'
 
@@ -12,6 +12,7 @@ const loading = ref(false)
 const msg = useMessage()
 const homeRef = ref(null)
 const isMobile = ref(false)
+const postLoading = ref(true)
 
 // 切换背景图片
 const onLeft = () => {
@@ -23,6 +24,7 @@ const onRight = () => {
 
 // 下一页
 function handleNextPage() {
+  // postLoading.value = true
   nextPage.value = false
   loading.value = true
   current.value++
@@ -36,6 +38,7 @@ addPostList(current.value)
 async function addPostList(current: number) {
   try {
     const { code, data, message } = await getPostList(current)
+    postLoading.value = false
     if (code === 20000) {
       if (data && data.length > 0) {
         postList.value = postList.value.concat(data)
@@ -49,6 +52,7 @@ async function addPostList(current: number) {
       msg.warning(message)
     }
   } catch (error) {
+    postLoading.value = false
     console.error(error)
   }
 }
@@ -79,7 +83,7 @@ useResizeObserver(homeRef, (entries) => {
       @on-left="onLeft"
       @on-right="onRight"
     />
-    <div class="page-content mx-auto max-w-[768px] pt-14 max-md:px-4">
+    <div class="page-content mx-auto max-w-[820px] pt-14 max-md:px-4">
       <n-carousel v-if="isMobile" draggable autoplay class="rounded-md">
         <nuxt-link target="_blank" to="https://music.sakura520.co">
           <img
@@ -113,6 +117,19 @@ useResizeObserver(homeRef, (entries) => {
             :item="item"
             :active="(index + 1) % 2 === 0"
           />
+          <li
+            v-if="postLoading"
+            class="mb-10 overflow-hidden rounded-lg bg-[rgba(255,255,255,0.9)] shadow-[0_1px_30px_-4px_#e8e8e8] dark:bg-[rgba(51,51,51,0.7)] dark:shadow-[0_1px_35px_-8px_rgba(26,26,26,0.6)] md:flex md:h-56"
+          >
+            <div class="max-md:h-64 md:flex-[1.4]">
+              <n-skeleton height="100%" width="100%" />
+            </div>
+            <div class="px-5 pt-3 md:flex-1">
+              <n-skeleton height="40px" width="60%" :sharp="false" />
+              <n-skeleton height="40px" width="80%" :sharp="false" class="my-3" />
+              <n-skeleton text :repeat="4" />
+            </div>
+          </li>
         </ul>
         <div class="text-center">
           <button v-show="nextPage" class="next-page" @click="handleNextPage">Previous</button>
@@ -131,7 +148,7 @@ useResizeObserver(homeRef, (entries) => {
 
 <style lang="less">
 .h-title {
-  @apply mb-8 flex items-center border-b border-dashed border-gray-300 py-2 text-base font-normal;
+  @apply mb-10 flex items-center border-b border-dashed border-gray-300 py-2 text-base font-normal;
 }
 
 .next-page {

@@ -46,7 +46,6 @@ const gotoArticle = (id: number) => {
 
 <template>
   <n-config-provider
-    class="font-mono dark:text-rose-50"
     inline-theme-disabled
     preflight-style-disabled
     :theme="darkStore.isDark ? darkTheme : null"
@@ -105,9 +104,7 @@ const gotoArticle = (id: number) => {
         </n-card>
       </n-modal>
     </n-message-provider>
-    <div
-      class="fixed top-0 left-0 -z-50 h-full w-full transition-colors duration-500 dark:bg-zinc-900"
-    >
+    <div class="fixed top-0 left-0 -z-50 h-full w-full transition-colors duration-500">
       <canvas id="particle-space" class="fixed top-0 left-0 -z-50 h-full w-full"></canvas>
     </div>
   </n-config-provider>

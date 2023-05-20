@@ -22,8 +22,20 @@
   word-break: break-all;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   overflow: hidden;
+}
+
+@font-face {
+  font-family: SmileySans;
+  src: url(https://cdn.sakura520.co/static/blog-plugin/font/YSHaoShenTi.ttf);
+  font-display: swap;
+}
+
+body,
+html {
+  cursor: url(https://cdn.sakura520.co/static/images/x1.cur), auto;
+  @apply font-['SmileySans'] text-[#504e4e] dark:bg-zinc-900 dark:text-[#999999];
 }
 
 /* 滚动条样式 */
