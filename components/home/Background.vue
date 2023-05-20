@@ -150,6 +150,7 @@ const handleRight = () => {
         @click="handleDown('.page-content')"
       />
     </div>
+    <Waves />
   </div>
 </template>
 

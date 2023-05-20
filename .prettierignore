@@ -1,10 +1,10 @@
-/node_modules
-/Dockerfile
-/dist
-/public
-/docs
-/bin
-/package-lock.json
+node_modules
+Dockerfile
+dist
+public
+docs
+bin
+package-lock.json
 
 .nuxt/*
 .husky/*

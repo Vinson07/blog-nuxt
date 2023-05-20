@@ -13,7 +13,7 @@ const { error } = useImage({ src: props.bgCover })
 </script>
 
 <template>
-  <div class="slide-bottom relative h-72 cursor-pointer select-none">
+  <div class="slide-bottom relative h-[60vh] cursor-pointer select-none">
     <img
       v-if="error"
       class="h-full w-full object-cover brightness-75 dark:brightness-50"
@@ -32,5 +32,6 @@ const { error } = useImage({ src: props.bgCover })
         <p class="mt-4 text-2xl">{{ poetryText }}</p>
       </div>
     </div>
+    <Waves />
   </div>
 </template>

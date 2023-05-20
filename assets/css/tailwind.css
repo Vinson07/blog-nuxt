@@ -35,7 +35,7 @@
 body,
 html {
   cursor: url(https://cdn.sakura520.co/static/images/x1.cur), auto;
-  @apply font-['SmileySans'] text-[#504e4e] dark:bg-zinc-900 dark:text-[#999999];
+  @apply font-['SmileySans'] text-[#504e4e] dark:bg-[#222] dark:text-[#999999];
 }
 
 /* 滚动条样式 */
