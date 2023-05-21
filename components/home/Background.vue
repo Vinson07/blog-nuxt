@@ -23,11 +23,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 const showVideo = ref(false)
 const showPlay = ref(true)
-const titleTop = ref('50%')
+const titleTop = ref('-50%')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
 
 const styleBgSrc = computed(() => `url(${props.bgSrc})`)
+
+onMounted(() => {
+  titleTop.value = '50%'
+})
 
 // 触发播放暂停按钮
 function handlePlay() {
@@ -87,7 +91,7 @@ const handleRight = () => {
         >
           {{ title }}
         </h1>
-        <div class="max-w-3xl rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
+        <div class="centerbg-info max-w-xl rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
           <p class="mb-1 text-base font-bold text-gray-300">
             <Icon name="ooui:quotes-ltr" />
             {{ subTitle }}
@@ -189,12 +193,25 @@ const handleRight = () => {
       background-image: url(~/assets/img/dot.webp);
     }
   }
+  .centerbg-info {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 20%;
+      margin-left: -15px;
+      border-width: 15px;
+      border-style: solid;
+      border-color: transparent transparent rgba(0, 0, 0, 0.5) transparent;
+    }
+  }
 }
 </style>
 
 <style>
 #centerbg {
-  @apply relative h-full w-full bg-cover bg-center bg-no-repeat md:bg-fixed;
+  @apply relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat md:bg-fixed;
   background-image: v-bind(styleBgSrc);
 }
 </style>
