@@ -16,7 +16,9 @@
       </div>
       <div class="nav-feature group mx-2">
         <nuxt-link target="_blank" to="">
-          <TheImage src="https://cdn.sakura520.co/images/20170416215602_iNAM4.jpeg" />
+          <TheImage
+            src="https://view.lixingyong.com/images/2022/09/11/1468388387_tumblr_oa7rjmlk8I1skf4nco2_r2_540.gif"
+          />
           <div class="nav-feature__text">
             <h4 class="text-title bg-[rgba(255,255,255,0.4)]">sakura</h4>
             <p class="text-tip">本站 Sakura 主题</p>
