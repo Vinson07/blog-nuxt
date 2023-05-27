@@ -8,6 +8,19 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     userInfo: {} as IUserInfo,
     websiteConfig: {} as WebsiteConfig,
+    // pageImage: {
+    //   home: '',
+    //   category: '',
+    //   tag: '',
+    //   album: '',
+    //   about: '',
+    //   message: '',
+    //   user: '',
+    //   articleList: '',
+    //   talk: '',
+    //   link: '',
+    //   archive: ''
+    // } as { [key: string]: string },
     // 菜单
     menuList: [
       {
@@ -63,6 +76,10 @@ export const useUserStore = defineStore('user', {
           this.categoryCount = categoryCount
           this.tagCount = tagCount
           this.viewsCount = viewsCount
+
+          // pageList.forEach((item) => {
+          //   this.pageImage[item.pageLabel] = item.pageCover
+          // })
         } else {
           useMessage().warning(message)
         }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   value: {
     type: String,
     required: true
@@ -18,7 +18,6 @@ defineProps({
   }
 })
 
-const val = ref('')
 const style = ref(['top-2'])
 const passShow = ref(false)
 
@@ -30,9 +29,11 @@ const onFocus = () => {
 const onBlur = () => {
   if (!val.value) style.value = ['top-2']
 }
-const onChange = () => {
-  emits('update:value', val)
-}
+
+const val = computed({
+  get: () => props.value,
+  set: (v) => emits('update:value', v)
+})
 
 const togglePassShow = () => {
   passShow.value = !passShow.value
@@ -51,7 +52,6 @@ const togglePassShow = () => {
         :class="{ 'pr-8': type === 'password' }"
         @focus="onFocus"
         @blur="onBlur"
-        @change="onChange"
       />
       <div
         v-if="type === 'password'"

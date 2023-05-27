@@ -8,6 +8,7 @@ export interface PageListStore {
   home: string
   link: string
   archive: string
+  message: string
 }
 
 export interface PageList {
