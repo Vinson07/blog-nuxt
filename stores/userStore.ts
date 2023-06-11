@@ -56,7 +56,7 @@ export const useUserStore = defineStore('user', {
         title: 'Web音乐播放器',
         describe: '高颜值的第三方网易云播放器',
         link: 'https://music.sakura520.co/',
-        bgSrc: 'https://cdn.sakura520.co/images/20180325154208_GYwna.jpeg'
+        bgSrc: 'https://cdn.sakura520.co/images/0712.jpeg'
       },
       {
         title: '图库',
@@ -66,9 +66,9 @@ export const useUserStore = defineStore('user', {
       },
       {
         title: 'sakura',
-        describe: '本站 Sakura 主题<',
+        describe: '本站 Sakura 主题',
         link: '',
-        bgSrc: 'https://cdn.sakura520.co/images/38bf42ad37a6eba0b927e10e8d544ac498e9c4c0.jpeg'
+        bgSrc: 'https://cdn.sakura520.co/images/0711.jpeg'
       }
     ],
     articleCount: 0,
