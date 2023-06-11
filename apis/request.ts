@@ -1,10 +1,14 @@
 // index.ts
 import axios from 'axios'
+import { createDiscreteApi } from 'naive-ui'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { Result } from '@/types'
 
 // 获取环境变量
 const baseURL = import.meta.env.VITE_API_BASE_URL as string
+
+const { message: msg } = createDiscreteApi(['message'])
+
 // 导出Request类，可以用来自定义传递配置来创建实例
 export class Request {
   // axios 实例
@@ -79,14 +83,8 @@ export class Request {
           default:
             message = `连接出错(${err.response?.status})!`
         }
-        console.error(message)
         // 这里错误消息可以使用全局弹框展示出来
-        // 比如element plus 可以使用 ElMessage
-        // ElMessage({
-        //   showClose: true,
-        //   message: `${message}，请检查网络或联系管理员！`,
-        //   type: "error",
-        // });
+        msg && msg.error(message)
         // 这里是AxiosError类型，所以一般我们只reject我们需要的响应即可
         return Promise.reject(err.response)
       }

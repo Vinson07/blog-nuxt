@@ -1,8 +1,10 @@
-import { useMessage } from 'naive-ui'
+import { createDiscreteApi } from 'naive-ui'
 import { getBlogInfo } from '@/apis/home'
 import { getYiYan } from '@/apis/poetry'
 import type { WebsiteConfig } from '@/types'
 import type { IUserInfo } from '@/types/user'
+
+const { message: msg } = createDiscreteApi(['message'])
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -49,6 +51,26 @@ export const useUserStore = defineStore('user', {
         path: '/album'
       }
     ],
+    bannerList: [
+      {
+        title: 'Web音乐播放器',
+        describe: '高颜值的第三方网易云播放器',
+        link: 'https://music.sakura520.co/',
+        bgSrc: 'https://cdn.sakura520.co/images/20180325154208_GYwna.jpeg'
+      },
+      {
+        title: '图库',
+        describe: '这里有好多图片',
+        link: 'https://view.lixingyong.com/explore/trending',
+        bgSrc: 'https://cdn.sakura520.co/FmcgKQQGHWnGwzALOBTbRIzrTeeP'
+      },
+      {
+        title: 'sakura',
+        describe: '本站 Sakura 主题<',
+        link: '',
+        bgSrc: 'https://cdn.sakura520.co/images/38bf42ad37a6eba0b927e10e8d544ac498e9c4c0.jpeg'
+      }
+    ],
     articleCount: 0,
     categoryCount: 0,
     tagCount: 0,
@@ -81,7 +103,7 @@ export const useUserStore = defineStore('user', {
           //   this.pageImage[item.pageLabel] = item.pageCover
           // })
         } else {
-          useMessage().warning(message)
+          msg.warning(message)
         }
       } catch (error) {
         console.error(error)

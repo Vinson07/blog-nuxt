@@ -22,20 +22,36 @@
   word-break: break-all;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   overflow: hidden;
 }
 
-@font-face {
+/* @font-face {
   font-family: SmileySans;
   src: url(https://cdn.sakura520.co/static/blog-plugin/font/YSHaoShenTi.ttf);
   font-display: swap;
+} */
+
+@font-face {
+  font-family: FrederickaTheGreat;
+  src: url(https://cdn.sakura520.co/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF)
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
 body,
 html {
   cursor: url(https://cdn.sakura520.co/static/images/x1.cur), auto;
-  @apply font-['SmileySans'] text-[#504e4e] dark:bg-[#222] dark:text-[#999999];
+  @apply font-sans;
+}
+
+html.light {
+  @apply text-[#504e4e];
+}
+
+html.dark {
+  @apply bg-[#222] text-[#999999];
 }
 
 /* 滚动条样式 */

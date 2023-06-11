@@ -10,12 +10,12 @@ interface Props {
   music?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   videoSrc: '',
   bgSrc: '',
   title: '',
   subTitle: '',
-  bgMask: 'filter-grid', // filter-grid filter-dot filter-dim filter-undertint pattern-center
+  bgMask: 'filter-dot', // filter-grid filter-dot filter-dim filter-undertint pattern-center
   gitHub: '',
   zhiHu: '',
   music: ''
@@ -26,8 +26,6 @@ const showPlay = ref(true)
 const titleTop = ref('-50%')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
-
-const styleBgSrc = computed(() => `url(${props.bgSrc})`)
 
 onMounted(() => {
   titleTop.value = '50%'
@@ -81,17 +79,22 @@ const handleRight = () => {
 
 <template>
   <div id="headertop" class="relative h-screen" :class="bgMask">
-    <figure id="centerbg">
+    <figure
+      class="relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat md:bg-fixed"
+      :style="{ backgroundImage: `url(${bgSrc})` }"
+    >
       <div
         :style="{ top: titleTop }"
         class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center transition-[top] duration-700"
       >
         <h1
-          class="tik-tok-shake mb-7 cursor-pointer select-none text-7xl font-bold uppercase text-slate-50"
+          class="tik-tok-shake mb-7 cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
         >
           {{ title }}
         </h1>
-        <div class="centerbg-info max-w-xl rounded-lg bg-[rgba(0,0,0,.5)] p-3.5">
+        <div
+          class="centerbg-info min-w-[300px] rounded-lg bg-[rgba(0,0,0,.5)] p-3.5 md:min-w-[450px]"
+        >
           <p class="mb-1 text-base font-bold text-gray-300">
             <Icon name="ooui:quotes-ltr" />
             {{ subTitle }}
@@ -158,60 +161,43 @@ const handleRight = () => {
   </div>
 </template>
 
-<style lang="less">
-#headertop {
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-attachment: fixed;
-    z-index: 9;
-  }
-  &.pattern-center {
-    animation: header 1s;
-  }
-  &.filter-undertint {
-    &:before {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-  }
-  &.filter-dim {
-    &:before {
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-  }
-  &.filter-grid {
-    &:before {
-      background-image: url(~/assets/img/grid.webp);
-    }
-  }
-  &.filter-dot {
-    &:before {
-      background-image: url(~/assets/img/dot.webp);
-    }
-  }
-  .centerbg-info {
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      top: -30px;
-      left: 20%;
-      margin-left: -15px;
-      border-width: 15px;
-      border-style: solid;
-      border-color: transparent transparent rgba(0, 0, 0, 0.5) transparent;
-    }
-  }
-}
-</style>
-
 <style>
-#centerbg {
-  @apply relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat md:bg-fixed;
-  background-image: v-bind(styleBgSrc);
+#headertop:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-attachment: fixed;
+  z-index: 9;
+}
+#headertop.pattern-center {
+  animation: header 1s;
+}
+#headertop.filter-undertint:before {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+#headertop.filter-dim:before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#headertop.filter-grid:before {
+  background-image: url(~/assets/img/grid.webp);
+}
+#headertop.filter-dot:before {
+  background-image: url(~/assets/img/dot.webp);
+}
+#headertop .centerbg-info {
+  position: relative;
+}
+#headertop .centerbg-info::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 20%;
+  margin-left: -15px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.5) transparent;
 }
 </style>

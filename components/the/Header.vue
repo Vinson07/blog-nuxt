@@ -9,26 +9,10 @@ interface IOption {
 
 const router = useRouter()
 const userStore = useUserStore()
-const darkStore = useDarkStore()
 const searchStore = useSearchStore()
 const showMenu = ref(true)
 
 const options = ref<IOption[]>([])
-// 切换暗黑模式
-const isDark = useDark({
-  selector: 'html',
-  attribute: 'class',
-  valueDark: 'dark',
-  valueLight: 'light'
-})
-
-watch(
-  isDark,
-  (v) => {
-    darkStore.setDark(v)
-  },
-  { immediate: true }
-)
 
 watch(
   () => userStore.userInfo.userInfoId,
@@ -87,9 +71,6 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
 })
 
-// 切换主题
-const toggleDark = useToggle(isDark)
-
 // 搜索
 function handleSearch() {
   searchStore.setModal(true)
@@ -118,10 +99,7 @@ function handleSearch() {
       </ul>
     </nav>
     <div class="flex items-center">
-      <div class="mr-4 cursor-pointer" @click="toggleDark()">
-        <Icon v-if="isDark" name="line-md:sun-rising-filled-loop" size="22" />
-        <Icon v-else name="line-md:moon-filled-loop" size="22" />
-      </div>
+      <dark-toggle />
       <div class="mr-4 cursor-pointer" @click="handleSearch">
         <Icon name="icon-park:search" size="22" />
       </div>

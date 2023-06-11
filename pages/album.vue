@@ -53,7 +53,7 @@ getImageList()
 </script>
 
 <template>
-  <div class="shell bg-gradient-to-r from-[#F2994A] to-[#F2C94C] dark:bg-none">
+  <div class="shell">
     <div v-for="item in imgList" :key="item.hash" class="images" :class="classRandom()">
       <!-- <img :src="baseImgUrl + item.key" alt="" /> -->
       <n-image :src="baseImgUrl + item.key" />
@@ -98,10 +98,10 @@ getImageList()
       max-width: 45vh;
       max-height: 50vh;
       transition: 0.5s;
-      // &:hover {
-      //   box-shadow: 0 10px 30px #86c4f7;
-      //   transform: scale(1.05);
-      // }
+      &:hover {
+        box-shadow: 0 10px 30px #86c4f7;
+        // transform: scale(1.05);
+      }
     }
     // &:hover img {
     //   box-shadow: 0 10px 30px #86c4f7;

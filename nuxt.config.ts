@@ -1,8 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  typescript: {
-    shim: false
-  },
   app: {
     head: {
       viewport: 'width=device-width, initial-scale=1',
@@ -12,14 +9,18 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Vinson个人博客，知识库' }
       ],
       script: [
+        // {
+        //   src: 'https://cdn.sakura520.co/static/blog-plugin/js/particleSpace.min.js', // 粒子空间背景
+        //   body: true
+        // },
         {
-          src: 'https://cdn.sakura520.co/static/blog-plugin/js/particleSpace.min.js', // 粒子空间背景
-          body: true
-        },
-        {
-          src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+          src: 'https://cdn.sakura520.co/static/blog-plugin/js/starrySky.min.js', // 星空背景
           body: true
         }
+        // {
+        //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+        //   body: true
+        // }
       ]
     }
   },
@@ -38,18 +39,18 @@ export default defineNuxtConfig({
         : ['@juggle/resize-observer']
   },
   vite: {
-    build: {
-      chunkSizeWarningLimit: 1500
-      // rollupOptions: {
-      //   output: {
-      //     manualChunks(id) {
-      //       if (id.includes('node_modules')) {
-      //         return id.toString().split('node_modules/')[1].split('/')[0].toString()
-      //       }
-      //     }
-      //   }
-      // }
-    },
+    // build: {
+    //   chunkSizeWarningLimit: 1500,
+    //   rollupOptions: {
+    //     output: {
+    //       manualChunks(id) {
+    //         if (id.includes('node_modules')) {
+    //           return id.toString().split('node_modules/')[1].split('/')[0].toString()
+    //         }
+    //       }
+    //     }
+    //   }
+    // },
     optimizeDeps: {
       include:
         process.env.NODE_ENV === 'development'
@@ -59,7 +60,7 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css'],
   // 代理
-  server: true,
+  // server: false,
   nitro: {
     devProxy: {
       '/qiniuApi': {
@@ -80,6 +81,9 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
+  colorMode: {
+    classSuffix: ''
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     [
@@ -90,6 +94,7 @@ export default defineNuxtConfig({
     ],
     '@vueuse/nuxt',
     '@nuxtjs/device',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxtjs/color-mode'
   ]
 })

@@ -3,11 +3,10 @@ import type { PageListStore } from '@/types'
 export const useImageStore = defineStore('image', {
   state: () => ({
     pageList: {
-      home: 'https://www.loliapi.com/acg/',
-      message: 'https://t.mwm.moe/ycy/',
-      link: 'https://cdn.sakura520.co/images/5e8889652e7a2148e48797202.png',
-      archive:
-        'https://cdn.sakura520.co/images/36b8935e9968f1c530b7f5f5544bdac1fcf5c05d215902-DPCqjQ.jpeg'
+      home: 'https://www.loliapi.com/acg',
+      message: 'https://cdn.sakura520.co/images/0510.webp',
+      link: 'https://cdn.sakura520.co/images/0517.webp',
+      archive: 'https://cdn.sakura520.co/images/058.jpeg'
     } as PageListStore,
     randomImage: [
       'https://api.ghser.com/random/api.php',
@@ -21,7 +20,6 @@ export const useImageStore = defineStore('image', {
       '#e73c7e',
       '#23a6d5',
       '#23d5ab',
-      'rgb(131,123,199)',
       '#23d5ab',
       '#ff4757',
       '#ff7f50',

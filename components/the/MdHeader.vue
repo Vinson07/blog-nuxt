@@ -1,26 +1,7 @@
 <script setup lang="ts">
 const router = useRouter()
 const userStore = useUserStore()
-const darkStore = useDarkStore()
 const searchStore = useSearchStore()
-
-// 切换主题
-const isDark = useDark({
-  selector: 'html',
-  attribute: 'class',
-  valueDark: 'dark',
-  valueLight: 'light'
-})
-
-watch(
-  isDark,
-  (v) => {
-    darkStore.setDark(v)
-  },
-  { immediate: true }
-)
-
-const toggleDark = useToggle(isDark)
 
 const menuToggle = ref(false)
 function handleIconMenu() {
@@ -45,10 +26,7 @@ function handleAvatar() {
         {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
       </h1>
       <div class="flex items-center">
-        <div class="mr-4 cursor-pointer" @click="toggleDark()">
-          <Icon v-if="isDark" name="line-md:sun-rising-filled-loop" size="22" />
-          <Icon v-else name="line-md:moon-filled-loop" size="22" />
-        </div>
+        <dark-toggle />
         <div class="mr-4 cursor-pointer">
           <Icon name="icon-park:search" size="22" @click="handleSearch" />
         </div>

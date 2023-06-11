@@ -11,5 +11,6 @@
   // 禁用所有内置CSS验证,由Stylelint处理。
   "css.validate": false,
   "less.validate": false,
-  "scss.validate": false
+  "scss.validate": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

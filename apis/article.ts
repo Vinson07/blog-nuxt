@@ -1,5 +1,5 @@
 import { http } from './request'
-import {
+import type {
   PostList,
   ArticleDetail,
   SearchArticle,

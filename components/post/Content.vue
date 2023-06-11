@@ -94,10 +94,11 @@ onMounted(() => {
     // 图片预览
     const markdownBody: HTMLElement | null = document.querySelector('.markdown-body')
     if (markdownBody) {
-      gallery.value = new Viewer(markdownBody, {
-        button: false,
-        navbar: false
-      })
+      // gallery.value = new Viewer(markdownBody, {
+      //   button: false,
+      //   navbar: false
+      // })
+      gallery.value = new Viewer(markdownBody)
     }
 
     addEventListener('scroll', handleScroll, false)

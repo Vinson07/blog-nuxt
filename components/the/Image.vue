@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import loadingImgUrl from '../assets/img/loading.gif'
+import loadingImgUrl from '@/assets/img/loading.gif'
 
 interface Props {
   src: string
@@ -35,16 +35,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="imgRef" class="the-image">
-    <img class="img" :src="imgSrc" alt="" />
+  <div ref="imgRef" class="group h-full w-full">
+    <img
+      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+      :src="imgSrc"
+      alt=""
+    />
   </div>
 </template>
-
-<style lang="less">
-.the-image {
-  @apply h-full w-full;
-  .img {
-    @apply h-full w-full object-cover transition-transform duration-500 group-hover:scale-125;
-  }
-}
-</style>
