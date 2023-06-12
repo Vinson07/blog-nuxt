@@ -116,7 +116,7 @@ async function send() {
   </client-only>
 </template>
 
-<style lang="less">
+<style>
 .barrage-bg {
   background: v-bind(styleBgSrc) no-repeat center;
   background-size: cover;

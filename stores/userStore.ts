@@ -80,7 +80,7 @@ export const useUserStore = defineStore('user', {
       zhiHu: '',
       music: 'https://music.163.com/playlist?id=7568550728&userid=1288893816'
     },
-    yiYan: 'You got to put the past behind you before you can move on.'
+    yiYan: '梦想是一个天真的词，实现梦想是一个残酷的词'
   }),
   actions: {
     setUserInfo(userInfo: IUserInfo) {

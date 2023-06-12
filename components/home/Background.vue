@@ -13,8 +13,8 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   videoSrc: '',
   bgSrc: '',
-  title: '',
-  subTitle: '',
+  title: 'Vinson Blog',
+  subTitle: '梦想是一个天真的词，实现梦想是一个残酷的词',
   bgMask: 'filter-dot', // filter-grid filter-dot filter-dim filter-undertint pattern-center
   gitHub: '',
   zhiHu: '',

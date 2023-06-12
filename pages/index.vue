@@ -87,14 +87,24 @@ onMounted(() => {
     <div class="page-content mx-auto max-w-[820px] pt-14 max-md:px-4">
       <div>
         <home-content-title />
-        <n-carousel v-if="isMobile" draggable autoplay class="rounded-md">
+        <n-carousel v-if="isMobile" draggable autoplay class="relative h-40 rounded-md">
           <nuxt-link
             v-for="(item, index) in userStore.bannerList"
             :key="index"
             target="_blank"
             :to="item.link"
           >
-            <img class="carousel-img" :src="item.bgSrc" />
+            <the-image :src="item.bgSrc" />
+            <div
+              class="absolute top-0 left-0 right-0 bottom-0 bg-[rgba(255,255,255,0.4)] text-center dark:bg-[rgba(51,51,51,0.7)]"
+            >
+              <h4
+                class="mt-7 mb-5 bg-[rgba(255,255,255,0.4)] py-3 text-lg uppercase text-[#505050] dark:bg-[rgb(0,0,0,0.2)] dark:text-[#CCCCCC]"
+              >
+                {{ item.title }}
+              </h4>
+              <p class="text-xs italic text-[#505050] dark:text-[#CCCCCC]">{{ item.describe }}</p>
+            </div>
           </nuxt-link>
         </n-carousel>
         <div v-else class="flex">

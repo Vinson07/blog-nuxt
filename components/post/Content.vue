@@ -94,11 +94,10 @@ onMounted(() => {
     // 图片预览
     const markdownBody: HTMLElement | null = document.querySelector('.markdown-body')
     if (markdownBody) {
-      // gallery.value = new Viewer(markdownBody, {
-      //   button: false,
-      //   navbar: false
-      // })
-      gallery.value = new Viewer(markdownBody)
+      gallery.value = new Viewer(markdownBody, {
+        // button: false
+        navbar: false
+      })
     }
 
     addEventListener('scroll', handleScroll, false)
@@ -126,7 +125,14 @@ onUnmounted(() => {
       <div class="my-14 border-t border-b border-dashed py-5 text-sm text-zinc-500">
         <p class="flex items-center justify-center">
           <Icon name="bi:cc-circle" />
-          <span class="ml-1">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</span>
+          <!-- <span class="ml-1">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</span> -->
+          <nuxt-link
+            class="ml-1"
+            to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+            target="_blank"
+          >
+            知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议
+          </nuxt-link>
         </p>
         <div class="mt-2 flex justify-between">
           <div class="tag flex items-center">

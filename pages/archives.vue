@@ -102,11 +102,9 @@ onMounted(async () => {
   </div>
 </template>
 
-<style lang="less">
-#archives {
-  .arrow-left-ar {
-    border-left: 20px solid transparent;
-    border-bottom: 20px solid #f5f5f5;
-  }
+<style>
+#archives .arrow-left-ar {
+  border-left: 20px solid transparent;
+  border-bottom: 20px solid #f5f5f5;
 }
 </style>
