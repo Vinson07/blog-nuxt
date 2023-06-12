@@ -6,7 +6,9 @@ export const useImageStore = defineStore('image', {
       home: 'https://www.loliapi.com/acg',
       message: 'https://cdn.sakura520.co/images/0510.webp',
       link: 'https://cdn.sakura520.co/images/0517.webp',
-      archive: 'https://cdn.sakura520.co/images/058.jpeg'
+      archive: 'https://cdn.sakura520.co/images/058.jpeg',
+      login: 'https://cdn.sakura520.co/images/055.jpeg',
+      user: 'https://cdn.sakura520.co/images/0304.jpeg'
     } as PageListStore,
     randomImage: [
       'https://api.ghser.com/random/api.php',

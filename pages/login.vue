@@ -9,6 +9,7 @@ definePageMeta({
 const message = useMessage()
 const { text: codeText, flag, timer } = useTimer('发送')
 const userStore = useUserStore()
+const imageStore = useImageStore()
 const router = useRouter()
 const toggleForm = ref(false)
 const formLogin = reactive({ account: '', password: '' })
@@ -113,9 +114,17 @@ const handleRegister = async () => {
 
 <template>
   <client-only>
-    <div class="login">
-      <div class="box" :class="{ 'h-[500px]': toggleForm }">
-        <div class="form bg-[hsla(0,0%,10%,0.1)]">
+    <div
+      class="login flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
+      :style="{ backgroundImage: `url(${imageStore.pageList.login})` }"
+    >
+      <div
+        class="box relative w-96 overflow-hidden rounded-3xl border-2 border-solid border-white max-md:w-80"
+        :class="{ 'h-[500px]': toggleForm }"
+      >
+        <div
+          class="form h-full w-full rounded-3xl bg-[hsla(0,0%,10%,0.1)] py-10 px-6 text-sm text-white backdrop-blur transition-all duration-500"
+        >
           <h3 class="text-center text-3xl">Login</h3>
           <login-input
             v-model:value="formLogin.account"
@@ -141,7 +150,10 @@ const handleRegister = async () => {
             <button @click="handleToggleForm">Register</button>
           </div>
         </div>
-        <div class="form register bg-[hsla(0,0%,10%,0.1)]" :class="{ active: toggleForm }">
+        <div
+          class="form absolute top-0 left-96 h-full w-full rounded-3xl bg-[hsla(0,0%,10%,0.1)] py-10 px-6 text-sm text-white backdrop-blur transition-all duration-500"
+          :style="{ left: toggleForm ? '0' : '' }"
+        >
           <h3 class="text-center text-3xl">Register</h3>
           <login-input
             v-model:value="fromRegister.username"
@@ -188,42 +200,25 @@ const handleRegister = async () => {
   </client-only>
 </template>
 
-<style lang="less">
-.login {
-  @apply flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat;
-  background-image: url(https://cdn.sakura520.co/images/1603095777_8.jpg);
-  .box {
-    @apply relative w-96 overflow-hidden rounded-3xl border-2 border-solid  border-white max-md:w-80;
-    .form {
-      @apply h-full w-full rounded-3xl py-10 px-6 text-sm text-white backdrop-blur transition-all duration-500;
+<style>
+.login .box .form .btn-grad {
+  width: 100%;
+  background-image: linear-gradient(to right, #e8cbc0 0%, #636fa4 51%, #e8cbc0 100%);
+  /* margin: 10px; */
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
 
-      .btn-grad {
-        width: 100%;
-        background-image: linear-gradient(to right, #e8cbc0 0%, #636fa4 51%, #e8cbc0 100%);
-        // margin: 10px;
-        padding: 15px 45px;
-        text-align: center;
-        text-transform: uppercase;
-        transition: 0.5s;
-        background-size: 200% auto;
-        color: white;
-        box-shadow: 0 0 20px #eee;
-        border-radius: 10px;
-        display: block;
-      }
-
-      .btn-grad:hover {
-        background-position: right center; /* change the direction of the change here */
-        color: #fff;
-        text-decoration: none;
-      }
-    }
-    .register {
-      @apply absolute top-0 left-96;
-      &.active {
-        @apply left-0;
-      }
-    }
-  }
+.login .box .form .btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
 }
 </style>

@@ -10,6 +10,7 @@ definePageMeta({
 
 const message = useMessage()
 const userStore = useUserStore()
+const imageStore = useImageStore()
 const formRef = ref<FormInst | null>(null)
 const model = reactive({ nickname: '', intro: '', webSite: '', email: '' })
 
@@ -107,8 +108,13 @@ const onSubmit = (e: Event) => {
 
 <template>
   <client-only>
-    <div class="user">
-      <div class="box bg-[hsla(0,0%,10%,0.1)]">
+    <div
+      class="flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
+      :style="{ backgroundImage: `url(${imageStore.pageList.user})` }"
+    >
+      <div
+        class="w-96 rounded-3xl border-2 border-solid border-white bg-[hsla(0,0%,10%,0.1)] py-10 px-6 text-sm text-white backdrop-blur max-md:w-80"
+      >
         <div class="mb-5 text-center">
           <n-upload
             accept="image/*"
@@ -116,9 +122,13 @@ const onSubmit = (e: Event) => {
             :custom-request="customUpload"
             @before-upload="beforeUpload"
           >
-            <div class="avatar-box">
+            <div class="group relative cursor-pointer">
               <n-avatar round :size="64" :src="userStore.userInfo?.avatar" />
-              <div class="avatar bg-[rgba(0,0,0,0.3)]">上传头像</div>
+              <div
+                class="absolute top-0 left-0 hidden h-16 w-16 items-center justify-center rounded-full bg-[rgba(0,0,0,0.3)] text-xs group-hover:flex"
+              >
+                上传头像
+              </div>
             </div>
           </n-upload>
         </div>
@@ -151,22 +161,3 @@ const onSubmit = (e: Event) => {
     </div>
   </client-only>
 </template>
-
-<style lang="less">
-.user {
-  @apply flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat;
-  background-image: url(https://cdn.sakura520.co/images/2b27097722fce411b7ae68d6c68b23dec94f8ede27a471-p1kDmK.png);
-  .box {
-    @apply w-96 rounded-3xl border-2 border-solid border-white py-10  px-6 text-sm text-white backdrop-blur max-md:w-80;
-    .avatar-box {
-      @apply relative cursor-pointer;
-      &:hover .avatar {
-        @apply flex;
-      }
-      .avatar {
-        @apply absolute top-0 left-0 hidden h-16 w-16 items-center justify-center rounded-full text-xs;
-      }
-    }
-  }
-}
-</style>

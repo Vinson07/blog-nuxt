@@ -9,6 +9,8 @@ export interface PageListStore {
   link: string
   archive: string
   message: string
+  login: string
+  user: string
 }
 
 export interface PageList {
