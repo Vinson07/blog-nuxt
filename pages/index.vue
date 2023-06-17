@@ -134,7 +134,13 @@ onMounted(() => {
           </template>
         </ul>
         <div class="text-center">
-          <button v-show="nextPage" class="next-page" @click="handleNextPage">Previous</button>
+          <button
+            v-show="nextPage"
+            class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
+            @click="handleNextPage"
+          >
+            Previous
+          </button>
           <img
             v-show="loading"
             src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
@@ -147,15 +153,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style>
-.next-page {
-  @apply rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500;
-}
-
-.carousel-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-</style>

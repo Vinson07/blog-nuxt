@@ -10,7 +10,7 @@ const message = useMessage()
 
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} - Vinson` : 'Vinson'
+    return titleChunk ? `${titleChunk}-Vinson` : 'Vinson'
   }
 })
 
@@ -34,6 +34,7 @@ try {
     </Head>
     <post-pattern
       v-if="post"
+      class="articlePattern"
       :img-src="post.articleCover"
       :title="post.articleTitle"
       :time="post.createTime"

@@ -1,22 +1,23 @@
 <template>
   <nav
     ref="tocRef"
-    class="max-h-[500px] w-[inherit] overflow-y-auto rounded py-2 shadow-md dark:bg-neutral-800"
+    class="toc-nav max-h-[500px] w-[inherit] overflow-y-auto rounded py-2 shadow-md dark:bg-neutral-800"
   >
     <!-- <div class="catalog-header">
       <svg-icon icon-class="category"></svg-icon>
       目录
     </div> -->
-    <ul class="catalog-content">
+    <ul class="catalog-content px-4">
       <li
         v-for="(anchor, index) of titleList"
+        :id="`toc-li-${anchor.lineIndex}`"
         :key="anchor.title"
-        class="catalog-item"
+        class="block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
         :class="currentIndex === index ? 'active' : ''"
-        :style="{ paddingLeft: `${5 + anchor.indent * 15}px` }"
+        :style="{ paddingLeft: `${anchor.indent * 10}px` }"
         @click="handleAnchorClick(anchor, index)"
       >
-        <a> {{ anchor.title }} </a>
+        {{ anchor.title }}
       </li>
     </ul>
   </nav>
@@ -25,9 +26,6 @@
 <script setup lang="ts">
 import { useScroll, watchThrottled } from '@vueuse/core'
 
-const titleList = ref<any>([])
-const tocRef = ref<HTMLElement | null>(null)
-const currentIndex = ref(0)
 const props = defineProps({
   domRef: {
     type: Object,
@@ -35,34 +33,39 @@ const props = defineProps({
   }
 })
 
+const titleList = ref<any>([])
+const tocRef = ref<HTMLElement | null>(null)
+const currentIndex = ref(0)
+// 推荐文章dom高度
+const recommendHeight = ref(0)
+// 文章顶部固定图高度
+const patternHeight = ref(0)
+
 const getTitles = () => {
   const anchors = props.domRef.querySelectorAll('h1,h2,h3')
   const titles = Array.from(anchors).filter((t: any) => !!t.innerText.trim())
-  console.log(titles, '#')
   if (!titles.length) titleList.value = []
   const hTags = Array.from(new Set(titles.map((t: any) => t.tagName))).sort()
   titleList.value = titles.map((el: any, index) => {
-    el.setAttribute('data-v-md-line', index)
-    // console.log(hTags, el.tagName, '##')
+    el.dataset.id = index
     return {
       title: el.innerText,
-      lineIndex: el.getAttribute('data-v-md-line'),
+      lineIndex: el.dataset.id,
       indent: hTags.indexOf(el.tagName)
     }
   })
 }
 
 // 点击锚点目录
-function handleAnchorClick(anchor: any, idx: number) {
-  const heading = props.domRef.querySelector(`[data-v-md-line="${anchor.lineIndex}"]`)
+function handleAnchorClick(anchor: any, index: number) {
+  const heading = props.domRef.querySelector(`[data-id="${anchor.lineIndex}"]`)
   // const heading = preview.querySelector(`#${anchor.title}`)
-  console.log(heading.offsetTop, '#')
   if (heading) {
     window.scrollTo({
       behavior: 'smooth',
-      top: heading.offsetTop + 730
+      top: heading.offsetTop + patternHeight.value - 40
     })
-    setTimeout(() => (currentIndex.value = idx), 600)
+    setTimeout(() => (currentIndex.value = index), 500)
   }
 }
 
@@ -72,25 +75,30 @@ const { y } = useScroll(window)
 watchThrottled(
   y,
   () => {
-    titleList.value.forEach((e: any, idx: number) => {
-      const heading = props.domRef.querySelector(`[data-v-md-line="${e.lineIndex}"]`)
-      if (y.value >= heading.offsetTop + 730)
+    titleList.value.forEach((titleItem: any, index: number) => {
+      const heading = props.domRef.querySelector(`[data-id="${titleItem.lineIndex}"]`)
+      // const tocNavDom = document.querySelector('.toc-nav') as HTMLElement
+      if (y.value >= heading.offsetTop + patternHeight.value - 50) {
         // 比 40 稍微多一点
-        currentIndex.value = idx
+        currentIndex.value = index
+        // 目录item滚动同步
+        const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
+        tocLiId &&
+          tocLiId.scrollIntoView({
+            block: 'center',
+            inline: 'nearest',
+            behavior: 'smooth'
+          })
+      }
     })
   },
   { throttle: 200 }
 )
 
-// 滚动事件
-const handleScroll = () => {
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+// 固定目录
+watchThrottled(y, () => {
   if (tocRef.value) {
-    const height = 400 + 265
-    // if (recommendRef.value) {
-    //   height += recommendRef.value.offsetHeight
-    // }
-    if (scrollTop > height) {
+    if (y.value > patternHeight.value + recommendHeight.value) {
       tocRef.value.style.position = 'fixed'
       tocRef.value.style.top = '80px'
     } else {
@@ -98,46 +106,20 @@ const handleScroll = () => {
       tocRef.value.style.top = ''
     }
   }
-}
-onMounted(() => {
-  nextTick(() => {
-    getTitles()
-    addEventListener('scroll', handleScroll, false)
-  })
 })
 
-onUnmounted(() => {
-  removeEventListener('scroll', handleScroll)
+onMounted(() => {
+  nextTick(() => {
+    recommendHeight.value = (document.querySelector('.recommend') as HTMLElement).offsetHeight || 0
+    patternHeight.value =
+      (document.querySelector('.articlePattern') as HTMLElement).offsetHeight || 0
+    getTitles()
+  })
 })
 </script>
 
-<style scoped>
-.catalog-content {
-  /* max-height: calc(100vh - 100px); */
-  overflow: auto;
-  /* margin-right: -16px;
-  padding-right: 16px; */
-}
-
-.catalog-item {
-  margin: 5px 0;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  font-size: 14px;
-  padding: 2px 6px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.catalog-item:hover {
-  color: #e9546b;
-}
-
-.active {
-  background-color: #e9546b;
-  color: #fff;
-}
-.active:hover {
-  background-color: #e9546b;
-  color: #fff;
+<style>
+.toc-nav ul li.active {
+  @apply text-orange-500 dark:text-[#007fff];
 }
 </style>

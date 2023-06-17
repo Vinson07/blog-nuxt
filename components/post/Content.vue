@@ -16,7 +16,6 @@ const props = defineProps({
 })
 
 const articleRef = ref<HTMLElement | null>(null)
-// const tocRef = ref<HTMLElement | null>(null)
 const recommendRef = ref<HTMLElement | null>(null)
 const router = useRouter()
 let clipboard: Clipboard | null = null
@@ -80,7 +79,6 @@ onUnmounted(() => {
       <div class="my-14 border-t border-b border-dashed py-5 text-sm text-zinc-500">
         <p class="flex items-center justify-center">
           <Icon name="bi:cc-circle" />
-          <!-- <span class="ml-1">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</span> -->
           <nuxt-link
             class="ml-1"
             to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
@@ -92,8 +90,10 @@ onUnmounted(() => {
         <div class="mt-2 flex justify-between">
           <div class="tag flex items-center">
             <Icon name="fluent:tag-multiple-16-regular" size="16" />
-            <span>{{ post.categoryName }}</span>
-            <span v-for="tag in post.tagDTOList" :key="tag.id">{{ tag.tagName }}</span>
+            <span class="mx-1 cursor-pointer">{{ post.categoryName }}</span>
+            <span v-for="tag in post.tagDTOList" :key="tag.id" class="mx-1 cursor-pointer">
+              {{ tag.tagName }}
+            </span>
           </div>
           <div class="flex">
             <Icon name="ci:share" class="mr-3 cursor-pointer" size="20" />
@@ -115,7 +115,7 @@ onUnmounted(() => {
       <div
         v-if="post.recommendArticleList && post.recommendArticleList.length > 0"
         ref="recommendRef"
-        class="mb-5 w-[inherit] rounded px-5 shadow-md dark:bg-neutral-800"
+        class="recommend mb-5 w-[inherit] rounded px-5 shadow-md dark:bg-neutral-800"
       >
         <div class="border-b py-4 font-medium dark:border-amber-300">推荐文章</div>
         <ul class="pb-1 text-sm">
@@ -134,39 +134,12 @@ onUnmounted(() => {
           </li>
         </ul>
       </div>
-      <!-- <nav
-        id="toc"
-        ref="tocRef"
-        class="max-h-[500px] w-[inherit] overflow-y-auto rounded py-2 shadow-md dark:bg-neutral-800"
-      ></nav> -->
       <PostToc v-if="articleRef" :dom-ref="articleRef" />
     </div>
   </main>
 </template>
 
 <style lang="less">
-.post-main {
-  .tag {
-    span {
-      margin: 0 5px;
-      cursor: pointer;
-    }
-  }
-}
-
-// 目录
-#toc {
-  ol {
-    @apply px-4;
-    a {
-      @apply block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500;
-    }
-  }
-  .is-active-link {
-    @apply text-orange-500 dark:text-[#007fff];
-  }
-}
-
 .markdown-body img {
   cursor: zoom-in;
 }
