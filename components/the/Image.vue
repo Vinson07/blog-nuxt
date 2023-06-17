@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import loadingImgUrl from '@/assets/img/loading.gif'
+import errorImgUrl from '@/assets/img/404.gif'
 
 interface Props {
   src: string
 }
 const props = defineProps<Props>()
-const imageStore = useImageStore()
+// const imageStore = useImageStore()
 const imgRef = ref<HTMLElement | null>(null)
 const imgSrc = ref(loadingImgUrl)
 
@@ -16,7 +17,7 @@ const loadingImage = () => {
     imgSrc.value = props.src
   }
   img.onerror = () => {
-    imgSrc.value = imageStore.randomImage[1]
+    imgSrc.value = errorImgUrl
   }
 }
 

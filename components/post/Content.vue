@@ -2,7 +2,7 @@
 // 代码高亮 引入个性化的vs2015样式
 // import 'highlight.js/styles/vs2015.css'
 // import 'highlight.js/styles/atom-one-dark.css'
-import tocbot from 'tocbot'
+// import tocbot from 'tocbot'
 import Clipboard from 'clipboard'
 import { useMessage } from 'naive-ui'
 import Viewer from 'viewerjs'
@@ -16,7 +16,7 @@ const props = defineProps({
 })
 
 const articleRef = ref<HTMLElement | null>(null)
-const tocRef = ref<HTMLElement | null>(null)
+// const tocRef = ref<HTMLElement | null>(null)
 const recommendRef = ref<HTMLElement | null>(null)
 const router = useRouter()
 let clipboard: Clipboard | null = null
@@ -37,24 +37,6 @@ useHead({
   ]
 })
 
-// 滚动事件
-const handleScroll = () => {
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-  if (tocRef.value) {
-    let height = 400
-    if (recommendRef.value) {
-      height += recommendRef.value.offsetHeight
-    }
-    if (scrollTop > height) {
-      tocRef.value.style.position = 'fixed'
-      tocRef.value.style.top = '80px'
-    } else {
-      tocRef.value.style.position = ''
-      tocRef.value.style.top = ''
-    }
-  }
-}
-
 onMounted(() => {
   nextTick(() => {
     // 复制代码
@@ -67,30 +49,6 @@ onMounted(() => {
       message.error('复制成功失败')
     })
 
-    // 文章目录
-    if (articleRef.value) {
-      const nodes = articleRef.value.children
-      if (nodes.length) {
-        for (let i = 0; i < nodes.length; i++) {
-          const node = nodes[i] as HTMLElement
-          // const reg = /^H[1-4]{1}$/
-          const reg = /^H[1-2]{1}$/
-          if (reg.exec(node.tagName)) {
-            node.id = `header-${i}`
-          }
-        }
-      }
-    }
-    tocbot.init({
-      tocSelector: '#toc', // 要把目录添加元素位置，支持选择器
-      contentSelector: '.markdown-body', // 获取html的元素
-      headingSelector: 'h1, h2', // 要显示的id的目录
-      hasInnerContainers: true,
-      onClick: function (e) {
-        e.preventDefault()
-      }
-    })
-
     // 图片预览
     const markdownBody: HTMLElement | null = document.querySelector('.markdown-body')
     if (markdownBody) {
@@ -99,13 +57,10 @@ onMounted(() => {
         navbar: false
       })
     }
-
-    addEventListener('scroll', handleScroll, false)
   })
 })
 
 onUnmounted(() => {
-  removeEventListener('scroll', handleScroll)
   if (clipboard) {
     clipboard.destroy()
   }
@@ -179,12 +134,12 @@ onUnmounted(() => {
           </li>
         </ul>
       </div>
-      <nav
+      <!-- <nav
         id="toc"
         ref="tocRef"
         class="max-h-[500px] w-[inherit] overflow-y-auto rounded py-2 shadow-md dark:bg-neutral-800"
-      ></nav>
-      <!-- <PostToc :toc-list="tocList" /> -->
+      ></nav> -->
+      <PostToc v-if="articleRef" :dom-ref="articleRef" />
     </div>
   </main>
 </template>
