@@ -110,9 +110,10 @@ watchThrottled(y, () => {
 
 onMounted(() => {
   nextTick(() => {
-    recommendHeight.value = (document.querySelector('.recommend') as HTMLElement).offsetHeight || 0
-    patternHeight.value =
-      (document.querySelector('.articlePattern') as HTMLElement).offsetHeight || 0
+    const recommendDom = document.querySelector('.recommend') as HTMLElement
+    const patternDom = document.querySelector('.articlePattern') as HTMLElement
+    if (recommendDom) recommendHeight.value = recommendDom?.offsetHeight ?? 0
+    if (patternDom) patternHeight.value = patternDom?.offsetHeight ?? 0
     getTitles()
   })
 })
