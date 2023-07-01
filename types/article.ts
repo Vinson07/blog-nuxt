@@ -56,7 +56,7 @@ export interface ArticleDetail {
   createTime: string
   id: number
   lastArticle: LastArticle
-  likeCount: number
+  likeCount?: any
   newestArticleList: NewestArticleList[]
   nextArticle: NextArticle
   originalUrl: string

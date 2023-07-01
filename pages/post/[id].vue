@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { useMessage } from 'naive-ui'
-import { getArticleDetail } from '@/apis/article'
 import type { ArticleDetail } from '@/types/article'
+import { getArticleDetail } from '@/apis/article'
 
 const route = useRoute()
 const userStore = useUserStore()
 const post = ref<ArticleDetail>()
-const message = useMessage()
 
 useHead({
   titleTemplate: (titleChunk) => {
@@ -15,25 +13,20 @@ useHead({
 })
 
 try {
-  const { code, data, message: msg } = await getArticleDetail(route.params.id)
-  if (code === 20000) {
-    post.value = data
-  } else {
-    message.warning(msg)
-  }
+  const { data } = await getArticleDetail(route.params.id)
+  if (data) post.value = data
 } catch (error) {
   console.error(error)
 }
 </script>
 
 <template>
-  <div>
+  <div v-if="post">
     <Head>
       <Title>{{ post?.articleTitle ?? '' }}</Title>
       <Meta name="description" :content="post?.categoryName ?? '个人博客'" />
     </Head>
-    <post-pattern
-      v-if="post"
+    <PostPattern
       class="articlePattern"
       :img-src="post.articleCover"
       :title="post.articleTitle"
@@ -42,6 +35,6 @@ try {
       :view="post.viewsCount"
       :update-time="post.updateTime"
     />
-    <post-content v-if="post" :post="post" />
+    <PostContent :article-detail="post" />
   </div>
 </template>

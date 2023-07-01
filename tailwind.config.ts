@@ -29,7 +29,19 @@ export default <Partial<Config>>{
           'linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.8) 40%)',
         'link-black-gradien':
           'linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.9) 40%)'
+      },
+      fontSize: {
+        15: ['15px', '22px']
       }
     }
-  }
+  },
+  plugins: [
+    function ({ addBase }: any) {
+      addBase({
+        '.n-button': {
+          'background-color': 'var(--n-color)'
+        }
+      })
+    }
+  ]
 }

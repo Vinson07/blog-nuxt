@@ -27,6 +27,7 @@
     "@nuxtjs/tailwindcss": "^6.4.1",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^18.14.0",
+    "@vueuse/components": "^10.2.0",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
     "eslint": "^8.34.0",

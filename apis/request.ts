@@ -40,6 +40,7 @@ export class Request {
       (res: AxiosResponse) => {
         // 直接返回res，当然你也可以只返回res.data
         // 系统如果有自定义code也可以在这里处理
+        if (res.data.code !== 20000) msg && msg.warning(res.data.message)
         return res.data
       },
       (err: any) => {

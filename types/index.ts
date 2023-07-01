@@ -1,7 +1,8 @@
 export interface Result<T = any> {
+  data: T
   code: number
   message: string
-  data: T
+  flag: boolean
 }
 
 export interface PageListStore {

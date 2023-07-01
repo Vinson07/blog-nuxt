@@ -26,13 +26,6 @@
 <script setup lang="ts">
 import { useScroll, watchThrottled } from '@vueuse/core'
 
-const props = defineProps({
-  domRef: {
-    type: Object,
-    default: null
-  }
-})
-
 const titleList = ref<any>([])
 const tocRef = ref<HTMLElement | null>(null)
 const currentIndex = ref(0)
@@ -40,32 +33,37 @@ const currentIndex = ref(0)
 const recommendHeight = ref(0)
 // 文章顶部固定图高度
 const patternHeight = ref(0)
+const articleRef = ref<HTMLElement | null>(null)
 
 const getTitles = () => {
-  const anchors = props.domRef.querySelectorAll('h1,h2,h3')
-  const titles = Array.from(anchors).filter((t: any) => !!t.innerText.trim())
-  if (!titles.length) titleList.value = []
-  const hTags = Array.from(new Set(titles.map((t: any) => t.tagName))).sort()
-  titleList.value = titles.map((el: any, index) => {
-    el.dataset.id = index
-    return {
-      title: el.innerText,
-      lineIndex: el.dataset.id,
-      indent: hTags.indexOf(el.tagName)
-    }
-  })
+  if (articleRef.value) {
+    const anchors = articleRef.value.querySelectorAll('h1,h2,h3')
+    const titles = Array.from(anchors).filter((t: any) => !!t.innerText.trim())
+    if (!titles.length) titleList.value = []
+    const hTags = Array.from(new Set(titles.map((t: any) => t.tagName))).sort()
+    titleList.value = titles.map((el: any, index) => {
+      el.dataset.id = index
+      return {
+        title: el.innerText,
+        lineIndex: el.dataset.id,
+        indent: hTags.indexOf(el.tagName)
+      }
+    })
+  }
 }
 
 // 点击锚点目录
 function handleAnchorClick(anchor: any, index: number) {
-  const heading = props.domRef.querySelector(`[data-id="${anchor.lineIndex}"]`)
-  // const heading = preview.querySelector(`#${anchor.title}`)
-  if (heading) {
-    window.scrollTo({
-      behavior: 'smooth',
-      top: heading.offsetTop + patternHeight.value - 40
-    })
-    setTimeout(() => (currentIndex.value = index), 500)
+  if (articleRef.value) {
+    const heading = articleRef.value.querySelector(`[data-id="${anchor.lineIndex}"]`) as HTMLElement
+    // const heading = preview.querySelector(`#${anchor.title}`)
+    if (heading) {
+      window.scrollTo({
+        behavior: 'smooth',
+        top: heading.offsetTop + patternHeight.value - 40
+      })
+      setTimeout(() => (currentIndex.value = index), 500)
+    }
   }
 }
 
@@ -76,20 +74,24 @@ watchThrottled(
   y,
   () => {
     titleList.value.forEach((titleItem: any, index: number) => {
-      const heading = props.domRef.querySelector(`[data-id="${titleItem.lineIndex}"]`)
-      // const tocNavDom = document.querySelector('.toc-nav') as HTMLElement
-      if (y.value >= heading.offsetTop + patternHeight.value - 50) {
-        // 比 40 稍微多一点
-        currentIndex.value = index
-        // 目录item滚动同步
-        if (index > 1) {
-          const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
-          tocLiId &&
-            tocLiId.scrollIntoView({
-              block: 'center',
-              inline: 'nearest',
-              behavior: 'smooth'
-            })
+      if (articleRef.value) {
+        const heading = articleRef.value.querySelector(
+          `[data-id="${titleItem.lineIndex}"]`
+        ) as HTMLElement
+        // const tocNavDom = document.querySelector('.toc-nav') as HTMLElement
+        if (y.value >= heading.offsetTop + patternHeight.value - 50) {
+          // 比 40 稍微多一点
+          currentIndex.value = index
+          // 目录item滚动同步
+          if (index > 1) {
+            const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
+            tocLiId &&
+              tocLiId.scrollIntoView({
+                block: 'center',
+                inline: 'nearest',
+                behavior: 'smooth'
+              })
+          }
         }
       }
     })
@@ -112,10 +114,12 @@ watchThrottled(y, () => {
 
 onMounted(() => {
   nextTick(() => {
+    const articleDom = document.querySelector('.markdown-body') as HTMLElement
     const recommendDom = document.querySelector('.recommend') as HTMLElement
     const patternDom = document.querySelector('.articlePattern') as HTMLElement
     if (recommendDom) recommendHeight.value = recommendDom?.offsetHeight ?? 0
     if (patternDom) patternHeight.value = patternDom?.offsetHeight ?? 0
+    if (articleDom) articleRef.value = articleDom
     getTitles()
   })
 })
