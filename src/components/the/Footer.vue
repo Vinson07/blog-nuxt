@@ -35,5 +35,3 @@ const day = computed(() => {
     </div>
   </footer>
 </template>
-
-<style lang="less"></style>

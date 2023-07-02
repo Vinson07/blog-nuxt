@@ -52,7 +52,7 @@ const router = useRouter()
         :next-article="articleDetail.nextArticle"
       />
       <!-- <post-comment /> -->
-      <Comment :type="1" />
+      <Comment :id="articleDetail.id" :type="1" />
     </div>
     <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
       <div

@@ -13,7 +13,7 @@ const replyList = ref<Record[]>(props.data)
 const loading = ref(false)
 const showMore = ref(true)
 
-async function handleView() {
+async function reloadReply() {
   showMore.value = false
   loading.value = true
   try {
@@ -29,12 +29,18 @@ async function handleView() {
 
 <template>
   <ul>
-    <CommentItem v-for="item in replyList" :key="item.id" reply :data="item" />
+    <CommentItem
+      v-for="item in replyList"
+      :key="item.id"
+      reply
+      :data="item"
+      @reload-reply="reloadReply"
+    />
     <div class="pl-10 text-xs">
       <span v-if="loading">加载中...</span>
       <div v-if="showMore && replyCount && replyCount > 3">
         <span class="text-gray-400">共{{ replyCount }}条回复，</span>
-        <span class="inline-flex cursor-pointer items-center text-blue-500" @click="handleView">
+        <span class="inline-flex cursor-pointer items-center text-blue-500" @click="reloadReply">
           <i class="mr-1 not-italic">点击查看</i>
           <Icon name="streamline:interface-arrows-button-down-arrow-down-keyboard" />
         </span>

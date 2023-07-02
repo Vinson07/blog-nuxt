@@ -20,18 +20,3 @@ function handleTop() {
     ></div>
   </div>
 </template>
-
-<style lang="less">
-.back-top {
-  width: 70px;
-  height: 900px;
-  position: fixed;
-  right: 25px;
-  top: -910px;
-  z-index: 49;
-  background: url(~/assets/img/scroll.png) no-repeat center;
-  background-size: contain;
-  animation: bounce-slow 3s linear infinite;
-  -webkit-animation: bounce-slow 3s linear infinite;
-}
-</style>

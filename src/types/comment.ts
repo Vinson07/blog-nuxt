@@ -1,11 +1,20 @@
 export interface CommentListParams {
   current: number
-  type: number
+  type?: number
+  topicId?: any
 }
 
 export interface AddCommentParams {
   commentContent: string
+  topicId?: any
   type?: number
+  parentId?: number
+  replyUserId?: number
+}
+
+export interface RepliesParams {
+  current?: number
+  size?: number
 }
 
 export interface Reply {

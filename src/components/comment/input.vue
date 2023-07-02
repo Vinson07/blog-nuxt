@@ -5,6 +5,7 @@ import { OnClickOutside } from '@vueuse/components'
 interface Props {
   placeholder?: string
   btnText?: string
+  value: string
 }
 
 withDefaults(defineProps<Props>(), {
@@ -17,7 +18,8 @@ const disabled = ref(true)
 
 const emit = defineEmits<{
   (e: 'hide', event: Event): void
-  (e: 'submit', value: string): void
+  (e: 'submit'): void
+  (e: 'update:value', value: string): void
 }>()
 
 function onClickOutsideHandler(event: Event) {
@@ -26,6 +28,7 @@ function onClickOutsideHandler(event: Event) {
 }
 
 function onInput() {
+  emit('update:value', content.value)
   if (content.value.trim() === '') {
     disabled.value = true
   } else {
@@ -34,11 +37,13 @@ function onInput() {
 }
 
 function onSubmit() {
-  emit('submit', content.value)
+  emit('submit')
 }
 
 function onAddEmoji(key: string) {
   content.value += key
+  emit('update:value', content.value)
+  disabled.value = false
 }
 </script>
 
@@ -67,10 +72,3 @@ function onAddEmoji(key: string) {
     </div>
   </OnClickOutside>
 </template>
-
-<style>
-.comment_textarea textarea {
-  background: url(~/assets/img/comment.png) no-repeat bottom right;
-  background-size: 35%;
-}
-</style>

@@ -5,6 +5,7 @@ import { getCommentList, addComment } from '@/apis/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
+  id: number
   type: number
 }
 
@@ -14,22 +15,34 @@ const recordList = ref<Record[]>([])
 const total = ref(0)
 const loading = ref(false)
 const current = ref(1)
-const loadBtn = ref(true)
+const loadBtn = ref(false)
 const user = useUserStore()
 const message = useMessage()
+const commentContent = ref('')
+
+provide<number>('type', prop.type)
+provide<number>('id', prop.id)
 
 // 获取评论列表
 async function comment() {
   loading.value = true
   try {
-    const { data } = await getCommentList({ current: current.value, type: prop.type })
+    const { data } = await getCommentList({
+      current: current.value,
+      type: prop.type,
+      topicId: prop.id
+    })
     loading.value = false
     if (data) {
       total.value = data.count
       if (data?.recordList && data.recordList.length > 0) {
         recordList.value = recordList.value.concat(data.recordList)
       }
-      if (data.count === recordList.value.length) loadBtn.value = false
+      if (recordList.value.length > 0 && data.count !== recordList.value.length) {
+        loadBtn.value = true
+      } else {
+        loadBtn.value = false
+      }
     }
   } catch (error) {
     loading.value = false
@@ -44,7 +57,7 @@ const handleLoading = () => {
 }
 
 // 添加评论
-async function onSubmit(content: string) {
+async function onSubmit() {
   if (!user.userInfo?.userInfoId) {
     message.warning('请先登录')
     return
@@ -52,19 +65,30 @@ async function onSubmit(content: string) {
 
   // 解析表情
   const reg = /\[.+?\]/g
-  content = content.replace(reg, function (str) {
+  commentContent.value = commentContent.value.replace(reg, function (str) {
     return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
   })
   try {
     const { flag } = await addComment({
-      commentContent: content,
-      type: prop.type
+      commentContent: commentContent.value,
+      type: prop.type,
+      topicId: prop.id
     })
     if (flag) {
-      message.success('评论成功')
+      if (user.websiteConfig.isCommentReview) {
+        message.success('评论成功，正在审核中')
+      } else {
+        message.success('评论成功！！')
+      }
       current.value = 1
-      const { data } = await getCommentList({ current: current.value, type: prop.type })
+      const { data } = await getCommentList({
+        current: current.value,
+        type: prop.type,
+        topicId: prop.id
+      })
       if (data?.recordList) recordList.value.unshift(data.recordList[0])
+    } else {
+      message.error('评论失败！！')
     }
   } catch (error) {
     console.error(error)
@@ -84,7 +108,7 @@ async function onSubmit(content: string) {
     <!-- 评论区 -->
     <div class="flex">
       <Avatar class="mr-4" size="35" />
-      <comment-input @submit="onSubmit" />
+      <comment-input v-model:value="commentContent" @submit="onSubmit" />
     </div>
     <!-- 华丽的分割线 -->
     <n-divider style="margin-top: 30px; margin-bottom: 0">
@@ -104,6 +128,7 @@ async function onSubmit(content: string) {
         </template>
         加载更多
       </n-button>
+      <p v-if="recordList.length === 0">快来发布评论吧～</p>
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  srcDir: 'src',
   app: {
     head: {
       viewport: 'width=device-width, initial-scale=1',
@@ -58,7 +59,7 @@ export default defineNuxtConfig({
           : []
     }
   },
-  css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css'],
+  css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css', '@/assets/css/component.css'],
   // 代理
   // server: false,
   nitro: {
