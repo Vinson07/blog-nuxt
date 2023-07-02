@@ -48,7 +48,7 @@ const handleSelect = (key: string | number) => {
     case 'logout':
       useSessionStorage('user-info', {}).value = null
       userStore.setUserInfo({} as IUserInfo)
-      router.push('/login')
+      // router.push('/login')
       break
     case 'login':
       router.push('/login')

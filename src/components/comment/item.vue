@@ -2,6 +2,7 @@
 import { useMessage } from 'naive-ui'
 import type { Record } from '@/types/comment'
 import { addComment } from '@/apis/comment'
+import emojiList from '@/utils/emoji'
 
 interface Props {
   reply?: boolean
@@ -13,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'reloadReply', id?: number): void
+  (e: 'reloadReply', id: number): void
 }>()
 
 const user = useUserStore()
@@ -25,10 +26,16 @@ const type = inject<number>('type')
 const id = inject<number>('id')
 
 const timeFormat = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM-DD HH:mm').value)
-const commentClass = computed(() => (props.reply ? ['reply', 'py-0', 'my-3', 'border-none'] : []))
+const commentClass = computed(() => (props.reply ? ['reply', 'my-3', 'border-none'] : ['py-3']))
 
+// 回复
 const handleReply = () => {
   isShowInput.value = !isShowInput.value
+}
+
+// 点赞
+function handleLike() {
+  message.warning('努力开发中~~')
 }
 
 const onHide = (event: Event) => {
@@ -39,11 +46,18 @@ const onHide = (event: Event) => {
   }
 }
 
+// 提交
 async function onSubmit() {
   if (!user.userInfo?.userInfoId) {
     message.warning('请先登录')
     return
   }
+
+  // 解析表情
+  const reg = /\[.+?\]/g
+  commentContent.value = commentContent.value.replace(reg, function (str) {
+    return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
+  })
 
   try {
     const parentId = props.reply ? props.data.parentId : props.data.id
@@ -58,7 +72,13 @@ async function onSubmit() {
     if (flag) {
       isShowInput.value = false
       message.success('评论成功！！')
-      emit('reloadReply', props.data.id)
+      let id = 0
+      if (props.reply) {
+        id = props.data?.parentId ?? 0
+      } else {
+        id = props.data.id
+      }
+      emit('reloadReply', id)
     } else {
       message.error('评论失败！！')
     }
@@ -70,7 +90,7 @@ async function onSubmit() {
 
 <template>
   <li
-    class="border-b border-dashed border-b-slate-200 py-3 text-sm dark:border-b-neutral-700"
+    class="border-b border-dashed border-b-slate-200 text-sm dark:border-b-neutral-700"
     :class="commentClass"
   >
     <div class="flex">
@@ -90,7 +110,7 @@ async function onSubmit() {
           <span v-html="data.commentContent"></span>
         </p>
         <div class="flex">
-          <div class="mr-4 flex cursor-pointer items-center">
+          <div class="mr-4 flex cursor-pointer items-center" @click="handleLike">
             <Icon name="solar:like-outline" />
             <span class="ml-1 cursor-pointer">{{ data.likeCount || 0 }}</span>
           </div>

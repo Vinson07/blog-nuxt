@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NButton, NDivider, useMessage } from 'naive-ui'
 import type { Record } from '@/types/comment'
-import { getCommentList, addComment } from '@/apis/comment'
+import { getCommentList, addComment, getReplies } from '@/apis/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
@@ -94,6 +94,18 @@ async function onSubmit() {
     console.error(error)
   }
 }
+
+// 更新回复
+async function reloadReply(id: number) {
+  try {
+    const { data } = await getReplies(id)
+    if (data) {
+      recordList.value.forEach((item) => {
+        if (item.id === id) item.replyDTOList = data
+      })
+    }
+  } catch (error) {}
+}
 </script>
 
 <template>
@@ -107,7 +119,7 @@ async function onSubmit() {
     <n-divider style="margin: 10px 0 15px" />
     <!-- 评论区 -->
     <div class="flex">
-      <Avatar class="mr-4" size="35" />
+      <Avatar class="mr-4" size="35" :src="user.userInfo?.avatar" />
       <comment-input v-model:value="commentContent" @submit="onSubmit" />
     </div>
     <!-- 华丽的分割线 -->
@@ -116,9 +128,22 @@ async function onSubmit() {
       <span class="ml-1 text-lg">评论区</span>
     </n-divider>
     <!-- 评论内容 -->
-    <div>
-      <CommentList v-if="recordList" :data="recordList" />
-    </div>
+    <ul>
+      <CommentItem
+        v-for="item in recordList"
+        :key="item.id"
+        :data="item"
+        @reload-reply="reloadReply"
+      >
+        <CommentReply
+          v-if="item.replyDTOList"
+          :id="item.id"
+          :reply-count="item.replyCount"
+          :data="item.replyDTOList"
+          @reload-reply="reloadReply"
+        />
+      </CommentItem>
+    </ul>
     <!-- 加载列表 -->
     <div class="my-8 text-center">
       <n-button v-if="loadBtn" ghost @click="handleLoading">
