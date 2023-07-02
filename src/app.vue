@@ -7,7 +7,7 @@ const userStore = useUserStore()
 
 const color = useColorMode()
 
-const placement = ref<MessageProviderProps['placement']>('top')
+const placement = ref<MessageProviderProps['placement']>('bottom-left')
 
 // 获取博客基本数据
 userStore.blogInfoData()

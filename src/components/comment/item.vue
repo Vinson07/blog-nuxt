@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'reloadReply'): void
+  (e: 'reloadReply', id?: number): void
 }>()
 
 const user = useUserStore()
@@ -42,6 +42,7 @@ const onHide = (event: Event) => {
 async function onSubmit() {
   if (!user.userInfo?.userInfoId) {
     message.warning('请先登录')
+    return
   }
 
   try {
@@ -57,7 +58,7 @@ async function onSubmit() {
     if (flag) {
       isShowInput.value = false
       message.success('评论成功！！')
-      emit('reloadReply')
+      emit('reloadReply', props.data.id)
     } else {
       message.error('评论失败！！')
     }
