@@ -153,7 +153,7 @@ async function reloadReply(id: number) {
         </template>
         加载更多
       </n-button>
-      <p v-if="recordList.length === 0">快来发布评论吧～</p>
+      <p v-if="recordList.length === 0">快来发表评论吧～</p>
     </div>
   </div>
 </template>

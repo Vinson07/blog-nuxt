@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   srcDir: 'src',
   app: {
     head: {
-      viewport: 'width=device-width, initial-scale=1',
+      viewport:
+        'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover',
       title: 'Vinson',
       meta: [
         { name: 'keywords', content: '博客，前端' },
@@ -17,11 +18,11 @@ export default defineNuxtConfig({
         {
           src: 'https://cdn.sakura520.co/static/blog-plugin/js/starrySky.min.js', // 星空背景
           body: true
+        },
+        {
+          src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+          body: true
         }
-        // {
-        //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
-        //   body: true
-        // }
       ]
     }
   },

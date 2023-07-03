@@ -19,7 +19,7 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
 
 <template>
   <li
-    class="post__list bg-[rgba(255,255,255,0.9)] shadow-[0_1px_30px_-4px_#e8e8e8] md:h-[300px]"
+    class="post__list mb-10 overflow-hidden rounded-lg bg-[rgba(255,255,255,0.9)] shadow-[0_1px_30px_-4px_#e8e8e8] transition-shadow duration-500 hover:shadow-[0_1px_20px_10px_#e8e8e8] dark:bg-[rgba(51,51,51,0.7)] dark:shadow-[0_1px_35px_-8px_rgba(26,26,26,0.6)] dark:hover:shadow-[0_1px_20px_0px_rgb(99,102,241)] md:flex md:h-[300px]"
     :class="{ active: active }"
   >
     <div class="overflow-hidden max-md:h-64 md:flex-[1.4]">
@@ -61,22 +61,3 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
     </div>
   </li>
 </template>
-
-<style>
-.post__list {
-  @apply mb-10  overflow-hidden rounded-lg transition-shadow duration-500 hover:shadow-[0_1px_20px_10px_#e8e8e8] dark:bg-[rgba(51,51,51,0.7)] dark:shadow-[0_1px_35px_-8px_rgba(26,26,26,0.6)] dark:hover:shadow-[0_1px_20px_0px_rgb(99,102,241)] md:flex;
-}
-
-.post__list.active {
-  @apply flex-row-reverse;
-}
-.post__list.active .post__list__content {
-  @apply text-left;
-}
-.post__list.active .post__list__content .content-info {
-  @apply justify-start;
-}
-.post__list.active .post__list__content .content-ellipsis {
-  @apply justify-start;
-}
-</style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMessage, NCarousel } from 'naive-ui'
+import { NCarousel } from 'naive-ui'
 import type { PostList } from '@/types/article'
 import { getPostList } from '@/apis/article'
 
@@ -9,7 +9,6 @@ const postList = ref<PostList[]>([])
 const current = ref<number>(1)
 const nextPage = ref(true)
 const loading = ref(false)
-const msg = useMessage()
 const homeRef = ref<HTMLDivElement | null>(null)
 const isMobile = ref(false)
 const postLoading = ref(true)
@@ -36,18 +35,14 @@ addPostList(current.value)
 // 获取post列表
 async function addPostList(current: number) {
   try {
-    const { code, data, message } = await getPostList(current)
-    if (code === 20000) {
-      if (data && data.length > 0) {
-        postList.value = postList.value.concat(data)
-        nextPage.value = true
-        loading.value = false
-      } else {
-        nextPage.value = false
-        loading.value = false
-      }
+    const { data } = await getPostList(current)
+    if (data && data.length > 0) {
+      postList.value = postList.value.concat(data)
+      nextPage.value = true
+      loading.value = false
     } else {
-      msg.warning(message)
+      nextPage.value = false
+      loading.value = false
     }
   } catch (error) {
     console.error(error)
@@ -73,7 +68,7 @@ onMounted(() => {
 
 <template>
   <div ref="homeRef">
-    <home-background
+    <HomeBackground
       :bg-src="imageStore.pageList.home"
       :title="userStore.websiteConfig.websiteName"
       :sub-title="userStore.yiYan"
@@ -86,15 +81,15 @@ onMounted(() => {
     />
     <div class="page-content mx-auto max-w-[820px] pt-14 max-md:px-4">
       <div>
-        <home-content-title />
+        <HomeContentTitle />
         <n-carousel v-if="isMobile" draggable autoplay class="relative h-40 rounded-md">
-          <nuxt-link
+          <NuxtLink
             v-for="(item, index) in userStore.bannerList"
             :key="index"
             target="_blank"
             :to="item.link"
           >
-            <the-image :src="item.bgSrc" />
+            <TheImage :src="item.bgSrc" />
             <div
               class="absolute top-0 left-0 right-0 bottom-0 bg-[rgba(255,255,255,0.4)] text-center dark:bg-[rgba(51,51,51,0.7)]"
             >
@@ -105,7 +100,7 @@ onMounted(() => {
               </h4>
               <p class="text-xs italic text-[#505050] dark:text-[#CCCCCC]">{{ item.describe }}</p>
             </div>
-          </nuxt-link>
+          </NuxtLink>
         </n-carousel>
         <div v-else class="flex">
           <home-content-banner
@@ -119,13 +114,13 @@ onMounted(() => {
         </div>
       </div>
       <main class="pt-10">
-        <home-content-title title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
+        <HomeContentTitle title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
         <ul class="max-md:px-1">
           <template v-if="postLoading">
-            <home-content-loading v-for="num in 10" :key="num" :active="num % 2 === 0" />
+            <HomeContentLoading v-for="num in 10" :key="num" :active="num % 2 === 0" />
           </template>
           <template v-else>
-            <home-content-item
+            <HomeContentItem
               v-for="(item, index) in postList"
               :key="item.id"
               :item="item"

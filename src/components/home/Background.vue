@@ -14,7 +14,7 @@ withDefaults(defineProps<Props>(), {
   videoSrc: '',
   bgSrc: '',
   title: 'Vinson Blog',
-  subTitle: '梦想是一个天真的词，实现梦想是一个残酷的词',
+  subTitle: '',
   bgMask: 'filter-dot', // filter-grid filter-dot filter-dim filter-undertint pattern-center
   gitHub: '',
   zhiHu: '',
@@ -80,8 +80,7 @@ const handleRight = () => {
 <template>
   <div id="headertop" class="relative h-screen" :class="bgMask">
     <figure
-      class="relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat md:bg-fixed"
-      :style="{ backgroundImage: `url(${bgSrc})` }"
+      class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat md:bg-fixed"
     >
       <div
         :style="{ top: titleTop }"
@@ -160,44 +159,3 @@ const handleRight = () => {
     <Waves />
   </div>
 </template>
-
-<style>
-#headertop:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-attachment: fixed;
-  z-index: 9;
-}
-#headertop.pattern-center {
-  animation: header 1s;
-}
-#headertop.filter-undertint:before {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-#headertop.filter-dim:before {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-#headertop.filter-grid:before {
-  background-image: url(~/assets/img/grid.webp);
-}
-#headertop.filter-dot:before {
-  background-image: url(~/assets/img/dot.webp);
-}
-#headertop .centerbg-info {
-  position: relative;
-}
-#headertop .centerbg-info::before {
-  content: '';
-  position: absolute;
-  top: -30px;
-  left: 20%;
-  margin-left: -15px;
-  border-width: 15px;
-  border-style: solid;
-  border-color: transparent transparent rgba(0, 0, 0, 0.5) transparent;
-}
-</style>

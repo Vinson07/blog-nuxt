@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NModal, NCard, createDiscreteApi } from 'naive-ui'
+import { NModal, NCard } from 'naive-ui'
 import { searchArticle } from '@/apis/article'
 import type { SearchArticle } from '@/types/article'
 
@@ -9,20 +9,20 @@ const keyword = ref('')
 const articleList = ref<SearchArticle[]>([])
 
 const { $markdownItSearch } = useNuxtApp()
-const { message } = createDiscreteApi(['message'])
 
-watch(keyword, async (value) => {
-  try {
-    const { code, data, message: msg } = await searchArticle({ current: 1, keywords: value.trim() })
-    if (code === 20000) {
-      articleList.value = data
-    } else {
-      message.warning(msg)
+// 防抖
+watchDebounced(
+  keyword,
+  async (value) => {
+    try {
+      const { data } = await searchArticle({ current: 1, keywords: value.trim() })
+      if (data) articleList.value = data
+    } catch (error) {
+      console.error(error)
     }
-  } catch (error) {
-    console.error(error)
-  }
-})
+  },
+  { debounce: 500 }
+)
 
 const gotoArticle = (id: number) => {
   searchStore.setModal(false)

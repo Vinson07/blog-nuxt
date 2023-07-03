@@ -124,9 +124,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style>
-.toc-nav ul li.active {
-  @apply text-orange-500 dark:text-[#007fff];
-}
-</style>

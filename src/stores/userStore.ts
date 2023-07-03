@@ -1,10 +1,7 @@
-import { createDiscreteApi } from 'naive-ui'
 import { getBlogInfo } from '@/apis/home'
 import { getYiYan } from '@/apis/poetry'
 import type { WebsiteConfig } from '@/types'
 import type { IUserInfo } from '@/types/user'
-
-const { message: msg } = createDiscreteApi(['message'])
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -90,20 +87,14 @@ export const useUserStore = defineStore('user', {
     },
     async blogInfoData() {
       try {
-        const { code, data, message } = await getBlogInfo()
-        if (code === 20000) {
+        const { data } = await getBlogInfo()
+        if (data) {
           const { websiteConfig, categoryCount, articleCount, tagCount, viewsCount } = data
           this.websiteConfig = websiteConfig
           this.articleCount = articleCount
           this.categoryCount = categoryCount
           this.tagCount = tagCount
           this.viewsCount = viewsCount
-
-          // pageList.forEach((item) => {
-          //   this.pageImage[item.pageLabel] = item.pageCover
-          // })
-        } else {
-          msg.warning(message)
         }
       } catch (error) {
         console.error(error)

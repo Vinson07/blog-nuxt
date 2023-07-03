@@ -19,24 +19,19 @@ defineProps<Props>()
         :src="cover"
         alt=""
       />
-      <div class="link-mask nuxt-gradient transition-[top]">
+      <div
+        class="bg-link-black-gradien dark:bg-link-white-gradient nuxt-gradient absolute top-0 left-0 flex h-full w-full items-center justify-center transition-[top] duration-500 group-hover/img:-top-full"
+      >
         <div class="text-center">
           <n-avatar round object-fit="cover" :size="70" :src="avatar" />
           <h4>{{ title }}</h4>
         </div>
       </div>
-      <div class="link-intro top-52">
+      <div
+        class="fixed left-1/2 top-52 hidden -translate-x-1/2 rounded-lg bg-gradient-to-r from-pink-500 to-yellow-500 py-2 px-5 text-xl text-white group-hover/img:inline-block dark:from-green-400 dark:to-blue-500"
+      >
         {{ intro }}
       </div>
     </div>
   </nuxt-link>
 </template>
-
-<style lang="less">
-.link-mask {
-  @apply bg-link-black-gradien dark:bg-link-white-gradient absolute top-0 left-0 flex h-full w-full items-center justify-center duration-500 group-hover/img:-top-full;
-}
-.link-intro {
-  @apply fixed left-1/2 hidden -translate-x-1/2 rounded-lg bg-gradient-to-r from-pink-500 to-yellow-500 py-2 px-5 text-xl text-white group-hover/img:inline-block dark:from-green-400 dark:to-blue-500;
-}
-</style>

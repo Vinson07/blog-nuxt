@@ -22,12 +22,8 @@ definePageMeta({
 
 onMounted(async () => {
   try {
-    const { code, data, message } = await getBarrage()
-    if (code === 20000) {
-      danmus.value = data
-    } else {
-      msg.warning(message)
-    }
+    const { data } = await getBarrage()
+    if (data) danmus.value = data
   } catch (error) {
     console.error(error)
   }
@@ -46,8 +42,8 @@ async function send() {
       nickname: userStore.userInfo?.nickname ?? '游客',
       time: Math.floor(Math.random() * (10 - 7)) + 7
     }
-    const { code, message } = await addBarrage(params)
-    if (code === 20000) {
+    const { flag } = await addBarrage(params)
+    if (flag) {
       if (danmakuRef.value) {
         danmakuRef.value.add({
           avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
@@ -56,8 +52,6 @@ async function send() {
           time: Math.floor(Math.random() * (10 - 7)) + 7
         })
       }
-    } else {
-      msg.warning(message)
     }
   } catch (error) {
     console.error(error)

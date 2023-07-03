@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useMessage } from 'naive-ui'
 import { getPoetry } from '@/apis/poetry'
 import { getArchives } from '@/apis/article'
 import type { RecordList } from '@/types/article'
 
-const message = useMessage()
 const router = useRouter()
 const imageStore = useImageStore()
 const poetryText = ref('')
@@ -17,27 +15,23 @@ archiveData(count)
 
 async function archiveData(count: number) {
   try {
-    const { code, data, message: msg } = await getArchives(count)
-    if (code === 20000) {
-      if (data.recordList.length > 0) {
-        archiveList.value = [...archiveList.value, ...data.recordList]
-        count++
-        archiveData(count)
-      } else {
-        filterArchiveList.value = archiveList.value.reduce(
-          (acc: { [key: string]: RecordList[] }, obj: RecordList) => {
-            const key = useDateFormat(obj.createTime, 'YYYY-MM')
-            if (!acc[key.value]) {
-              acc[key.value] = []
-            }
-            acc[key.value].push(obj)
-            return acc
-          },
-          {}
-        )
-      }
+    const { data } = await getArchives(count)
+    if (data.recordList.length > 0) {
+      archiveList.value = [...archiveList.value, ...data.recordList]
+      count++
+      archiveData(count)
     } else {
-      message.warning(msg)
+      filterArchiveList.value = archiveList.value.reduce(
+        (acc: { [key: string]: RecordList[] }, obj: RecordList) => {
+          const key = useDateFormat(obj.createTime, 'YYYY-MM')
+          if (!acc[key.value]) {
+            acc[key.value] = []
+          }
+          acc[key.value].push(obj)
+          return acc
+        },
+        {}
+      )
     }
   } catch (error) {
     console.warn(error)
@@ -101,10 +95,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style>
-#archives .arrow-left-ar {
-  border-left: 20px solid transparent;
-  border-bottom: 20px solid #f5f5f5;
-}
-</style>

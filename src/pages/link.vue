@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { useMessage } from 'naive-ui'
 import { getLink } from '@/apis/link'
 import type { Link } from '@/types/link'
 import { getPoetry } from '@/apis/poetry'
 
 const linkList = ref<Link[]>([])
-const message = useMessage()
 const imageStore = useImageStore()
 const cover = [
   'https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/anzhiy.cn.jpg',
@@ -19,12 +17,8 @@ definePageMeta({
 
 onMounted(async () => {
   try {
-    const { code, data, message: msg } = await getLink()
-    if (code === 20000) {
-      linkList.value = data
-    } else {
-      message.warning(msg)
-    }
+    const { data } = await getLink()
+    if (data) linkList.value = data
   } catch (error) {
     console.warn(error)
   }
