@@ -18,7 +18,7 @@ const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
 </script>
 
 <template>
-  <div class="pattern relative h-[60vh]">
+  <div class="slide-bottom pattern relative h-[60vh]">
     <img class="h-full w-full object-cover brightness-75 dark:brightness-50" :src="imgSrc" alt="" />
     <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 text-center text-white">
       <h3 class="text-5xl">{{ title }}</h3>

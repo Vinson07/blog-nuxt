@@ -68,7 +68,9 @@ function onAddEmoji(key: string) {
 
     <div class="mt-2 flex justify-between">
       <CommentEmoji @add-emoji="onAddEmoji" />
-      <n-button ghost :disabled="disabled" @click="onSubmit"> {{ btnText }} </n-button>
+      <n-button ghost :disabled="disabled" class="vsubmit" @click="onSubmit">
+        {{ btnText }}
+      </n-button>
     </div>
   </OnClickOutside>
 </template>

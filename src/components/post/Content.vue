@@ -15,7 +15,7 @@ const router = useRouter()
     <div class="relative rounded p-4 shadow-md dark:bg-neutral-800 xl:w-[820px]">
       <PostArticle :article-content="articleDetail.articleContent" />
       <div class="my-14 border-t border-b border-dashed py-5 text-sm text-zinc-500">
-        <p class="flex items-center justify-center">
+        <p class="cc-opacity flex items-center justify-center">
           <Icon name="bi:cc-circle" />
           <nuxt-link
             class="ml-1"
@@ -33,9 +33,9 @@ const router = useRouter()
               {{ tag.tagName }}
             </span>
           </div>
-          <div class="flex">
-            <Icon name="ci:share" class="mr-3 cursor-pointer" size="20" />
-            <div class="flex items-center">
+          <div id="needsharebutton-postbottom" class="flex">
+            <Icon name="ci:share" class="btn mr-3 cursor-pointer" size="20" />
+            <div class="reward-container flex items-center">
               <Icon
                 name="bx:bxs-like"
                 class="cursor-pointer"

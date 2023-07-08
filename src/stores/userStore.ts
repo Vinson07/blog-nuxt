@@ -25,27 +25,32 @@ export const useUserStore = defineStore('user', {
       {
         icon: 'noto:house-with-garden',
         text: '首页',
-        path: '/'
+        path: '/',
+        class: 'menu-item-home'
       },
       {
         icon: 'flat-color-icons:calendar',
         text: '归档',
-        path: '/archives'
+        path: '/archives',
+        class: 'menu-item-archives'
       },
       {
         icon: 'icon-park:message',
         text: '留言',
-        path: '/barrage'
+        path: '/barrage',
+        class: ''
       },
       {
         icon: 'icon-park:friends-circle',
         text: '友链',
-        path: '/link'
+        path: '/link',
+        class: 'menu-item-friends'
       },
       {
         icon: 'flat-color-icons:gallery',
         text: '图库',
-        path: '/album'
+        path: '/album',
+        class: ''
       }
     ],
     bannerList: [

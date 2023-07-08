@@ -82,7 +82,7 @@ function handleSearch() {
     class="header-nav group/nav fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between bg-[rgba(255,255,255,0.7)] px-4 transition-colors duration-700 dark:bg-[rgba(38,38,38,0.7)]"
     :class="{ active: showMenu }"
   >
-    <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
+    <h1 class="site-author cursor-pointer text-2xl" @click="router.push('/')">
       {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
     </h1>
     <nav class="group-hover/nav:block" :class="{ hidden: showMenu }">
@@ -91,16 +91,18 @@ function handleSearch() {
           v-for="(item, index) in userStore.menuList"
           :key="index"
           class="nav-item mx-4 flex cursor-pointer items-center font-semibold hover:text-orange-500 dark:hover:text-indigo-500"
-          @click="router.push(`${item.path}`)"
+          :class="item.class"
         >
-          <Icon :class="`icon-${index + 1}`" :name="item.icon" />
-          <span class="pl-1">{{ item.text }}</span>
+          <NuxtLink :to="`${item.path}`">
+            <Icon :class="`icon-${index + 1}`" :name="item.icon" />
+            <span class="pl-1">{{ item.text }}</span>
+          </NuxtLink>
         </li>
       </ul>
     </nav>
     <div class="flex items-center">
       <dark-toggle />
-      <div class="mr-4 cursor-pointer" @click="handleSearch">
+      <div class="menu-item-search mr-4 cursor-pointer" @click="handleSearch">
         <Icon name="icon-park:search" size="22" />
       </div>
       <div>

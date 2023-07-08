@@ -15,7 +15,7 @@ function handleTop() {
     class="back-top animate-bounce-slow transition-[top] duration-700"
   >
     <div
-      class="absolute bottom-0 h-[105px] w-full cursor-pointer select-none"
+      class="back-to-top absolute bottom-0 h-[105px] w-full cursor-pointer select-none"
       @click="handleTop"
     ></div>
   </div>

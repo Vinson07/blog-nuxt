@@ -25,17 +25,17 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
     <div class="overflow-hidden max-md:h-56 md:flex-[1.4]">
       <the-image :src="item.articleCover" />
     </div>
-    <div
-      class="post__list__content px-8 pt-5 text-right md:flex-1"
-      @click="router.push(`/post/${item.id}`)"
-    >
+    <div class="post__list__content px-8 pt-5 text-right md:flex-1">
       <div
         class="inline-flex items-center rounded-md bg-[#fccd0026] py-1 px-2 text-xs text-orange-500 dark:bg-[#333333] dark:text-[#888]"
       >
         <Icon name="mingcute:time-fill" size="18" class="pr-1" />
         发布于 {{ createTime(item.createTime) }}
       </div>
-      <h4 class="my-6 cursor-pointer text-xl hover:text-orange-500 hover:dark:text-indigo-500">
+      <h4
+        class="post-title-link my-6 cursor-pointer text-xl hover:text-orange-500 hover:dark:text-indigo-500"
+        @click="router.push(`/post/${item.id}`)"
+      >
         {{ item.articleTitle }}
       </h4>
       <div class="content-info flex justify-end text-xs">
@@ -52,11 +52,13 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
           <span class="ml-1">{{ item.categoryName }}</span>
         </p>
       </div>
-      <div class="text-15 pt-3">
+      <div class="text-15 pt-3 pb-5">
         <p class="multiline-ellipsis">{{ $markdownItContent(item.articleContent) }}</p>
       </div>
-      <div class="content-ellipsis flex justify-end max-md:hidden">
-        <Icon name="ion:ellipsis-horizontal" size="26" class="cursor-pointer" />
+      <div class="content-ellipsis read-article flex justify-end max-md:hidden">
+        <NuxtLink :to="`/post/${item.id}`">
+          <Icon name="ion:ellipsis-horizontal" size="26" />
+        </NuxtLink>
       </div>
     </div>
   </li>

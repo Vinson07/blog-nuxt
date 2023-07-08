@@ -12,7 +12,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <nuxt-link :to="link" target="_blank" class="m-1 max-md:hidden">
+  <nuxt-link :to="link" target="_blank" class="nav-link m-1 max-md:hidden">
     <div class="group/img relative h-36 w-64 cursor-pointer overflow-hidden rounded-md">
       <img
         class="h-full w-full object-cover transition-transform duration-500 group-hover/img:scale-125"
@@ -24,7 +24,7 @@ defineProps<Props>()
       >
         <div class="text-center">
           <n-avatar round object-fit="cover" :size="70" :src="avatar" />
-          <h4>{{ title }}</h4>
+          <h4 class="nav-text">{{ title }}</h4>
         </div>
       </div>
       <div

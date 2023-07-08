@@ -15,7 +15,7 @@ function addEmoji(key: string | number) {
   <!-- 表情包 -->
   <n-popover placement="bottom-start" trigger="click">
     <template #trigger>
-      <div class="flex cursor-pointer items-center">
+      <div class="vemoji-btn flex cursor-pointer items-center">
         <Icon name="fluent-emoji-high-contrast:face-without-mouth" size="14" />
         <span class="ml-1 text-sm">表情</span>
       </div>

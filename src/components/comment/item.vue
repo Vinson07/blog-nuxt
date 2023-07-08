@@ -98,7 +98,7 @@ async function onSubmit() {
       <div class="ml-4 flex-1">
         <h3 class="cursor-pointer text-blue-500">{{ data.nickname }}</h3>
         <p class="text-gray-400">{{ timeFormat(data.createTime) }}</p>
-        <p class="my-2 break-all">
+        <p class="vcontent my-2 break-all">
           <NuxtLink
             v-if="reply && data.replyUserId !== data.userId"
             to=""

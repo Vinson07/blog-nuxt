@@ -112,7 +112,7 @@ async function reloadReply(id: number) {
   <!-- 评论 -->
   <div>
     <!-- 标题 -->
-    <div class="mt-5 flex items-center">
+    <div class="veditor mt-5 flex items-center">
       <Icon name="iconamoon:comment-remove-light" size="18" />
       <span class="ml-1 text-lg">评论</span>
     </div>

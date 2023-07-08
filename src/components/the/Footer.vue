@@ -24,7 +24,7 @@ const day = computed(() => {
         <Icon class="heart mx-1 pb-1" name="fxemoji:beating-heart" size="22" />
         <span>访客 {{ userStore.viewsCount || '--' }}</span>
       </p>
-      <p class="text-neutral-400">
+      <p class="beian text-neutral-400">
         <span class="mr-1">© 2023 Vinson</span>
         <client-only>
           <nuxt-link to="https://beian.miit.gov.cn" target="_blank">

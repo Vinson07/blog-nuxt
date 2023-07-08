@@ -15,6 +15,7 @@ interface Props {
 defineProps<Props>()
 
 let clipboard: Clipboard | null = null
+const articleRef = ref<HTMLElement | null>(null)
 const message = useMessage()
 const gallery = ref()
 
@@ -43,9 +44,9 @@ onMounted(() => {
     })
 
     // 图片预览
-    const markdownBody: HTMLElement | null = document.querySelector('.markdown-body')
-    if (markdownBody) {
-      gallery.value = new Viewer(markdownBody, {
+    // const markdownBody: HTMLElement | null = document.querySelector('.markdown-body')
+    if (articleRef.value) {
+      gallery.value = new Viewer(articleRef.value, {
         // button: false
         navbar: false
       })
@@ -62,7 +63,11 @@ onUnmounted(() => {
 
 <template>
   <!-- eslint-disable -->
-  <article class="markdown-body" v-html="$markdownIt(articleContent)"></article>
+  <article
+    class="markdown-body fancybox"
+    ref="articleRef"
+    v-html="$markdownIt(articleContent)"
+  ></article>
   <!-- eslint-enable -->
 </template>
 

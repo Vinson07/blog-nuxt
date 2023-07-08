@@ -23,10 +23,10 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="overflow-hidden rounded md:flex">
+  <div class="post-nav-item overflow-hidden rounded md:flex">
     <div
       v-if="lastArticle?.id"
-      class="group/previous relative h-[150px] flex-1 cursor-pointer"
+      class="group/previous prev relative h-[150px] flex-1 cursor-pointer"
       @click="router.push(`/post/${lastArticle.id}`)"
     >
       <img class="h-full w-full object-cover" :src="lastArticle.articleCover" alt="" />
@@ -43,7 +43,7 @@ const router = useRouter()
     </div>
     <div
       v-if="nextArticle?.id"
-      class="group/next relative h-[150px] flex-1 cursor-pointer"
+      class="group/next next relative h-[150px] flex-1 cursor-pointer"
       @click="router.push(`/post/${nextArticle.id}`)"
     >
       <img class="h-full w-full object-cover" :src="nextArticle.articleCover" alt="" />
