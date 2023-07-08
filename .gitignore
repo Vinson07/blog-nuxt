@@ -4,6 +4,7 @@ node_modules
 .nitro
 .cache
 .output
+.output.zip
 .env
 .DS_Store
 dist

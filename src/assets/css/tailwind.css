@@ -58,6 +58,10 @@ img {
   display: inline-block;
 }
 
+#waifu-tips {
+  color: black;
+}
+
 /* 滚动条样式 */
 ::-webkit-scrollbar {
   @apply h-[6px] w-[6px] bg-gray-200 dark:bg-[#202124];

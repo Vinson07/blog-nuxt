@@ -1,6 +1,6 @@
 <template>
   <div
-    class="group relative mr-2 h-40 flex-1 cursor-pointer overflow-hidden rounded-xl shadow-[1px_1px_3px_#0000004d]"
+    class="group relative h-40 w-64 cursor-pointer overflow-hidden rounded-xl shadow-[1px_1px_3px_#0000004d]"
   >
     <nuxt-link target="_blank" :to="link">
       <TheImage :src="bgSrc" />

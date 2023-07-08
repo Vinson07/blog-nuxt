@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NCarousel } from 'naive-ui'
+import { NCarousel, NEmpty } from 'naive-ui'
 import type { PostList } from '@/types/article'
 import { getPostList } from '@/apis/article'
 
@@ -79,7 +79,7 @@ onMounted(() => {
       @on-left="onLeft"
       @on-right="onRight"
     />
-    <div class="page-content mx-auto max-w-[820px] pt-14 max-md:px-4">
+    <div class="page-content mx-auto max-w-[780px] pt-14 max-md:px-4">
       <div>
         <HomeContentTitle />
         <n-carousel v-if="isMobile" draggable autoplay class="relative h-40 rounded-md">
@@ -102,7 +102,7 @@ onMounted(() => {
             </div>
           </NuxtLink>
         </n-carousel>
-        <div v-else class="flex">
+        <div v-else class="flex justify-between">
           <home-content-banner
             v-for="(item, index) in userStore.bannerList"
             :key="index"
@@ -115,20 +115,19 @@ onMounted(() => {
       </div>
       <main class="pt-10">
         <HomeContentTitle title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
-        <ul class="max-md:px-1">
-          <template v-if="postLoading">
-            <HomeContentLoading v-for="num in 10" :key="num" :active="num % 2 === 0" />
-          </template>
-          <template v-else>
-            <HomeContentItem
-              v-for="(item, index) in postList"
-              :key="item.id"
-              :item="item"
-              :active="(index + 1) % 2 === 0"
-            />
-          </template>
+        <ul v-if="postList.length > 0" class="max-md:px-1">
+          <HomeContentItem
+            v-for="(item, index) in postList"
+            :key="item.id"
+            :item="item"
+            :active="(index + 1) % 2 === 0"
+          />
         </ul>
-        <div class="text-center">
+        <ul v-else-if="postLoading">
+          <HomeContentLoading v-for="num in 10" :key="num" :active="num % 2 === 0" />
+        </ul>
+        <n-empty v-else description="暂无数据~" size="huge"> </n-empty>
+        <div v-if="postList.length > 0" class="text-center">
           <button
             v-show="nextPage"
             class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
@@ -142,7 +141,7 @@ onMounted(() => {
             class="mx-auto w-11 py-3"
             alt=""
           />
-          <p v-show="!nextPage && !loading">我也是有底线的～</p>
+          <p v-show="!nextPage && !loading" class="text-sm text-gray-400">我也是有底线的～</p>
         </div>
       </main>
     </div>

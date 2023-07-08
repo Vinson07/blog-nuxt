@@ -3,7 +3,8 @@ import type { PageListStore } from '@/types'
 export const useImageStore = defineStore('image', {
   state: () => ({
     pageList: {
-      home: 'https://www.loliapi.com/acg',
+      // home: 'https://www.loliapi.com/acg',
+      home: '',
       message: 'https://cdn.sakura520.co/images/0510.webp',
       link: 'https://cdn.sakura520.co/images/0517.webp',
       archive: 'https://cdn.sakura520.co/images/058.jpeg',

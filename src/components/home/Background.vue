@@ -28,7 +28,9 @@ const videoRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
 
 onMounted(() => {
-  titleTop.value = '50%'
+  nextTick(() => {
+    titleTop.value = '50%'
+  })
 })
 
 // 触发播放暂停按钮
@@ -81,6 +83,7 @@ const handleRight = () => {
   <div id="headertop" class="relative h-screen" :class="bgMask">
     <figure
       class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat md:bg-fixed"
+      :style="{ backgroundImage: bgSrc ? `url(${bgSrc})` : '' }"
     >
       <div
         :style="{ top: titleTop }"

@@ -40,6 +40,7 @@ onMounted(async () => {
         :bg-cover="imageStore.pageList.link"
         bg-title="友链"
       />
+      <!-- <Live2d /> -->
       <div class="flex flex-wrap justify-center py-24">
         <link-recommend
           v-for="(item, index) in linkList"
