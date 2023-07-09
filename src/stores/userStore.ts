@@ -90,6 +90,24 @@ export const useUserStore = defineStore('user', {
       this.userInfo = userInfo
       info.value = userInfo
     },
+    setArticleLike(articleId: number) {
+      const info = useSessionStorage('user-info', {})
+      if (this.userInfo.articleLikeSet?.includes(articleId)) {
+        this.userInfo.articleLikeSet.splice(this.userInfo.articleLikeSet.indexOf(articleId), 1)
+      } else {
+        this.userInfo.articleLikeSet?.push(articleId)
+      }
+      info.value = this.userInfo
+    },
+    setCommentLike(commentId: number) {
+      const info = useSessionStorage('user-info', {})
+      if (this.userInfo.commentLikeSet?.includes(commentId)) {
+        this.userInfo.commentLikeSet.splice(this.userInfo.commentLikeSet.indexOf(commentId), 1)
+      } else {
+        this.userInfo.commentLikeSet?.push(commentId)
+      }
+      info.value = this.userInfo
+    },
     async blogInfoData() {
       try {
         const { data } = await getBlogInfo()

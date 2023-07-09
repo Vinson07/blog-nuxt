@@ -15,3 +15,8 @@ export function getReplies(commentId: number) {
 export function addComment(data: AddCommentParams) {
   return http.post('/api/comments', data)
 }
+
+// 评论点赞
+export function commentLike(commentId: number) {
+  return http.post(`/api/comments/${commentId}/like`)
+}

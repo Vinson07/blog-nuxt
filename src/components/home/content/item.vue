@@ -23,7 +23,7 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
     :class="{ active: active }"
   >
     <div class="overflow-hidden max-md:h-56 md:flex-[1.4]">
-      <the-image :src="item.articleCover" />
+      <TheImage :src="item.articleCover" />
     </div>
     <div class="post__list__content px-8 pt-5 text-right md:flex-1">
       <div

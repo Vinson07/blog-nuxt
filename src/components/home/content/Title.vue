@@ -12,16 +12,12 @@
 
 <script setup lang="ts">
 interface Props {
-  title?: string
-  iconName?: string
-  wavyColor?: string
+  title: string
+  iconName: string
+  wavyColor: string
 }
 
-withDefaults(defineProps<Props>(), {
-  title: 'メイン',
-  iconName: 'ic:baseline-computer',
-  wavyColor: '#a0daa9'
-})
+defineProps<Props>()
 </script>
 
 <style scoped></style>

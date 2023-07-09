@@ -81,7 +81,7 @@ onMounted(() => {
     />
     <div class="page-content mx-auto max-w-[780px] pt-14 max-md:px-4">
       <div>
-        <HomeContentTitle />
+        <HomeContentTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
         <n-carousel v-if="isMobile" draggable autoplay class="relative h-40 rounded-md">
           <NuxtLink
             v-for="(item, index) in userStore.bannerList"

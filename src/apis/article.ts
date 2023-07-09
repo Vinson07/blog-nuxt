@@ -26,3 +26,8 @@ export function searchArticle(data: SearchArticleParams) {
 export function getArchives(current: number) {
   return http.get<archives>('/api/articles/archives', { params: { current } })
 }
+
+// 点赞文章
+export function articleLike(articleId: number) {
+  return http.post(`/api/articles/${articleId}/like`)
+}

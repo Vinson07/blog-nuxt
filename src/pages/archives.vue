@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NSkeleton } from 'naive-ui'
 import { getPoetry } from '@/apis/poetry'
 import { getArchives } from '@/apis/article'
 import type { RecordList } from '@/types/article'
@@ -9,12 +10,14 @@ const poetryText = ref('')
 const archiveList = ref<RecordList[]>([])
 const filterArchiveList = ref<{ [key: string]: RecordList[] }>({})
 const count = 1
+const loading = ref(false)
 
 // 获取文章列表
 archiveData(count)
 
 async function archiveData(count: number) {
   try {
+    loading.value = true
     const { data } = await getArchives(count)
     if (data.recordList.length > 0) {
       archiveList.value = [...archiveList.value, ...data.recordList]
@@ -32,6 +35,7 @@ async function archiveData(count: number) {
         },
         {}
       )
+      loading.value = false
     }
   } catch (error) {
     console.warn(error)
@@ -54,13 +58,14 @@ onMounted(async () => {
 
 <template>
   <div id="archives">
-    <the-top-bg-img
+    <TheTopBgImg
       :poetry-text="poetryText"
       :bg-cover="imageStore.pageList.archive"
-      bg-title="文章归档"
+      title="文章归档"
     />
     <div class="m-auto mt-10 max-w-[844px] pl-7 pr-4">
-      <ul class="border-l border-dashed pb-1">
+      <n-skeleton v-if="loading" class="my-5 h-16" :repeat="10" :sharp="false" />
+      <ul v-else class="border-l border-dashed pb-1">
         <li v-for="(item, key, index) in filterArchiveList" :key="index" class="relative pl-8">
           <div
             class="absolute top-0 -left-[1.14rem] flex h-9 w-9 items-center justify-center rounded-full bg-orange-400"

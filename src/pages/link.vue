@@ -35,14 +35,10 @@ onMounted(async () => {
 <template>
   <client-only>
     <div class="min-h-screen">
-      <the-top-bg-img
-        :poetry-text="poetryText"
-        :bg-cover="imageStore.pageList.link"
-        bg-title="友链"
-      />
+      <TheTopBgImg :poetry-text="poetryText" :bg-cover="imageStore.pageList.link" title="友链" />
       <!-- <Live2d /> -->
       <div class="flex flex-wrap justify-center py-24">
-        <link-recommend
+        <LinkRecommend
           v-for="(item, index) in linkList"
           :key="item.id"
           :avatar="item.linkAvatar"
@@ -51,7 +47,7 @@ onMounted(async () => {
           :link="item.linkAddress"
           :intro="item.linkIntro"
         />
-        <link-buddy
+        <LinkBuddy
           v-for="item in linkList"
           :key="item.id"
           :avatar="item.linkAvatar"

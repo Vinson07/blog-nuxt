@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useMessage } from 'naive-ui'
 import type { Record } from '@/types/comment'
-import { addComment } from '@/apis/comment'
+import { addComment, commentLike } from '@/apis/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
@@ -22,6 +22,8 @@ const message = useMessage()
 const isShowInput = ref(false)
 const btnRef = ref<HTMLElement | null>(null)
 const commentContent = ref('')
+const likeCount = ref(props.data.likeCount || 0)
+const isLike = ref(false)
 const type = inject<number>('type')
 const id = inject<number>('id')
 
@@ -34,9 +36,34 @@ const handleReply = () => {
 }
 
 // 点赞
-function handleLike() {
-  message.warning('努力开发中~~')
-}
+const likeActive = computed(
+  () => isLike.value || user.userInfo.commentLikeSet?.includes(props.data.id)
+)
+
+const handleLike = useThrottleFn(async (commentId: number) => {
+  if (!user.userInfo?.userInfoId) {
+    message.warning('请先登录')
+    return
+  }
+  try {
+    const { flag } = await commentLike(commentId)
+    if (flag) {
+      if (user.userInfo.commentLikeSet?.includes(commentId)) {
+        likeCount.value--
+        isLike.value = false
+        message.warning('取消点赞！！')
+      } else {
+        likeCount.value++
+        isLike.value = true
+        message.success('点赞成功！！')
+      }
+
+      user.setCommentLike(commentId)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}, 500)
 
 const onHide = (event: Event) => {
   const target = event.target as HTMLElement
@@ -110,9 +137,14 @@ async function onSubmit() {
           <span v-html="data.commentContent"></span>
         </p>
         <div class="flex">
-          <div class="mr-4 flex cursor-pointer items-center" @click="handleLike">
-            <Icon name="solar:like-outline" />
-            <span class="ml-1 cursor-pointer">{{ data.likeCount || 0 }}</span>
+          <div
+            class="mr-4 flex cursor-pointer select-none items-center"
+            :class="{ 'text-blue-500': likeActive }"
+            @click="handleLike(data.id)"
+          >
+            <Icon v-if="likeActive" name="solar:like-bold" size="16" />
+            <Icon v-else name="solar:like-outline" />
+            <span class="ml-1 cursor-pointer">{{ likeCount }}</span>
           </div>
           <div
             ref="btnRef"

@@ -1,13 +1,50 @@
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 import type { ArticleDetail } from '@/types/article'
+import { articleLike } from '@/apis/article'
 
 interface Props {
   articleDetail: ArticleDetail
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const router = useRouter()
+const message = useMessage()
+const user = useUserStore()
+const likeCount = ref(props.articleDetail.likeCount || 0)
+const isLike = ref(false)
+
+// 文章点赞
+
+const likeActive = computed(
+  () => isLike.value || user.userInfo.articleLikeSet?.includes(props.articleDetail.id)
+)
+
+const handleLike = useThrottleFn(async (id: number) => {
+  if (!user.userInfo?.userInfoId) {
+    message.warning('请先登录')
+    return
+  }
+  try {
+    const { flag } = await articleLike(id)
+    if (flag) {
+      if (user.userInfo.articleLikeSet?.includes(id)) {
+        likeCount.value--
+        isLike.value = false
+        message.warning('取消点赞！！')
+      } else {
+        likeCount.value++
+        isLike.value = true
+        message.success('点赞成功！！')
+      }
+
+      user.setArticleLike(id)
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}, 500)
 </script>
 
 <template>
@@ -35,14 +72,13 @@ const router = useRouter()
           </div>
           <div id="needsharebutton-postbottom" class="flex">
             <Icon name="ci:share" class="btn mr-3 cursor-pointer" size="20" />
-            <div class="reward-container flex items-center">
-              <Icon
-                name="bx:bxs-like"
-                class="cursor-pointer"
-                :class="{ 'text-red-600': false }"
-                size="20"
-              />
-              <span class="ml-1 text-sm">{{ articleDetail.likeCount || 0 }}</span>
+            <div
+              class="reward-container flex select-none items-center"
+              :class="{ 'text-blue-500': likeActive }"
+              @click="handleLike(articleDetail.id)"
+            >
+              <Icon name="bx:bxs-like" class="cursor-pointer" size="20" />
+              <span class="ml-1 text-sm">{{ likeCount }}</span>
             </div>
           </div>
         </div>
