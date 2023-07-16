@@ -32,10 +32,10 @@ async function commentList(current: number) {
     topicId: prop.id
   }
   loading.value = true
-  const { data, pending } = await comment.getCommentList(params, { server: false })
-  loading.value = pending.value
-  if (data.value?.data) {
-    const { count, recordList: list } = data.value.data
+  const { code, data } = await comment.getCommentList(params)
+  loading.value = false
+  if (code === 20000) {
+    const { count, recordList: list } = data
     total.value = count
     if (list && list.length > 0) {
       recordList.value = recordList.value.concat(list)
@@ -70,12 +70,12 @@ async function onSubmit() {
 
   // 解析表情
   const reg = /\[.+?\]/g
-  commentContent.value = commentContent.value.replace(reg, function (str) {
+  const content = commentContent.value.replace(reg, function (str) {
     return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
   })
 
   const { data } = await comment.addComment({
-    commentContent: commentContent.value,
+    commentContent: content,
     type: prop.type,
     topicId: prop.id
   })
@@ -86,12 +86,12 @@ async function onSubmit() {
     } else {
       message.success('评论成功！！')
     }
-    const { data } = await comment.getCommentList({
+    const { flag, data } = await comment.getCommentList({
       current: 1,
       type: prop.type,
       topicId: prop.id
     })
-    if (data.value?.data.recordList) recordList.value.unshift(data.value.data.recordList[0])
+    if (flag) recordList.value.unshift(data.recordList[0])
   } else {
     message.error('评论失败！！')
   }

@@ -84,14 +84,14 @@ async function onSubmit() {
 
   // 解析表情
   const reg = /\[.+?\]/g
-  commentContent.value = commentContent.value.replace(reg, function (str) {
+  const content = commentContent.value.replace(reg, function (str) {
     return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
   })
 
   const parentId = props.reply ? props.data.parentId : props.data.id
   const replyUserId = props.reply ? props.data.replyUserId : props.data.userId
   const { data } = await comment.addComment({
-    commentContent: commentContent.value,
+    commentContent: content,
     type: type || 0,
     topicId: id,
     parentId,

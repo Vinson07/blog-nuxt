@@ -3,28 +3,49 @@ import type { RecordList } from '@/types/article'
 
 const imageStore = useImageStore()
 const archiveList = ref<RecordList[]>([])
-const parmas = reactive({ current: 1 })
-const loadMore = ref(true)
+const filterArchiveList = ref<{ [key: string]: RecordList[] }>({})
+const current = ref(1)
+const loading = ref(false)
 
 const { article, poetry } = useApi()
 
 // 获取文章列表
-const { data, pending, refresh } = await article.getArchives(parmas)
-
-watchEffect(() => {
-  if (data.value && data.value.data.recordList.length > 0) {
-    archiveList.value = archiveList.value.concat(data.value.data.recordList)
-  } else {
-    loadMore.value = false
-  }
-})
-
-function onInfinite() {
-  if (loadMore.value && !pending.value) {
-    parmas.current++
-    refresh()
+async function archiveData() {
+  loading.value = true
+  const { flag, data } = await article.getArchives({ current: current.value })
+  if (flag) {
+    const { recordList } = data
+    if (recordList.length > 0) {
+      archiveList.value = [...archiveList.value, ...recordList]
+      current.value++
+      archiveData()
+    } else {
+      filterArchiveList.value = archiveList.value.reduce(
+        (acc: { [key: string]: RecordList[] }, obj: RecordList) => {
+          const key = useDateFormat(obj.createTime, 'YYYY-MM')
+          if (!acc[key.value]) {
+            acc[key.value] = []
+          }
+          acc[key.value].push(obj)
+          return acc
+        },
+        {}
+      )
+      loading.value = false
+    }
   }
 }
+
+onMounted(() => {
+  archiveData()
+})
+
+// function onInfinite() {
+//   if (loadMore.value && !pending.value) {
+//     parmas.current++
+//     refresh()
+//   }
+// }
 
 // 古诗
 const { data: gushi } = poetry.getPoetry()
@@ -35,35 +56,6 @@ const poetryText = computed(() => {
     return ''
   }
 })
-
-// async function archiveData() {
-//   loading.value = true
-//   const { data, pending } = await article.getArchives(count)
-//   console.log(data.value)
-//   loading.value = pending.value
-//   if (data.value) {
-//     const { recordList } = data.value.data
-//     if (recordList.length > 0) {
-//       archiveList.value = [...archiveList.value, ...recordList]
-//       count++
-//       archiveData()
-//     } else {
-//       filterArchiveList.value = archiveList.value.reduce(
-//         (acc: { [key: string]: RecordList[] }, obj: RecordList) => {
-//           const key = useDateFormat(obj.createTime, 'YYYY-MM')
-//           if (!acc[key.value]) {
-//             acc[key.value] = []
-//           }
-//           acc[key.value].push(obj)
-//           return acc
-//         },
-//         {}
-//       )
-//       console.log(filterArchiveList.value, '#')
-//       loading.value = false
-//     }
-//   }
-// }
 </script>
 
 <template>
@@ -75,16 +67,29 @@ const poetryText = computed(() => {
     />
     <div class="m-auto mt-10 max-w-[844px] pl-7 pr-4">
       <ul class="border-l border-dashed pb-1">
-        <ArchivesList v-for="item in archiveList" :key="item.id" v-bind="item" />
+        <ArchivesList
+          v-for="(item, key, index) in filterArchiveList"
+          :key="index"
+          :time="key"
+          :list="item"
+        />
       </ul>
-      <InfiniteScroll class="h-11 text-center" @infinite="onInfinite">
+      <div class="text-center">
+        <img
+          v-show="loading"
+          src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
+          class="h-11 w-11"
+          alt=""
+        />
+      </div>
+      <!-- <InfiniteScroll class="h-11 text-center" @infinite="onInfinite">
         <img
           v-show="pending"
           src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
           class="h-11 w-11"
           alt=""
         />
-      </InfiniteScroll>
+      </InfiniteScroll> -->
     </div>
   </div>
 </template>

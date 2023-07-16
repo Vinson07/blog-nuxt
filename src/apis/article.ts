@@ -7,11 +7,18 @@ import type {
 } from '@/types/article'
 import type { HttpOption } from '@/composables/useHttp'
 
+interface archiveList {
+  code: number
+  data: archives
+  flag: boolean
+  message: string
+}
+
 enum Api {
   homeArticle = '/articles',
   getArticleById = '/articles/',
   searchArticle = '/articles/search',
-  getArchives = '/articles/archives'
+  getArchives = '/api/articles/archives'
 }
 
 // 查看首页文章
@@ -31,7 +38,8 @@ export function searchArticle(params: SearchArticleParams) {
 
 // 查看文章归档
 export function getArchives(params: { current: number }) {
-  return useHttp.get<archives>(Api.getArchives, params)
+  // return useHttp.get<archives>(Api.getArchives, params)
+  return $fetch<archiveList>(Api.getArchives, { params })
 }
 
 // 点赞文章
