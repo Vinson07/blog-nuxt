@@ -8,12 +8,11 @@ interface Props {
   value: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   placeholder: '来发一针见血的评论吧!',
   btnText: '提交评论'
 })
 
-const content = ref('')
 const disabled = ref(true)
 
 const emit = defineEmits<{
@@ -23,13 +22,13 @@ const emit = defineEmits<{
 }>()
 
 function onClickOutsideHandler(event: Event) {
-  if (content.value.trim() !== '') return
+  if (props.value.trim() !== '') return
   emit('hide', event)
 }
 
-function onInput() {
-  emit('update:value', content.value)
-  if (content.value.trim() === '') {
+function onInput(value: string) {
+  emit('update:value', value)
+  if (value.trim() === '') {
     disabled.value = true
   } else {
     disabled.value = false
@@ -41,8 +40,7 @@ function onSubmit() {
 }
 
 function onAddEmoji(key: string) {
-  content.value += key
-  emit('update:value', content.value)
+  emit('update:value', props.value + key)
   disabled.value = false
 }
 </script>
@@ -56,7 +54,7 @@ function onAddEmoji(key: string) {
     @trigger="onClickOutsideHandler"
   >
     <n-input
-      v-model:value="content"
+      :value="value"
       :autosize="{
         minRows: 5
       }"
@@ -74,3 +72,10 @@ function onAddEmoji(key: string) {
     </div>
   </OnClickOutside>
 </template>
+
+<style>
+.comment_textarea textarea {
+  background: url(~/assets/img/comment.png) no-repeat bottom right;
+  background-size: 35%;
+}
+</style>

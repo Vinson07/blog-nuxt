@@ -43,3 +43,51 @@
     </g>
   </svg>
 </template>
+
+<style>
+.waves {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 12vh;
+  min-height: 3.125rem;
+  max-height: 9.375rem;
+  z-index: 1;
+}
+.waves .parallax .use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.waves .parallax .use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.waves .parallax .use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.waves .parallax .use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.waves .parallax .use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+/* 波浪动画 */
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+@media (max-width: 768px) {
+  .waves {
+    height: 10vh;
+    min-height: 10vh;
+  }
+}
+</style>

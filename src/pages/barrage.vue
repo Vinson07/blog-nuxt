@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { NCard, NInput, NInputGroup, NButton, useMessage } from 'naive-ui'
 import vueDanmaku from 'vue3-danmaku'
-import { getBarrage, addBarrage } from '@/apis/barrage'
 import type { BarrageList } from '@/types/barrage'
 
 const danmus = ref<BarrageList[]>([])
@@ -10,6 +9,8 @@ const imageStore = useImageStore()
 const userStore = useUserStore()
 const barrageValue = ref('')
 const danmakuRef = ref<any>(null)
+
+const { barrage } = useApi()
 
 const styleBgSrc = computed(() => `url(${imageStore.pageList.message})`)
 
@@ -21,12 +22,8 @@ definePageMeta({
 })
 
 onMounted(async () => {
-  try {
-    const { data } = await getBarrage()
-    if (data) danmus.value = data
-  } catch (error) {
-    console.error(error)
-  }
+  const { data } = await barrage.getBarrage()
+  if (data.value?.data) danmus.value = data.value.data
 })
 
 async function send() {
@@ -35,27 +32,24 @@ async function send() {
     return
   }
 
-  try {
-    const params = {
-      avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
-      messageContent: barrageValue.value,
-      nickname: userStore.userInfo?.nickname ?? '游客',
-      time: Math.floor(Math.random() * (10 - 7)) + 7
-    }
-    const { flag } = await addBarrage(params)
-    if (flag) {
-      if (danmakuRef.value) {
-        danmakuRef.value.add({
-          avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
-          messageContent: barrageValue.value,
-          nickname: userStore.userInfo?.nickname ?? '游客',
-          time: Math.floor(Math.random() * (10 - 7)) + 7
-        })
-      }
-    }
-  } catch (error) {
-    console.error(error)
+  const params = {
+    avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
+    messageContent: barrageValue.value,
+    nickname: userStore.userInfo?.nickname ?? '游客',
+    time: Math.floor(Math.random() * (10 - 7)) + 7
   }
+  const { data } = await barrage.addBarrage(params)
+  if (data.value?.flag) {
+    if (danmakuRef.value) {
+      danmakuRef.value.add({
+        avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
+        messageContent: barrageValue.value,
+        nickname: userStore.userInfo?.nickname ?? '游客',
+        time: Math.floor(Math.random() * (10 - 7)) + 7
+      })
+    }
+  }
+
   // 清空输入框
   barrageValue.value = ''
 }
@@ -63,8 +57,11 @@ async function send() {
 
 <template>
   <client-only>
-    <div class="barrage-bg relative h-screen w-screen pt-14">
-      <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2">
+    <div
+      class="barrage-bg relative h-screen w-screen bg-cover bg-center bg-no-repeat pt-14"
+      :style="{ backgroundImage: styleBgSrc }"
+    >
+      <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2 md:w-96">
         <n-card title="弹幕" hoverable class="bg-transparent">
           <n-input-group>
             <n-input
@@ -109,10 +106,3 @@ async function send() {
     </div>
   </client-only>
 </template>
-
-<style>
-.barrage-bg {
-  background: v-bind(styleBgSrc) no-repeat center;
-  background-size: cover;
-}
-</style>

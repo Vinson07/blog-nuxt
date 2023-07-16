@@ -1,12 +1,17 @@
-import { http } from './request'
 import type { BarrageList, AddBarrageParams } from '@/types/barrage'
+import type { HttpOption } from '@/composables/useHttp'
+
+enum Api {
+  barrage = '/messages',
+  add = '/messages'
+}
 
 // 获取弹幕
-export function getBarrage() {
-  return http.get<BarrageList[]>('/api/messages')
+export function getBarrage(option?: HttpOption<BarrageList[]>) {
+  return useHttp.get<BarrageList[]>(Api.barrage, {}, option)
 }
 
 // 添加弹幕
 export function addBarrage(data: AddBarrageParams) {
-  return http.post<BarrageList>('/api/messages', data)
+  return useHttp.post<BarrageList>(Api.add, data)
 }

@@ -1,6 +1,9 @@
-import { http } from './request'
 import type { Link } from '@/types/link'
 
+enum Api {
+  link = '/links'
+}
+
 export function getLink() {
-  return http.get<Link[]>('/api/links')
+  return useHttp.get<Link[]>(Api.link)
 }

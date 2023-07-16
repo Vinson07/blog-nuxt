@@ -1,4 +1,3 @@
-import { getBlogInfo } from '@/apis/home'
 import { getYiYan } from '@/apis/poetry'
 import type { WebsiteConfig } from '@/types'
 import type { IUserInfo } from '@/types/user'
@@ -109,29 +108,23 @@ export const useUserStore = defineStore('user', {
       info.value = this.userInfo
     },
     async blogInfoData() {
-      try {
-        const { data } = await getBlogInfo()
-        if (data) {
-          const { websiteConfig, categoryCount, articleCount, tagCount, viewsCount } = data
-          this.websiteConfig = websiteConfig
-          this.articleCount = articleCount
-          this.categoryCount = categoryCount
-          this.tagCount = tagCount
-          this.viewsCount = viewsCount
-        }
-      } catch (error) {
-        console.error(error)
+      const { home } = useApi()
+      const { data } = await home.getBlogInfo({ lazy: true })
+      if (data.value?.data) {
+        const { websiteConfig, categoryCount, articleCount, tagCount, viewsCount } = data.value.data
+        this.websiteConfig = websiteConfig
+        this.articleCount = articleCount
+        this.categoryCount = categoryCount
+        this.tagCount = tagCount
+        this.viewsCount = viewsCount
       }
     },
     async setYiYan() {
       // 每日一言
-      try {
-        const { data } = await getYiYan()
-        if (data.yiyan) {
-          this.yiYan = data.yiyan
-        }
-      } catch (error) {
-        console.warn(error)
+      const { data } = await getYiYan()
+      if (data.value) {
+        const yiyanObj = data.value as string
+        this.yiYan = JSON.parse(yiyanObj).yiyan
       }
     }
   }

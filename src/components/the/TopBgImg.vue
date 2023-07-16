@@ -1,54 +1,53 @@
 <script setup lang="ts">
-import { useImage } from '@vueuse/core'
+import { UseImage } from '@vueuse/components'
 
 interface Props {
-  type?: string
   bgCover?: string
   title?: string
-  poetryText?: string
   time?: string
   author?: string
   view?: number
+  poetryText?: string
 }
 const props = withDefaults(defineProps<Props>(), {
-  type: 'bg',
   title: 'Vinson',
   bgCover: '',
-  poetryText: '',
   time: '',
   author: '',
-  view: 0
+  view: 0,
+  poetryText: ''
 })
-const imageStore = useImageStore()
 
-const { error, isLoading } = useImage({ src: props.bgCover })
 const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
 </script>
 
 <template>
   <div class="slide-bottom relative h-[60vh]">
-    <img
-      v-if="error"
-      class="h-full w-full object-cover brightness-75 dark:brightness-50"
-      :src="`${imageStore.randomImage[2]}?t=${Date.now()}`"
-      alt=""
-    />
-    <img
-      v-else-if="isLoading"
-      class="h-full w-full brightness-75 dark:brightness-50"
-      src="~/assets/img/svg/progress-bar-stripe-loader.svg"
-      alt=""
-    />
-    <img
-      v-else
-      class="h-full w-full object-cover brightness-75 dark:brightness-50"
-      :src="bgCover"
-      alt=""
-    />
+    <UseImage :src="bgCover">
+      <template #loading>
+        <img
+          class="h-full w-full brightness-75 dark:brightness-50"
+          src="~/assets/img/svg/progress-bar-stripe-loader.svg"
+          alt=""
+        />
+      </template>
+      <template #error>
+        <img
+          class="h-full w-full object-cover brightness-75 dark:brightness-50"
+          src="~/assets/img/404.gif"
+          alt=""
+        />
+      </template>
+      <img
+        class="h-full w-full object-cover brightness-75 dark:brightness-50"
+        :src="bgCover"
+        alt=""
+      />
+    </UseImage>
     <div class="absolute inset-0 flex items-center justify-center text-white">
       <div class="text-center">
         <h1 class="text-5xl">{{ title }}</h1>
-        <p v-if="type === 'bg'" class="mt-4 text-2xl">{{ poetryText }}</p>
+        <p v-if="poetryText" class="mt-4 text-2xl">{{ poetryText }}</p>
         <div
           v-else
           class="m-4 flex flex-wrap items-center justify-center divide-x text-sm leading-3"

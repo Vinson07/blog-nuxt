@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   srcDir: 'src',
   app: {
     head: {
+      charset: 'utf-8',
       viewport:
         'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover',
       title: 'Vinson',
@@ -27,7 +28,7 @@ export default defineNuxtConfig({
         },
         {
           src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
-          body: true
+          async: true
         }
       ]
     }
@@ -66,9 +67,8 @@ export default defineNuxtConfig({
           : []
     }
   },
-  css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css', '@/assets/css/component.css'],
+  css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css'],
   // 代理
-  // server: false,
   nitro: {
     devProxy: {
       '/qiniuApi': {

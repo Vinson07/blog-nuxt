@@ -24,8 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { useScroll, watchThrottled } from '@vueuse/core'
-
 const titleList = ref<any>([])
 const tocRef = ref<HTMLElement | null>(null)
 const currentIndex = ref(0)
@@ -69,47 +67,49 @@ function handleAnchorClick(anchor: any, index: number) {
 
 // * 实现目录高亮当前位置的标题
 // 思路: 循环的方式将标题距离顶部距离与滚动条当前位置对比, 来确定高亮的标题
-const { y } = useScroll(window)
-watchThrottled(
-  y,
-  () => {
-    titleList.value.forEach((titleItem: any, index: number) => {
-      if (articleRef.value) {
-        const heading = articleRef.value.querySelector(
-          `[data-id="${titleItem.lineIndex}"]`
-        ) as HTMLElement
-        // const tocNavDom = document.querySelector('.toc-nav') as HTMLElement
-        if (y.value >= heading.offsetTop + patternHeight.value - 50) {
-          // 比 40 稍微多一点
-          currentIndex.value = index
-          // 目录item滚动同步
-          if (index > 1) {
-            const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
-            tocLiId &&
-              tocLiId.scrollIntoView({
-                block: 'center',
-                inline: 'nearest',
-                behavior: 'smooth'
-              })
+onMounted(() => {
+  const { y } = useScroll(window)
+  watchThrottled(
+    y,
+    () => {
+      titleList.value.forEach((titleItem: any, index: number) => {
+        if (articleRef.value) {
+          const heading = articleRef.value.querySelector(
+            `[data-id="${titleItem.lineIndex}"]`
+          ) as HTMLElement
+          // const tocNavDom = document.querySelector('.toc-nav') as HTMLElement
+          if (y.value >= heading.offsetTop + patternHeight.value - 50) {
+            // 比 40 稍微多一点
+            currentIndex.value = index
+            // 目录item滚动同步
+            if (index > 1) {
+              const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
+              tocLiId &&
+                tocLiId.scrollIntoView({
+                  block: 'center',
+                  inline: 'nearest',
+                  behavior: 'smooth'
+                })
+            }
           }
         }
-      }
-    })
-  },
-  { throttle: 200 }
-)
+      })
+    },
+    { throttle: 200 }
+  )
 
-// 固定目录
-watchThrottled(y, () => {
-  if (tocRef.value) {
-    if (y.value > patternHeight.value + recommendHeight.value) {
-      tocRef.value.style.position = 'fixed'
-      tocRef.value.style.top = '80px'
-    } else {
-      tocRef.value.style.position = ''
-      tocRef.value.style.top = ''
+  // 固定目录
+  watchThrottled(y, () => {
+    if (tocRef.value) {
+      if (y.value > patternHeight.value + recommendHeight.value) {
+        tocRef.value.style.position = 'fixed'
+        tocRef.value.style.top = '80px'
+      } else {
+        tocRef.value.style.position = ''
+        tocRef.value.style.top = ''
+      }
     }
-  }
+  })
 })
 
 onMounted(() => {
@@ -124,3 +124,9 @@ onMounted(() => {
   })
 })
 </script>
+
+<style>
+.toc-nav ul li.active {
+  @apply text-orange-500 dark:text-[#007fff];
+}
+</style>

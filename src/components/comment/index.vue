@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { NButton, NDivider, useMessage } from 'naive-ui'
 import type { Record } from '@/types/comment'
-import { getCommentList, addComment, getReplies } from '@/apis/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
@@ -11,49 +10,51 @@ interface Props {
 
 const prop = defineProps<Props>()
 
-const recordList = ref<Record[]>([])
-const total = ref(0)
-const loading = ref(false)
-const current = ref(1)
-const loadBtn = ref(false)
 const user = useUserStore()
 const message = useMessage()
+const recordList = ref<Record[]>([])
+const total = ref(0)
+const current = ref(1)
+const loading = ref(false)
+const loadBtn = ref(false)
 const commentContent = ref('')
+
+const { comment } = useApi()
 
 provide<number>('type', prop.type)
 provide<number>('id', prop.id)
 
 // 获取评论列表
-async function comment() {
+async function commentList(current: number) {
+  const params = {
+    current,
+    type: prop.type,
+    topicId: prop.id
+  }
   loading.value = true
-  try {
-    const { data } = await getCommentList({
-      current: current.value,
-      type: prop.type,
-      topicId: prop.id
-    })
-    loading.value = false
-    if (data) {
-      total.value = data.count
-      if (data?.recordList && data.recordList.length > 0) {
-        recordList.value = recordList.value.concat(data.recordList)
-      }
-      if (recordList.value.length > 0 && data.count !== recordList.value.length) {
-        loadBtn.value = true
-      } else {
-        loadBtn.value = false
-      }
+  const { data, pending } = await comment.getCommentList(params, { server: false })
+  loading.value = pending.value
+  if (data.value?.data) {
+    const { count, recordList: list } = data.value.data
+    total.value = count
+    if (list && list.length > 0) {
+      recordList.value = recordList.value.concat(list)
     }
-  } catch (error) {
-    loading.value = false
-    console.error(error)
+    if (recordList.value.length > 0 && count !== recordList.value.length) {
+      loadBtn.value = true
+    } else {
+      loadBtn.value = false
+    }
   }
 }
-comment()
+
+onMounted(() => {
+  commentList(current.value)
+})
 
 const handleLoading = () => {
   current.value++
-  comment()
+  commentList(current.value)
 }
 
 // 添加评论
@@ -62,49 +63,46 @@ async function onSubmit() {
     message.warning('请先登录')
     return
   }
+  if (commentContent.value.trim() === '') {
+    message.warning('内容不能为空！！！')
+    return
+  }
 
   // 解析表情
   const reg = /\[.+?\]/g
   commentContent.value = commentContent.value.replace(reg, function (str) {
     return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
   })
-  try {
-    const { flag } = await addComment({
-      commentContent: commentContent.value,
+
+  const { data } = await comment.addComment({
+    commentContent: commentContent.value,
+    type: prop.type,
+    topicId: prop.id
+  })
+  if (data.value?.flag) {
+    commentContent.value = ''
+    if (user.websiteConfig.isCommentReview) {
+      message.success('评论成功，正在审核中')
+    } else {
+      message.success('评论成功！！')
+    }
+    const { data } = await comment.getCommentList({
+      current: 1,
       type: prop.type,
       topicId: prop.id
     })
-    if (flag) {
-      if (user.websiteConfig.isCommentReview) {
-        message.success('评论成功，正在审核中')
-      } else {
-        message.success('评论成功！！')
-      }
-      current.value = 1
-      const { data } = await getCommentList({
-        current: current.value,
-        type: prop.type,
-        topicId: prop.id
-      })
-      if (data?.recordList) recordList.value.unshift(data.recordList[0])
-    } else {
-      message.error('评论失败！！')
-    }
-  } catch (error) {
-    console.error(error)
+    if (data.value?.data.recordList) recordList.value.unshift(data.value.data.recordList[0])
+  } else {
+    message.error('评论失败！！')
   }
 }
 
 // 更新回复
 async function reloadReply(id: number) {
-  try {
-    const { data } = await getReplies(id)
-    if (data) {
-      recordList.value.forEach((item) => {
-        if (item.id === id) item.replyDTOList = data
-      })
-    }
-  } catch (error) {}
+  const { data } = await comment.getReplies(id)
+  recordList.value.forEach((item) => {
+    if (item.id === id) item.replyDTOList = data.value?.data
+  })
 }
 </script>
 

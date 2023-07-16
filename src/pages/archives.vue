@@ -1,102 +1,90 @@
 <script setup lang="ts">
-import { NSkeleton } from 'naive-ui'
-import { getPoetry } from '@/apis/poetry'
-import { getArchives } from '@/apis/article'
 import type { RecordList } from '@/types/article'
 
-const router = useRouter()
 const imageStore = useImageStore()
-const poetryText = ref('')
 const archiveList = ref<RecordList[]>([])
-const filterArchiveList = ref<{ [key: string]: RecordList[] }>({})
-const count = 1
-const loading = ref(false)
+const parmas = reactive({ current: 1 })
+const loadMore = ref(true)
+
+const { article, poetry } = useApi()
 
 // 获取文章列表
-archiveData(count)
+const { data, pending, refresh } = await article.getArchives(parmas)
 
-async function archiveData(count: number) {
-  try {
-    loading.value = true
-    const { data } = await getArchives(count)
-    if (data.recordList.length > 0) {
-      archiveList.value = [...archiveList.value, ...data.recordList]
-      count++
-      archiveData(count)
-    } else {
-      filterArchiveList.value = archiveList.value.reduce(
-        (acc: { [key: string]: RecordList[] }, obj: RecordList) => {
-          const key = useDateFormat(obj.createTime, 'YYYY-MM')
-          if (!acc[key.value]) {
-            acc[key.value] = []
-          }
-          acc[key.value].push(obj)
-          return acc
-        },
-        {}
-      )
-      loading.value = false
-    }
-  } catch (error) {
-    console.warn(error)
+watchEffect(() => {
+  if (data.value && data.value.data.recordList.length > 0) {
+    archiveList.value = archiveList.value.concat(data.value.data.recordList)
+  } else {
+    loadMore.value = false
+  }
+})
+
+function onInfinite() {
+  if (loadMore.value && !pending.value) {
+    parmas.current++
+    refresh()
   }
 }
 
-const filterTime = computed(() => (time: string) => {
-  return useDateFormat(time, 'MM-DD').value
-})
-
-onMounted(async () => {
-  try {
-    const { data } = await getPoetry()
-    poetryText.value = `${data.content} —— ${data.author}`
-  } catch (error) {
-    console.warn(error)
+// 古诗
+const { data: gushi } = poetry.getPoetry()
+const poetryText = computed(() => {
+  if (gushi.value) {
+    return `${gushi.value.content} —— ${gushi.value.author}`
+  } else {
+    return ''
   }
 })
+
+// async function archiveData() {
+//   loading.value = true
+//   const { data, pending } = await article.getArchives(count)
+//   console.log(data.value)
+//   loading.value = pending.value
+//   if (data.value) {
+//     const { recordList } = data.value.data
+//     if (recordList.length > 0) {
+//       archiveList.value = [...archiveList.value, ...recordList]
+//       count++
+//       archiveData()
+//     } else {
+//       filterArchiveList.value = archiveList.value.reduce(
+//         (acc: { [key: string]: RecordList[] }, obj: RecordList) => {
+//           const key = useDateFormat(obj.createTime, 'YYYY-MM')
+//           if (!acc[key.value]) {
+//             acc[key.value] = []
+//           }
+//           acc[key.value].push(obj)
+//           return acc
+//         },
+//         {}
+//       )
+//       console.log(filterArchiveList.value, '#')
+//       loading.value = false
+//     }
+//   }
+// }
 </script>
 
 <template>
   <div id="archives">
     <TheTopBgImg
-      :poetry-text="poetryText"
       :bg-cover="imageStore.pageList.archive"
       title="文章归档"
+      :poetry-text="poetryText"
     />
     <div class="m-auto mt-10 max-w-[844px] pl-7 pr-4">
-      <n-skeleton v-if="loading" class="my-5 h-16" :repeat="10" :sharp="false" />
-      <ul v-else class="border-l border-dashed pb-1">
-        <li v-for="(item, key, index) in filterArchiveList" :key="index" class="relative pl-8">
-          <div
-            class="absolute top-0 -left-[1.14rem] flex h-9 w-9 items-center justify-center rounded-full bg-orange-400"
-          >
-            <Icon name="material-symbols:event-note-sharp" class="text-xl text-white" />
-          </div>
-          <h3 class="mb-5 text-xl italic leading-9 text-orange-400">{{ key }}</h3>
-          <ol>
-            <li
-              v-for="archive in item"
-              :key="archive.id"
-              class="relative mb-5 flex justify-between bg-neutral-100 p-5"
-              @click="router.push(`/post/${archive.id}`)"
-            >
-              <div
-                class="absolute top-[1.6rem] -left-[2.4rem] h-3 w-3 rounded-full bg-orange-400"
-              ></div>
-              <div class="arrow-left-ar absolute top-3 -left-5 h-0 w-0"></div>
-              <p
-                class="cursor-pointer text-zinc-500 hover:text-orange-500 hover:dark:text-[#007fff]"
-              >
-                {{ archive.articleTitle }}
-              </p>
-              <div class="flex items-center text-base text-neutral-400">
-                <Icon name="ic:round-access-time" size="20" />
-                <span>{{ filterTime(archive.createTime) }}</span>
-              </div>
-            </li>
-          </ol>
-        </li>
+      <ul class="border-l border-dashed pb-1">
+        <ArchivesList v-for="item in archiveList" :key="item.id" v-bind="item" />
       </ul>
+      <InfiniteScroll class="h-11 text-center" @infinite="onInfinite">
+        <img
+          v-show="pending"
+          src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
+          class="h-11 w-11"
+          alt=""
+        />
+      </InfiniteScroll>
     </div>
   </div>
 </template>

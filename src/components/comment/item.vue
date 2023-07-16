@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useMessage } from 'naive-ui'
 import type { Record } from '@/types/comment'
-import { addComment, commentLike } from '@/apis/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
@@ -27,6 +26,8 @@ const isLike = ref(false)
 const type = inject<number>('type')
 const id = inject<number>('id')
 
+const { comment } = useApi()
+
 const timeFormat = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM-DD HH:mm').value)
 const commentClass = computed(() => (props.reply ? ['reply', 'my-3', 'border-none'] : ['py-3']))
 
@@ -45,23 +46,19 @@ const handleLike = useThrottleFn(async (commentId: number) => {
     message.warning('请先登录')
     return
   }
-  try {
-    const { flag } = await commentLike(commentId)
-    if (flag) {
-      if (user.userInfo.commentLikeSet?.includes(commentId)) {
-        likeCount.value--
-        isLike.value = false
-        message.warning('取消点赞！！')
-      } else {
-        likeCount.value++
-        isLike.value = true
-        message.success('点赞成功！！')
-      }
-
-      user.setCommentLike(commentId)
+  const { data } = await comment.commentLike(commentId)
+  if (data.value?.flag) {
+    if (user.userInfo.commentLikeSet?.includes(commentId)) {
+      likeCount.value--
+      isLike.value = false
+      message.warning('取消点赞！！')
+    } else {
+      likeCount.value++
+      isLike.value = true
+      message.success('点赞成功！！')
     }
-  } catch (error) {
-    console.log(error)
+
+    user.setCommentLike(commentId)
   }
 }, 500)
 
@@ -80,37 +77,39 @@ async function onSubmit() {
     return
   }
 
+  if (commentContent.value.trim() === '') {
+    message.warning('内容不能为空！！！')
+    return
+  }
+
   // 解析表情
   const reg = /\[.+?\]/g
   commentContent.value = commentContent.value.replace(reg, function (str) {
     return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
   })
 
-  try {
-    const parentId = props.reply ? props.data.parentId : props.data.id
-    const replyUserId = props.reply ? props.data.replyUserId : props.data.userId
-    const { flag } = await addComment({
-      commentContent: commentContent.value,
-      type: type || 0,
-      topicId: id,
-      parentId,
-      replyUserId
-    })
-    if (flag) {
-      isShowInput.value = false
-      message.success('评论成功！！')
-      let id = 0
-      if (props.reply) {
-        id = props.data?.parentId ?? 0
-      } else {
-        id = props.data.id
-      }
-      emit('reloadReply', id)
+  const parentId = props.reply ? props.data.parentId : props.data.id
+  const replyUserId = props.reply ? props.data.replyUserId : props.data.userId
+  const { data } = await comment.addComment({
+    commentContent: commentContent.value,
+    type: type || 0,
+    topicId: id,
+    parentId,
+    replyUserId
+  })
+  if (data.value?.flag) {
+    commentContent.value = ''
+    isShowInput.value = false
+    message.success('评论成功！！')
+    let id = 0
+    if (props.reply) {
+      id = props.data?.parentId ?? 0
     } else {
-      message.error('评论失败！！')
+      id = props.data.id
     }
-  } catch (error) {
-    console.error(error)
+    emit('reloadReply', id)
+  } else {
+    message.error('评论失败！！')
   }
 }
 </script>

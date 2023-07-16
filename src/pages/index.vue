@@ -1,17 +1,37 @@
 <script setup lang="ts">
 import { NCarousel, NEmpty } from 'naive-ui'
 import type { PostList } from '@/types/article'
-import { getPostList } from '@/apis/article'
 
 const userStore = useUserStore()
 const imageStore = useImageStore()
+const layoutStore = useLayoutStore()
+
 const postList = ref<PostList[]>([])
-const current = ref<number>(1)
-const nextPage = ref(true)
-const loading = ref(false)
-const homeRef = ref<HTMLDivElement | null>(null)
-const isMobile = ref(false)
-const postLoading = ref(true)
+const loadMore = ref(true)
+const parmas = reactive({
+  current: 1
+})
+
+const { article } = useApi()
+
+// 获取post列表
+const { data, pending, refresh } = await article.getPostList(parmas)
+
+watchEffect(() => {
+  if (data.value && data.value.data.length > 0) {
+    postList.value = postList.value.concat(data.value.data)
+  } else {
+    loadMore.value = false
+  }
+})
+
+// 下一页
+function handleNextPage() {
+  if (loadMore.value && !pending.value) {
+    parmas.current++
+    refresh()
+  }
+}
 
 // 切换背景图片
 const onLeft = () => {
@@ -20,54 +40,10 @@ const onLeft = () => {
 const onRight = () => {
   imageStore.togglePage('home', imageStore.randomImage[1] + `?t=${Date.now()}`)
 }
-
-// 下一页
-function handleNextPage() {
-  nextPage.value = false
-  loading.value = true
-  current.value++
-  addPostList(current.value)
-}
-
-// 首次获取post列表
-addPostList(current.value)
-
-// 获取post列表
-async function addPostList(current: number) {
-  try {
-    const { data } = await getPostList(current)
-    if (data && data.length > 0) {
-      postList.value = postList.value.concat(data)
-      nextPage.value = true
-      loading.value = false
-    } else {
-      nextPage.value = false
-      loading.value = false
-    }
-  } catch (error) {
-    console.error(error)
-  } finally {
-    postLoading.value = false
-  }
-}
-
-// 适配移动端 屏幕宽度小于768显示
-onMounted(() => {
-  useResizeObserver(homeRef, (entries) => {
-    const entry = entries[0]
-    const { width } = entry.contentRect
-    // 更换布局
-    if (width > 768) {
-      isMobile.value = false
-    } else {
-      isMobile.value = true
-    }
-  })
-})
 </script>
 
 <template>
-  <div ref="homeRef">
+  <div>
     <HomeBackground
       :bg-src="imageStore.pageList.home"
       :title="userStore.websiteConfig.websiteName"
@@ -81,8 +57,8 @@ onMounted(() => {
     />
     <div class="page-content mx-auto max-w-[780px] pt-14 max-md:px-4">
       <div>
-        <HomeContentTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
-        <n-carousel v-if="isMobile" draggable autoplay class="relative h-40 rounded-md">
+        <HomeTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
+        <n-carousel v-if="layoutStore.isMobile" draggable autoplay class="relative h-40 rounded-md">
           <NuxtLink
             v-for="(item, index) in userStore.bannerList"
             :key="index"
@@ -103,7 +79,7 @@ onMounted(() => {
           </NuxtLink>
         </n-carousel>
         <div v-else class="flex justify-between">
-          <home-content-banner
+          <HomeBanner
             v-for="(item, index) in userStore.bannerList"
             :key="index"
             :title="item.title"
@@ -113,37 +89,38 @@ onMounted(() => {
           />
         </div>
       </div>
-      <main class="pt-10">
-        <HomeContentTitle title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
+      <div class="pt-10">
+        <HomeTitle title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
         <ul v-if="postList.length > 0" class="max-md:px-1">
-          <HomeContentItem
+          <HomePostItem
             v-for="(item, index) in postList"
             :key="item.id"
             :item="item"
             :active="(index + 1) % 2 === 0"
           />
         </ul>
-        <ul v-else-if="postLoading">
-          <HomeContentLoading v-for="num in 10" :key="num" :active="num % 2 === 0" />
-        </ul>
         <n-empty v-else description="暂无数据~" size="huge"> </n-empty>
-        <div v-if="postList.length > 0" class="text-center">
+        <!-- <InfiniteScroll :distance="100" class="text-center" @infinite="onInfinite">
+          <HomeLoading v-if="pending" :active="parmas.current % 2 === 0" />
+          <p v-else-if="!loadMore" class="text-sm text-gray-400">我也是有底线的～</p>
+        </InfiniteScroll> -->
+        <div class="h-[50px] text-center">
+          <img
+            v-if="pending"
+            src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
+            class="mx-auto w-11 py-3"
+            alt=""
+          />
+          <p v-else-if="!loadMore" class="text-sm text-gray-400">我也是有底线的～</p>
           <button
-            v-show="nextPage"
+            v-else
             class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
             @click="handleNextPage"
           >
             Previous
           </button>
-          <img
-            v-show="loading"
-            src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
-            class="mx-auto w-11 py-3"
-            alt=""
-          />
-          <p v-show="!nextPage && !loading" class="text-sm text-gray-400">我也是有底线的～</p>
         </div>
-      </main>
+      </div>
     </div>
   </div>
 </template>

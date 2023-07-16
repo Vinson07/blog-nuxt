@@ -1,17 +1,13 @@
 <script setup lang="ts">
-const router = useRouter()
-const props = defineProps({
-  active: {
-    type: Boolean,
-    default: false
-  },
-  item: {
-    type: Object,
-    default: () => {}
-  }
-})
+import type { PostList } from '@/types/article'
 
-const { active, item } = toRefs(props)
+defineProps<{
+  active: boolean
+  item: PostList
+}>()
+
+const router = useRouter()
+
 const { $markdownItContent } = useNuxtApp()
 
 const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM-DD').value)
@@ -63,3 +59,18 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
     </div>
   </li>
 </template>
+
+<style>
+.post__list.active {
+  @apply flex-row-reverse;
+}
+.post__list.active .post__list__content {
+  @apply text-left;
+}
+.post__list.active .post__list__content .content-info {
+  @apply justify-start;
+}
+.post__list.active .post__list__content .content-ellipsis {
+  @apply justify-start;
+}
+</style>

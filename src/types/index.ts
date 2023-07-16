@@ -12,6 +12,7 @@ export interface PageListStore {
   message: string
   login: string
   user: string
+  album: string
 }
 
 export interface PageList {

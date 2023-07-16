@@ -4,8 +4,10 @@ import type { MessageProviderProps } from 'naive-ui'
 
 import type { IUserInfo } from '@/types/user'
 const userStore = useUserStore()
+const layoutStore = useLayoutStore()
 
 const color = useColorMode()
+const el = ref<HTMLDivElement | null>(null)
 
 const placement = ref<MessageProviderProps['placement']>('bottom-left')
 
@@ -18,10 +20,25 @@ onMounted(() => {
   const info = useSessionStorage('user-info', {} as IUserInfo)
   userStore.setUserInfo(info.value)
 })
+
+// 适配移动端 屏幕宽度小于768显示
+onMounted(() => {
+  useResizeObserver(el, (entries) => {
+    const entry = entries[0]
+    const { width } = entry.contentRect
+    // 更换布局
+    if (width < 768) {
+      layoutStore.setMobile(true)
+    } else {
+      layoutStore.setMobile(false)
+    }
+  })
+})
 </script>
 
 <template>
   <n-config-provider
+    ref="el"
     inline-theme-disabled
     preflight-style-disabled
     :theme="color.value === 'dark' ? darkTheme : null"

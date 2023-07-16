@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { FormRules, FormInst, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
 import { NAvatar, NForm, NFormItem, NInput, NButton, NUpload, useMessage } from 'naive-ui'
-import { updateUserInfo, updateAvatar } from '@/apis/user'
 
 definePageMeta({
   layout: 'no-bottom',
@@ -13,6 +12,8 @@ const userStore = useUserStore()
 const imageStore = useImageStore()
 const formRef = ref<FormInst | null>(null)
 const model = reactive({ nickname: '', intro: '', webSite: '', email: '' })
+
+const { user } = useApi()
 
 const rules = reactive<FormRules>({
   nickname: [
@@ -65,21 +66,15 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
 }
 
 const customUpload = async ({ file, onFinish, onError }: UploadCustomRequestOptions) => {
-  try {
-    const formData = new FormData()
-    formData.append('file', file.file as File)
-    const { code, data, message: msg } = await updateAvatar(formData)
-    if (code === 20000) {
-      userStore.setUserInfo({ ...userStore.userInfo, avatar: data })
-      message.success('更新头像成功')
-      onFinish()
-    } else {
-      message.warning(msg)
-      onError()
-    }
-  } catch (error) {
+  const formData = new FormData()
+  formData.append('file', file.file as File)
+  const { data } = await user.updateAvatar(formData)
+  if (data.value?.flag) {
+    userStore.setUserInfo({ ...userStore.userInfo, avatar: data.value.data })
+    message.success('更新头像成功')
+    onFinish()
+  } else {
     onError()
-    console.warn(error)
   }
 }
 
@@ -87,16 +82,10 @@ const onSubmit = (e: Event) => {
   e.preventDefault()
   formRef.value?.validate(async (errors) => {
     if (!errors) {
-      try {
-        const { code, message: msg } = await updateUserInfo(model)
-        if (code === 20000) {
-          message.success('更新成功！')
-          userStore.setUserInfo({ ...userStore.userInfo, ...model })
-        } else {
-          message.warning(msg)
-        }
-      } catch (error) {
-        console.warn(error)
+      const { data } = await user.updateUserInfo(model)
+      if (data.value?.flag) {
+        message.success('更新成功！')
+        userStore.setUserInfo({ ...userStore.userInfo, ...model })
       }
     } else {
       console.log(errors)

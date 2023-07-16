@@ -113,3 +113,26 @@ function handleSearch() {
     </div>
   </header>
 </template>
+
+<style>
+.header-nav.active {
+  @apply bg-transparent hover:bg-[rgba(255,255,255,0.7)] dark:hover:bg-[rgba(38,38,38,0.7)];
+}
+
+.header-nav .nav-item:hover .icon-1 {
+  -webkit-animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.header-nav .nav-item:hover .icon-2 {
+  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.header-nav .nav-item:hover .icon-3 {
+  -webkit-animation: shake-vertical 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-vertical 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.header-nav .nav-item:hover .icon-4 {
+  -webkit-animation: vibrate-1 0.3s linear infinite both;
+  animation: vibrate-1 0.3s linear infinite both;
+}
+</style>

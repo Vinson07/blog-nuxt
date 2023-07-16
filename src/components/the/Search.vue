@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { NModal, NCard } from 'naive-ui'
-import { searchArticle } from '@/apis/article'
 import type { SearchArticle } from '@/types/article'
 
 const router = useRouter()
@@ -14,12 +13,9 @@ const { $markdownItSearch } = useNuxtApp()
 watchDebounced(
   keyword,
   async (value) => {
-    try {
-      const { data } = await searchArticle({ current: 1, keywords: value.trim() })
-      if (data) articleList.value = data
-    } catch (error) {
-      console.error(error)
-    }
+    const { article } = useApi()
+    const { data } = await article.searchArticle({ current: 1, keywords: value.trim() })
+    if (data.value) articleList.value = data.value.data
   },
   { debounce: 500 }
 )

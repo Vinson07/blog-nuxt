@@ -1,133 +1,70 @@
 <script setup lang="ts">
+import { Waterfall } from 'vue-waterfall-plugin-next'
 import { NImage } from 'naive-ui'
-import { getQiniuImg } from '@/apis/qiniu'
-import type { List } from '@/types/qiniu'
+import 'vue-waterfall-plugin-next/dist/style.css'
+import errorImg from '@/assets/img/404.gif'
 
-const baseImgUrl = ref('https://cdn.sakura520.co/')
-const imgList = ref<List[]>([])
-const imageParams = reactive({
-  marker: '',
-  prefix: 'static/images/'
-})
-
-onMounted(() => {
-  nextTick(() => {
-    const body = document.body
-    if (body) {
-      body.classList.add('no-scroll')
-    }
-  })
-})
-onUnmounted(() => {
-  document.body.classList.remove('no-scroll')
-})
+interface List {
+  src: string
+}
 
 definePageMeta({
   layout: 'no-bottom'
 })
 
-let count = 0
-const classRandom = () => {
-  const cl = ['slower', 'slower1', 'slower-down', 'faster', 'faster1', 'fastest', 'vertical']
-  if (count === cl.length + 1) {
-    count = 0
+const imageStore = useImageStore()
+const imgList = ref<List[]>([])
+const baseImgUrl = 'https://cdn.sakura520.co/'
+const marker = ref('')
+const imageParams = reactive({
+  marker: '',
+  prefix: 'static/images/'
+})
+
+const { qiniu, poetry } = useApi()
+
+const { data, pending, refresh } = await qiniu.getQiniuImg(imageParams)
+
+watchEffect(() => {
+  if (data.value?.code === 200) {
+    data.value.data.list.forEach((item) => {
+      imgList.value.push({
+        src: `${baseImgUrl}${item.key}`
+      })
+    })
+    marker.value = data.value.data?.marker ?? ''
   }
-  const result = cl[count] || ''
-  count++
-  return result
+})
+
+function onInfinite() {
+  if (marker.value && !pending.value) {
+    imageParams.marker = marker.value
+    refresh({ dedupe: true })
+  }
 }
 
-const getImageList = async () => {
-  try {
-    const { code, data } = await getQiniuImg(imageParams)
-    if (code === 200) {
-      imgList.value = imgList.value.concat(data.list)
-      imageParams.marker = data.marker
-      if (imageParams.marker) {
-        getImageList()
-      }
-    }
-  } catch (error) {}
-}
-getImageList()
+// 古诗
+const { data: gushi } = poetry.getPoetry()
+const poetryText = computed(() => {
+  if (gushi.value) {
+    return `${gushi.value.content} —— ${gushi.value.author}`
+  } else {
+    return ''
+  }
+})
 </script>
 
 <template>
-  <div class="shell">
-    <div v-for="item in imgList" :key="item.hash" class="images" :class="classRandom()">
-      <!-- <img :src="baseImgUrl + item.key" alt="" /> -->
-      <n-image :src="baseImgUrl + item.key" />
-    </div>
-  </div>
+  <ClientOnly>
+    <TheTopBgImg :bg-cover="imageStore.pageList.album" title="图库" :poetry-text="poetryText" />
+    <Waterfall :list="imgList" class="mt-3 md:mt-10" background-color="transparent" :width="350">
+      <template #item="{ url }">
+        <!-- <LazyImg :url="url" class="rounded" /> -->
+        <n-image :src="url" :fallback-src="errorImg" class="rounded" />
+      </template>
+    </Waterfall>
+    <InfiniteScroll :distance="100" class="h-10 text-center" @infinite="onInfinite">
+      <Icon v-show="pending" name="eos-icons:bubble-loading" class="text-3xl" />
+    </InfiniteScroll>
+  </ClientOnly>
 </template>
-
-<style lang="less">
-.no-scroll {
-  overflow: hidden;
-  height: 100vh;
-}
-.shell {
-  // background-image: linear-gradient(-225deg, #ffe29f 0%, #ffa99f 48%, #ff719a 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vh;
-  // 旋转90度，向上平移一个视口高度的距离
-  transform: rotate(-90deg) translate3d(0, -100vh, 0);
-  // 设置变换的原点为右上角
-  transform-origin: right top;
-  overflow-x: auto;
-  height: 100vw;
-  // 设置3D透视效果
-  perspective: 1px;
-  transform-style: preserve-3d;
-  // 创建一个图片容器，用于展示图片
-  .images {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // 设置最小高度为视口高度的40%
-    min-height: 40vh;
-    // 设置变换的原点为中心点
-    transform-origin: 50% 50%;
-    // 旋转90度，向前平移0.1px，放大1.1倍，向右平移0px，向下平移2vh
-    transform: rotate(90deg) translateZ(0.1px) scale(1.1) translateX(0px) translateY(2vh);
-    transition: 1s;
-    img {
-      border: #fff solid 10px;
-      max-width: 45vh;
-      max-height: 50vh;
-      transition: 0.5s;
-      &:hover {
-        box-shadow: 0 10px 30px #86c4f7;
-        // transform: scale(1.05);
-      }
-    }
-    // &:hover img {
-    //   box-shadow: 0 10px 30px #86c4f7;
-    //   transform: scale(1.05);
-    // }
-  }
-  .slower {
-    transform: rotate(90deg) translateZ(-0.12px) scale(1.3) translateX(0%) translateY(-8vh);
-  }
-  .slower1 {
-    transform: rotate(90deg) translateZ(-0.25px) scale(1.35) translateX(0%) translateY(2vh);
-  }
-  .slower-down {
-    transform: rotate(90deg) translateZ(-0.1px) scale(1) translateX(0%) translateY(16vh);
-  }
-  .faster {
-    transform: rotate(90deg) translateZ(-0.05px) scale(1.1) translateX(0%) translateY(15vh);
-  }
-  .faster1 {
-    transform: rotate(90deg) translateZ(0.05px) scale(1.4) translateX(0%) translateY(10vh);
-  }
-  .fastest {
-    transform: rotate(90deg) translateZ(0.22px) scale(0.7) translateX(-10vh) translateY(-15vh);
-  }
-  .vertical {
-    transform: rotate(90deg) translateZ(-0.1px) scale(1.6) translateX(0%) translateY(-3vh);
-  }
-}
-</style>

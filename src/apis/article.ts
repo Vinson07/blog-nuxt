@@ -1,4 +1,3 @@
-import { http } from './request'
 import type {
   PostList,
   ArticleDetail,
@@ -6,28 +5,36 @@ import type {
   SearchArticleParams,
   archives
 } from '@/types/article'
+import type { HttpOption } from '@/composables/useHttp'
+
+enum Api {
+  homeArticle = '/articles',
+  getArticleById = '/articles/',
+  searchArticle = '/articles/search',
+  getArchives = '/articles/archives'
+}
 
 // 查看首页文章
-export function getPostList(current: number) {
-  return http.get<PostList[]>('/api/articles', { params: { current } })
+export function getPostList(params: { current: number }, option?: HttpOption<PostList[]>) {
+  return useHttp.get<PostList[]>(Api.homeArticle, params, option)
 }
 
 // 根据id查看文章
-export function getArticleDetail(articleId: string | string[]) {
-  return http.get<ArticleDetail>(`/api/articles/${articleId}`)
+export function getArticleDetail(articleId: string) {
+  return useHttp.get<ArticleDetail>(Api.getArticleById + articleId)
 }
 
 // 搜索文章
-export function searchArticle(data: SearchArticleParams) {
-  return http.get<SearchArticle[]>('/api/articles/search', { params: data })
+export function searchArticle(params: SearchArticleParams) {
+  return useHttp.get<SearchArticle[]>(Api.searchArticle, params)
 }
 
 // 查看文章归档
-export function getArchives(current: number) {
-  return http.get<archives>('/api/articles/archives', { params: { current } })
+export function getArchives(params: { current: number }) {
+  return useHttp.get<archives>(Api.getArchives, params)
 }
 
 // 点赞文章
 export function articleLike(articleId: number) {
-  return http.post(`/api/articles/${articleId}/like`)
+  return useHttp.post(`/articles/${articleId}/like`)
 }

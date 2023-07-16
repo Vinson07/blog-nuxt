@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useMessage, NButton } from 'naive-ui'
-import { login, sendCode, register } from '@/apis/user'
 
 definePageMeta({
   layout: 'no-bottom'
@@ -14,6 +13,8 @@ const router = useRouter()
 const toggleForm = ref(false)
 const formLogin = reactive({ account: '', password: '' })
 const fromRegister = reactive({ username: '', code: '', password: '' })
+
+const { user } = useApi()
 
 function handleToggleForm() {
   toggleForm.value = !toggleForm.value
@@ -34,19 +35,14 @@ const handleLogin = async () => {
     message.warning('请输入密码！')
     return
   }
-  try {
-    const fd = new FormData()
-    fd.append('username', formLogin.account.trim())
-    fd.append('password', formLogin.password.trim())
-    const { code, data, message: msg } = await login(fd)
-    if (code === 20000) {
-      userStore.setUserInfo(data)
-      router.push('/user')
-    } else {
-      message.warning(msg)
-    }
-  } catch (error) {
-    console.warn(error)
+
+  const fd = new FormData()
+  fd.append('username', formLogin.account.trim())
+  fd.append('password', formLogin.password.trim())
+  const { data } = await user.login(fd)
+  if (data.value?.data) {
+    userStore.setUserInfo(data.value.data)
+    router.push('/user')
   }
 }
 
@@ -61,16 +57,10 @@ const onSendCode = async () => {
     return
   }
 
-  try {
-    const { code, message: msg } = await sendCode(fromRegister.username)
-    if (code === 20000) {
-      timer(60)
-      message.success('验证码已发送，请注意查收')
-    } else {
-      message.warning(msg)
-    }
-  } catch (error) {
-    console.warn(error)
+  const { data } = await user.sendCode(fromRegister.username)
+  if (data.value?.flag) {
+    timer(60)
+    message.success('验证码已发送，请注意查收')
   }
 }
 
@@ -96,18 +86,12 @@ const handleRegister = async () => {
     return
   }
 
-  try {
-    const { code, message: msg } = await register(fromRegister)
-    if (code === 20000) {
-      message.success('注册成功！')
-      fromRegister.username = ''
-      fromRegister.code = ''
-      fromRegister.password = ''
-    } else {
-      message.warning(msg)
-    }
-  } catch (error) {
-    console.warn(error)
+  const { data } = await user.register(fromRegister)
+  if (data.value?.flag) {
+    message.success('注册成功！')
+    fromRegister.username = ''
+    fromRegister.code = ''
+    fromRegister.password = ''
   }
 }
 </script>

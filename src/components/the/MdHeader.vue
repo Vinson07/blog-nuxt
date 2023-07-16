@@ -67,3 +67,21 @@ function handleAvatar() {
     </div>
   </header>
 </template>
+
+<style>
+.md-header {
+  @apply fixed top-0 left-0 right-0 z-50;
+}
+.md-header .md-header-operate {
+  @apply flex h-14 items-center justify-between px-4 shadow-md backdrop-blur;
+}
+.md-header .md-deader-menu {
+  @apply absolute top-0 left-0 bottom-0 h-screen w-full;
+}
+.md-header .md-deader-menu .menu-info {
+  @apply flex justify-evenly border-b-2 border-dashed border-sky-500 pb-4 text-center text-lg;
+}
+.md-header .md-deader-menu .menu-item {
+  @apply rounded-md bg-cyan-500 py-2 shadow-lg shadow-cyan-500/50 dark:bg-indigo-500 dark:shadow-indigo-500/50;
+}
+</style>
