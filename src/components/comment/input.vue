@@ -73,9 +73,9 @@ function onAddEmoji(key: string) {
   </OnClickOutside>
 </template>
 
-<style>
+<!-- <style>
 .comment_textarea textarea {
   background: url(~/assets/img/comment.png) no-repeat bottom right;
   background-size: 35%;
 }
-</style>
+</style> -->

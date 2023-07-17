@@ -44,7 +44,7 @@
   </svg>
 </template>
 
-<style>
+<!-- <style>
 .waves {
   position: absolute;
   left: 0;
@@ -90,4 +90,4 @@
     min-height: 10vh;
   }
 }
-</style>
+</style> -->

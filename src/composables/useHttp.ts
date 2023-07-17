@@ -62,8 +62,8 @@ function fetch<T>(url: UrlType, option: any) {
       // get方法传递数组形式参数
       options.params = paramsSerializer(options.params)
       // 添加baseURL,从环境变量里面取
-      options.baseURL = process.server ? baseURL : '/api'
-      // options.baseURL = baseURL
+      // options.baseURL = process.server ? baseURL : '/api'
+      options.baseURL = baseURL
       // 添加请求头,没登录不携带token
       // const userStore = useUserStore()
       // if (!userStore.isLogin) return

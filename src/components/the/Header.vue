@@ -114,7 +114,7 @@ function handleSearch() {
   </header>
 </template>
 
-<style>
+<!-- <style>
 .header-nav.active {
   @apply bg-transparent hover:bg-[rgba(255,255,255,0.7)] dark:hover:bg-[rgba(38,38,38,0.7)];
 }
@@ -135,4 +135,4 @@ function handleSearch() {
   -webkit-animation: vibrate-1 0.3s linear infinite both;
   animation: vibrate-1 0.3s linear infinite both;
 }
-</style>
+</style> -->

@@ -68,7 +68,7 @@ function handleAvatar() {
   </header>
 </template>
 
-<style>
+<!-- <style>
 .md-header {
   @apply fixed top-0 left-0 right-0 z-50;
 }
@@ -84,4 +84,4 @@ function handleAvatar() {
 .md-header .md-deader-menu .menu-item {
   @apply rounded-md bg-cyan-500 py-2 shadow-lg shadow-cyan-500/50 dark:bg-indigo-500 dark:shadow-indigo-500/50;
 }
-</style>
+</style> -->

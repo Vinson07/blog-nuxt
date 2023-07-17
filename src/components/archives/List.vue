@@ -42,9 +42,9 @@ const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD')
   </li>
 </template>
 
-<style>
+<!-- <style>
 .archives-list .arrow-left-ar {
   border-left: 20px solid transparent;
   border-bottom: 20px solid #f5f5f5;
 }
-</style>
+</style> -->

@@ -21,7 +21,7 @@ function handleTop() {
   </div>
 </template>
 
-<style>
+<!-- <style>
 .back-top {
   width: 70px;
   height: 900px;
@@ -34,4 +34,4 @@ function handleTop() {
   animation: bounce-slow 3s linear infinite;
   -webkit-animation: bounce-slow 3s linear infinite;
 }
-</style>
+</style> -->

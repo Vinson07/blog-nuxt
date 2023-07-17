@@ -67,7 +67,7 @@ export default defineNuxtConfig({
           : []
     }
   },
-  css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css'],
+  css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css', '@/assets/css/component.css'],
   // 代理
   nitro: {
     devProxy: {

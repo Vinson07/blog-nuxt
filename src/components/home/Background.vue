@@ -163,7 +163,7 @@ const handleRight = () => {
   </div>
 </template>
 
-<style>
+<!-- <style>
 #headertop .headertop-bg {
   background-image: url(https://www.loliapi.com/acg);
 }
@@ -205,4 +205,4 @@ const handleRight = () => {
   border-style: solid;
   border-color: transparent transparent rgba(0, 0, 0, 0.5) transparent;
 }
-</style>
+</style> -->
