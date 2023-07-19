@@ -46,7 +46,7 @@ const onRight = () => {
   <div>
     <HomeBackground
       :bg-src="imageStore.pageList.home"
-      :title="userStore.websiteConfig.websiteName"
+      :title="userStore.websiteConfig?.websiteName"
       :sub-title="userStore.yiYan"
       :git-hub="userStore.link.gitHub"
       :zhi-hu="userStore.link.zhiHu"
@@ -100,25 +100,21 @@ const onRight = () => {
           />
         </ul>
         <n-empty v-else description="暂无数据~" size="huge"> </n-empty>
-        <!-- <InfiniteScroll :distance="100" class="text-center" @infinite="onInfinite">
-          <HomeLoading v-if="pending" :active="parmas.current % 2 === 0" />
-          <p v-else-if="!loadMore" class="text-sm text-gray-400">我也是有底线的～</p>
-        </InfiniteScroll> -->
-        <div class="h-[50px] text-center">
+        <div v-if="postList.length > 0" class="h-[50px] text-center">
           <img
             v-if="pending"
             src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
             class="mx-auto w-11 py-3"
             alt=""
           />
-          <p v-else-if="!loadMore" class="text-sm text-gray-400">我也是有底线的～</p>
           <button
-            v-else
+            v-else-if="loadMore"
             class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
             @click="handleNextPage"
           >
             Previous
           </button>
+          <p v-else class="text-sm text-gray-400">我也是有底线的～</p>
         </div>
       </div>
     </div>

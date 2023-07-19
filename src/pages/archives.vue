@@ -82,14 +82,14 @@ const poetryText = computed(() => {
           alt=""
         />
       </div>
-      <!-- <InfiniteScroll class="h-11 text-center" @infinite="onInfinite">
+      <!-- <BaseInfiniteScroll class="h-11 text-center" @infinite="onInfinite">
         <img
           v-show="pending"
           src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
           class="h-11 w-11"
           alt=""
         />
-      </InfiniteScroll> -->
+      </BaseInfiniteScroll> -->
     </div>
   </div>
 </template>

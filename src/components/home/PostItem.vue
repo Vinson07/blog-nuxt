@@ -59,18 +59,3 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
     </div>
   </li>
 </template>
-
-<!-- <style>
-.post__list.active {
-  @apply flex-row-reverse;
-}
-.post__list.active .post__list__content {
-  @apply text-left;
-}
-.post__list.active .post__list__content .content-info {
-  @apply justify-start;
-}
-.post__list.active .post__list__content .content-ellipsis {
-  @apply justify-start;
-}
-</style> -->

@@ -11,7 +11,7 @@ const likeCount = ref(props.likeCount || 0)
 const isLike = ref(false)
 
 // 文章点赞
-const likeActive = computed(() => isLike.value || user.userInfo.articleLikeSet?.includes(props.id))
+const likeActive = computed(() => isLike.value || user.userInfo?.articleLikeSet?.includes(props.id))
 
 const handleLike = useThrottleFn(async (id: number) => {
   if (!user.userInfo?.userInfoId) {
@@ -42,7 +42,7 @@ const handleLike = useThrottleFn(async (id: number) => {
       class="articlePattern"
       :bg-cover="articleCover"
       :title="articleTitle"
-      :author="userStore.websiteConfig.websiteAuthor"
+      :author="userStore.websiteConfig?.websiteAuthor"
       :view="viewsCount"
       :time="createTime"
     />

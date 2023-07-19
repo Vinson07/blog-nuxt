@@ -38,7 +38,7 @@ const handleReply = () => {
 
 // 点赞
 const likeActive = computed(
-  () => isLike.value || user.userInfo.commentLikeSet?.includes(props.data.id)
+  () => isLike.value || user.userInfo?.commentLikeSet?.includes(props.data.id)
 )
 
 const handleLike = useThrottleFn(async (commentId: number) => {
@@ -120,7 +120,7 @@ async function onSubmit() {
     :class="commentClass"
   >
     <div class="flex">
-      <Avatar :size="reply ? 25 : 35" :src="data.avatar" :class="reply ? 'mt-2' : 'mt-1'" />
+      <BaseAvatar :size="reply ? 25 : 35" :src="data.avatar" :class="reply ? 'mt-2' : 'mt-1'" />
       <div class="ml-4 flex-1">
         <h3 class="cursor-pointer text-blue-500">{{ data.nickname }}</h3>
         <p class="text-gray-400">{{ timeFormat(data.createTime) }}</p>

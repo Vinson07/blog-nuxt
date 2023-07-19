@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { NSkeleton } from 'naive-ui'
+
+interface Props {
+  active?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  active: false
+})
+</script>
+
 <template>
   <li
     class="post-loading mb-10 overflow-hidden rounded-lg bg-[rgba(255,255,255,0.9)] shadow-[0_1px_30px_-4px_#e8e8e8] dark:bg-[rgba(51,51,51,0.7)] dark:shadow-[0_1px_35px_-8px_rgba(26,26,26,0.6)] md:flex md:h-56"
@@ -13,15 +25,3 @@
     </div>
   </li>
 </template>
-
-<script setup lang="ts">
-import { NSkeleton } from 'naive-ui'
-
-interface Props {
-  active?: boolean
-}
-
-withDefaults(defineProps<Props>(), {
-  active: false
-})
-</script>

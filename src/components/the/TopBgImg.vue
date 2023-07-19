@@ -69,6 +69,6 @@ const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
         </div>
       </div>
     </div>
-    <Waves />
+    <BaseWaves />
   </div>
 </template>

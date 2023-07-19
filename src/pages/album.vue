@@ -63,8 +63,8 @@ const poetryText = computed(() => {
         <n-image :src="url" :fallback-src="errorImg" class="rounded" />
       </template>
     </Waterfall>
-    <InfiniteScroll :distance="100" class="h-10 text-center" @infinite="onInfinite">
+    <BaseInfiniteScroll :distance="100" class="h-10 text-center" @infinite="onInfinite">
       <Icon v-show="pending" name="eos-icons:bubble-loading" class="text-3xl" />
-    </InfiniteScroll>
+    </BaseInfiniteScroll>
   </ClientOnly>
 </template>

@@ -23,10 +23,10 @@ function handleAvatar() {
   <header class="md-header">
     <div class="md-header-operate">
       <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
-        {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
+        {{ userStore.websiteConfig?.websiteAuthor ?? 'Vinson' }}
       </h1>
       <div class="flex items-center">
-        <dark-toggle />
+        <BaseDarkToggle />
         <div class="mr-4 cursor-pointer">
           <Icon name="icon-park:search" size="22" @click="handleSearch" />
         </div>
@@ -43,7 +43,7 @@ function handleAvatar() {
     >
       <div class="h-full w-2/3 rounded-lg bg-white shadow-xl dark:bg-[#1e1e20]">
         <div class="flex justify-center py-7">
-          <Avatar size="60" :src="userStore.userInfo.avatar" @click="handleAvatar" />
+          <BaseAvatar size="60" :src="userStore.userInfo?.avatar" @click="handleAvatar" />
         </div>
         <ul class="menu-info">
           <li>
@@ -67,21 +67,3 @@ function handleAvatar() {
     </div>
   </header>
 </template>
-
-<!-- <style>
-.md-header {
-  @apply fixed top-0 left-0 right-0 z-50;
-}
-.md-header .md-header-operate {
-  @apply flex h-14 items-center justify-between px-4 shadow-md backdrop-blur;
-}
-.md-header .md-deader-menu {
-  @apply absolute top-0 left-0 bottom-0 h-screen w-full;
-}
-.md-header .md-deader-menu .menu-info {
-  @apply flex justify-evenly border-b-2 border-dashed border-sky-500 pb-4 text-center text-lg;
-}
-.md-header .md-deader-menu .menu-item {
-  @apply rounded-md bg-cyan-500 py-2 shadow-lg shadow-cyan-500/50 dark:bg-indigo-500 dark:shadow-indigo-500/50;
-}
-</style> -->

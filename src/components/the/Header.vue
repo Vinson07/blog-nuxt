@@ -15,7 +15,7 @@ const showMenu = ref(true)
 const options = ref<IOption[]>([])
 
 watch(
-  () => userStore.userInfo.userInfoId,
+  () => userStore.userInfo?.userInfoId,
   (val) => {
     if (val) {
       options.value = [
@@ -48,7 +48,7 @@ const handleSelect = (key: string | number) => {
     case 'logout':
       useSessionStorage('user-info', {}).value = null
       userStore.setUserInfo({} as IUserInfo)
-      // router.push('/login')
+      router.push('/login')
       break
     case 'login':
       router.push('/login')
@@ -83,7 +83,7 @@ function handleSearch() {
     :class="{ active: showMenu }"
   >
     <h1 class="site-author cursor-pointer text-2xl" @click="router.push('/')">
-      {{ userStore.websiteConfig.websiteAuthor || 'Vinson' }}
+      {{ userStore.websiteConfig?.websiteAuthor ?? 'Vinson' }}
     </h1>
     <nav class="group-hover/nav:block" :class="{ hidden: showMenu }">
       <ul class="flex">
@@ -101,38 +101,15 @@ function handleSearch() {
       </ul>
     </nav>
     <div class="flex items-center">
-      <dark-toggle />
+      <BaseDarkToggle />
       <div class="menu-item-search mr-4 cursor-pointer" @click="handleSearch">
         <Icon name="icon-park:search" size="22" />
       </div>
       <div>
         <n-dropdown :options="options" @select="handleSelect">
-          <Avatar :src="userStore.userInfo.avatar" />
+          <BaseAvatar :src="userStore.userInfo?.avatar" />
         </n-dropdown>
       </div>
     </div>
   </header>
 </template>
-
-<!-- <style>
-.header-nav.active {
-  @apply bg-transparent hover:bg-[rgba(255,255,255,0.7)] dark:hover:bg-[rgba(38,38,38,0.7)];
-}
-
-.header-nav .nav-item:hover .icon-1 {
-  -webkit-animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-}
-.header-nav .nav-item:hover .icon-2 {
-  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-}
-.header-nav .nav-item:hover .icon-3 {
-  -webkit-animation: shake-vertical 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-  animation: shake-vertical 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-}
-.header-nav .nav-item:hover .icon-4 {
-  -webkit-animation: vibrate-1 0.3s linear infinite both;
-  animation: vibrate-1 0.3s linear infinite both;
-}
-</style> -->

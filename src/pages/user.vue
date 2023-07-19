@@ -49,11 +49,13 @@ const rules = reactive<FormRules>({
 })
 
 onMounted(() => {
-  const { nickname, intro, webSite, email } = userStore.userInfo
-  model.nickname = nickname
-  model.intro = intro
-  model.webSite = webSite
-  model.email = email
+  if (userStore.userInfo) {
+    const { nickname, intro, webSite, email } = userStore.userInfo
+    model.nickname = nickname
+    model.intro = intro
+    model.webSite = webSite
+    model.email = email
+  }
 })
 
 const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
@@ -70,7 +72,9 @@ const customUpload = async ({ file, onFinish, onError }: UploadCustomRequestOpti
   formData.append('file', file.file as File)
   const { data } = await user.updateAvatar(formData)
   if (data.value?.flag) {
-    userStore.setUserInfo({ ...userStore.userInfo, avatar: data.value.data })
+    if (userStore.userInfo) {
+      userStore.setUserInfo({ ...userStore.userInfo, avatar: data.value.data })
+    }
     message.success('更新头像成功')
     onFinish()
   } else {
@@ -85,7 +89,9 @@ const onSubmit = (e: Event) => {
       const { data } = await user.updateUserInfo(model)
       if (data.value?.flag) {
         message.success('更新成功！')
-        userStore.setUserInfo({ ...userStore.userInfo, ...model })
+        if (userStore.userInfo) {
+          userStore.setUserInfo({ ...userStore.userInfo, ...model })
+        }
       }
     } else {
       console.log(errors)

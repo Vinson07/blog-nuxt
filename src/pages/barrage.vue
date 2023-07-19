@@ -33,7 +33,7 @@ async function send() {
   }
 
   const params = {
-    avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
+    avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig?.touristAvatar ?? '',
     messageContent: barrageValue.value,
     nickname: userStore.userInfo?.nickname ?? '游客',
     time: Math.floor(Math.random() * (10 - 7)) + 7
@@ -42,7 +42,7 @@ async function send() {
   if (data.value?.flag) {
     if (danmakuRef.value) {
       danmakuRef.value.add({
-        avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig.touristAvatar,
+        avatar: userStore.userInfo?.avatar ?? userStore.websiteConfig?.touristAvatar ?? '',
         messageContent: barrageValue.value,
         nickname: userStore.userInfo?.nickname ?? '游客',
         time: Math.floor(Math.random() * (10 - 7)) + 7

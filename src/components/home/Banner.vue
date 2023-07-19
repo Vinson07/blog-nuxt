@@ -1,3 +1,19 @@
+<script setup lang="ts">
+interface Props {
+  title?: string
+  describe?: string
+  link?: string
+  bgSrc?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  title: 'sakura',
+  describe: '本站 Sakura 主题',
+  link: '',
+  bgSrc: ''
+})
+</script>
+
 <template>
   <div
     class="group relative h-40 w-64 cursor-pointer overflow-hidden rounded-xl shadow-[1px_1px_3px_#0000004d]"
@@ -21,19 +37,3 @@
     </nuxt-link>
   </div>
 </template>
-
-<script setup lang="ts">
-interface Props {
-  title?: string
-  describe?: string
-  link?: string
-  bgSrc?: string
-}
-
-withDefaults(defineProps<Props>(), {
-  title: 'sakura',
-  describe: '本站 Sakura 主题',
-  link: '',
-  bgSrc: ''
-})
-</script>

@@ -81,7 +81,7 @@ async function onSubmit() {
   })
   if (data.value?.flag) {
     commentContent.value = ''
-    if (user.websiteConfig.isCommentReview) {
+    if (user.websiteConfig?.isCommentReview) {
       message.success('评论成功，正在审核中')
     } else {
       message.success('评论成功！！')
@@ -117,7 +117,7 @@ async function reloadReply(id: number) {
     <n-divider style="margin: 10px 0 15px" />
     <!-- 评论区 -->
     <div class="flex">
-      <Avatar class="mr-4" size="35" :src="user.userInfo?.avatar" />
+      <BaseAvatar class="mr-4" size="35" :src="user.userInfo?.avatar" />
       <comment-input v-model:value="commentContent" @submit="onSubmit" />
     </div>
     <!-- 华丽的分割线 -->
