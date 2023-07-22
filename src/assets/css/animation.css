@@ -29,7 +29,12 @@
 }
 
 .slide-bottom {
-  animation: slide-bottom 1s;
+  animation: slide-bottom 1s linear;
+}
+
+/* 浮现 */
+.emergence {
+  animation: main 0.3s linear;
 }
 
 /* 跳动 */

@@ -8,7 +8,7 @@ type ImageData = {
 
 // 获取图片
 export function getQiniuImg(params: ImageListParams) {
-  return useFetch<ImageData>('/qiniuApi/get-file-list', { params, server: false })
+  return $fetch<ImageData>('/qiniuApi/get-file-list', { params })
 }
 
 // 上传图片

@@ -40,13 +40,6 @@ onMounted(() => {
   archiveData()
 })
 
-// function onInfinite() {
-//   if (loadMore.value && !pending.value) {
-//     parmas.current++
-//     refresh()
-//   }
-// }
-
 // 古诗
 const { data: gushi } = poetry.getPoetry()
 const poetryText = computed(() => {
@@ -82,14 +75,6 @@ const poetryText = computed(() => {
           alt=""
         />
       </div>
-      <!-- <BaseInfiniteScroll class="h-11 text-center" @infinite="onInfinite">
-        <img
-          v-show="pending"
-          src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
-          class="h-11 w-11"
-          alt=""
-        />
-      </BaseInfiniteScroll> -->
     </div>
   </div>
 </template>

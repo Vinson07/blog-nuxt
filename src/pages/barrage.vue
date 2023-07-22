@@ -3,6 +3,10 @@ import { NCard, NInput, NInputGroup, NButton, useMessage } from 'naive-ui'
 import vueDanmaku from 'vue3-danmaku'
 import type { BarrageList } from '@/types/barrage'
 
+definePageMeta({
+  layout: 'no-bottom'
+})
+
 const danmus = ref<BarrageList[]>([])
 const msg = useMessage()
 const imageStore = useImageStore()
@@ -15,11 +19,9 @@ const { barrage } = useApi()
 const styleBgSrc = computed(() => `url(${imageStore.pageList.message})`)
 
 // 随机颜色
-const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
-
-definePageMeta({
-  layout: 'no-bottom'
-})
+// const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
+const getRandomColor = () =>
+  imageStore.colors[Math.floor(Math.random() * imageStore.colors.length + 1)]
 
 onMounted(async () => {
   const { data } = await barrage.getBarrage()

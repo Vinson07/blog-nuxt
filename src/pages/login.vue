@@ -10,6 +10,7 @@ const { text: codeText, flag, timer } = useTimer('发送')
 const userStore = useUserStore()
 const imageStore = useImageStore()
 const router = useRouter()
+const route = useRoute()
 const toggleForm = ref(false)
 const formLogin = reactive({ account: '', password: '' })
 const fromRegister = reactive({ username: '', code: '', password: '' })
@@ -42,7 +43,8 @@ const handleLogin = async () => {
   const { data } = await user.login(fd)
   if (data.value?.data) {
     userStore.setUserInfo(data.value.data)
-    router.push('/user')
+    // router.push('/user')
+    router.push(route.query.path as string)
   }
 }
 

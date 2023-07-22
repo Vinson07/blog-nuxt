@@ -13,11 +13,13 @@ const { $markdownItSearch } = useNuxtApp()
 watchDebounced(
   keyword,
   async (value) => {
-    const { article } = useApi()
-    const { data } = await article.searchArticle({ current: 1, keywords: value.trim() })
-    if (data.value) articleList.value = data.value.data
+    if (value.trim() !== '') {
+      const { article } = useApi()
+      const { data } = await article.searchArticle({ current: 1, keywords: value.trim() })
+      if (data.value) articleList.value = data.value.data
+    }
   },
-  { debounce: 500 }
+  { debounce: 500, maxWait: 1000 }
 )
 
 const gotoArticle = (id: number) => {

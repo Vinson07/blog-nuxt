@@ -8,6 +8,7 @@ interface IOption {
 }
 
 const router = useRouter()
+const route = useRoute()
 const userStore = useUserStore()
 const searchStore = useSearchStore()
 const showMenu = ref(true)
@@ -41,6 +42,7 @@ watch(
 )
 
 const handleSelect = (key: string | number) => {
+  const { path } = route
   switch (key) {
     case 'user':
       router.push('/user')
@@ -48,10 +50,14 @@ const handleSelect = (key: string | number) => {
     case 'logout':
       useSessionStorage('user-info', {}).value = null
       userStore.setUserInfo({} as IUserInfo)
-      router.push('/login')
+      if (path === '/user') {
+        router.push('/login')
+      }
       break
     case 'login':
-      router.push('/login')
+      if (path !== '/login') {
+        router.push(`/login?path=${path}`)
+      }
       break
     default:
       break

@@ -33,6 +33,7 @@ const commentClass = computed(() => (props.reply ? ['reply', 'my-3', 'border-non
 
 // 回复
 const handleReply = () => {
+  commentContent.value = ''
   isShowInput.value = !isShowInput.value
 }
 
