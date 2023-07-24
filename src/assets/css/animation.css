@@ -29,7 +29,7 @@
 }
 
 .slide-bottom {
-  animation: slide-bottom 1s linear;
+  animation: slide-bottom 1s ease-in;
 }
 
 /* 浮现 */

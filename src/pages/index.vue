@@ -56,7 +56,8 @@ const onRight = () => {
       @on-right="onRight"
     />
     <div class="page-content mx-auto max-w-[780px] pt-14 max-md:px-4">
-      <div>
+      <HomeTip :tip="userStore.websiteConfig?.websiteNotice ?? ''" />
+      <div class="pt-10">
         <HomeTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
         <n-carousel v-if="layoutStore.isMobile" draggable autoplay class="relative h-40 rounded-md">
           <NuxtLink
