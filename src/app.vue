@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { NMessageProvider, NConfigProvider, darkTheme } from 'naive-ui'
 import type { MessageProviderProps } from 'naive-ui'
-
 import type { IUserInfo } from '@/types/user'
+
 const userStore = useUserStore()
 const layoutStore = useLayoutStore()
+// const { home } = useApi()
 
 const color = useColorMode()
 const el = ref<HTMLDivElement | null>(null)
@@ -13,6 +14,15 @@ const placement = ref<MessageProviderProps['placement']>('bottom-left')
 
 // 获取博客基本数据
 userStore.blogInfoData()
+// const { data } = await home.getBlogInfo({ lazy: true })
+// watch(
+//   data,
+//   (value) => {
+//     console.log(value, '#')
+//   },
+//   { immediate: true }
+// )
+
 // 一言
 userStore.setYiYan()
 onMounted(() => {

@@ -2,7 +2,7 @@
 import { Waterfall } from 'vue-waterfall-plugin-next'
 import { NImage } from 'naive-ui'
 import 'vue-waterfall-plugin-next/dist/style.css'
-import errorImg from '@/assets/img/404.gif'
+import errorImg from '@/assets/img/404/404.gif'
 
 interface List {
   src: string

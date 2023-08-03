@@ -1,28 +1,22 @@
+import { createDiscreteApi } from 'naive-ui'
 import type { FetchResponse, SearchParameters } from 'ofetch'
 import type { UseFetchOptions } from '#app'
-import { createDiscreteApi } from 'naive-ui'
+import { Result } from '@/types'
 // import { useUserStore } from '~/stores/user.store'
 // import IconEmoticonDead from '~icons/mdi/emoticon-dead'
 
-export interface ResOptions<T> {
-  data: T
-  code: number
-  message: string
-  flag: boolean
-}
-
 type UrlType = string | Request | Ref<string | Request> | (() => string | Request)
 
-export type HttpOption<T> = UseFetchOptions<ResOptions<T>>
+export type HttpOption<T> = UseFetchOptions<Result<T>>
 
 const { message } = createDiscreteApi(['message'])
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL as string
 
-function handleError<T>(response: FetchResponse<ResOptions<T>> & FetchResponse<ResponseType>) {
+function handleError<T>(response: FetchResponse<Result<T>> & FetchResponse<ResponseType>) {
   const err = (text: string) => {
-    console.log(response?._data?.message ?? text)
-    message.error(response?._data?.message ?? text)
+    console.log(response?._data?.msg ?? text)
+    message.error(response?._data?.msg ?? text)
   }
   if (!response._data) {
     err('請求超時，服務器無響應！')
@@ -56,7 +50,7 @@ function paramsSerializer(params?: SearchParameters) {
   return query
 }
 function fetch<T>(url: UrlType, option: any) {
-  return useFetch<ResOptions<T>>(url, {
+  return useFetch<Result<T>>(url, {
     // 请求拦截器
     onRequest({ options }) {
       // get方法传递数组形式参数
@@ -74,7 +68,7 @@ function fetch<T>(url: UrlType, option: any) {
     onResponse({ response }) {
       if (response.headers.get('content-disposition') && response.status === 200) return response
       // 在这里判断错误
-      if (response._data.code !== 20000) {
+      if (response._data.code !== 200) {
         handleError<T>(response)
         return Promise.reject(response._data)
       }

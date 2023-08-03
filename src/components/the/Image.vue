@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import loadingImgUrl from '@/assets/img/loading.gif'
-import errorImgUrl from '@/assets/img/404.gif'
+import loadingImgUrl from '@/assets/img/loading/loading.gif'
+import errorImgUrl from '@/assets/img/404/404.gif'
 
 interface Props {
   src: string

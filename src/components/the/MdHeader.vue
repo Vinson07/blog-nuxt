@@ -23,7 +23,7 @@ function handleAvatar() {
   <header class="md-header">
     <div class="md-header-operate">
       <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
-        {{ userStore.websiteConfig?.websiteAuthor ?? 'Vinson' }}
+        {{ userStore.siteConfig?.siteAuthor ?? 'Vinson' }}
       </h1>
       <div class="flex items-center">
         <BaseDarkToggle />

@@ -81,11 +81,12 @@ async function onSubmit() {
   })
   if (data.value?.flag) {
     commentContent.value = ''
-    if (user.websiteConfig?.isCommentReview) {
-      message.success('评论成功，正在审核中')
-    } else {
-      message.success('评论成功！！')
-    }
+    message.success('评论成功！！')
+    // if (user.websiteConfig?.isCommentReview) {
+    //   message.success('评论成功，正在审核中')
+    // } else {
+    //   message.success('评论成功！！')
+    // }
     const { flag, data } = await comment.getCommentList({
       current: 1,
       type: prop.type,

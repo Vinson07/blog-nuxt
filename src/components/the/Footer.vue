@@ -2,10 +2,8 @@
 const userStore = useUserStore()
 
 const day = computed(() => {
-  if (userStore.websiteConfig) {
-    // const createTime = userStore.websiteConfig.websiteCreateTime
-    const differ =
-      new Date().getTime() - new Date(userStore.websiteConfig.websiteCreateTime).getTime()
+  if (userStore.siteConfig) {
+    const differ = new Date().getTime() - new Date(userStore.siteConfig.createSiteTime).getTime()
     const day = Math.floor(differ / 1000 / 60 / 60 / 24)
     return day
   } else {
@@ -27,7 +25,7 @@ const day = computed(() => {
       <p class="beian text-neutral-400">
         <span class="mr-1">© 2023 Vinson</span>
         <NuxtLink to="https://beian.miit.gov.cn" target="_blank">
-          {{ userStore.websiteConfig?.websiteRecordNo }}
+          {{ userStore.siteConfig?.recordNumber }}
         </NuxtLink>
       </p>
     </div>

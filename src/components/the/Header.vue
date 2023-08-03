@@ -89,7 +89,7 @@ function handleSearch() {
     :class="{ active: showMenu }"
   >
     <h1 class="site-author cursor-pointer text-2xl" @click="router.push('/')">
-      {{ userStore.websiteConfig?.websiteAuthor ?? 'Vinson' }}
+      {{ userStore.siteConfig?.siteAuthor ?? 'Vinson' }}
     </h1>
     <nav class="group-hover/nav:block" :class="{ hidden: showMenu }">
       <ul class="flex">

@@ -34,7 +34,7 @@ const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
       <template #error>
         <img
           class="h-full w-full object-cover brightness-75 dark:brightness-50"
-          src="~/assets/img/404.gif"
+          src="~/assets/img/404/404.gif"
           alt=""
         />
       </template>

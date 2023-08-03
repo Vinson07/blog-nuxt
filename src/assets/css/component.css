@@ -161,6 +161,9 @@
 .post__list.active .post__list__content {
   @apply text-left;
 }
+.post__list.active .post__list__content .content-top {
+  @apply flex-row-reverse;
+}
 .post__list.active .post__list__content .content-info {
   @apply justify-start;
 }

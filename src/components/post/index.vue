@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useMessage } from 'naive-ui'
-import type { ArticleDetail } from '@/types/article'
+import type { ArticleInfo } from '@/types/article'
 
-const props = defineProps<ArticleDetail>()
-const router = useRouter()
+const props = defineProps<ArticleInfo>()
+// const router = useRouter()
 const userStore = useUserStore()
 const message = useMessage()
 const user = useUserStore()
@@ -42,8 +42,8 @@ const handleLike = useThrottleFn(async (id: number) => {
       class="articlePattern"
       :bg-cover="articleCover"
       :title="articleTitle"
-      :author="userStore.websiteConfig?.websiteAuthor"
-      :view="viewsCount"
+      :author="userStore.siteConfig?.siteAuthor"
+      :view="viewCount"
       :time="createTime"
     />
     <div class="post-main relative mx-auto mt-4 max-w-[1140px]">
@@ -63,8 +63,8 @@ const handleLike = useThrottleFn(async (id: number) => {
           <div class="mt-2 flex justify-between">
             <div class="tag flex items-center">
               <Icon name="fluent:tag-multiple-16-regular" size="16" />
-              <span class="mx-1 cursor-pointer">{{ categoryName }}</span>
-              <span v-for="tag in tagDTOList" :key="tag.id" class="mx-1 cursor-pointer">
+              <span class="mx-1 cursor-pointer">{{ category.categoryName }}</span>
+              <span v-for="tag in tagVOList" :key="tag.id" class="mx-1 cursor-pointer">
                 {{ tag.tagName }}
               </span>
             </div>
@@ -85,7 +85,7 @@ const handleLike = useThrottleFn(async (id: number) => {
         <Comment :id="id" :type="1" />
       </div>
       <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
-        <div
+        <!-- <div
           v-if="recommendArticleList && recommendArticleList.length > 0"
           class="recommend mb-5 w-[inherit] rounded px-5 shadow-md dark:bg-neutral-800"
         >
@@ -105,7 +105,7 @@ const handleLike = useThrottleFn(async (id: number) => {
               </p>
             </li>
           </ul>
-        </div>
+        </div> -->
         <PostToc />
       </div>
     </div>

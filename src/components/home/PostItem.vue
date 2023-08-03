@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { PostList } from '@/types/article'
+import type { Article } from '@/types/article'
 
 defineProps<{
   active: boolean
-  item: PostList
+  item: Article
 }>()
 
 const router = useRouter()
@@ -22,11 +22,21 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
       <TheImage :src="item.articleCover" />
     </div>
     <div class="post__list__content px-8 pt-5 text-right md:flex-1">
-      <div
-        class="inline-flex items-center rounded-md bg-[#fccd0026] py-1 px-2 text-xs text-orange-500 dark:bg-[#333333] dark:text-[#888]"
-      >
-        <Icon name="mingcute:time-fill" size="18" class="pr-1" />
-        发布于 {{ createTime(item.createTime) }}
+      <div class="content-top flex items-center justify-end text-xs">
+        <p v-if="item.isTop" class="mx-4 flex items-center">
+          <Icon
+            name="ant-design:pushpin-filled"
+            size="16"
+            class="text-orange-500 dark:text-indigo-600"
+          />
+          <span class="ml-1 text-orange-500 dark:text-indigo-600">顶置</span>
+        </p>
+        <p
+          class="rounded-md bg-[#fccd0026] py-1 px-2 text-orange-500 dark:bg-[#333333] dark:text-indigo-600"
+        >
+          <Icon name="mingcute:time-fill" size="18" class="pr-1" />
+          <span>发布于 {{ createTime(item.createTime) }}</span>
+        </p>
       </div>
       <h4
         class="post-title-link my-6 cursor-pointer text-xl hover:text-orange-500 hover:dark:text-indigo-500"
@@ -36,16 +46,20 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
       </h4>
       <div class="content-info flex justify-end text-xs">
         <p class="mr-4 flex items-center">
-          <Icon name="mdi:eye" size="16" class="text-orange-500 dark:text-[#888]" />
+          <Icon name="mdi:eye" size="16" class="text-orange-500 dark:text-indigo-600" />
           <span class="ml-1">181 热度</span>
         </p>
         <p class="mr-4 flex items-center">
-          <Icon name="fe:comment" size="16" class="text-orange-500 dark:text-[#888]" />
+          <Icon name="fe:comment" size="16" class="text-orange-500 dark:text-indigo-600" />
           <span class="ml-1">4 条评论</span>
         </p>
         <p class="mr-4 flex items-center">
-          <Icon name="material-symbols:files" size="16" class="text-orange-500 dark:text-[#888]" />
-          <span class="ml-1">{{ item.categoryName }}</span>
+          <Icon
+            name="material-symbols:files"
+            size="16"
+            class="text-orange-500 dark:text-indigo-600"
+          />
+          <span class="ml-1">{{ item.category.categoryName }}</span>
         </p>
       </div>
       <div class="text-15 pt-3 pb-5">

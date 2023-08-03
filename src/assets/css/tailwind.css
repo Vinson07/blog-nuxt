@@ -51,7 +51,7 @@ html.light {
 }
 
 html.dark {
-  @apply bg-[#222] text-[#999999];
+  @apply bg-[#222222] text-[#999999];
 }
 
 img {

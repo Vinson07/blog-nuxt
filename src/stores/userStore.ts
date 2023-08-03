@@ -1,10 +1,10 @@
-import { getYiYan } from '@/apis/poetry'
-import type { WebsiteConfig } from '@/types'
+import { getYiYan2 } from '@/apis/poetry'
+import type { SiteConfig } from '@/types/home'
 import type { IUserInfo } from '@/types/user'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref<IUserInfo | null>(null)
-  const websiteConfig = ref<WebsiteConfig | null>(null)
+  const siteConfig = ref<SiteConfig | null>(null)
   // 菜单
   const menuList = ref([
     {
@@ -98,36 +98,30 @@ export const useUserStore = defineStore('user', () => {
       infoStorage.value = userInfo.value
     }
   }
+  // 查看博客信息
   async function blogInfoData() {
     const { home } = useApi()
     const { data } = await home.getBlogInfo({ lazy: true })
-    if (data.value?.data) {
-      const {
-        websiteConfig: config,
-        categoryCount: cateCount,
-        articleCount: artCount,
-        tagCount: tCount,
-        viewsCount: vCount
-      } = data.value.data
-      websiteConfig.value = config
-      articleCount.value = artCount
-      categoryCount.value = cateCount
-      tagCount.value = tCount
-      viewsCount.value = vCount
+    if (data.value) {
+      viewsCount.value = data.value.data.viewCount
+      tagCount.value = data.value.data.tagCount
+      articleCount.value = data.value.data.articleCount
+      categoryCount.value = data.value.data.categoryCount
+      siteConfig.value = data.value.data.siteConfig
     }
   }
   async function setYiYan() {
     // 每日一言
-    const { data } = await getYiYan()
+    const { data } = await getYiYan2()
     if (data.value) {
-      const yiyanObj = data.value as string
-      yiYan.value = JSON.parse(yiyanObj).yiyan
+      // const yiyanObj = data.value as string
+      yiYan.value = data.value.hitokoto
     }
   }
 
   return {
     userInfo,
-    websiteConfig,
+    siteConfig,
     menuList,
     bannerList,
     articleCount,

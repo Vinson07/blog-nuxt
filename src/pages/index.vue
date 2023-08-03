@@ -1,35 +1,46 @@
 <script setup lang="ts">
 import { NCarousel, NEmpty } from 'naive-ui'
-import type { PostList } from '@/types/article'
+import type { Article } from '@/types/article'
 
 const userStore = useUserStore()
 const imageStore = useImageStore()
 const layoutStore = useLayoutStore()
 
-const postList = ref<PostList[]>([])
-const loadMore = ref(true)
+const articleList = ref<Article[]>([])
+const articleCount = ref(0)
+// const loadMore = ref(true)
 const parmas = reactive({
-  current: 1
+  current: 1,
+  size: 5
 })
 
 const { article } = useApi()
 
-// 获取post列表
-const { data, pending, refresh } = await article.getPostList(parmas)
+// 获取文章列表
+const { data, pending } = await article.getArticleList(parmas)
+watch(
+  data,
+  (value) => {
+    if (value && value.data) {
+      articleCount.value = value.data.count
+      if (value.data.recordList.length > 0) {
+        articleList.value = [...articleList.value, ...value.data.recordList]
+      }
+    }
+  },
+  { immediate: true }
+)
 
-watchEffect(() => {
-  if (data.value && data.value.data.length > 0) {
-    postList.value = postList.value.concat(data.value.data)
-  } else {
-    loadMore.value = false
-  }
-})
+/**
+ * 是否还要加载
+ * 文章数和列表数不相同 加载 反之则加载
+ * */
+const isLoad = computed(() => articleList.value.length !== articleCount.value)
 
 // 下一页
 function handleNextPage() {
-  if (loadMore.value && !pending.value) {
+  if (isLoad.value && !pending.value) {
     parmas.current++
-    refresh()
   }
 }
 
@@ -46,7 +57,7 @@ const onRight = () => {
   <div>
     <HomeBackground
       :bg-src="imageStore.pageList.home"
-      :title="userStore.websiteConfig?.websiteName"
+      :title="userStore.siteConfig?.siteName"
       :sub-title="userStore.yiYan"
       :git-hub="userStore.link.gitHub"
       :zhi-hu="userStore.link.zhiHu"
@@ -56,7 +67,7 @@ const onRight = () => {
       @on-right="onRight"
     />
     <div class="page-content mx-auto max-w-[780px] pt-14 max-md:px-4">
-      <HomeTip :tip="userStore.websiteConfig?.websiteNotice ?? ''" />
+      <HomeTip :tip="userStore.siteConfig?.siteNotice ?? ''" />
       <div class="pt-10">
         <HomeTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
         <n-carousel v-if="layoutStore.isMobile" draggable autoplay class="relative h-40 rounded-md">
@@ -92,16 +103,16 @@ const onRight = () => {
       </div>
       <div class="pt-10">
         <HomeTitle title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
-        <ul v-if="postList.length > 0" class="max-md:px-1">
+        <ul v-if="articleList.length > 0" class="max-md:px-1">
           <HomePostItem
-            v-for="(item, index) in postList"
+            v-for="(item, index) in articleList"
             :key="item.id"
             :item="item"
             :active="(index + 1) % 2 === 0"
           />
         </ul>
         <n-empty v-else description="暂无数据~" size="huge"> </n-empty>
-        <div v-if="postList.length > 0" class="h-[50px] text-center">
+        <div class="h-[50px] text-center">
           <img
             v-if="pending"
             src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
@@ -109,7 +120,7 @@ const onRight = () => {
             alt=""
           />
           <button
-            v-else-if="loadMore"
+            v-else-if="isLoad"
             class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
             @click="handleNextPage"
           >
