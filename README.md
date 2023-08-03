@@ -4,6 +4,10 @@
 - 前台：<a href="https://sakura520.co" target="_blank">https://sakura520.co</a>
 - 后台：<a href="https://admin.sakura520.co" target="_blank">https://admin.sakura520.co</a>
 
+## 后台项目
+
+- 源码：https://gitee.com/wu_shengdong/blog
+
 ## 项目架构
 - nuxt3：https://nuxt.com/
 - ts 
