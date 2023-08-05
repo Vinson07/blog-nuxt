@@ -1,35 +1,32 @@
 <script setup lang="ts">
-import { NMessageProvider, NConfigProvider, darkTheme } from 'naive-ui'
+import { NMessageProvider, NConfigProvider, darkTheme, GlobalThemeOverrides } from 'naive-ui'
 import type { MessageProviderProps } from 'naive-ui'
-import type { IUserInfo } from '@/types/user'
 
-const userStore = useUserStore()
+const blogStore = useBlogStore()
 const layoutStore = useLayoutStore()
-// const { home } = useApi()
 
 const color = useColorMode()
 const el = ref<HTMLDivElement | null>(null)
 
 const placement = ref<MessageProviderProps['placement']>('bottom-left')
+const darkThemeOverrides: GlobalThemeOverrides = {
+  common: {
+    primaryColor: '#409eff',
+    primaryColorHover: '#79bbff'
+  }
+}
+const lightThemeOverrides: GlobalThemeOverrides = {
+  common: {
+    primaryColor: '#f97316',
+    primaryColorHover: '#fdba74'
+  }
+}
 
 // 获取博客基本数据
-userStore.blogInfoData()
-// const { data } = await home.getBlogInfo({ lazy: true })
-// watch(
-//   data,
-//   (value) => {
-//     console.log(value, '#')
-//   },
-//   { immediate: true }
-// )
+blogStore.blogInfoData()
 
 // 一言
-userStore.setYiYan()
-onMounted(() => {
-  // 用户信息
-  const info = useSessionStorage('user-info', {} as IUserInfo)
-  userStore.setUserInfo(info.value)
-})
+blogStore.setYiYan()
 
 // 适配移动端 屏幕宽度小于768显示
 onMounted(() => {
@@ -52,6 +49,7 @@ onMounted(() => {
     inline-theme-disabled
     preflight-style-disabled
     :theme="color.value === 'dark' ? darkTheme : null"
+    :theme-overrides="color.value === 'dark' ? darkThemeOverrides : lightThemeOverrides"
   >
     <!-- 消息提示 -->
     <n-message-provider :placement="placement">

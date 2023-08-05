@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Record } from '@/types/comment'
+import type { Reply } from '@/types/comment'
 
 interface Props {
   id: number
   replyCount: number | null
-  data: Record[]
+  data: Reply[] | null
 }
 
 defineProps<Props>()

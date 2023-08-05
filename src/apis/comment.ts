@@ -1,33 +1,35 @@
-import type { CommentListParams, CommentList, Record, AddCommentParams } from '@/types/comment'
-// import type { HttpOption } from '@/composables/useHttp'
-
-interface List {
-  code: number
-  data: CommentList
-  flag: boolean
-  message: string
-}
+import type { CommentQuery, Comment, Reply, CommentForm } from '@/types/comment'
+import type { PageResult, PageQuery } from '@/types'
+import type { HttpOption } from '@/composables/useHttp'
 
 enum Api {
-  list = '/api/comments',
-  add = '/comments'
+  list = '/comment/list',
+  add = '/comment/add'
 }
 
-// 获取评论列表
-export function getCommentList(params: CommentListParams) {
-  // useHttp 有毒，刷新页面请求不到数据，其他接口又不会
-  // return useHttp.get<CommentList>(Api.list, params)
-  return $fetch<List>(Api.list, { params })
+/**
+ * 查看评论列表
+ * @returns 评论列表
+ */
+export function getCommentList(params: CommentQuery, option?: HttpOption<PageResult<Comment[]>>) {
+  return useHttp.get<PageResult<Comment[]>>(Api.list, params, option)
 }
 
-// 获取评论下的回复
-export function getReplies(commentId: number) {
-  return useHttp.get<Record[]>(`/comments/${commentId}/replies`)
+/**
+ * 查看回复评论
+ * @param commentId 评论id
+ * @param params 分页参数
+ * @returns 回复评论列表
+ */
+export function getReplyList(commentId: number, params?: PageQuery, option?: HttpOption<Reply[]>) {
+  return useHttp.get<Reply[]>(`/comment/${commentId}/reply`, params, option)
 }
 
-// 添加评论
-export function addComment(data: AddCommentParams) {
-  return useHttp.post(Api.add, data)
+/**
+ * 添加评论
+ */
+export function addComment(data: CommentForm) {
+  return useHttp.post<null>(Api.add, data)
 }
 
 // 评论点赞

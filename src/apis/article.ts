@@ -3,23 +3,16 @@ import type {
   ArticleInfo,
   SearchArticle,
   SearchArticleParams,
-  archives
+  Archives
 } from '@/types/article'
 import type { HttpOption } from '@/composables/useHttp'
 import type { PageQuery, PageResult } from '@/types'
-
-interface archiveList {
-  code: number
-  data: archives
-  flag: boolean
-  message: string
-}
 
 enum Api {
   articleList = '/article/list',
   article = '/article/',
   searchArticle = '/articles/search',
-  getArchives = '/api/articles/archives'
+  archives = '/archives/list'
 }
 
 /**
@@ -45,10 +38,13 @@ export function searchArticle(params: SearchArticleParams) {
   return useHttp.get<SearchArticle[]>(Api.searchArticle, params)
 }
 
-// 查看文章归档
-export function getArchives(params: PageQuery) {
-  // return useHttp.get<archives>(Api.getArchives, params)
-  return $fetch<archiveList>(Api.getArchives, { params })
+/**
+ * 查看文章归档
+ * @param params 查询条件
+ * @returns 文章归档
+ */
+export function getArchivesList(params?: PageQuery) {
+  return useHttp.get<PageResult<Archives[]>>(Api.archives, params)
 }
 
 // 点赞文章

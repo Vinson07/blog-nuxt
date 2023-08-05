@@ -25,11 +25,11 @@ export default defineNuxtConfig({
         {
           src: 'https://cdn.sakura520.co/static/blog-plugin/js/starrySky.min.js', // 星空背景
           body: true
-        },
-        {
-          src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
-          async: true
         }
+        // {
+        //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+        //   async: true
+        // }
       ]
     }
   },
@@ -82,27 +82,29 @@ export default defineNuxtConfig({
       }
     }
   },
-  tailwindcss: {
-    cssPath: '~/assets/css/tailwind.css',
-    configPath: 'tailwind.config'
-  },
-  imports: {
-    dirs: ['stores']
-  },
-  colorMode: {
-    classSuffix: ''
-  },
   modules: [
     '@nuxtjs/tailwindcss',
-    [
-      '@pinia/nuxt',
-      {
-        autoImports: ['defineStore', 'acceptHMRUpdate']
-      }
-    ],
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
     '@vueuse/nuxt',
     '@nuxtjs/device',
     'nuxt-icon',
     '@nuxtjs/color-mode'
-  ]
+  ],
+  pinia: {
+    autoImports: ['defineStore', 'acceptHMRUpdate']
+  },
+  piniaPersistedstate: {
+    storage: 'sessionStorage'
+  },
+  imports: {
+    dirs: ['stores']
+  },
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config'
+  },
+  colorMode: {
+    classSuffix: ''
+  }
 })

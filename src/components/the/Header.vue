@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { NDropdown } from 'naive-ui'
-import type { IUserInfo } from '@/types/user'
+import { NDropdown, NAvatar } from 'naive-ui'
 
 interface IOption {
   label: string
@@ -10,13 +9,14 @@ interface IOption {
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
+const blogStore = useBlogStore()
 const searchStore = useSearchStore()
 const showMenu = ref(true)
 
 const options = ref<IOption[]>([])
 
 watch(
-  () => userStore.userInfo?.userInfoId,
+  () => userStore.userInfo,
   (val) => {
     if (val) {
       options.value = [
@@ -48,8 +48,7 @@ const handleSelect = (key: string | number) => {
       router.push('/user')
       break
     case 'logout':
-      useSessionStorage('user-info', {}).value = null
-      userStore.setUserInfo({} as IUserInfo)
+      userStore.clearUserInfo()
       if (path === '/user') {
         router.push('/login')
       }
@@ -89,12 +88,12 @@ function handleSearch() {
     :class="{ active: showMenu }"
   >
     <h1 class="site-author cursor-pointer text-2xl" @click="router.push('/')">
-      {{ userStore.siteConfig?.siteAuthor ?? 'Vinson' }}
+      {{ blogStore.siteConfig?.siteAuthor ?? 'Vinson' }}
     </h1>
     <nav class="group-hover/nav:block" :class="{ hidden: showMenu }">
       <ul class="flex">
         <li
-          v-for="(item, index) in userStore.menuList"
+          v-for="(item, index) in blogStore.menuList"
           :key="index"
           class="nav-item mx-4 flex cursor-pointer items-center font-semibold hover:text-orange-500 dark:hover:text-indigo-500"
           :class="item.class"
@@ -113,7 +112,7 @@ function handleSearch() {
       </div>
       <div>
         <n-dropdown :options="options" @select="handleSelect">
-          <BaseAvatar :src="userStore.userInfo?.avatar" />
+          <n-avatar :src="userStore.userInfo?.avatar" round class="mt-1 h-[30px] w-[30px]" />
         </n-dropdown>
       </div>
     </div>

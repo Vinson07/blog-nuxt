@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const imageStore = useImageStore()
-const cover = [
-  'https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/anzhiy.cn.jpg',
-  'https://doc.panjingyi.top/blog/202207031648703.jpg'
-]
+// const cover = [
+//   'https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/anzhiy.cn.jpg',
+//   'https://doc.panjingyi.top/blog/202207031648703.jpg'
+// ]
 
 definePageMeta({
   layout: 'no-bottom'
@@ -12,7 +12,7 @@ definePageMeta({
 const { link, poetry } = useApi()
 
 // 友链列表
-const { data: linkList } = await link.getLink()
+const { data: linkList } = await link.getLinkList()
 
 // 古诗
 const { data: gushi } = poetry.getPoetry()
@@ -29,7 +29,7 @@ const poetryText = computed(() => {
   <div class="min-h-screen">
     <TheTopBgImg :bg-cover="imageStore.pageList.link" title="友链" :poetry-text="poetryText" />
     <div class="flex flex-wrap justify-center py-24">
-      <LinkRecommend
+      <!-- <LinkRecommend
         v-for="(item, index) in linkList?.data"
         :key="item.id"
         :avatar="item.linkAvatar"
@@ -37,14 +37,15 @@ const poetryText = computed(() => {
         :cover="cover[index]"
         :link="item.linkAddress"
         :intro="item.linkIntro"
-      />
+      /> -->
       <LinkBuddy
         v-for="item in linkList?.data"
         :key="item.id"
-        :avatar="item.linkAvatar"
-        :title="item.linkName"
-        :link="item.linkAddress"
-        :intro="item.linkIntro"
+        :avatar="item.avatar"
+        :title="item.name"
+        :link="item.url"
+        :intro="item.introduction"
+        :color="item.color"
       />
     </div>
   </div>

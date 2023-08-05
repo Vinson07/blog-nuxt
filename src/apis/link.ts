@@ -1,9 +1,9 @@
 import type { Link } from '@/types/link'
 
 enum Api {
-  link = '/links'
+  link = '/friend/list'
 }
 
-export function getLink() {
+export function getLinkList() {
   return useHttp.get<Link[]>(Api.link)
 }

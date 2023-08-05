@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { NButton, NDivider, useMessage } from 'naive-ui'
-import type { Record } from '@/types/comment'
+import { NDivider, useMessage } from 'naive-ui'
+import type { Comment } from '@/types/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
@@ -8,58 +8,53 @@ interface Props {
   type: number
 }
 
-const prop = defineProps<Props>()
+const props = defineProps<Props>()
 
-const user = useUserStore()
+const userStore = useUserStore()
+const blogStore = useBlogStore()
 const message = useMessage()
-const recordList = ref<Record[]>([])
+const recordList = ref<Comment[]>([])
 const total = ref(0)
-const current = ref(1)
-const loading = ref(false)
-const loadBtn = ref(false)
 const commentContent = ref('')
 
 const { comment } = useApi()
 
-provide<number>('type', prop.type)
-provide<number>('id', prop.id)
+provide<number>('type', props.type)
+provide<number>('id', props.id)
 
 // 获取评论列表
-async function commentList(current: number) {
-  const params = {
-    current,
-    type: prop.type,
-    topicId: prop.id
-  }
-  loading.value = true
-  const { code, data } = await comment.getCommentList(params)
-  loading.value = false
-  if (code === 20000) {
-    const { count, recordList: list } = data
-    total.value = count
-    if (list && list.length > 0) {
-      recordList.value = recordList.value.concat(list)
-    }
-    if (recordList.value.length > 0 && count !== recordList.value.length) {
-      loadBtn.value = true
-    } else {
-      loadBtn.value = false
-    }
-  }
-}
-
-onMounted(() => {
-  commentList(current.value)
+const params = reactive({
+  current: 1,
+  size: 2,
+  typeId: props.id,
+  commentType: props.type
 })
+const { data: commentData, pending } = await comment.getCommentList(params, { server: false })
+watch(
+  commentData,
+  (value) => {
+    if (value?.flag && value.data.recordList) {
+      total.value = value.data.count
+      recordList.value = [...recordList.value, ...value.data.recordList]
+    }
+  },
+  { immediate: true }
+)
 
+/**
+ * 是否还要加载
+ * 评论数和评论总数不相同 加载 反之则不加载
+ * */
+const isLoad = computed(() => recordList.value.length !== total.value)
+
+// 加载更多
 const handleLoading = () => {
-  current.value++
-  commentList(current.value)
+  params.current++
 }
 
 // 添加评论
 async function onSubmit() {
-  if (!user.userInfo?.userInfoId) {
+  if (!userStore.userInfo) {
     message.warning('请先登录')
     return
   }
@@ -76,23 +71,27 @@ async function onSubmit() {
 
   const { data } = await comment.addComment({
     commentContent: content,
-    type: prop.type,
-    topicId: prop.id
+    typeId: props.id,
+    commentType: props.type
   })
   if (data.value?.flag) {
+    // 清空输入框
     commentContent.value = ''
-    message.success('评论成功！！')
-    // if (user.websiteConfig?.isCommentReview) {
-    //   message.success('评论成功，正在审核中')
-    // } else {
-    //   message.success('评论成功！！')
-    // }
-    const { flag, data } = await comment.getCommentList({
+    if (blogStore.siteConfig?.commentCheck) {
+      message.success('评论成功，正在审核中')
+    } else {
+      message.success('评论成功！！')
+    }
+    // 获取添加评论
+    const { data } = await comment.getCommentList({
       current: 1,
-      type: prop.type,
-      topicId: prop.id
+      size: 1,
+      typeId: props.id,
+      commentType: props.type
     })
-    if (flag) recordList.value.unshift(data.recordList[0])
+    if (data.value?.flag && data.value.data.recordList) {
+      recordList.value.unshift(data.value.data.recordList[0])
+    }
   } else {
     message.error('评论失败！！')
   }
@@ -100,10 +99,13 @@ async function onSubmit() {
 
 // 更新回复
 async function reloadReply(id: number) {
-  const { data } = await comment.getReplies(id)
-  recordList.value.forEach((item) => {
-    if (item.id === id) item.replyDTOList = data.value?.data
-  })
+  const { data } = await comment.getReplyList(id)
+  if (data.value?.data) {
+    const list = data.value.data
+    recordList.value.forEach((item) => {
+      if (item.id === id) item.replyVOList = list
+    })
+  }
 }
 </script>
 
@@ -118,13 +120,15 @@ async function reloadReply(id: number) {
     <n-divider style="margin: 10px 0 15px" />
     <!-- 评论区 -->
     <div class="flex">
-      <BaseAvatar class="mr-4" size="35" :src="user.userInfo?.avatar" />
+      <div class="mr-4">
+        <BaseAvatar :size="35" :src="userStore.userInfo?.avatar ?? ''" />
+      </div>
       <comment-input v-model:value="commentContent" @submit="onSubmit" />
     </div>
     <!-- 华丽的分割线 -->
     <n-divider style="margin-top: 30px; margin-bottom: 0">
-      <Icon name="iconamoon:comment-remove-light" size="18" />
-      <span class="ml-1 text-lg">评论区</span>
+      <Icon name="iconamoon:comment-remove-light" size="18" class="dark:text-white" />
+      <span class="ml-1 text-lg dark:text-white">评论区</span>
     </n-divider>
     <!-- 评论内容 -->
     <ul>
@@ -135,23 +139,37 @@ async function reloadReply(id: number) {
         @reload-reply="reloadReply"
       >
         <CommentReply
-          v-if="item.replyDTOList"
           :id="item.id"
           :reply-count="item.replyCount"
-          :data="item.replyDTOList"
+          :data="item.replyVOList"
           @reload-reply="reloadReply"
         />
       </CommentItem>
     </ul>
     <!-- 加载列表 -->
     <div class="my-8 text-center">
-      <n-button v-if="loadBtn" ghost @click="handleLoading">
+      <!-- <n-button v-if="isLoad" ghost @click="handleLoading">
         <template #icon>
-          <Icon v-if="loading" name="eos-icons:bubble-loading" size="16" />
+          <Icon v-if="pending" name="eos-icons:bubble-loading" size="16" />
           <Icon v-else name="uiw:loading" size="16" />
         </template>
         加载更多
-      </n-button>
+      </n-button> -->
+      <p v-if="isLoad" class="h-8">
+        <img
+          v-if="pending"
+          src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
+          class="h-8 w-8"
+          alt=""
+        />
+        <span
+          v-else
+          class="text-15 cursor-pointer text-orange-500 hover:underline dark:text-indigo-500"
+          @click="handleLoading"
+        >
+          加载更多
+        </span>
+      </p>
       <p v-if="recordList.length === 0">快来发表评论吧～</p>
     </div>
   </div>

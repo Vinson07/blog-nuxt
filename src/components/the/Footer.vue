@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const userStore = useUserStore()
+const blogStore = useBlogStore()
 
 const day = computed(() => {
-  if (userStore.siteConfig) {
-    const differ = new Date().getTime() - new Date(userStore.siteConfig.createSiteTime).getTime()
+  if (blogStore.siteConfig) {
+    const differ = new Date().getTime() - new Date(blogStore.siteConfig.createSiteTime).getTime()
     const day = Math.floor(differ / 1000 / 60 / 60 / 24)
     return day
   } else {
@@ -20,12 +20,12 @@ const day = computed(() => {
       <p class="my-3 text-neutral-400">
         <span> 小破站居然运行了 {{ day }} 天</span>
         <Icon class="heart mx-1 pb-1" name="fxemoji:beating-heart" size="22" />
-        <span>访客 {{ userStore.viewsCount || '--' }}</span>
+        <span>访客 {{ blogStore.viewsCount || '--' }}</span>
       </p>
       <p class="beian text-neutral-400">
         <span class="mr-1">© 2023 Vinson</span>
         <NuxtLink to="https://beian.miit.gov.cn" target="_blank">
-          {{ userStore.siteConfig?.recordNumber }}
+          {{ blogStore.siteConfig?.recordNumber }}
         </NuxtLink>
       </p>
     </div>

@@ -1,7 +1,29 @@
+/**
+ * 友链
+ */
 export interface Link {
+  /**
+   * 友链id
+   */
   id: number
-  linkAddress: string
-  linkAvatar: string
-  linkIntro: string
-  linkName: string
+  /**
+   * 友链颜色
+   */
+  color: string
+  /**
+   * 友链名称
+   */
+  name: string
+  /**
+   *友链头像
+   */
+  avatar: string
+  /**
+   * 友链地址
+   */
+  url: string
+  /**
+   * 友链介绍
+   */
+  introduction: string
 }

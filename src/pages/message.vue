@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { NCard, NInput, NInputGroup, NButton, useMessage } from 'naive-ui'
 import vueDanmaku from 'vue3-danmaku'
-import type { BarrageList } from '@/types/barrage'
+import type { Message } from '@/types/message'
 
 definePageMeta({
   layout: 'no-bottom'
 })
 
-const danmus = ref<BarrageList[]>([])
+const danmus = ref<Message[]>([])
 const msg = useMessage()
 const imageStore = useImageStore()
 const userStore = useUserStore()
+const blogStore = useBlogStore()
 const barrageValue = ref('')
 const danmakuRef = ref<any>(null)
 
-const { barrage } = useApi()
+const { message } = useApi()
 
 const styleBgSrc = computed(() => `url(${imageStore.pageList.message})`)
 
@@ -24,7 +25,7 @@ const getRandomColor = () =>
   imageStore.colors[Math.floor(Math.random() * imageStore.colors.length + 1)]
 
 onMounted(async () => {
-  const { data } = await barrage.getBarrage()
+  const { data } = await message.getMessageList()
   if (data.value?.data) danmus.value = data.value.data
 })
 
@@ -35,19 +36,17 @@ async function send() {
   }
 
   const params = {
-    avatar: userStore.userInfo?.avatar ?? userStore.siteConfig?.touristAvatar ?? '',
+    avatar: userStore.userInfo?.avatar ?? blogStore.siteConfig?.touristAvatar ?? '',
     messageContent: barrageValue.value,
-    nickname: userStore.userInfo?.nickname ?? '游客',
-    time: Math.floor(Math.random() * (10 - 7)) + 7
+    nickname: userStore.userInfo?.nickname ?? '游客'
   }
-  const { data } = await barrage.addBarrage(params)
+  const { data } = await message.addMessage(params)
   if (data.value?.flag) {
     if (danmakuRef.value) {
       danmakuRef.value.add({
-        avatar: userStore.userInfo?.avatar ?? userStore.siteConfig?.touristAvatar ?? '',
+        avatar: userStore.userInfo?.avatar ?? blogStore.siteConfig?.touristAvatar ?? '',
         messageContent: barrageValue.value,
-        nickname: userStore.userInfo?.nickname ?? '游客',
-        time: Math.floor(Math.random() * (10 - 7)) + 7
+        nickname: userStore.userInfo?.nickname ?? '游客'
       })
     }
   }

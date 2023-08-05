@@ -12,39 +12,47 @@ const imageStore = useImageStore()
 const router = useRouter()
 const route = useRoute()
 const toggleForm = ref(false)
-const formLogin = reactive({ account: '', password: '' })
+const formLogin = reactive({ username: '', password: '' })
 const fromRegister = reactive({ username: '', code: '', password: '' })
 
 const { user } = useApi()
+const { setToken } = useToken()
 
 function handleToggleForm() {
   toggleForm.value = !toggleForm.value
 }
 
 const handleLogin = async () => {
-  if (!formLogin.account) {
+  if (!formLogin.username) {
     message.warning('请输入邮箱号！')
     return
   }
 
-  if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formLogin.account)) {
+  if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formLogin.username)) {
     message.warning('邮箱格式有误！')
     return
   }
 
   if (!formLogin.password) {
     message.warning('请输入密码！')
-    return
   }
 
-  const fd = new FormData()
-  fd.append('username', formLogin.account.trim())
-  fd.append('password', formLogin.password.trim())
-  const { data } = await user.login(fd)
-  if (data.value?.data) {
-    userStore.setUserInfo(data.value.data)
-    // router.push('/user')
-    router.push(route.query.path as string)
+  // 取消useFetch响应式参数自动发送请求
+  const params = Object.assign({}, formLogin)
+  const { data } = await user.login(params)
+  if (data.value?.flag) {
+    setToken(data.value.data)
+    message.success('登录成功')
+
+    setTimeout(() => {
+      // 延迟 不然获取到token还是旧的
+      userStore.getUserInfo()
+    }, 100)
+
+    setTimeout(() => {
+      const path = route.query.path as string | undefined
+      path ? router.push(path) : router.push('/user')
+    }, 200)
   }
 }
 
@@ -59,7 +67,7 @@ const onSendCode = async () => {
     return
   }
 
-  const { data } = await user.sendCode(fromRegister.username)
+  const { data } = await user.getCode(fromRegister.username)
   if (data.value?.flag) {
     timer(60)
     message.success('验证码已发送，请注意查收')
@@ -88,7 +96,8 @@ const handleRegister = async () => {
     return
   }
 
-  const { data } = await user.register(fromRegister)
+  const params = Object.assign({}, fromRegister)
+  const { data } = await user.register(params)
   if (data.value?.flag) {
     message.success('注册成功！')
     fromRegister.username = ''
@@ -113,7 +122,7 @@ const handleRegister = async () => {
         >
           <h3 class="text-center text-3xl">Login</h3>
           <login-input
-            v-model:value="formLogin.account"
+            v-model:value="formLogin.username"
             class="my-10"
             icon="ph:user-duotone"
             placeholder="Email"

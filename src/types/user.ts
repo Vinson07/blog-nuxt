@@ -1,35 +1,93 @@
-export interface IUserInfo {
-  articleLikeSet?: any[]
-  avatar: string
-  commentLikeSet?: any[]
-  email: string
-  id: number
-  intro: string
-  ipAddress: string
-  ipSource: string
-  lastLoginTime: number
-  loginType: number
-  nickname: string
-  talkLikeSet?: any[]
-  userInfoId: number
-  username: string
-  webSite: string
-}
-
 export interface IChangePasswordParams {
   code: string
   username: string
   password: string
 }
 
-export interface IRegisterParams {
-  username: string
-  password: string
-  code: string
-}
-
 export interface IUpdateUserInfoParams {
   nickname: string
   intro: string
   webSite: string
+}
+
+/**
+ * 登录信息
+ */
+export interface LoginForm {
+  /**
+   * 用户名
+   */
+  username: string
+  /**
+   * 密码
+   */
+  password: string
+}
+
+/**
+ * 用户信息
+ */
+export interface UserForm {
+  /**
+   * 用户名
+   */
+  username: string
+  /**
+   * 密码
+   */
+  password: string
+  /**
+   * 验证码
+   */
+  code: string
+}
+
+/**
+ * 用户登录信息
+ */
+export interface UserInfo {
+  /**
+   * 用户id
+   */
+  id: number
+  /**
+   * 头像
+   */
+  avatar: string
+  /**
+   * 昵称
+   */
+  nickname: string
+  /**
+   * 用户名
+   */
+  username: string
+  /**
+   * 邮箱
+   */
+  email: string
+  /**
+   * 个人网站
+   */
+  webSite: string
+  /**
+   * 个人简介
+   */
+  intro: string
+  /**
+   * 登录方式
+   */
+  loginType: number
+  /**
+   * 文章点赞集合
+   */
+  articleLikeSet: number[]
+  /**
+   * 评论点赞集合
+   */
+  commentLikeSet: number[]
+  /**
+   * 说说点赞集合
+   */
+  talkLikeSet: number[]
 }

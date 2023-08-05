@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useMessage } from 'naive-ui'
-import type { Record } from '@/types/comment'
+import type { Comment, Reply } from '@/types/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
   reply?: boolean
-  data: Record
+  data: Comment | Reply
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -16,15 +16,15 @@ const emit = defineEmits<{
   (e: 'reloadReply', id: number): void
 }>()
 
-const user = useUserStore()
+const userStore = useUserStore()
 const message = useMessage()
 const isShowInput = ref(false)
 const btnRef = ref<HTMLElement | null>(null)
 const commentContent = ref('')
 const likeCount = ref(props.data.likeCount || 0)
 const isLike = ref(false)
-const type = inject<number>('type')
-const id = inject<number>('id')
+const type = inject<number>('type', 1)
+const id = inject<number>('id', 1)
 
 const { comment } = useApi()
 
@@ -39,17 +39,17 @@ const handleReply = () => {
 
 // 点赞
 const likeActive = computed(
-  () => isLike.value || user.userInfo?.commentLikeSet?.includes(props.data.id)
+  () => isLike.value || userStore.userInfo?.commentLikeSet?.includes(props.data.id)
 )
 
 const handleLike = useThrottleFn(async (commentId: number) => {
-  if (!user.userInfo?.userInfoId) {
+  if (!userStore.userInfo) {
     message.warning('请先登录')
     return
   }
   const { data } = await comment.commentLike(commentId)
   if (data.value?.flag) {
-    if (user.userInfo.commentLikeSet?.includes(commentId)) {
+    if (userStore.userInfo.commentLikeSet?.includes(commentId)) {
       likeCount.value--
       isLike.value = false
       message.warning('取消点赞！！')
@@ -59,7 +59,7 @@ const handleLike = useThrottleFn(async (commentId: number) => {
       message.success('点赞成功！！')
     }
 
-    user.setCommentLike(commentId)
+    userStore.setCommentLike(commentId)
   }
 }, 500)
 
@@ -73,7 +73,7 @@ const onHide = (event: Event) => {
 
 // 提交
 async function onSubmit() {
-  if (!user.userInfo?.userInfoId) {
+  if (!userStore.userInfo) {
     message.warning('请先登录')
     return
   }
@@ -89,25 +89,23 @@ async function onSubmit() {
     return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
   })
 
-  const parentId = props.reply ? props.data.parentId : props.data.id
-  const replyUserId = props.reply ? props.data.replyUserId : props.data.userId
-  const { data } = await comment.addComment({
+  const parentId = props.reply ? (props.data as Reply).parentId : props.data.id
+  const params = {
     commentContent: content,
-    type: type || 0,
-    topicId: id,
+    typeId: id,
+    commentType: type,
     parentId,
-    replyUserId
-  })
+    replyId: props.data.id,
+    toUid: props.data.fromUid
+  }
+  const { data } = await comment.addComment(params)
   if (data.value?.flag) {
     commentContent.value = ''
     isShowInput.value = false
     message.success('评论成功！！')
-    let id = 0
-    if (props.reply) {
-      id = props.data?.parentId ?? 0
-    } else {
-      id = props.data.id
-    }
+
+    // 重新加载回复
+    const id = props.reply ? (props.data as Reply).parentId : props.data.id
     emit('reloadReply', id)
   } else {
     message.error('评论失败！！')
@@ -121,17 +119,29 @@ async function onSubmit() {
     :class="commentClass"
   >
     <div class="flex">
-      <BaseAvatar :size="reply ? 25 : 35" :src="data.avatar" :class="reply ? 'mt-2' : 'mt-1'" />
+      <div :class="reply ? 'mt-2' : 'mt-1'">
+        <BaseAvatar :size="reply ? 25 : 35" :src="data.avatar" />
+      </div>
       <div class="ml-4 flex-1">
-        <h3 class="cursor-pointer text-blue-500">{{ data.nickname }}</h3>
+        <div class="flex items-center">
+          <h3 class="text-15 cursor-pointer font-semibold text-blue-500">
+            {{ data.fromNickname }}
+          </h3>
+          <p
+            v-if="data.fromUid === 1"
+            class="ml-1 rounded border border-orange-500 py-px px-[2px] text-xs leading-3 text-orange-500"
+          >
+            博主
+          </p>
+        </div>
         <p class="text-gray-400">{{ timeFormat(data.createTime) }}</p>
         <p class="vcontent my-2 break-all">
           <NuxtLink
-            v-if="reply && data.replyUserId !== data.userId"
+            v-if="reply && data.fromUid !== (data as Reply).toUid"
             to=""
             class="mr-1 cursor-pointer text-blue-500"
           >
-            @{{ data.replyNickname }}
+            @{{ (data as Reply).toNickname }}
           </NuxtLink>
           <!-- eslint-disable-next-line -->
           <span v-html="data.commentContent"></span>
@@ -160,13 +170,13 @@ async function onSubmit() {
           <comment-input
             v-model:value="commentContent"
             class="mt-3"
-            :placeholder="`回复 @${data.nickname}`"
+            :placeholder="`回复 @${data.fromNickname}`"
             @submit="onSubmit"
             @hide="onHide"
           />
         </div>
         <!-- 二级评论 -->
-        <slot></slot>
+        <slot />
       </div>
     </div>
   </li>

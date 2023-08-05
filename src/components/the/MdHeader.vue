@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const router = useRouter()
 const userStore = useUserStore()
+const blogStore = useBlogStore()
 const searchStore = useSearchStore()
 
 const menuToggle = ref(false)
@@ -23,7 +24,7 @@ function handleAvatar() {
   <header class="md-header">
     <div class="md-header-operate">
       <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
-        {{ userStore.siteConfig?.siteAuthor ?? 'Vinson' }}
+        {{ blogStore.siteConfig?.siteAuthor ?? 'Vinson' }}
       </h1>
       <div class="flex items-center">
         <BaseDarkToggle />
@@ -43,20 +44,20 @@ function handleAvatar() {
     >
       <div class="h-full w-2/3 rounded-lg bg-white shadow-xl dark:bg-[#1e1e20]">
         <div class="flex justify-center py-7">
-          <BaseAvatar size="60" :src="userStore.userInfo?.avatar" @click="handleAvatar" />
+          <BaseAvatar :size="60" :src="userStore.userInfo?.avatar ?? ''" @click="handleAvatar" />
         </div>
         <ul class="menu-info">
           <li>
             <p>文章</p>
-            <span>{{ userStore.articleCount || 0 }}</span>
+            <span>{{ blogStore.articleCount || 0 }}</span>
           </li>
           <li>
             <p>分类</p>
-            <span>{{ userStore.categoryCount || 0 }}</span>
+            <span>{{ blogStore.categoryCount || 0 }}</span>
           </li>
         </ul>
         <ul class="flex flex-wrap pt-7 text-center">
-          <li v-for="(item, index) in userStore.menuList" :key="index" class="basis-1/2 p-1">
+          <li v-for="(item, index) in blogStore.menuList" :key="index" class="basis-1/2 p-1">
             <div class="menu-item" @click="router.push(`${item.path}`)">
               <Icon :name="item.icon" />
               <p>{{ item.text }}</p>

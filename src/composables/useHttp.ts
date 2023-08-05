@@ -19,16 +19,16 @@ function handleError<T>(response: FetchResponse<Result<T>> & FetchResponse<Respo
     message.error(response?._data?.msg ?? text)
   }
   if (!response._data) {
-    err('請求超時，服務器無響應！')
+    err('请求超时，服务器无响应！')
     return
   }
   // const userStore = useUserStore()
   const handleMap: { [key: number]: () => void } = {
-    404: () => err('服務器資源不存在'),
-    500: () => err('服務器內部錯誤'),
-    403: () => err('沒有權限訪問該資源'),
+    404: () => err('服务器资源不存在'),
+    500: () => err('服务器内部错误'),
+    403: () => err('没有权限访问该资源'),
     401: () => {
-      err('登錄狀態已過期，需要重新登錄')
+      err('登录状态已过期，需要重新登录')
       // userStore.clearUserInfo()
       // TODO 跳转实际登录页
       // navigateTo('/')
@@ -56,19 +56,26 @@ function fetch<T>(url: UrlType, option: any) {
       // get方法传递数组形式参数
       options.params = paramsSerializer(options.params)
       // 添加baseURL,从环境变量里面取
-      // options.baseURL = process.server ? baseURL : '/api'
-      options.baseURL = baseURL
-      // 添加请求头,没登录不携带token
-      // const userStore = useUserStore()
-      // if (!userStore.isLogin) return
+      options.baseURL = process.server ? baseURL : '/api'
+      // options.baseURL = baseURL
       options.headers = new Headers(options.headers)
-      // options.headers.set('Authorization', `Bearer ${userStore.getToken}`)
+      const { tokenPrefix, getToken } = useToken()
+      // 携带token
+      if (getToken()) {
+        options.headers.set('Authorization', tokenPrefix + getToken())
+      }
     },
     // 响应拦截
     onResponse({ response }) {
       if (response.headers.get('content-disposition') && response.status === 200) return response
       // 在这里判断错误
-      if (response._data.code !== 200) {
+      if (response._data.code === 402) {
+        // token过期
+        const userStore = useUserStore()
+        userStore.clearUserInfo()
+        navigateTo('/login')
+        return null
+      } else if (response._data.code !== 200) {
         handleError<T>(response)
         return Promise.reject(response._data)
       }

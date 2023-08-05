@@ -23,7 +23,7 @@ const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD')
       <li
         v-for="archive in list"
         :key="archive.id"
-        class="relative mb-5 flex justify-between rounded bg-neutral-100 p-5 dark:bg-[#b6cbfd]"
+        class="relative mb-5 flex justify-between rounded bg-neutral-100 p-5"
       >
         <div
           class="absolute top-[1.6rem] -left-[2.4rem] h-3 w-3 rounded-full bg-orange-400 dark:bg-indigo-500"

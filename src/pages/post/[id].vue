@@ -4,6 +4,7 @@ import { useMessage } from 'naive-ui'
 
 const route = useRoute()
 const userStore = useUserStore()
+const blogStore = useBlogStore()
 const message = useMessage()
 
 const likeCount = ref(0)
@@ -20,7 +21,7 @@ if (articleInfo.value) {
 const likeActive = computed(() => isLike.value || userStore.userInfo?.articleLikeSet?.includes(id))
 
 const handleLike = useThrottleFn(async (id: number) => {
-  if (!userStore.userInfo?.userInfoId) {
+  if (!userStore.userInfo) {
     message.warning('请先登录')
     return
   }
@@ -50,7 +51,7 @@ const handleLike = useThrottleFn(async (id: number) => {
         class="articlePattern"
         :bg-cover="articleInfo.data.articleCover"
         :title="articleInfo.data.articleTitle"
-        :author="userStore.siteConfig?.siteAuthor"
+        :author="blogStore.siteConfig?.siteAuthor"
         :view="articleInfo.data.viewCount"
         :time="articleInfo.data.createTime"
       />
@@ -99,7 +100,7 @@ const handleLike = useThrottleFn(async (id: number) => {
             :last-article="articleInfo.data.lastArticle"
             :next-article="articleInfo.data.nextArticle"
           />
-          <!-- <Comment :id="id" :type="1" /> -->
+          <Comment :id="id" :type="1" />
         </div>
         <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
           <!-- <div

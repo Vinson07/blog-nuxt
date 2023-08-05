@@ -5,23 +5,25 @@ import type { ArticleInfo } from '@/types/article'
 const props = defineProps<ArticleInfo>()
 // const router = useRouter()
 const userStore = useUserStore()
+const blogStore = useBlogStore()
 const message = useMessage()
-const user = useUserStore()
 const likeCount = ref(props.likeCount || 0)
 const isLike = ref(false)
 
 // 文章点赞
-const likeActive = computed(() => isLike.value || user.userInfo?.articleLikeSet?.includes(props.id))
+const likeActive = computed(
+  () => isLike.value || userStore.userInfo?.articleLikeSet?.includes(props.id)
+)
 
 const handleLike = useThrottleFn(async (id: number) => {
-  if (!user.userInfo?.userInfoId) {
+  if (!userStore.userInfo) {
     message.warning('请先登录')
     return
   }
   const { article } = useApi()
   const { data } = await article.articleLike(id)
   if (data.value?.flag) {
-    if (user.userInfo.articleLikeSet?.includes(id)) {
+    if (userStore.userInfo.articleLikeSet?.includes(id)) {
       likeCount.value--
       isLike.value = false
       message.warning('取消点赞！！')
@@ -31,7 +33,7 @@ const handleLike = useThrottleFn(async (id: number) => {
       message.success('点赞成功！！')
     }
 
-    user.setArticleLike(id)
+    userStore.setArticleLike(id)
   }
 }, 500)
 </script>
@@ -42,7 +44,7 @@ const handleLike = useThrottleFn(async (id: number) => {
       class="articlePattern"
       :bg-cover="articleCover"
       :title="articleTitle"
-      :author="userStore.siteConfig?.siteAuthor"
+      :author="blogStore.siteConfig?.siteAuthor"
       :view="viewCount"
       :time="createTime"
     />

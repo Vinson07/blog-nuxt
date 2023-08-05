@@ -2,7 +2,7 @@
 import { NCarousel, NEmpty } from 'naive-ui'
 import type { Article } from '@/types/article'
 
-const userStore = useUserStore()
+const blogStore = useBlogStore()
 const imageStore = useImageStore()
 const layoutStore = useLayoutStore()
 
@@ -33,7 +33,7 @@ watch(
 
 /**
  * 是否还要加载
- * 文章数和列表数不相同 加载 反之则加载
+ * 文章数和列表数不相同 加载 反之则不加载
  * */
 const isLoad = computed(() => articleList.value.length !== articleCount.value)
 
@@ -57,22 +57,22 @@ const onRight = () => {
   <div>
     <HomeBackground
       :bg-src="imageStore.pageList.home"
-      :title="userStore.siteConfig?.siteName"
-      :sub-title="userStore.yiYan"
-      :git-hub="userStore.link.gitHub"
-      :zhi-hu="userStore.link.zhiHu"
-      :music="userStore.link.music"
+      :title="blogStore.siteConfig?.siteName"
+      :sub-title="blogStore.yiYan"
+      :git-hub="blogStore.link.gitHub"
+      :zhi-hu="blogStore.link.zhiHu"
+      :music="blogStore.link.music"
       :video-src="imageStore.videoUrl[0]"
       @on-left="onLeft"
       @on-right="onRight"
     />
     <div class="page-content mx-auto max-w-[780px] pt-14 max-md:px-4">
-      <HomeTip :tip="userStore.siteConfig?.siteNotice ?? ''" />
+      <HomeTip :tip="blogStore.siteConfig?.siteNotice ?? ''" />
       <div class="pt-10">
         <HomeTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
         <n-carousel v-if="layoutStore.isMobile" draggable autoplay class="relative h-40 rounded-md">
           <NuxtLink
-            v-for="(item, index) in userStore.bannerList"
+            v-for="(item, index) in blogStore.bannerList"
             :key="index"
             target="_blank"
             :to="item.link"
@@ -92,7 +92,7 @@ const onRight = () => {
         </n-carousel>
         <div v-else class="flex justify-between">
           <HomeBanner
-            v-for="(item, index) in userStore.bannerList"
+            v-for="(item, index) in blogStore.bannerList"
             :key="index"
             :title="item.title"
             :describe="item.describe"

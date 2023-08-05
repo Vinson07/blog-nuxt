@@ -73,7 +73,7 @@ const customUpload = async ({ file, onFinish, onError }: UploadCustomRequestOpti
   const { data } = await user.updateAvatar(formData)
   if (data.value?.flag) {
     if (userStore.userInfo) {
-      userStore.setUserInfo({ ...userStore.userInfo, avatar: data.value.data })
+      // userStore.setUserInfo({ ...userStore.userInfo, avatar: data.value.data })
     }
     message.success('更新头像成功')
     onFinish()
@@ -84,15 +84,15 @@ const customUpload = async ({ file, onFinish, onError }: UploadCustomRequestOpti
 
 const onSubmit = (e: Event) => {
   e.preventDefault()
-  formRef.value?.validate(async (errors) => {
+  formRef.value?.validate((errors) => {
     if (!errors) {
-      const { data } = await user.updateUserInfo(model)
-      if (data.value?.flag) {
-        message.success('更新成功！')
-        if (userStore.userInfo) {
-          userStore.setUserInfo({ ...userStore.userInfo, ...model })
-        }
-      }
+      // const { data } = await user.updateUserInfo(model)
+      // if (data.value?.flag) {
+      //   message.success('更新成功！')
+      //   if (userStore.userInfo) {
+      //     userStore.setUserInfo({ ...userStore.userInfo, ...model })
+      //   }
+      // }
     } else {
       console.log(errors)
       message.error('验证失败')
