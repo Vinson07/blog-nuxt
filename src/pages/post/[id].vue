@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import type { ArticleDetail } from '@/types/article'
 import { useMessage } from 'naive-ui'
 
 const route = useRoute()
@@ -14,7 +13,7 @@ const id = +route.params.id
 const { article } = useApi()
 
 // 获取文章详情
-const { data: articleInfo } = await article.getArticle(id, { lazy: true })
+const { data: articleInfo, pending } = await article.getArticle(id, { lazy: true })
 watch(
   articleInfo,
   (value) => {
@@ -63,7 +62,7 @@ onMounted(() => {
         :view="articleInfo.data.viewCount"
         :time="articleInfo.data.createTime"
       />
-      <div class="post-main relative mx-auto mt-4 max-w-[1140px]">
+      <div class="post-main relative mx-auto mt-4 max-w-[1140px] animate-[slideUpIn_1s]">
         <div class="relative rounded p-4 shadow-md dark:bg-neutral-800 xl:w-[820px]">
           <PostArticle :article-content="articleInfo.data.articleContent" />
           <div class="my-14 border-t border-b border-dashed py-5 text-sm text-zinc-500">
@@ -136,8 +135,11 @@ onMounted(() => {
         </div>
       </div>
     </template>
+    <template v-else-if="pending">
+      <BaseLoading />
+    </template>
     <template v-else>
-      <div>没有数据</div>
+      <div class="flex h-screen items-center justify-center text-lg">暂无数据</div>
     </template>
   </main>
 </template>

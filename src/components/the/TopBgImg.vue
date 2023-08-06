@@ -22,7 +22,7 @@ const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
 </script>
 
 <template>
-  <div class="slide-bottom relative h-[60vh]">
+  <div class="relative h-[60vh] animate-[slideBottomIn_1s]">
     <UseImage :src="bgCover">
       <template #loading>
         <img

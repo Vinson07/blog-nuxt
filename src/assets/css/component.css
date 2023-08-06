@@ -292,3 +292,44 @@ pre.hljs .copy-btn:hover {
   color: #fff;
   text-decoration: none;
 }
+
+/* base loading */
+#loading {
+  @apply bg-[#f9f9f9] dark:bg-[#222222];
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: #f9f9f9; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mg-loading {
+  position: relative;
+  width: 50px;
+  perspective: 200px;
+}
+
+.mg-loading:after,
+.mg-loading:before {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  content: '';
+  -webkit-animation: jumping 0.5s infinite alternate;
+  animation: jumping 0.5s infinite alternate;
+  background: transparent;
+}
+
+.mg-loading:before {
+  left: 0;
+}
+
+.mg-loading:after {
+  right: 0;
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.15s;
+}

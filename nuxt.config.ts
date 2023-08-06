@@ -18,18 +18,14 @@ export default defineNuxtConfig({
         // }
       ],
       script: [
-        // {
-        //   src: 'https://cdn.sakura520.co/static/blog-plugin/js/particleSpace.min.js', // 粒子空间背景
-        //   body: true
-        // },
         {
           src: 'https://cdn.sakura520.co/static/blog-plugin/js/starrySky.min.js', // 星空背景
           body: true
+        },
+        {
+          src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+          async: true
         }
-        // {
-        //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
-        //   async: true
-        // }
       ]
     }
   },
@@ -67,7 +63,7 @@ export default defineNuxtConfig({
           : []
     }
   },
-  css: ['@/assets/css/animation.css', '@/assets/css/cyanosis.css', '@/assets/css/component.css'],
+  css: ['@/assets/css/animation.css', '@/assets/css/component.css', '@/assets/css/cyanosis.css'],
   // 代理
   nitro: {
     devProxy: {
