@@ -22,28 +22,24 @@ export const useUserStore = defineStore(
       removeToken()
     }
 
-    function setArticleLike(articleId: number) {
-      // const infoStorage = useSessionStorage('user-info', {})
-
+    // 文章点赞
+    function setLikeArticle(articleId: number) {
       if (userInfo.value) {
         if (userInfo.value?.articleLikeSet?.includes(articleId)) {
           userInfo.value.articleLikeSet.splice(userInfo.value.articleLikeSet.indexOf(articleId), 1)
         } else {
           userInfo.value.articleLikeSet?.push(articleId)
         }
-        // infoStorage.value = userInfo.value
       }
     }
-    function setCommentLike(commentId: number) {
-      // const infoStorage = useSessionStorage('user-info', {})
-
+    // 评论点赞
+    function setLikeComment(commentId: number) {
       if (userInfo.value) {
         if (userInfo.value.commentLikeSet?.includes(commentId)) {
           userInfo.value.commentLikeSet.splice(userInfo.value.commentLikeSet.indexOf(commentId), 1)
         } else {
           userInfo.value.commentLikeSet?.push(commentId)
         }
-        // infoStorage.value = userInfo.value
       }
     }
 
@@ -51,8 +47,8 @@ export const useUserStore = defineStore(
       userInfo,
       clearUserInfo,
       getUserInfo,
-      setArticleLike,
-      setCommentLike
+      setLikeArticle,
+      setLikeComment
     }
   },
   {

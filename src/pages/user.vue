@@ -11,7 +11,23 @@ const message = useMessage()
 const userStore = useUserStore()
 const imageStore = useImageStore()
 const formRef = ref<FormInst | null>(null)
-const model = reactive({ nickname: '', intro: '', webSite: '', email: '' })
+
+const model = reactive({
+  nickname: '',
+  intro: '',
+  webSite: '',
+  email: ''
+})
+
+onMounted(() => {
+  if (userStore.userInfo) {
+    const { nickname, intro, webSite, email } = userStore.userInfo
+    model.nickname = nickname
+    model.intro = intro
+    model.webSite = webSite
+    model.email = email
+  }
+})
 
 const { user } = useApi()
 
@@ -22,8 +38,8 @@ const rules = reactive<FormRules>({
       validator(_, value: string) {
         if (!value) {
           return new Error('请输入昵称')
-        } else if (value.length > 15) {
-          return new Error('昵称不能超过15个字符！')
+        } else if (value.length > 30) {
+          return new Error('昵称不能超过30个字符！')
         }
         return true
       },
@@ -48,16 +64,6 @@ const rules = reactive<FormRules>({
   ]
 })
 
-onMounted(() => {
-  if (userStore.userInfo) {
-    const { nickname, intro, webSite, email } = userStore.userInfo
-    model.nickname = nickname
-    model.intro = intro
-    model.webSite = webSite
-    model.email = email
-  }
-})
-
 const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
   const fileSize = data.file.file?.size ?? 0
   if (fileSize > 1024 * 1024) {
@@ -71,10 +77,8 @@ const customUpload = async ({ file, onFinish, onError }: UploadCustomRequestOpti
   const formData = new FormData()
   formData.append('file', file.file as File)
   const { data } = await user.updateAvatar(formData)
-  if (data.value?.flag) {
-    if (userStore.userInfo) {
-      // userStore.setUserInfo({ ...userStore.userInfo, avatar: data.value.data })
-    }
+  if (data.value?.flag && userStore.userInfo) {
+    userStore.userInfo.avatar = data.value.data
     message.success('更新头像成功')
     onFinish()
   } else {
@@ -84,15 +88,16 @@ const customUpload = async ({ file, onFinish, onError }: UploadCustomRequestOpti
 
 const onSubmit = (e: Event) => {
   e.preventDefault()
-  formRef.value?.validate((errors) => {
+  formRef.value?.validate(async (errors) => {
     if (!errors) {
-      // const { data } = await user.updateUserInfo(model)
-      // if (data.value?.flag) {
-      //   message.success('更新成功！')
-      //   if (userStore.userInfo) {
-      //     userStore.setUserInfo({ ...userStore.userInfo, ...model })
-      //   }
-      // }
+      const params = { nickname: model.nickname, intro: model.intro, webSite: model.webSite }
+      const { data } = await user.updateUserInfo(params)
+      if (data.value?.flag) {
+        message.success('更新成功！')
+        if (userStore.userInfo) {
+          userStore.getUserInfo()
+        }
+      }
     } else {
       console.log(errors)
       message.error('验证失败')

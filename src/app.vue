@@ -4,6 +4,7 @@ import type { MessageProviderProps } from 'naive-ui'
 
 const blogStore = useBlogStore()
 const layoutStore = useLayoutStore()
+const { home } = useApi()
 
 const color = useColorMode()
 const el = ref<HTMLDivElement | null>(null)
@@ -24,7 +25,8 @@ const lightThemeOverrides: GlobalThemeOverrides = {
 
 // 获取博客基本数据
 blogStore.blogInfoData()
-
+// 上传访客信息
+await home.report({ lazy: true })
 // 一言
 blogStore.setYiYan()
 

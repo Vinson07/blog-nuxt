@@ -31,7 +31,8 @@ export default <Partial<Config>>{
           'linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.9) 40%)'
       },
       fontSize: {
-        15: ['15px', '22px']
+        15: ['15px', '22px'],
+        22: ['22px', '30px']
       }
     }
   },

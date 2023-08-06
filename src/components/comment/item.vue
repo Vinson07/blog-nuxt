@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMessage } from 'naive-ui'
+import { NAvatar, useMessage } from 'naive-ui'
 import type { Comment, Reply } from '@/types/comment'
 import emojiList from '@/utils/emoji'
 
@@ -24,7 +24,7 @@ const commentContent = ref('')
 const likeCount = ref(props.data.likeCount || 0)
 const isLike = ref(false)
 const type = inject<number>('type', 1)
-const id = inject<number>('id', 1)
+const id = inject<number>('id')
 
 const { comment } = useApi()
 
@@ -47,7 +47,7 @@ const handleLike = useThrottleFn(async (commentId: number) => {
     message.warning('请先登录')
     return
   }
-  const { data } = await comment.commentLike(commentId)
+  const { data } = await comment.likeComment(commentId)
   if (data.value?.flag) {
     if (userStore.userInfo.commentLikeSet?.includes(commentId)) {
       likeCount.value--
@@ -59,7 +59,7 @@ const handleLike = useThrottleFn(async (commentId: number) => {
       message.success('点赞成功！！')
     }
 
-    userStore.setCommentLike(commentId)
+    userStore.setLikeComment(commentId)
   }
 }, 500)
 
@@ -120,7 +120,7 @@ async function onSubmit() {
   >
     <div class="flex">
       <div :class="reply ? 'mt-2' : 'mt-1'">
-        <BaseAvatar :size="reply ? 25 : 35" :src="data.avatar" />
+        <n-avatar round :size="reply ? 'small' : 'medium'" :src="data.avatar" />
       </div>
       <div class="ml-4 flex-1">
         <div class="flex items-center">
@@ -144,7 +144,7 @@ async function onSubmit() {
             @{{ (data as Reply).toNickname }}
           </NuxtLink>
           <!-- eslint-disable-next-line -->
-          <span v-html="data.commentContent"></span>
+          <span v-html="data.commentContent.replace(/(\r\n)|(\n)/g, '<br>')"></span>
         </p>
         <div class="flex">
           <div

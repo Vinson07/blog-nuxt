@@ -1,15 +1,3 @@
-export interface IChangePasswordParams {
-  code: string
-  username: string
-  password: string
-}
-
-export interface IUpdateUserInfoParams {
-  nickname: string
-  intro: string
-  webSite: string
-}
-
 /**
  * 登录信息
  */
@@ -90,4 +78,36 @@ export interface UserInfo {
    * 说说点赞集合
    */
   talkLikeSet: number[]
+}
+
+/**
+ * 用户信息
+ */
+export interface UserInfoForm {
+  /**
+   * 昵称
+   */
+  nickname: string
+  /**
+   * 个人网站
+   */
+  webSite: string
+  /**
+   * 个人简介
+   */
+  intro: string
+}
+
+/**
+ * 邮箱
+ */
+export interface EmailForm {
+  /**
+   * 邮箱号
+   */
+  email: string
+  /**
+   * 验证码
+   */
+  code: string
 }

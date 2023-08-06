@@ -15,8 +15,8 @@ watchDebounced(
   async (value) => {
     if (value.trim() !== '') {
       const { article } = useApi()
-      const { data } = await article.searchArticle({ current: 1, keywords: value.trim() })
-      if (data.value) articleList.value = data.value.data
+      const { data } = await article.searchArticle(value.trim())
+      if (data.value?.flag) articleList.value = data.value.data
     }
   },
   { debounce: 500, maxWait: 1000 }

@@ -30,7 +30,7 @@ function reloadReply(id: number) {
     />
     <div class="pl-10 text-xs">
       <!-- <span v-if="loading">加载中...</span> -->
-      <div v-if="showMore && replyCount && replyCount > 3">
+      <div v-show="showMore && replyCount && replyCount > 3">
         <span class="text-gray-400">共{{ replyCount }}条回复，</span>
         <span
           class="inline-flex cursor-pointer items-center text-blue-500"

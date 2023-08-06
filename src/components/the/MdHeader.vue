@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { NAvatar } from 'naive-ui'
+
 const router = useRouter()
 const userStore = useUserStore()
 const blogStore = useBlogStore()
@@ -44,7 +46,7 @@ function handleAvatar() {
     >
       <div class="h-full w-2/3 rounded-lg bg-white shadow-xl dark:bg-[#1e1e20]">
         <div class="flex justify-center py-7">
-          <BaseAvatar :size="60" :src="userStore.userInfo?.avatar ?? ''" @click="handleAvatar" />
+          <n-avatar :size="60" round :src="userStore.userInfo?.avatar" @click="handleAvatar" />
         </div>
         <ul class="menu-info">
           <li>

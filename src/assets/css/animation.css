@@ -29,12 +29,21 @@
 }
 
 .slide-bottom {
+  -webkit-animation: slide-bottom 1s;
   animation: slide-bottom 1s;
 }
 
 /* 浮现 */
 .emergence {
+  -webkit-animation: main 0.3s linear;
   animation: main 0.3s linear;
+}
+
+/*---------自定义普通旋转类------*/
+.custom-rotate {
+  display: inline-block;
+  animation: rotate 6s linear infinite;
+  -webkit-animation: rotate 6s linear infinite;
 }
 
 /* 跳动 */
@@ -390,5 +399,26 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/*自定义动画类----顺时针旋转*/
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

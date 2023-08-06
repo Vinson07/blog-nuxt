@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { NDivider, useMessage } from 'naive-ui'
+import { NDivider, NAvatar, useMessage } from 'naive-ui'
 import type { Comment } from '@/types/comment'
 import emojiList from '@/utils/emoji'
 
 interface Props {
-  id: number
+  id?: number
   type: number
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  id: undefined
+})
 
 const userStore = useUserStore()
 const blogStore = useBlogStore()
@@ -20,12 +22,12 @@ const commentContent = ref('')
 const { comment } = useApi()
 
 provide<number>('type', props.type)
-provide<number>('id', props.id)
+provide<number | undefined>('id', props.id)
 
 // 获取评论列表
 const params = reactive({
   current: 1,
-  size: 2,
+  size: 10,
   typeId: props.id,
   commentType: props.type
 })
@@ -90,7 +92,8 @@ async function onSubmit() {
       commentType: props.type
     })
     if (data.value?.flag && data.value.data.recordList) {
-      recordList.value.unshift(data.value.data.recordList[0])
+      total.value = data.value.data.count
+      recordList.value = [...data.value.data.recordList, ...recordList.value]
     }
   } else {
     message.error('评论失败！！')
@@ -121,7 +124,7 @@ async function reloadReply(id: number) {
     <!-- 评论区 -->
     <div class="flex">
       <div class="mr-4">
-        <BaseAvatar :size="35" :src="userStore.userInfo?.avatar ?? ''" />
+        <n-avatar size="medium" round :src="userStore.userInfo?.avatar" />
       </div>
       <comment-input v-model:value="commentContent" @submit="onSubmit" />
     </div>

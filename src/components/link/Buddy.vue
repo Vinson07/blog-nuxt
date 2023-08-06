@@ -12,12 +12,12 @@ defineProps<Props>()
 </script>
 
 <template>
-  <nuxt-link :to="link" target="_blank" class="m-1">
+  <nuxt-link :to="link" target="_blank" class="m-1 inline-block">
     <div
-      class="group flex h-[100px] w-64 cursor-pointer items-center rounded-xl border bg-transparent p-3 transition-all hover:bg-blue-600 dark:border-zinc-700"
+      class="group flex h-[100px] w-64 cursor-pointer items-center rounded-xl border bg-transparent p-3 transition-all duration-500 hover:bg-[#f2b94b] dark:border-zinc-700 dark:hover:bg-blue-600"
     >
       <n-avatar
-        class="flex-none overflow-hidden transition-all group-hover:-ml-2 group-hover:w-0"
+        class="flex-none overflow-hidden transition-all duration-500 group-hover:-ml-2 group-hover:h-0 group-hover:w-0 group-hover:opacity-0"
         round
         object-fit="cover"
         :size="60"
@@ -30,7 +30,7 @@ defineProps<Props>()
         >
           {{ title }}
         </h4>
-        <p class="multiline-two-ellipsis text-base text-zinc-500 group-hover:text-gray-300">
+        <p class="multiline-two-ellipsis text-base text-zinc-500 group-hover:text-white">
           {{ intro }}
         </p>
       </div>

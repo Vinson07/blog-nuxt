@@ -12,21 +12,26 @@ const isLike = ref(false)
 
 const id = +route.params.id
 const { article } = useApi()
+
+// 获取文章详情
 const { data: articleInfo } = await article.getArticle(id, { lazy: true })
-if (articleInfo.value) {
-  likeCount.value = articleInfo.value.data.likeCount
-}
+watch(
+  articleInfo,
+  (value) => {
+    if (value) {
+      likeCount.value = value.data.likeCount
+    }
+  },
+  { immediate: true }
+)
 
 // 文章点赞
-const likeActive = computed(() => isLike.value || userStore.userInfo?.articleLikeSet?.includes(id))
-
 const handleLike = useThrottleFn(async (id: number) => {
   if (!userStore.userInfo) {
     message.warning('请先登录')
     return
   }
-  const { article } = useApi()
-  const { data } = await article.articleLike(id)
+  const { data } = await article.likeArticle(id)
   if (data.value?.flag) {
     if (userStore.userInfo.articleLikeSet?.includes(id)) {
       likeCount.value--
@@ -38,13 +43,16 @@ const handleLike = useThrottleFn(async (id: number) => {
       message.success('点赞成功！！')
     }
 
-    userStore.setArticleLike(id)
+    userStore.setLikeArticle(id)
   }
 }, 500)
+
+onMounted(() => {
+  isLike.value = userStore.userInfo?.articleLikeSet?.includes(id) ?? false
+})
 </script>
 
 <template>
-  <!-- <Post v-bind="post" /> -->
   <main>
     <template v-if="articleInfo">
       <TheTopBgImg
@@ -87,7 +95,7 @@ const handleLike = useThrottleFn(async (id: number) => {
                 <Icon name="ci:share" class="btn mr-3 cursor-pointer" size="20" />
                 <div
                   class="reward-container flex select-none items-center"
-                  :class="{ 'text-blue-500': likeActive }"
+                  :class="{ 'text-blue-500': isLike }"
                   @click="handleLike(id)"
                 >
                   <Icon name="bx:bxs-like" class="cursor-pointer" size="20" />

@@ -10,7 +10,6 @@ const { text: codeText, flag, timer } = useTimer('发送')
 const userStore = useUserStore()
 const imageStore = useImageStore()
 const router = useRouter()
-const route = useRoute()
 const toggleForm = ref(false)
 const formLogin = reactive({ username: '', password: '' })
 const fromRegister = reactive({ username: '', code: '', password: '' })
@@ -50,9 +49,8 @@ const handleLogin = async () => {
     }, 100)
 
     setTimeout(() => {
-      const path = route.query.path as string | undefined
-      path ? router.push(path) : router.push('/user')
-    }, 200)
+      router.push('/user')
+    }, 300)
   }
 }
 

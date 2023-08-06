@@ -55,7 +55,7 @@ const handleSelect = (key: string | number) => {
       break
     case 'login':
       if (path !== '/login') {
-        router.push(`/login?path=${path}`)
+        router.push(`/login`)
       }
       break
     default:

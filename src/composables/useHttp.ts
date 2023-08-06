@@ -2,8 +2,6 @@ import { createDiscreteApi } from 'naive-ui'
 import type { FetchResponse, SearchParameters } from 'ofetch'
 import type { UseFetchOptions } from '#app'
 import { Result } from '@/types'
-// import { useUserStore } from '~/stores/user.store'
-// import IconEmoticonDead from '~icons/mdi/emoticon-dead'
 
 type UrlType = string | Request | Ref<string | Request> | (() => string | Request)
 
@@ -22,14 +20,13 @@ function handleError<T>(response: FetchResponse<Result<T>> & FetchResponse<Respo
     err('请求超时，服务器无响应！')
     return
   }
-  // const userStore = useUserStore()
+
   const handleMap: { [key: number]: () => void } = {
     404: () => err('服务器资源不存在'),
     500: () => err('服务器内部错误'),
     403: () => err('没有权限访问该资源'),
     401: () => {
       err('登录状态已过期，需要重新登录')
-      // userStore.clearUserInfo()
       // TODO 跳转实际登录页
       // navigateTo('/')
     }
@@ -56,8 +53,9 @@ function fetch<T>(url: UrlType, option: any) {
       // get方法传递数组形式参数
       options.params = paramsSerializer(options.params)
       // 添加baseURL,从环境变量里面取
-      options.baseURL = process.server ? baseURL : '/api'
-      // options.baseURL = baseURL
+      // 本地需要登录的用这个
+      // options.baseURL = process.server ? baseURL : '/api'
+      options.baseURL = baseURL
       options.headers = new Headers(options.headers)
       const { tokenPrefix, getToken } = useToken()
       // 携带token
@@ -74,7 +72,7 @@ function fetch<T>(url: UrlType, option: any) {
         const userStore = useUserStore()
         userStore.clearUserInfo()
         navigateTo('/login')
-        return null
+        return Promise.reject(response._data)
       } else if (response._data.code !== 200) {
         handleError<T>(response)
         return Promise.reject(response._data)

@@ -32,7 +32,10 @@ export function addComment(data: CommentForm) {
   return useHttp.post<null>(Api.add, data)
 }
 
-// 评论点赞
-export function commentLike(commentId: number) {
-  return useHttp.post(`/comments/${commentId}/like`)
+/**
+ * 点赞评论
+ * @param commentId 评论id
+ */
+export function likeComment(commentId: number) {
+  return useHttp.post<null>(`/comment/${commentId}/like`)
 }

@@ -1,13 +1,15 @@
-import type { IChangePasswordParams, LoginForm, UserInfo, UserForm } from '@/types/user'
+import type { LoginForm, UserInfo, UserForm, UserInfoForm, EmailForm } from '@/types/user'
 import type { HttpOption } from '@/composables/useHttp'
 
 enum Api {
   login = '/login',
   code = '/code',
-  password = '/users/password',
+  password = '/user/password',
   register = '/register',
   userInfo = '/user/getUserInfo',
-  avatar = '/users/avatar'
+  updateUserInfo = '/user/info',
+  updateAvatar = '/user/avatar',
+  updateEmail = '/user/email'
 }
 
 /**
@@ -35,9 +37,12 @@ export function getCode(username: string) {
   return useHttp.get<null>(Api.code, { username })
 }
 
-// 修改密码
-export function changePassword(data: IChangePasswordParams) {
-  return useHttp.put(Api.password, data)
+/**
+ * 修改用户密码
+ * @param data 用户密码
+ */
+export function changePassword(data: UserForm) {
+  return useHttp.put<null>(Api.password, data)
 }
 
 /**
@@ -48,12 +53,26 @@ export function getUserInfo() {
   return useHttp.get<UserInfo>(Api.userInfo)
 }
 
-// 更新用户信息
-// export function updateUserInfo(data: IUpdateUserInfoParams) {
-//   return useHttp.put(Api.info, data)
-// }
+/**
+ * 修改用户信息
+ * @param data 用户信息
+ */
+export function updateUserInfo(data: UserInfoForm) {
+  return useHttp.put<null>(Api.updateUserInfo, data)
+}
 
-// 更新用户头像
+/**
+ * 修改用户邮箱
+ * @param data 用户邮箱
+ */
+export function updateUserEmail(data: EmailForm) {
+  return useHttp.put<null>(Api.updateEmail, data)
+}
+
+/**
+ * 修改用户头像
+ * @param data 头像
+ */
 export function updateAvatar(data: FormData) {
-  return useHttp.post<string>(Api.avatar, data)
+  return useHttp.post<string>(Api.updateAvatar, data)
 }
