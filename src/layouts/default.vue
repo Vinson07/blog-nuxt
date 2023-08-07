@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { NBackTop } from 'naive-ui'
-
-const layoutStore = useLayoutStore()
 </script>
 
 <template>
   <main>
-    <TheMdHeader v-if="layoutStore.isMobile" />
-    <TheHeader v-else />
-    <n-back-top v-if="layoutStore.isMobile" :right="20" />
-    <TheBackTop v-else />
+    <TheHeader class="max-md:hidden" />
+    <TheMdHeader class="md:hidden" />
+    <TheBackTop class="max-md:hidden" />
+    <n-back-top :right="20" class="md:hidden" />
     <slot />
     <TheFooter />
   </main>

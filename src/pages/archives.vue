@@ -1,28 +1,25 @@
 <script setup lang="ts">
-import type { RecordList } from '@/types/article'
+import type { Archives } from '@/types/article'
 
 const imageStore = useImageStore()
-const archiveList = ref<{ [key: string]: RecordList[] }>({})
+const archiveList = ref<{ [key: string]: Archives[] }>({})
 
 const { article, poetry } = useApi()
 
 // 获取全部文章归档
-const { data, pending } = await article.getArchivesList()
+const { data, pending } = await article.getArchivesList({ current: 1, size: 100 })
 if (data.value?.flag) {
   const { recordList } = data.value.data
   if (recordList.length > 0) {
     // 过滤 按年份分数组
-    archiveList.value = recordList.reduce(
-      (acc: { [key: string]: RecordList[] }, obj: RecordList) => {
-        const key = useDateFormat(obj.createTime, 'YYYY-MM')
-        if (!acc[key.value]) {
-          acc[key.value] = []
-        }
-        acc[key.value].push(obj)
-        return acc
-      },
-      {}
-    )
+    archiveList.value = recordList.reduce((acc: { [key: string]: Archives[] }, obj: Archives) => {
+      const key = useDateFormat(obj.createTime, 'YYYY-MM')
+      if (!acc[key.value]) {
+        acc[key.value] = []
+      }
+      acc[key.value].push(obj)
+      return acc
+    }, {})
   }
 }
 

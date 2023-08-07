@@ -6,7 +6,9 @@ interface Props {
   subTitle?: string
   bgMask?: string
   gitHub?: string
-  zhiHu?: string
+  gitee?: string
+  bilibili?: string
+  qq?: string
   music?: string
 }
 
@@ -17,7 +19,9 @@ withDefaults(defineProps<Props>(), {
   subTitle: '',
   bgMask: 'filter-dot', // filter-grid filter-dot filter-dim filter-undertint pattern-center
   gitHub: '',
-  zhiHu: '',
+  gitee: '',
+  bilibili: '',
+  qq: '',
   music: ''
 })
 
@@ -110,16 +114,22 @@ const handleRight = () => {
             <nuxt-link target="_blank" :to="gitHub">
               <Icon name="grommet-icons:github" class="mx-1.5 cursor-pointer" />
             </nuxt-link>
-            <nuxt-link target="_blank" :to="zhiHu">
-              <Icon name="ri:zhihu-line" class="mx-1.5 cursor-pointer" color="#fff" />
+            <nuxt-link target="_blank" :to="gitee">
+              <Icon name="simple-icons:gitee" class="mx-1.5 cursor-pointer" color="#be3020" />
             </nuxt-link>
-            <nuxt-link target="_blank" :to="music">
+            <nuxt-link target="_blank" :to="bilibili">
+              <Icon name="tabler:brand-bilibili" class="mx-1.5 cursor-pointer" color="#fff" />
+            </nuxt-link>
+            <!-- <nuxt-link target="_blank" :to="qq">
+              <Icon name="mdi:qqchat" class="mx-1.5 cursor-pointer" color="#fff" />
+            </nuxt-link> -->
+            <!-- <nuxt-link target="_blank" :to="music">
               <Icon
                 name="tabler:brand-netease-music"
                 class="mx-1.5 cursor-pointer"
                 color="#e15a3c"
               />
-            </nuxt-link>
+            </nuxt-link> -->
             <Icon
               name="ic:baseline-keyboard-double-arrow-right"
               class="ml-4 cursor-pointer"

@@ -4,11 +4,9 @@ import type { Article } from '@/types/article'
 
 const blogStore = useBlogStore()
 const imageStore = useImageStore()
-const layoutStore = useLayoutStore()
 
 const articleList = ref<Article[]>([])
 const articleCount = ref(0)
-// const loadMore = ref(true)
 const parmas = reactive({
   current: 1,
   size: 5
@@ -59,10 +57,11 @@ const onRight = () => {
       :bg-src="imageStore.pageList.home"
       :title="blogStore.siteConfig?.siteName"
       :sub-title="blogStore.yiYan"
-      :git-hub="blogStore.link.gitHub"
-      :zhi-hu="blogStore.link.zhiHu"
-      :music="blogStore.link.music"
-      :video-src="imageStore.videoUrl[0]"
+      :git-hub="blogStore.siteConfig?.github"
+      :gitee="blogStore.siteConfig?.gitee"
+      :bilibili="blogStore.siteConfig?.bilibili"
+      :qq="blogStore.siteConfig?.qq"
+      :video-src="blogStore.siteConfig?.websocketUrl"
       @on-left="onLeft"
       @on-right="onRight"
     />
@@ -70,7 +69,7 @@ const onRight = () => {
       <HomeTip :tip="blogStore.siteConfig?.siteNotice ?? ''" />
       <div class="pt-10">
         <HomeTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
-        <n-carousel v-if="layoutStore.isMobile" draggable autoplay class="relative h-40 rounded-md">
+        <n-carousel draggable autoplay class="relative h-40 rounded-md md:hidden">
           <NuxtLink
             v-for="(item, index) in blogStore.bannerList"
             :key="index"
@@ -90,7 +89,7 @@ const onRight = () => {
             </div>
           </NuxtLink>
         </n-carousel>
-        <div v-else class="flex justify-between">
+        <div class="flex justify-between max-md:hidden">
           <HomeBanner
             v-for="(item, index) in blogStore.bannerList"
             :key="index"

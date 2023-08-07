@@ -3,13 +3,12 @@ import { NMessageProvider, NConfigProvider, darkTheme, GlobalThemeOverrides } fr
 import type { MessageProviderProps } from 'naive-ui'
 
 const blogStore = useBlogStore()
-const layoutStore = useLayoutStore()
 const { home } = useApi()
 
 const color = useColorMode()
 const el = ref<HTMLDivElement | null>(null)
 
-const placement = ref<MessageProviderProps['placement']>('bottom-left')
+const placement = ref<MessageProviderProps['placement']>('top')
 const darkThemeOverrides: GlobalThemeOverrides = {
   common: {
     primaryColor: '#409eff',
@@ -29,20 +28,6 @@ blogStore.blogInfoData()
 await home.report({ lazy: true })
 // 一言
 blogStore.setYiYan()
-
-// 适配移动端 屏幕宽度小于768显示
-onMounted(() => {
-  useResizeObserver(el, (entries) => {
-    const entry = entries[0]
-    const { width } = entry.contentRect
-    // 更换布局
-    if (width < 768) {
-      layoutStore.setMobile(true)
-    } else {
-      layoutStore.setMobile(false)
-    }
-  })
-})
 </script>
 
 <template>

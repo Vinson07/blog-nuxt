@@ -13,25 +13,35 @@ const { $markdownItSearch } = useNuxtApp()
 watchDebounced(
   keyword,
   async (value) => {
-    if (value.trim() !== '') {
+    if (value.trim() === '') {
+      articleList.value = []
+    } else {
       const { article } = useApi()
       const { data } = await article.searchArticle(value.trim())
       if (data.value?.flag) articleList.value = data.value.data
     }
   },
-  { debounce: 500, maxWait: 1000 }
+  { debounce: 500 }
 )
+
+const onClose = () => {
+  keyword.value = ''
+  articleList.value = []
+}
 
 const gotoArticle = (id: number) => {
   searchStore.setModal(false)
-  keyword.value = ''
-  articleList.value = []
   router.push(`/post/${id}`)
 }
 </script>
 
 <template>
-  <n-modal v-model:show="searchStore.showModal" transform-origin="center" display-directive="show">
+  <n-modal
+    v-model:show="searchStore.showModal"
+    transform-origin="center"
+    display-directive="show"
+    @after-leave="onClose"
+  >
     <n-card
       class="w-[600px] max-md:mx-5"
       :content-style="{

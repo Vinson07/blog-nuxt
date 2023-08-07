@@ -1,3 +1,13 @@
+export interface PageListStore {
+  home: string
+  message: string
+  link: string
+  archive: string
+  login: string
+  user: string
+  album: string
+}
+
 /**
  * 分页返回接口
  */

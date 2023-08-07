@@ -11,7 +11,6 @@ const route = useRoute()
 const userStore = useUserStore()
 const blogStore = useBlogStore()
 const searchStore = useSearchStore()
-const showMenu = ref(true)
 
 const options = ref<IOption[]>([])
 
@@ -63,18 +62,8 @@ const handleSelect = (key: string | number) => {
   }
 }
 
-onMounted(() => {
-  const handleScroll = () => {
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
-    if (scrollTop === 0) {
-      showMenu.value = true
-    } else {
-      showMenu.value = false
-    }
-  }
-
-  window.addEventListener('scroll', handleScroll)
-})
+const { y } = useWindowScroll()
+const showMenu = computed(() => y.value === 0)
 
 // 搜索
 function handleSearch() {
@@ -95,7 +84,7 @@ function handleSearch() {
         <li
           v-for="(item, index) in blogStore.menuList"
           :key="index"
-          class="nav-item mx-4 flex cursor-pointer items-center font-semibold hover:text-orange-500 dark:hover:text-indigo-500"
+          class="nav-item mx-4 flex cursor-pointer items-center text-base font-semibold hover:text-orange-500 dark:hover:text-indigo-500"
           :class="item.class"
         >
           <NuxtLink :to="`${item.path}`">

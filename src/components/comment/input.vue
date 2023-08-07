@@ -56,7 +56,7 @@ function onAddEmoji(key: string) {
     <n-input
       :value="value"
       :autosize="{
-        minRows: 5
+        minRows: 3
       }"
       type="textarea"
       :placeholder="placeholder"

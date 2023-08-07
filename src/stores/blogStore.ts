@@ -4,6 +4,14 @@ import type { SiteConfig } from '@/types/home'
 export const useBlogStore = defineStore('blog', () => {
   // 博客基本信息
   const siteConfig = ref<SiteConfig | null>(null)
+  // 文章数
+  const articleCount = ref(0)
+  // 分类数
+  const categoryCount = ref(0)
+  // 标签数
+  const tagCount = ref(0)
+  // 访问数
+  const viewsCount = ref(0)
   // 菜单
   const menuList = ref([
     {
@@ -58,19 +66,6 @@ export const useBlogStore = defineStore('blog', () => {
       bgSrc: 'https://cdn.sakura520.co/images/0711.jpeg'
     }
   ])
-  // 文章数
-  const articleCount = ref(0)
-  // 分类数
-  const categoryCount = ref(0)
-  // 标签数
-  const tagCount = ref(0)
-  // 访问数
-  const viewsCount = ref('')
-  const link = ref({
-    gitHub: 'https://gitee.com/vinson007',
-    zhiHu: '',
-    music: 'https://music.163.com/playlist?id=7568550728&userid=1288893816'
-  })
   // 一言
   const yiYan = ref('梦想是一个天真的词，实现梦想是一个残酷的词')
 
@@ -103,7 +98,6 @@ export const useBlogStore = defineStore('blog', () => {
     categoryCount,
     tagCount,
     viewsCount,
-    link,
     yiYan,
     blogInfoData,
     setYiYan

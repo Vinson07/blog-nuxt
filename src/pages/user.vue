@@ -19,15 +19,18 @@ const model = reactive({
   email: ''
 })
 
-onMounted(() => {
-  if (userStore.userInfo) {
-    const { nickname, intro, webSite, email } = userStore.userInfo
-    model.nickname = nickname
-    model.intro = intro
-    model.webSite = webSite
-    model.email = email
-  }
-})
+watch(
+  () => userStore.userInfo,
+  (value) => {
+    if (value) {
+      model.nickname = value.nickname
+      model.intro = value.intro
+      model.webSite = value.webSite
+      model.email = value.email
+    }
+  },
+  { immediate: true }
+)
 
 const { user } = useApi()
 

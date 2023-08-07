@@ -42,15 +42,9 @@ const handleLogin = async () => {
   if (data.value?.flag) {
     setToken(data.value.data)
     message.success('登录成功')
-
-    setTimeout(() => {
-      // 延迟 不然获取到token还是旧的
+    router.push('/user').then(() => {
       userStore.getUserInfo()
-    }, 100)
-
-    setTimeout(() => {
-      router.push('/user')
-    }, 300)
+    })
   }
 }
 

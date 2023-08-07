@@ -12,7 +12,6 @@
 - nuxt3：https://nuxt.com/
 - ts 
 - pinia：https://pinia.web3doc.top/
-- axios 
 - vueuse：https://vueuse.org/
 - tailwind：https://tailwindcss.com/docs/installation
 - NaiveUI：https://www.naiveui.com/
