@@ -85,7 +85,7 @@ const poetryText = computed(() => {
 
 <template>
   <ClientOnly>
-    <TheTopBgImg :bg-cover="imageStore.pageList.album" title="图库" :poetry-text="poetryText" />
+    <ThePageBanner :bg-cover="imageStore.pageList.album" title="图库" :poetry-text="poetryText" />
     <Waterfall :list="imgList" class="mt-3 md:mt-10" background-color="transparent" :width="350">
       <template #item="{ url }">
         <!-- <LazyImg :url="url" class="rounded" /> -->

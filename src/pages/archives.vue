@@ -36,7 +36,7 @@ const poetryText = computed(() => {
 
 <template>
   <div id="archives">
-    <TheTopBgImg
+    <ThePageBanner
       :bg-cover="imageStore.pageList.archive"
       title="文章归档"
       :poetry-text="poetryText"

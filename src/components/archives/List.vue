@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { RecordList } from '@/types/article'
+import type { Archives } from '@/types/article'
 
 interface Props {
   time: string | number
-  list: RecordList[]
+  list: Archives[]
 }
 
 defineProps<Props>()
@@ -31,7 +31,7 @@ const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD')
         <div class="arrow-left-ar absolute top-3 -left-5 h-0 w-0"></div>
         <NuxtLink
           :to="`/post/${archive.id}`"
-          class="cursor-pointer text-zinc-500 hover:text-orange-500 hover:dark:text-indigo-500"
+          class="cursor-pointer text-base text-zinc-500 hover:text-orange-500 hover:dark:text-indigo-500"
         >
           {{ archive.articleTitle }}
         </NuxtLink>

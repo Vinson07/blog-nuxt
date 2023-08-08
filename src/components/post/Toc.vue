@@ -12,7 +12,7 @@
         v-for="(anchor, index) of titleList"
         :id="`toc-li-${anchor.lineIndex}`"
         :key="anchor.title"
-        class="block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
+        class="text-15 block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
         :class="currentIndex === index ? 'active' : ''"
         :style="{ paddingLeft: `${anchor.indent * 10}px` }"
         @click="handleAnchorClick(anchor, index)"

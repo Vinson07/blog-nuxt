@@ -54,7 +54,7 @@ onMounted(() => {
 <template>
   <main>
     <template v-if="articleInfo">
-      <TheTopBgImg
+      <TheArticleBanner
         class="articlePattern"
         :bg-cover="articleInfo.data.articleCover"
         :title="articleInfo.data.articleTitle"

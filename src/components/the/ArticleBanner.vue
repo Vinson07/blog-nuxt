@@ -2,21 +2,13 @@
 import { UseImage } from '@vueuse/components'
 
 interface Props {
-  bgCover?: string
-  title?: string
-  time?: string
-  author?: string
-  view?: number
-  poetryText?: string
+  bgCover: string
+  title: string
+  time: string
+  author: string
+  view: number
 }
-const props = withDefaults(defineProps<Props>(), {
-  title: 'Vinson',
-  bgCover: '',
-  time: '',
-  author: '',
-  view: 0,
-  poetryText: ''
-})
+const props = defineProps<Props>()
 
 const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
 </script>
@@ -47,11 +39,7 @@ const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
     <div class="absolute inset-0 flex items-center justify-center text-white">
       <div class="text-center">
         <h1 class="text-5xl">{{ title }}</h1>
-        <p v-if="poetryText" class="mt-4 text-2xl">{{ poetryText }}</p>
-        <div
-          v-else
-          class="m-4 flex flex-wrap items-center justify-center divide-x text-sm leading-3"
-        >
+        <div class="m-4 flex flex-wrap items-center justify-center divide-x text-sm leading-3">
           <div class="flex items-center px-3">
             <Icon name="ic:baseline-calendar-month" />
             <span class="ml-1">发表于 {{ publicationTime }}</span>
