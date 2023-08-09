@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { NMessageProvider, NConfigProvider, darkTheme, GlobalThemeOverrides } from 'naive-ui'
+import {
+  NMessageProvider,
+  NBackTop,
+  NConfigProvider,
+  darkTheme,
+  GlobalThemeOverrides
+} from 'naive-ui'
 import type { MessageProviderProps } from 'naive-ui'
 
 const blogStore = useBlogStore()
@@ -44,6 +50,9 @@ blogStore.setYiYan()
         <NuxtPage />
       </NuxtLayout>
     </n-message-provider>
+    <!-- 回到顶部 -->
+    <TheBackTop />
+    <n-back-top :right="20" class="md:hidden" />
     <!-- 搜索 -->
     <TheSearch />
     <!-- 背景 -->

@@ -24,7 +24,7 @@ const poetryText = computed(() => {
 <template>
   <div class="min-h-screen">
     <ThePageBanner :bg-cover="imageStore.pageList.link" title="友链" :poetry-text="poetryText" />
-    <div class="mx-auto max-w-[835px] p-5">
+    <div class="mx-auto max-w-[844px] p-5">
       <div class="mt-4 text-base">
         <p>欢迎交换友链 ꉂ(ˊᗜˋ)</p>
         <p class="my-5">

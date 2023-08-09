@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NDivider, NAvatar, useMessage } from 'naive-ui'
 import type { Comment } from '@/types/comment'
-import emojiList from '@/utils/emoji'
+import EmojiApi from '@/utils/emoji'
 
 interface Props {
   id?: number
@@ -64,13 +64,9 @@ async function onSubmit() {
     message.warning('内容不能为空！！！')
     return
   }
-
   // 解析表情
-  const reg = /\[.+?\]/g
-  const content = commentContent.value.replace(reg, function (str) {
-    return `<img src= '${emojiList[str]}' width='24' height='24' style='margin: 0 1px;vertical-align: bottom;'/>`
-  })
-
+  const content = useEmojiParse(EmojiApi.allEmoji, commentContent.value)
+  // 添加评论
   const { data } = await comment.addComment({
     commentContent: content,
     typeId: props.id,

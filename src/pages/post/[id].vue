@@ -24,6 +24,9 @@ watch(
   { immediate: true }
 )
 
+// 获取推荐文章
+const { data: articleRecommend } = await article.getArticleRecommend({ lazy: true })
+
 // 文章点赞
 const handleLike = useThrottleFn(async (id: number) => {
   if (!userStore.userInfo) {
@@ -58,7 +61,7 @@ onMounted(() => {
         class="articlePattern"
         :bg-cover="articleInfo.data.articleCover"
         :title="articleInfo.data.articleTitle"
-        :author="blogStore.siteConfig?.siteAuthor"
+        :author="blogStore.siteConfig?.siteAuthor ?? ''"
         :view="articleInfo.data.viewCount"
         :time="articleInfo.data.createTime"
       />
@@ -110,27 +113,7 @@ onMounted(() => {
           <Comment :id="id" :type="1" />
         </div>
         <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
-          <!-- <div
-            v-if="recommendArticleList && recommendArticleList.length > 0"
-            class="recommend mb-5 w-[inherit] rounded px-5 shadow-md dark:bg-neutral-800"
-          >
-            <div class="border-b py-4 font-medium dark:border-amber-300">推荐文章</div>
-            <ul class="pb-1 text-sm">
-              <li
-                v-for="item in recommendArticleList"
-                :key="item.id"
-                class="my-3 cursor-pointer rounded py-1 px-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
-                @click="router.push(`/post/${item.id}`)"
-              >
-                <p>{{ item.articleTitle }}</p>
-                <p class="pt-1 text-gray-400">
-                  <span>20点赞</span>
-                  <Icon name="bi:dot" />
-                  <span>10评论</span>
-                </p>
-              </li>
-            </ul>
-          </div> -->
+          <PostRecommend :list="articleRecommend?.data ?? null" />
           <PostToc />
         </div>
       </div>

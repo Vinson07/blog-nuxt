@@ -73,7 +73,7 @@ function handleSearch() {
 
 <template>
   <header
-    class="header-nav group/nav fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between bg-[rgba(255,255,255,0.7)] px-4 transition-colors duration-700 dark:bg-[rgba(38,38,38,0.7)]"
+    class="header-nav group/nav fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between bg-[rgba(255,255,255,0.7)] px-4 transition-colors duration-700 dark:bg-[rgba(38,38,38,0.7)] max-md:hidden"
     :class="{ active: showMenu }"
   >
     <h1 class="site-author cursor-pointer text-2xl" @click="router.push('/')">

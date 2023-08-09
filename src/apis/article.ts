@@ -1,4 +1,10 @@
-import type { Article, ArticleInfo, Archives, SearchArticle } from '@/types/article'
+import type {
+  Article,
+  ArticleInfo,
+  Archives,
+  SearchArticle,
+  ArticleRecommend
+} from '@/types/article'
 import type { HttpOption } from '@/composables/useHttp'
 import type { PageQuery, PageResult } from '@/types'
 
@@ -6,7 +12,8 @@ enum Api {
   articleList = '/article/list',
   article = '/article/',
   searchArticle = '/article/search',
-  archives = '/archives/list'
+  archives = '/archives/list',
+  recommend = '/article/recommend'
 }
 
 /**
@@ -25,6 +32,14 @@ export function getArticleList(params: PageQuery, option?: HttpOption<PageResult
  */
 export function getArticle(articleId: number, option?: HttpOption<ArticleInfo>) {
   return useHttp.get<ArticleInfo>(Api.article + articleId, {}, option)
+}
+
+/**
+ * 查看推荐文章
+ * @returns 推荐文章
+ */
+export function getArticleRecommend(option?: HttpOption<ArticleRecommend[]>) {
+  return useHttp.get<ArticleRecommend[]>(Api.recommend, option)
 }
 
 /**

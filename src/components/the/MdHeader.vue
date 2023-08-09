@@ -23,7 +23,7 @@ function handleAvatar() {
 </script>
 
 <template>
-  <header class="md-header">
+  <header class="md-header md:hidden">
     <div class="md-header-operate">
       <h1 class="cursor-pointer text-2xl" @click="router.push('/')">
         {{ blogStore.siteConfig?.siteAuthor ?? 'Vinson' }}

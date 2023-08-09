@@ -58,6 +58,28 @@ export interface ArticlePagination {
 }
 
 /**
+ * 推荐文章
+ */
+export interface ArticleRecommend {
+  /**
+   * 文章id
+   */
+  id: number
+  /**
+   * 文章标题
+   */
+  articleTitle: string
+  /**
+   * 文章缩略图
+   */
+  articleCover: string
+  /**
+   * 发布时间
+   */
+  createTime: string
+}
+
+/**
  * 文章信息
  */
 export interface ArticleInfo {
