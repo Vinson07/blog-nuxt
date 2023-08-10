@@ -324,3 +324,134 @@ pre.hljs .copy-btn:hover {
   -webkit-animation-delay: 0.15s;
   animation-delay: 0.15s;
 }
+
+/* live2d */
+.k-live2d {
+  width: 300px;
+  position: fixed;
+  bottom: 0;
+  /* right: 0; */
+  left: 0;
+  z-index: 2000;
+}
+.k-live2d .k-hitokoto {
+  top: -80px;
+}
+.k-live2d .k-live2d__loading {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 25px;
+  animation: live2d-loading-rotate 2s linear infinite;
+}
+.k-live2d .k-live2d__control {
+  position: absolute;
+  top: 0;
+  right: 0.2em;
+  z-index: 2;
+}
+.k-live2d .k-live2d__control svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 0.2em;
+}
+.k-live2d .k-live2d__control i {
+  position: relative;
+}
+.k-live2d .k-live2d__control i:after {
+  opacity: 0;
+  content: attr(data-tip);
+  position: absolute;
+  right: 120%;
+  top: 0%;
+  white-space: nowrap;
+  line-height: 1;
+  background-color: #303133;
+  color: #fff;
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+.k-live2d .k-live2d__control i:hover:after {
+  opacity: 1;
+}
+
+.k-hitokoto {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  z-index: -1;
+  width: 80%;
+  min-height: 80px;
+  background: #fcf8f4;
+  padding: 0.8em 1em;
+  box-sizing: border-box;
+  color: #977962;
+  border: 2px solid rgb(236, 203, 180);
+  box-shadow: #0000001f 0 1px 6px, #0000001f 0 1px 4px;
+  border-radius: 10px;
+  animation: hitokoto-rotate 4s ease-in-out 0s infinite alternate;
+}
+.k-hitokoto:after,
+.k-hitokoto:before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border-radius: inherit;
+  border: 2px solid var(--moving-border-color);
+  animation: hitokoto-clippath1 10s infinite linear;
+}
+.k-hitokoto:before {
+  animation: hitokoto-clippath 10s infinite linear;
+}
+.k-hitokoto .k-hitokoto__info {
+  position: relative;
+}
+.k-hitokoto .k-hitokoto__info .left,
+.k-hitokoto .k-hitokoto__info .right {
+  position: absolute;
+}
+.k-hitokoto .k-hitokoto__info .left {
+  top: 0;
+  left: 0;
+}
+.k-hitokoto .k-hitokoto__info .right {
+  bottom: 0;
+  right: 0;
+}
+.k-hitokoto .k-hitokoto__info .word {
+  padding: 10px 20px;
+  text-align: center;
+}
+.k-hitokoto .k-hitokoto__author {
+  text-align: right;
+  margin-top: 10px;
+}
+.k-hitokoto .k-hitokoto__like {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  cursor: pointer;
+  font-size: 25px;
+}
+.k-hitokoto .k-hitokoto__like:after {
+  content: attr(data-num);
+  position: absolute;
+  top: -18%;
+  right: -30%;
+  background: #f04a83;
+  width: 1.3em;
+  height: 1.3em;
+  font-size: 18px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.3em;
+  color: #fff;
+  transform: scale(0.7);
+}
+.k-hitokoto:hover {
+  z-index: 0;
+}

@@ -10,6 +10,7 @@ import type { MessageProviderProps } from 'naive-ui'
 
 const blogStore = useBlogStore()
 const { home } = useApi()
+const { isDesktop } = useDevice()
 
 const color = useColorMode()
 const el = ref<HTMLDivElement | null>(null)
@@ -55,6 +56,8 @@ blogStore.setYiYan()
     <n-back-top :right="20" class="md:hidden" />
     <!-- 搜索 -->
     <TheSearch />
+    <!-- live2d -->
+    <TheLive2d v-if="isDesktop" />
     <!-- 背景 -->
     <canvas
       id="my-canvas"

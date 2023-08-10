@@ -50,6 +50,7 @@
     "@nuxtjs/color-mode": "^3.2.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
     "@pinia/nuxt": "^0.4.7",
+    "@tomiaa/live2d": "^0.0.3",
     "clipboard": "^2.0.11",
     "highlight.js": "^11.7.0",
     "markdown-it": "^13.0.1",
