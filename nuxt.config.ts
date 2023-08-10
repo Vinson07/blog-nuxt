@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       title: 'Vinson',
       meta: [
         { name: 'keywords', content: '博客，前端' },
-        { name: 'description', content: 'Vinson个人博客，知识库' }
+        { name: 'description', content: 'vinson，Vinson个人博客，知识库' }
       ],
       link: [
         // {

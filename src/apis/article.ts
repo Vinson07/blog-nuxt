@@ -39,7 +39,7 @@ export function getArticle(articleId: number, option?: HttpOption<ArticleInfo>) 
  * @returns 推荐文章
  */
 export function getArticleRecommend(option?: HttpOption<ArticleRecommend[]>) {
-  return useHttp.get<ArticleRecommend[]>(Api.recommend, option)
+  return useHttp.get<ArticleRecommend[]>(Api.recommend, {}, option)
 }
 
 /**
