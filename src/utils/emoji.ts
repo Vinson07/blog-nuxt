@@ -1,6 +1,6 @@
 const raw = 'https://cdn.sakura520.co/static/'
 
-const faceList = ['tv_小电视', '小黄人']
+const faceList = ['tv_小电视', '小黄脸']
 
 const emojiList = [
   {

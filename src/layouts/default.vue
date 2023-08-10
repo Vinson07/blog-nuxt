@@ -3,8 +3,7 @@
 <template>
   <main>
     <TheHeader />
-    <TheMdHeader />
-
+    <TheMbHeader />
     <slot />
     <TheFooter />
   </main>
