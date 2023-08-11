@@ -14,7 +14,7 @@ export default defineNuxtConfig({
       link: [
         // {
         //   rel: 'stylesheet',
-        //   href: 'https://cdn.sakura520.co/static/live2d/all.min.css'
+        //   href: 'https://cdn.jsdelivr.net/npm/sakana-widget@2.5.0/lib/sakana.min.css'
         // }
       ],
       script: [

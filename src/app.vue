@@ -35,6 +35,29 @@ blogStore.blogInfoData()
 await home.report({ lazy: true })
 // 一言
 blogStore.setYiYan()
+
+if (isDesktop) {
+  useHead(
+    {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://cdn.jsdelivr.net/npm/sakana-widget@2.5.0/lib/sakana.min.css'
+        }
+      ],
+      script: [
+        {
+          src: 'https://cdn.jsdelivr.net/npm/sakana-widget@2.5.0/lib/sakana.min.js', // 看板娘
+          onload: () => {
+            // @ts-ignore
+            new SakanaWidget().mount('#sakana-widget')
+          }
+        }
+      ]
+    },
+    { mode: 'client' }
+  )
+}
 </script>
 
 <template>
@@ -53,11 +76,11 @@ blogStore.setYiYan()
     </n-message-provider>
     <!-- 回到顶部 -->
     <TheBackTop />
-    <n-back-top :right="20" class="md:hidden" />
+    <n-back-top :right="20" class="z-40 md:hidden" />
     <!-- 搜索 -->
     <TheSearch />
-    <!-- live2d -->
-    <TheLive2d v-if="isDesktop" />
+    <!-- 石蒜模拟器网页小组件 -->
+    <div id="sakana-widget" class="fixed bottom-0 right-0 z-30"></div>
     <!-- 背景 -->
     <canvas
       id="my-canvas"
