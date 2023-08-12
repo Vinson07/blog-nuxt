@@ -11,6 +11,9 @@ interface List {
 definePageMeta({
   layout: 'no-bottom'
 })
+useHead({
+  title: '图库-Vinson'
+})
 
 const imageStore = useImageStore()
 const imgList = ref<List[]>([

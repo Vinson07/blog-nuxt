@@ -6,6 +6,9 @@ definePageMeta({
   layout: 'no-bottom',
   middleware: ['auth']
 })
+useHead({
+  title: '用户中心-Vinson'
+})
 
 const message = useMessage()
 const userStore = useUserStore()

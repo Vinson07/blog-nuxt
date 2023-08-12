@@ -80,7 +80,7 @@ if (isDesktop) {
     <!-- 搜索 -->
     <TheSearch />
     <!-- 石蒜模拟器网页小组件 -->
-    <div id="sakana-widget" class="fixed bottom-0 right-0 z-30"></div>
+    <div id="sakana-widget" class="fixed bottom-0 right-0 z-[9]"></div>
     <!-- 背景 -->
     <canvas
       id="my-canvas"

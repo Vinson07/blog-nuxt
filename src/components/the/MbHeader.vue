@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NAvatar } from 'naive-ui'
+import { NAvatar, NDrawer } from 'naive-ui'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -10,13 +10,11 @@ const menuToggle = ref(false)
 function handleIconMenu() {
   menuToggle.value = !menuToggle.value
 }
-function handleHdMenu() {
-  menuToggle.value = false
-}
 function handleSearch() {
   searchStore.setModal(true)
 }
 function logout() {
+  menuToggle.value = false
   userStore.clearUserInfo()
   router.push('/login')
 }
@@ -39,13 +37,9 @@ function logout() {
         </div>
       </div>
     </div>
-    <div
-      class="absolute top-0 left-0 bottom-0 h-screen w-full transition-[left] duration-500"
-      :style="{ left: menuToggle ? '0' : '-100%' }"
-      @click="handleHdMenu"
-    >
+    <n-drawer v-model:show="menuToggle" width="70%" placement="left">
       <div
-        class="mb-deader-menu h-full w-2/3 overflow-y-auto rounded-lg bg-white p-5 text-center shadow-xl dark:bg-[#1e1e20]"
+        class="mb-deader-menu h-full w-full overflow-y-auto rounded-lg p-5 text-center shadow-xl"
       >
         <n-avatar :size="160" round :src="userStore.userInfo?.avatar" />
         <h3 class="mt-2 text-center text-base font-semibold">
@@ -68,7 +62,8 @@ function logout() {
           <li v-for="(item, index) in blogStore.menuList" :key="index" class="flex justify-center">
             <NuxtLink
               :to="item.path"
-              class="mb-3 flex h-12 w-40 items-center justify-center text-base"
+              class="mb-3 flex h-12 w-40 items-center justify-center text-base outline-none"
+              @click="menuToggle = false"
             >
               <Icon :name="item.icon" />
               <p class="ml-1">{{ item.text }}</p>
@@ -77,7 +72,7 @@ function logout() {
           <li class="flex justify-center">
             <div
               v-if="userStore.userInfo"
-              class="mb-3 flex h-12 w-40 items-center justify-center text-base"
+              class="mb-3 flex h-12 w-40 items-center justify-center text-base outline-none"
               @click="logout"
             >
               <p class="ml-1">登出</p>
@@ -85,13 +80,14 @@ function logout() {
             <NuxtLink
               v-else
               to="/login"
-              class="mb-3 flex h-12 w-40 items-center justify-center text-base"
+              class="mb-3 flex h-12 w-40 items-center justify-center text-base outline-none"
+              @click="menuToggle = false"
             >
               <p class="ml-1">登录</p>
             </NuxtLink>
           </li>
         </ul>
       </div>
-    </div>
+    </n-drawer>
   </header>
 </template>

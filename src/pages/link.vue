@@ -4,6 +4,9 @@ const imageStore = useImageStore()
 // definePageMeta({
 //   layout: 'no-bottom'
 // })
+useHead({
+  title: '友链-Vinson'
+})
 
 const { link, poetry } = useApi()
 
@@ -58,7 +61,7 @@ const poetryText = computed(() => {
         >
           だいすき
         </h3>
-        <div class="my-5 flex flex-wrap">
+        <div class="my-5 flex flex-wrap max-md:justify-center">
           <LinkBuddy
             v-for="item in linkList?.data"
             :key="item.id"

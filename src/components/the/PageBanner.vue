@@ -34,7 +34,7 @@ defineProps<Props>()
     </UseImage>
     <div class="absolute inset-0 flex items-center justify-center text-white">
       <div class="text-center">
-        <h1 class="text-4xl">{{ title }}</h1>
+        <h1 class="font-[FrederickaTheGreat] text-4xl">{{ title }}</h1>
         <p class="mt-4 text-xl">{{ poetryText }}</p>
       </div>
     </div>

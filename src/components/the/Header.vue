@@ -53,9 +53,7 @@ const handleSelect = (key: string | number) => {
       }
       break
     case 'login':
-      if (path !== '/login') {
-        router.push(`/login`)
-      }
+      router.push(`/login`)
       break
     default:
       break
@@ -87,8 +85,8 @@ function handleSearch() {
           class="nav-item mx-4 flex cursor-pointer items-center text-base font-semibold hover:text-orange-500 dark:hover:text-indigo-500"
           :class="item.class"
         >
-          <NuxtLink :to="`${item.path}`">
-            <Icon :class="`icon-${index + 1}`" :name="item.icon" />
+          <NuxtLink :to="`${item.path}`" class="flex items-center">
+            <Icon :class="`icon-${index + 1}`" size="20" :name="item.icon" />
             <span class="pl-1">{{ item.text }}</span>
           </NuxtLink>
         </li>

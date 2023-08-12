@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import type { Archives } from '@/types/article'
 
+useHead({
+  title: '文章归档-Vinson'
+})
+
 const imageStore = useImageStore()
 const archiveList = ref<{ [key: string]: Archives[] }>({})
 
 const { article, poetry } = useApi()
 
 // 获取全部文章归档
-const { data, pending } = await article.getArchivesList({ current: 1, size: 100 })
+const { data, pending } = await article.getArchivesList({ current: 1, size: 500 })
 if (data.value?.flag) {
   const { recordList } = data.value.data
   if (recordList.length > 0) {

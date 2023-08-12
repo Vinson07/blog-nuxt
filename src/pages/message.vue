@@ -6,6 +6,9 @@ import type { Message } from '@/types/message'
 definePageMeta({
   layout: 'no-bottom'
 })
+useHead({
+  title: '留言-Vinson'
+})
 
 const danmus = ref<Message[]>([])
 const msg = useMessage()
