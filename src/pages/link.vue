@@ -8,25 +8,15 @@ useHead({
   title: '友链-Vinson'
 })
 
-const { link, poetry } = useApi()
+const { link } = useApi()
 
 // 友链列表
 const { data: linkList } = await link.getLinkList({ lazy: true })
-
-// 古诗
-const { data: gushi } = poetry.getPoetry()
-const poetryText = computed(() => {
-  if (gushi.value) {
-    return `${gushi.value.content} —— ${gushi.value.author}`
-  } else {
-    return ''
-  }
-})
 </script>
 
 <template>
   <div class="min-h-screen">
-    <ThePageBanner :bg-cover="imageStore.pageList.link" title="友链" :poetry-text="poetryText" />
+    <ThePageBanner :bg-cover="imageStore.pageList.link" title="友链" />
     <div class="mx-auto max-w-[844px] p-5">
       <div class="mt-4 text-base">
         <p>欢迎交换友链 ꉂ(ˊᗜˋ)</p>

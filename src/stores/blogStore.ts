@@ -27,6 +27,12 @@ export const useBlogStore = defineStore('blog', () => {
       class: 'menu-item-archives'
     },
     {
+      icon: 'icon-park:category-management',
+      text: '分类',
+      path: '/category',
+      class: 'menu-item-category'
+    },
+    {
       icon: 'icon-park:message',
       text: '留言',
       path: '/message',

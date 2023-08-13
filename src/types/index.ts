@@ -6,6 +6,7 @@ export interface PageListStore {
   login: string
   user: string
   album: string
+  category: string
 }
 
 /**

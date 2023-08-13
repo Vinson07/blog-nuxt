@@ -9,7 +9,8 @@ export const useImageStore = defineStore('image', () => {
     archive: 'https://cdn.sakura520.co/images/058.jpeg',
     login: 'https://cdn.sakura520.co/images/055.jpeg',
     user: 'https://cdn.sakura520.co/images/0304.jpeg',
-    album: 'https://cdn.sakura520.co/images/079.webp'
+    album: 'https://cdn.sakura520.co/images/079.webp',
+    category: 'https://cdn.sakura520.co/images/0512.webp'
   })
   const randomImage = ref([
     'https://api.ghser.com/random/api.php',

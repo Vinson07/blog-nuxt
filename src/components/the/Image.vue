@@ -38,7 +38,7 @@ onMounted(() => {
 <template>
   <div ref="imgRef" class="group h-full w-full">
     <img
-      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+      class="h-full w-full rounded-[inherit] object-cover transition-transform duration-500 group-hover:scale-110"
       :src="imgSrc"
       alt=""
     />

@@ -1,5 +1,6 @@
 import type { CategoryVO } from './category'
 import type { TagVO } from './tag'
+import type { PageQuery } from './index'
 
 /**
  * 文章
@@ -157,6 +158,64 @@ export interface Archives {
    * 发布时间
    */
   createTime: string
+}
+
+/**
+ * 文章分类、标签
+ */
+export interface ArticleCondition {
+  /**
+   * 文章id
+   */
+  id: number
+  /**
+   * 文章缩略图
+   */
+  articleCover: string
+  /**
+   * 文章标题
+   */
+  articleTitle: string
+  /**
+   * 文章分类
+   */
+  category: CategoryVO
+  /**
+   * 文章标签
+   */
+  tagVOList: TagVO[]
+  /**
+   * 发布时间
+   */
+  createTime: string
+}
+
+/**
+ * 文章条件列表
+ */
+export interface ArticleConditionList {
+  /**
+   * 文章列表
+   */
+  articleConditionVOList: ArticleCondition[]
+  /**
+   * 条件名
+   */
+  name: string
+}
+
+/**
+ * 文章参数
+ */
+export interface ArticleQuery extends PageQuery {
+  /**
+   * 分类id
+   */
+  categoryId: number
+  /**
+   * 标签id
+   */
+  // tagId: number
 }
 
 /**

@@ -26,11 +26,11 @@
   overflow: hidden;
 }
 
-/* @font-face {
+@font-face {
   font-family: SmileySans;
   src: url(https://cdn.sakura520.co/static/blog-plugin/font/YSHaoShenTi.ttf);
   font-display: swap;
-} */
+}
 
 @font-face {
   font-family: FrederickaTheGreat;
@@ -43,7 +43,8 @@
 body,
 html {
   cursor: url(https://cdn.sakura520.co/static/images/x1.cur), auto;
-  @apply font-sans;
+  /* @apply font-sans; */
+  @apply font-[SmileySans];
 }
 
 html.light {

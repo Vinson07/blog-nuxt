@@ -49,7 +49,7 @@ const imageParams = {
   prefix: 'static/images/'
 }
 
-const { qiniu, poetry } = useApi()
+const { qiniu } = useApi()
 
 async function getImageList() {
   loading.value = true
@@ -74,21 +74,11 @@ function onInfinite() {
     getImageList()
   }
 }
-
-// 古诗
-const { data: gushi } = poetry.getPoetry()
-const poetryText = computed(() => {
-  if (gushi.value) {
-    return `${gushi.value.content} —— ${gushi.value.author}`
-  } else {
-    return ''
-  }
-})
 </script>
 
 <template>
   <ClientOnly>
-    <ThePageBanner :bg-cover="imageStore.pageList.album" title="图库" :poetry-text="poetryText" />
+    <ThePageBanner :bg-cover="imageStore.pageList.album" title="图库" />
     <Waterfall :list="imgList" class="mt-3 md:mt-10" background-color="transparent" :width="350">
       <template #item="{ url }">
         <!-- <LazyImg :url="url" class="rounded" /> -->

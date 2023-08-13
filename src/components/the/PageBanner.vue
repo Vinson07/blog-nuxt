@@ -4,9 +4,20 @@ import { UseImage } from '@vueuse/components'
 interface Props {
   bgCover: string
   title: string
-  poetryText: string
 }
 defineProps<Props>()
+
+const { poetry } = useApi()
+
+// 古诗
+const { data: gushi } = poetry.getPoetry()
+const poetryText = computed(() => {
+  if (gushi.value) {
+    return `${gushi.value.content} —— ${gushi.value.author}`
+  } else {
+    return ''
+  }
+})
 </script>
 
 <template>
@@ -34,7 +45,7 @@ defineProps<Props>()
     </UseImage>
     <div class="absolute inset-0 flex items-center justify-center text-white">
       <div class="text-center">
-        <h1 class="font-[FrederickaTheGreat] text-4xl">{{ title }}</h1>
+        <h1 class="text-4xl">{{ title }}</h1>
         <p class="mt-4 text-xl">{{ poetryText }}</p>
       </div>
     </div>

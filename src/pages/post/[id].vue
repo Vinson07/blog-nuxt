@@ -92,9 +92,9 @@ onMounted(() => {
             <div class="mt-2 flex justify-between">
               <div class="tag flex items-center">
                 <Icon name="fluent:tag-multiple-16-regular" size="16" />
-                <span class="mx-1 cursor-pointer">
+                <!-- <span class="mx-1 cursor-pointer">
                   {{ articleInfo.data.category.categoryName }}
-                </span>
+                </span> -->
                 <span
                   v-for="tag in articleInfo.data.tagVOList"
                   :key="tag.id"

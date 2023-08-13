@@ -6,6 +6,7 @@ import * as message from './message'
 import * as poetry from './poetry'
 import * as link from './link'
 import * as qiniu from './qiniu'
+import * as category from './category'
 
 export default {
   home,
@@ -15,5 +16,6 @@ export default {
   message,
   poetry,
   link,
-  qiniu
+  qiniu,
+  category
 }

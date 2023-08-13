@@ -8,7 +8,7 @@ useHead({
 const imageStore = useImageStore()
 const archiveList = ref<{ [key: string]: Archives[] }>({})
 
-const { article, poetry } = useApi()
+const { article } = useApi()
 
 // 获取全部文章归档
 const { data, pending } = await article.getArchivesList({ current: 1, size: 500 })
@@ -26,25 +26,11 @@ if (data.value?.flag) {
     }, {})
   }
 }
-
-// 古诗
-const { data: gushi } = poetry.getPoetry()
-const poetryText = computed(() => {
-  if (gushi.value) {
-    return `${gushi.value.content} —— ${gushi.value.author}`
-  } else {
-    return ''
-  }
-})
 </script>
 
 <template>
   <div id="archives">
-    <ThePageBanner
-      :bg-cover="imageStore.pageList.archive"
-      title="文章归档"
-      :poetry-text="poetryText"
-    />
+    <ThePageBanner :bg-cover="imageStore.pageList.archive" title="文章归档" />
     <div class="m-auto mt-10 max-w-[844px] pl-7 pr-4">
       <ul class="border-l border-dashed pb-1">
         <ArchivesList

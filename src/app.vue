@@ -42,12 +42,12 @@ if (isDesktop) {
       link: [
         {
           rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/sakana-widget@2.5.0/lib/sakana.min.css'
+          href: 'https://cdn.sakura520.co/static/blog-plugin/css/sakana@2.5.0.min.css'
         }
       ],
       script: [
         {
-          src: 'https://cdn.jsdelivr.net/npm/sakana-widget@2.5.0/lib/sakana.min.js', // 看板娘
+          src: 'https://cdn.sakura520.co/static/blog-plugin/js/sakana@2.5.0.min.js', // 看板娘
           onload: () => {
             // @ts-ignore
             new SakanaWidget().mount('#sakana-widget')
