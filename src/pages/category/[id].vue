@@ -14,14 +14,7 @@ const params = {
 const { data } = await category.getCategoryArticleList(params)
 
 useHead({
-  title: `${data.value?.data.name ?? '文章分类'}-Vinson`,
-  meta: [
-    {
-      name: 'description',
-      content: `vinson，Vinson个人博客，知识库，${data.value?.data.name ?? '文章分类'}`
-    },
-    { name: 'keywords', content: `博客，前端，${data.value?.data.name ?? '文章分类'}` }
-  ]
+  title: `${data.value?.data.name ?? '文章分类'}-Vinson`
 })
 </script>
 

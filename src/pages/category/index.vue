@@ -4,14 +4,7 @@ const router = useRouter()
 
 const { category } = useApi()
 useHead({
-  title: '文章分类-Vinson',
-  meta: [
-    {
-      name: 'description',
-      content: `vinson，Vinson个人博客，知识库，文章分类`
-    },
-    { name: 'keywords', content: `博客，前端，文章分类` }
-  ]
+  title: '文章分类-Vinson'
 })
 
 const option = reactive({

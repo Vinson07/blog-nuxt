@@ -7,14 +7,7 @@ definePageMeta({
   middleware: ['auth']
 })
 useHead({
-  title: '用户中心-Vinson',
-  meta: [
-    {
-      name: 'description',
-      content: `vinson，Vinson个人博客，知识库，用户中心`
-    },
-    { name: 'keywords', content: `博客，前端，用户中心` }
-  ]
+  title: '用户中心-Vinson'
 })
 
 const message = useMessage()

@@ -5,14 +5,7 @@ const imageStore = useImageStore()
 //   layout: 'no-bottom'
 // })
 useHead({
-  title: '友链-Vinson',
-  meta: [
-    {
-      name: 'description',
-      content: `vinson，Vinson个人博客，知识库，友链`
-    },
-    { name: 'keywords', content: `博客，前端，友链` }
-  ]
+  title: '友链-Vinson'
 })
 
 const { link } = useApi()

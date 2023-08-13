@@ -3,13 +3,13 @@ export default defineNuxtConfig({
   srcDir: 'src',
   app: {
     head: {
-      charset: 'utf-8',
       viewport:
         'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover',
       title: 'Vinson',
       meta: [
-        { name: 'keywords', content: '博客，前端' },
-        { name: 'description', content: 'vinson，Vinson个人博客，知识库' }
+        { name: 'keywords', content: 'Vinson，Sakura，博客，前端' },
+        { name: 'author', content: 'Vinson' },
+        { name: 'description', content: 'Vinson，Sakura，博客，个人博客，知识库' }
       ],
       link: [
         // {

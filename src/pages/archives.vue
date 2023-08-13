@@ -2,14 +2,7 @@
 import type { Archives } from '@/types/article'
 
 useHead({
-  title: '文章归档-Vinson',
-  meta: [
-    {
-      name: 'description',
-      content: `vinson，Vinson个人博客，知识库，文章归档`
-    },
-    { name: 'keywords', content: `博客，前端，文章归档` }
-  ]
+  title: '文章归档-Vinson'
 })
 
 const imageStore = useImageStore()

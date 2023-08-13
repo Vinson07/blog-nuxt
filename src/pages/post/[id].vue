@@ -19,14 +19,7 @@ watch(
   (value) => {
     if (value) {
       useHead({
-        title: `${value.data.articleTitle}-Vinson`,
-        meta: [
-          {
-            name: 'description',
-            content: `vinson，Vinson个人博客，知识库，${value.data.category.categoryName}`
-          },
-          { name: 'keywords', content: `博客，前端，${value.data.category.categoryName}` }
-        ]
+        title: `${value.data.articleTitle}-Vinson`
       })
       likeCount.value = value.data.likeCount
     }

@@ -3,14 +3,7 @@ definePageMeta({
   layout: 'no-bottom'
 })
 useHead({
-  title: '登录-Vinson',
-  meta: [
-    {
-      name: 'description',
-      content: `vinson，Vinson个人博客，知识库，登录`
-    },
-    { name: 'keywords', content: `博客，前端，登录` }
-  ]
+  title: '登录-Vinson'
 })
 
 const imageStore = useImageStore()
