@@ -74,22 +74,6 @@
   animation-delay: -5s;
   animation-duration: 20s;
 }
-/* 波浪动画 */
-@keyframes move-forever {
-  0% {
-    transform: translate3d(-90px, 0, 0);
-  }
-
-  100% {
-    transform: translate3d(85px, 0, 0);
-  }
-}
-@media (max-width: 768px) {
-  .waves {
-    height: 10vh;
-    min-height: 10vh;
-  }
-}
 
 /* comment input */
 /* .comment_textarea textarea {
@@ -286,7 +270,7 @@ pre.hljs .copy-btn:hover {
 
 /* base loading */
 #loading {
-  @apply bg-[#f9f9f9] dark:bg-[#222222];
+  @apply bg-v-background dark:bg-v-background-dark;
   position: fixed;
   z-index: 999;
   top: 0;

@@ -5,7 +5,14 @@ const imageStore = useImageStore()
 //   layout: 'no-bottom'
 // })
 useHead({
-  title: '友链-Vinson'
+  title: '友链-Vinson',
+  meta: [
+    {
+      name: 'description',
+      content: `vinson，Vinson个人博客，知识库，友链`
+    },
+    { name: 'keywords', content: `博客，前端，友链` }
+  ]
 })
 
 const { link } = useApi()
@@ -17,7 +24,7 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
 <template>
   <div class="min-h-screen">
     <ThePageBanner :bg-cover="imageStore.pageList.link" title="友链" />
-    <div class="mx-auto max-w-[844px] p-5">
+    <BaseBox class="mx-auto mt-5">
       <div class="mt-4 text-base">
         <p>欢迎交换友链 ꉂ(ˊᗜˋ)</p>
         <p class="my-5">
@@ -51,7 +58,7 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
         >
           だいすき
         </h3>
-        <div class="my-5 flex flex-wrap max-md:justify-center">
+        <div class="my-5 ml-3 flex flex-wrap">
           <LinkBuddy
             v-for="item in linkList?.data"
             :key="item.id"
@@ -64,6 +71,6 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
         </div>
       </div>
       <Comment :type="2" />
-    </div>
+    </BaseBox>
   </div>
 </template>

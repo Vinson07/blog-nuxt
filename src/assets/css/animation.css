@@ -448,3 +448,20 @@
     box-shadow: 0 25px 40px #d82e16;
   }
 }
+
+/* 波浪动画 */
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+@media (max-width: 768px) {
+  .waves {
+    height: 10vh;
+    min-height: 10vh;
+  }
+}

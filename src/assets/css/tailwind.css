@@ -2,6 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: FrederickaTheGreat;
+  src: url(https://cdn.sakura520.co/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF)
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: YSHST;
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/优设好身体.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: MiSans;
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/MiSans.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: HYTMR;
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/HYTangMeiRen55W.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: LXGW;
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/霞鹜文楷.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: TTQHB;
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/甜甜圈海报字体.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Consolas_1;
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/Consolas.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: ZhuZiAWan;
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/ZhuZiAWan2.woff2);
+  font-display: swap;
+}
+
+body,
+html {
+  cursor: url(https://cdn.sakura520.co/static/images/x1.cur), auto;
+  /* @apply font-sans; */
+  font-family: MiSans, 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB',
+    'Heiti SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+}
+
+html.light {
+  @apply text-v-fontcolor bg-v-background;
+}
+
+html.dark {
+  @apply text-v-fontcolor-dark bg-v-background-dark;
+}
+
+img {
+  display: inline-block;
+}
+
+#waifu-tips {
+  color: black;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  @apply h-[6px] w-[6px] bg-gray-200 dark:bg-[#202124];
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-200 dark:bg-[#202124];
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-orange-400 dark:bg-indigo-500;
+}
+
 /* 单行省略号 */
 .single-line-ellipsis {
   word-break: break-all;
@@ -24,52 +109,4 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-}
-
-@font-face {
-  font-family: SmileySans;
-  src: url(https://cdn.sakura520.co/static/blog-plugin/font/YSHaoShenTi.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: FrederickaTheGreat;
-  src: url(https://cdn.sakura520.co/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF)
-    format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-body,
-html {
-  cursor: url(https://cdn.sakura520.co/static/images/x1.cur), auto;
-  /* @apply font-sans; */
-  @apply font-[SmileySans];
-}
-
-html.light {
-  @apply text-[#504e4e];
-}
-
-html.dark {
-  @apply bg-[#222222] text-[#999999];
-}
-
-img {
-  display: inline-block;
-}
-
-#waifu-tips {
-  color: black;
-}
-
-/* 滚动条样式 */
-::-webkit-scrollbar {
-  @apply h-[6px] w-[6px] bg-gray-200 dark:bg-[#202124];
-}
-::-webkit-scrollbar-track {
-  @apply bg-gray-200 dark:bg-[#202124];
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-orange-400 dark:bg-indigo-500;
 }

@@ -76,7 +76,7 @@ onMounted(() => {
         :time="articleInfo.data.createTime"
       />
       <div class="post-main relative mx-auto mt-4 max-w-[1140px] animate-[slideUpIn_1s]">
-        <div class="relative rounded p-4 shadow-md dark:bg-neutral-800 xl:w-[820px]">
+        <BaseBox class="relative xl:w-[820px]">
           <PostArticle :article-content="articleInfo.data.articleContent" />
           <div class="my-14 border-t border-b border-dashed py-5 text-sm text-zinc-500">
             <p class="cc-opacity flex items-center justify-center">
@@ -121,7 +121,7 @@ onMounted(() => {
             :next-article="articleInfo.data.nextArticle"
           />
           <Comment :id="id" :type="1" />
-        </div>
+        </BaseBox>
         <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
           <PostRecommend :list="articleRecommend?.data ?? null" />
           <PostToc />

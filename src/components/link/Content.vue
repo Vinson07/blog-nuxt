@@ -10,7 +10,7 @@ defineProps<Props>()
 
 <template>
   <div
-    class="mx-auto my-6 max-w-6xl animate-[slideUpIn_1s] rounded-md py-7 px-4 shadow-[0_0_1rem_rgba(0,0,0,0.1)] dark:bg-[#222222] dark:shadow-[0_0_1rem_#000000] md:px-9"
+    class="dark:bg-v-background-dark mx-auto my-6 max-w-6xl animate-[slideUpIn_1s] rounded-md py-7 px-4 shadow-[0_0_1rem_rgba(0,0,0,0.1)] dark:shadow-[0_0_1rem_#000000] md:px-9"
   >
     <h2 class="md:text-22 mt-5 mb-4 flex items-center text-xl font-bold">
       <Icon name="mingcute:flower-3-fill" class="animate-spin-slow text-pink-200" />

@@ -1,13 +1,13 @@
 <template>
   <nav
     ref="tocRef"
-    class="toc-nav max-h-[500px] w-[inherit] overflow-y-auto rounded py-2 shadow-md dark:bg-neutral-800"
+    class="toc-nav max-h-[500px] w-[inherit] overflow-y-auto rounded-lg bg-white p-4 shadow-[0_0_1rem_rgba(0,0,0,0.1)] dark:bg-neutral-800 dark:shadow-[0_0_1rem_#000000]"
   >
     <!-- <div class="catalog-header">
       <svg-icon icon-class="category"></svg-icon>
       目录
     </div> -->
-    <ul class="catalog-content px-4">
+    <ul class="catalog-content">
       <li
         v-for="(anchor, index) of titleList"
         :id="`toc-li-${anchor.lineIndex}`"

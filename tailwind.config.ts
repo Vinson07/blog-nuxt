@@ -12,6 +12,13 @@ export default <Partial<Config>>{
   ],
   theme: {
     extend: {
+      colors: {
+        // 主题背景和字体颜色
+        'v-fontcolor': '#363636',
+        'v-background': '#f7f9fe',
+        'v-fontcolor-dark': '#f7f7fa',
+        'v-background-dark': '#18171d'
+      },
       animation: {
         'bounce-slow': 'bounce 3s ease infinite',
         'spin-slow': 'spin 3s linear infinite'

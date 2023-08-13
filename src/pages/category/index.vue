@@ -3,6 +3,16 @@ const imageStore = useImageStore()
 const router = useRouter()
 
 const { category } = useApi()
+useHead({
+  title: '文章分类-Vinson',
+  meta: [
+    {
+      name: 'description',
+      content: `vinson，Vinson个人博客，知识库，文章分类`
+    },
+    { name: 'keywords', content: `博客，前端，文章分类` }
+  ]
+})
 
 const option = reactive({
   title: {
@@ -55,7 +65,7 @@ const getRandomColor = () =>
 <template>
   <div>
     <ThePageBanner :bg-cover="imageStore.pageList.category" title="文章分类" />
-    <BaseBox>
+    <BaseBox class="mx-auto my-5">
       <ul class="flex flex-wrap text-base text-slate-700">
         <li
           v-for="item in data?.data"
@@ -69,7 +79,7 @@ const getRandomColor = () =>
         </li>
       </ul>
     </BaseBox>
-    <BaseBox>
+    <BaseBox class="mx-auto">
       <BaseEcharts :options="option" />
     </BaseBox>
   </div>

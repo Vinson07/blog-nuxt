@@ -37,26 +37,23 @@ await home.report({ lazy: true })
 blogStore.setYiYan()
 
 if (isDesktop) {
-  useHead(
-    {
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://cdn.sakura520.co/static/blog-plugin/css/sakana@2.5.0.min.css'
+  useHead({
+    link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.sakura520.co/static/blog-plugin/css/sakana@2.5.0.min.css'
+      }
+    ],
+    script: [
+      {
+        src: 'https://cdn.sakura520.co/static/blog-plugin/js/sakana@2.5.0.min.js', // 看板娘
+        onload: () => {
+          // @ts-ignore
+          new SakanaWidget().mount('#sakana-widget')
         }
-      ],
-      script: [
-        {
-          src: 'https://cdn.sakura520.co/static/blog-plugin/js/sakana@2.5.0.min.js', // 看板娘
-          onload: () => {
-            // @ts-ignore
-            new SakanaWidget().mount('#sakana-widget')
-          }
-        }
-      ]
-    },
-    { mode: 'client' }
-  )
+      }
+    ]
+  })
 }
 </script>
 

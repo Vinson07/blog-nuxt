@@ -7,7 +7,14 @@ definePageMeta({
   layout: 'no-bottom'
 })
 useHead({
-  title: '留言-Vinson'
+  title: '留言-Vinson',
+  meta: [
+    {
+      name: 'description',
+      content: `vinson，Vinson个人博客，知识库，留言`
+    },
+    { name: 'keywords', content: `博客，前端，留言` }
+  ]
 })
 
 const danmus = ref<Message[]>([])

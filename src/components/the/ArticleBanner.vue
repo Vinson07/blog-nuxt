@@ -14,7 +14,7 @@ const publicationTime = useDateFormat(props.time, 'YYYY-MM-DD')
 </script>
 
 <template>
-  <div class="relative h-[60vh] animate-[slideBottomIn_1s]">
+  <div class="relative h-[50vh] animate-[slideBottomIn_1s]">
     <UseImage :src="bgCover">
       <template #loading>
         <img

@@ -12,6 +12,17 @@ const params = {
   size: 100
 }
 const { data } = await category.getCategoryArticleList(params)
+
+useHead({
+  title: `${data.value?.data.name ?? '文章分类'}-Vinson`,
+  meta: [
+    {
+      name: 'description',
+      content: `vinson，Vinson个人博客，知识库，${data.value?.data.name ?? '文章分类'}`
+    },
+    { name: 'keywords', content: `博客，前端，${data.value?.data.name ?? '文章分类'}` }
+  ]
+})
 </script>
 
 <template>
@@ -20,7 +31,7 @@ const { data } = await category.getCategoryArticleList(params)
       :bg-cover="imageStore.pageList.category"
       :title="data?.data.name ?? '文章分类'"
     />
-    <BaseBox class="max-md:px-3">
+    <BaseBox class="mx-auto mt-5">
       <!-- <h3 class="text-3xl font-bold">
         {{ data?.data.name }}
       </h3> -->

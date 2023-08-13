@@ -3,7 +3,14 @@ import { NCarousel, NEmpty } from 'naive-ui'
 import type { Article } from '@/types/article'
 
 useHead({
-  title: 'Vinson'
+  title: 'Vinson',
+  meta: [
+    {
+      name: 'description',
+      content: `vinson，Vinson个人博客，知识库`
+    },
+    { name: 'keywords', content: `博客，前端` }
+  ]
 })
 
 const blogStore = useBlogStore()
