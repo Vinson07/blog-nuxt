@@ -24,10 +24,7 @@ useHead({
       :bg-cover="imageStore.pageList.category"
       :title="data?.data.name ?? '文章分类'"
     />
-    <BaseBox class="mx-auto mt-5">
-      <!-- <h3 class="text-3xl font-bold">
-        {{ data?.data.name }}
-      </h3> -->
+    <BaseBox class="mx-auto mt-5 max-w-4xl">
       <ul class="pt-4">
         <li
           v-for="item in data?.data.articleConditionVOList"
@@ -38,6 +35,7 @@ useHead({
             style="width: 151px; height: 80px"
             class="rounded-xl"
             :src="item.articleCover"
+            @click="router.push(`/post/${item.id}`)"
           />
           <div class="pl-3">
             <h4

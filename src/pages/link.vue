@@ -17,7 +17,7 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
 <template>
   <div class="min-h-screen">
     <ThePageBanner :bg-cover="imageStore.pageList.link" title="友链" />
-    <BaseBox class="mx-auto mt-5">
+    <BaseBox class="mx-auto mt-5 max-w-4xl">
       <div class="mt-4 text-base">
         <p>欢迎交换友链 ꉂ(ˊᗜˋ)</p>
         <p class="my-5">

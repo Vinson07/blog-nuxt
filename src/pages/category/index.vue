@@ -58,7 +58,7 @@ const getRandomColor = () =>
 <template>
   <div>
     <ThePageBanner :bg-cover="imageStore.pageList.category" title="文章分类" />
-    <BaseBox class="mx-auto my-5">
+    <BaseBox class="mx-auto my-5 max-w-4xl">
       <ul class="flex flex-wrap text-base text-slate-700">
         <li
           v-for="item in data?.data"
@@ -72,7 +72,7 @@ const getRandomColor = () =>
         </li>
       </ul>
     </BaseBox>
-    <BaseBox class="mx-auto">
+    <BaseBox class="mx-auto max-w-4xl">
       <BaseEcharts :options="option" />
     </BaseBox>
   </div>
