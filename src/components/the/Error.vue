@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const router = useRouter()
+
+const handleGoHome = () => {
+  window.location.href = '/'
+}
 </script>
 
 <template>
@@ -11,7 +15,7 @@ const router = useRouter()
         you've reached the edge of universe.The Page you've requested , can't befound. Don't Worry ,
         you can return to previous page.
       </p>
-      <button class="go-home btn" @click="router.push('/')">GO HOME</button>
+      <button class="go-home btn" @click="handleGoHome">GO HOME</button>
       <button class="back btn" @click="router.back()">BACK</button>
     </div>
     <div class="astronaut">

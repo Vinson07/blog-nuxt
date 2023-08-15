@@ -18,7 +18,7 @@ const myChart = ref()
 useHead({
   script: [
     {
-      src: 'https://cdn.sakura520.co/static/blog-plugin/js/echarts@5.4.3.min.js',
+      src: 'https://cdn.staticfile.org/echarts/5.4.3/echarts.min.js',
       onload: () => {
         if (chartDom.value) {
           // 基于准备好的dom，初始化echarts实例

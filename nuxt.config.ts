@@ -32,30 +32,29 @@ export default defineNuxtConfig({
   build: {
     transpile:
       process.env.NODE_ENV === 'production'
-        ? [
-            'naive-ui',
-            'vueuc',
-            '@css-render/vue3-ssr',
-            '@juggle/resize-observer',
-            'markdown-it',
-            'highlight.js',
-            'clipboard'
-          ]
+        ? ['naive-ui', 'vueuc', '@css-render/vue3-ssr', '@juggle/resize-observer']
         : ['@juggle/resize-observer']
   },
   vite: {
-    // build: {
-    //   chunkSizeWarningLimit: 1500,
-    //   rollupOptions: {
-    //     output: {
-    //       manualChunks(id) {
-    //         if (id.includes('node_modules')) {
-    //           return id.toString().split('node_modules/')[1].split('/')[0].toString()
-    //         }
-    //       }
-    //     }
-    //   }
-    // },
+    build: {
+      // chunkSizeWarningLimit: 1500,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            // 分包
+            // if (id.includes('node_modules')) {
+            //   return id.toString().split('node_modules/')[1].split('/')[0].toString()
+            // }
+            if (id.includes('highlight.js')) {
+              return 'highlight'
+            }
+            if (id.includes('markdown-it')) {
+              return 'markdown_it'
+            }
+          }
+        }
+      }
+    },
     optimizeDeps: {
       include:
         process.env.NODE_ENV === 'development'

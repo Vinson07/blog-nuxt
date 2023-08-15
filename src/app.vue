@@ -38,15 +38,9 @@ blogStore.setYiYan()
 
 if (isDesktop) {
   useHead({
-    link: [
-      {
-        rel: 'stylesheet',
-        href: 'https://cdn.sakura520.co/static/blog-plugin/css/sakana@2.5.0.min.css'
-      }
-    ],
     script: [
       {
-        src: 'https://cdn.sakura520.co/static/blog-plugin/js/sakana@2.5.0.min.js', // 看板娘
+        src: 'https://cdn.staticfile.org/sakana-widget/2.6.1/sakana.min.js',
         onload: () => {
           // @ts-ignore
           new SakanaWidget().mount('#sakana-widget')

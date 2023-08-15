@@ -80,7 +80,7 @@
 
 .markdown-body h2 {
   position: relative;
-  padding-left: 10px;
+  padding-left: 13px;
   padding-right: 10px;
   padding-bottom: 10px;
   margin-top: 36px;
@@ -96,7 +96,7 @@
   content: '「';
   position: absolute;
   top: -6px;
-  left: -14px;
+  left: -9px;
 }
 
 .markdown-body h2::after {

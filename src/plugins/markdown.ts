@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js/lib/common'
+// @ts-ignore
 import iterator from 'markdown-it-for-inline'
 
 export default defineNuxtPlugin(() => {
