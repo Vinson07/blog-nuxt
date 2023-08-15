@@ -77,16 +77,18 @@ function onInfinite() {
 </script>
 
 <template>
-  <ClientOnly>
+  <div>
     <ThePageBanner :bg-cover="imageStore.pageList.album" title="图库" />
-    <Waterfall :list="imgList" class="mt-3 md:mt-10" background-color="transparent" :width="350">
-      <template #item="{ url }">
-        <!-- <LazyImg :url="url" class="rounded" /> -->
-        <n-image :src="url" :fallback-src="errorImg" class="rounded" />
-      </template>
-    </Waterfall>
+    <ClientOnly>
+      <Waterfall :list="imgList" class="mt-3 md:mt-10" background-color="transparent" :width="350">
+        <template #item="{ url }">
+          <!-- <LazyImg :url="url" class="rounded" /> -->
+          <n-image :src="url" :fallback-src="errorImg" class="rounded" />
+        </template>
+      </Waterfall>
+    </ClientOnly>
     <BaseInfiniteScroll :distance="100" class="h-10 text-center" @infinite="onInfinite">
       <Icon v-show="loading" name="eos-icons:bubble-loading" class="text-3xl" />
     </BaseInfiniteScroll>
-  </ClientOnly>
+  </div>
 </template>

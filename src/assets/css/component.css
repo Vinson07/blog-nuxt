@@ -74,6 +74,12 @@
   animation-delay: -5s;
   animation-duration: 20s;
 }
+@media (max-width: 768px) {
+  .waves {
+    height: 10vh;
+    min-height: 10vh;
+  }
+}
 
 /* comment input */
 /* .comment_textarea textarea {

@@ -31,7 +31,7 @@ if (data.value?.flag) {
 <template>
   <div id="archives">
     <ThePageBanner :bg-cover="imageStore.pageList.archive" title="文章归档" />
-    <div class="m-auto mt-10 max-w-[844px] pl-7 pr-4">
+    <div class="m-auto mt-10 max-w-[844px] animate-[slideUpIn_1s] pl-7 pr-4">
       <ul class="border-l border-dashed pb-1">
         <ArchivesList
           v-for="(item, key, index) in archiveList"

@@ -63,7 +63,7 @@ export const useBlogStore = defineStore('blog', () => {
       title: '图库',
       describe: '这里有好多图片',
       link: 'https://view.lixingyong.com/explore/trending',
-      bgSrc: 'https://cdn.sakura520.co/FmcgKQQGHWnGwzALOBTbRIzrTeeP'
+      bgSrc: 'https://cdn.sakura520.co/images/0614.jpg'
     },
     {
       title: 'sakura',

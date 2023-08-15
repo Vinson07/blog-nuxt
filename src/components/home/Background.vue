@@ -86,7 +86,7 @@ const handleRight = () => {
 <template>
   <div id="headertop" class="relative h-screen" :class="bgMask">
     <figure
-      class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat md:bg-fixed"
+      class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
       :style="{ backgroundImage: bgSrc ? `url(${bgSrc})` : '' }"
     >
       <div

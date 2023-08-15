@@ -68,7 +68,7 @@ onMounted(() => {
         :view="articleInfo.data.viewCount"
         :time="articleInfo.data.createTime"
       />
-      <div class="post-main relative mx-auto mt-4 max-w-[1140px] animate-[slideUpIn_1s]">
+      <div class="post-main relative mx-auto mt-4 max-w-[1140px]">
         <BaseBox class="relative xl:w-[820px]">
           <PostArticle :article-content="articleInfo.data.articleContent" />
           <div class="my-14 border-t border-b border-dashed py-5 text-sm text-zinc-500">

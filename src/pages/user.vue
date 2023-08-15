@@ -113,57 +113,57 @@ const onSubmit = (e: Event) => {
 </script>
 
 <template>
-  <client-only>
+  <!-- <client-only> -->
+  <div
+    class="flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
+    :style="{ backgroundImage: `url(${imageStore.pageList.user})` }"
+  >
     <div
-      class="flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
-      :style="{ backgroundImage: `url(${imageStore.pageList.user})` }"
+      class="w-96 rounded-3xl border-2 border-solid border-white bg-[hsla(0,0%,10%,0.1)] py-10 px-6 text-sm text-white backdrop-blur max-md:w-80"
     >
-      <div
-        class="w-96 rounded-3xl border-2 border-solid border-white bg-[hsla(0,0%,10%,0.1)] py-10 px-6 text-sm text-white backdrop-blur max-md:w-80"
-      >
-        <div class="mb-5 text-center">
-          <n-upload
-            accept="image/*"
-            :show-file-list="false"
-            :custom-request="customUpload"
-            @before-upload="beforeUpload"
-          >
-            <div class="group relative cursor-pointer">
-              <n-avatar round :size="64" :src="userStore.userInfo?.avatar" />
-              <div
-                class="absolute top-0 left-0 hidden h-16 w-16 items-center justify-center rounded-full bg-[rgba(0,0,0,0.3)] text-xs group-hover:flex"
-              >
-                上传头像
-              </div>
+      <div class="mb-5 text-center">
+        <n-upload
+          accept="image/*"
+          :show-file-list="false"
+          :custom-request="customUpload"
+          @before-upload="beforeUpload"
+        >
+          <div class="group relative cursor-pointer">
+            <n-avatar round :size="64" :src="userStore.userInfo?.avatar" />
+            <div
+              class="absolute top-0 left-0 hidden h-16 w-16 items-center justify-center rounded-full bg-[rgba(0,0,0,0.3)] text-xs group-hover:flex"
+            >
+              上传头像
             </div>
-          </n-upload>
-        </div>
-        <n-form ref="formRef" :model="model" :rules="rules">
-          <n-form-item label="昵称" path="nickname">
-            <n-input v-model:value="model.nickname" placeholder="昵称" />
-          </n-form-item>
-          <n-form-item label="邮箱" path="email">
-            <n-input v-model:value="model.email" disabled placeholder="邮箱" />
-          </n-form-item>
-          <n-form-item label="个人网站" path="website">
-            <n-input v-model:value="model.webSite" placeholder="个人网站" />
-          </n-form-item>
-          <n-form-item label="简介" path="introduction">
-            <n-input
-              v-model:value="model.intro"
-              type="textarea"
-              :autosize="{
-                minRows: 3,
-                maxRows: 5
-              }"
-              placeholder="简介"
-            />
-          </n-form-item>
-          <div class="text-center">
-            <n-button @click="onSubmit"> 提交 </n-button>
           </div>
-        </n-form>
+        </n-upload>
       </div>
+      <n-form ref="formRef" :model="model" :rules="rules">
+        <n-form-item label="昵称" path="nickname">
+          <n-input v-model:value="model.nickname" placeholder="昵称" />
+        </n-form-item>
+        <n-form-item label="邮箱" path="email">
+          <n-input v-model:value="model.email" disabled placeholder="邮箱" />
+        </n-form-item>
+        <n-form-item label="个人网站" path="website">
+          <n-input v-model:value="model.webSite" placeholder="个人网站" />
+        </n-form-item>
+        <n-form-item label="简介" path="introduction">
+          <n-input
+            v-model:value="model.intro"
+            type="textarea"
+            :autosize="{
+              minRows: 3,
+              maxRows: 5
+            }"
+            placeholder="简介"
+          />
+        </n-form-item>
+        <div class="text-center">
+          <n-button @click="onSubmit"> 提交 </n-button>
+        </div>
+      </n-form>
     </div>
-  </client-only>
+  </div>
+  <!-- </client-only> -->
 </template>

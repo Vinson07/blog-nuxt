@@ -459,9 +459,14 @@
     transform: translate3d(85px, 0, 0);
   }
 }
-@media (max-width: 768px) {
-  .waves {
-    height: 10vh;
-    min-height: 10vh;
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(1rem);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
   }
 }

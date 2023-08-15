@@ -1,9 +1,6 @@
 <script setup lang="ts">
 const imageStore = useImageStore()
 
-// definePageMeta({
-//   layout: 'no-bottom'
-// })
 useHead({
   title: '友链-Vinson'
 })

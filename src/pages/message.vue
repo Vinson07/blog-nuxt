@@ -60,26 +60,26 @@ async function send() {
 </script>
 
 <template>
-  <client-only>
-    <div
-      class="barrage-bg relative h-screen w-screen bg-cover bg-center bg-no-repeat pt-14"
-      :style="{ backgroundImage: styleBgSrc }"
-    >
-      <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2 md:w-96">
-        <n-card title="弹幕" hoverable class="bg-transparent">
-          <n-input-group>
-            <n-input
-              v-model:value="barrageValue"
-              placeholder="留下点什么啦~"
-              show-count
-              :maxlength="30"
-              clearable
-              @keyup.enter="send"
-            />
-            <n-button type="primary" ghost @click="send"> 发射 </n-button>
-          </n-input-group>
-        </n-card>
-      </div>
+  <div
+    class="barrage-bg relative h-screen w-screen bg-cover bg-center bg-no-repeat pt-14"
+    :style="{ backgroundImage: styleBgSrc }"
+  >
+    <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2 md:w-96">
+      <n-card title="弹幕" hoverable class="bg-transparent">
+        <n-input-group>
+          <n-input
+            v-model:value="barrageValue"
+            placeholder="留下点什么啦~"
+            show-count
+            :maxlength="30"
+            clearable
+            @keyup.enter="send"
+          />
+          <n-button type="primary" ghost @click="send"> 发射 </n-button>
+        </n-input-group>
+      </n-card>
+    </div>
+    <client-only>
       <vue-danmaku
         ref="danmakuRef"
         v-model:danmus="danmus"
@@ -107,6 +107,6 @@ async function send() {
           </div>
         </template>
       </vue-danmaku>
-    </div>
-  </client-only>
+    </client-only>
+  </div>
 </template>

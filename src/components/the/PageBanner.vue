@@ -21,7 +21,7 @@ const poetryText = computed(() => {
 </script>
 
 <template>
-  <div class="relative h-[50vh]">
+  <div class="relative h-[50vh] animate-[slideBottomIn_1s]">
     <UseImage :src="bgCover">
       <template #loading>
         <img
