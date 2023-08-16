@@ -24,7 +24,7 @@ useHead({
       :bg-cover="imageStore.pageList.category"
       :title="data?.data.name ?? '文章分类'"
     />
-    <BaseBox class="mx-auto mt-5 max-w-4xl">
+    <BaseBox class="mx-auto mt-5 max-w-4xl animate-[slideUpIn_1s]">
       <ul class="pt-4">
         <li
           v-for="item in data?.data.articleConditionVOList"
