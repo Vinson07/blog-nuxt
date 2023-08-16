@@ -29,6 +29,7 @@
 
 
 ## 启动项目
+
 ```shell
 #首先全局安装pnpm
 npm install pnpm -g
