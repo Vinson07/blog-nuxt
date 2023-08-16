@@ -23,7 +23,8 @@
 - nuxt-icon（图标）：https://nuxt.com/modules/icon
 
 ## 使用建议
-- 因为项目使用eslint husky, 所以建议使用编辑器 vscode 下载插件 ESLint Prettier
+- 因为项目使用eslint, 所以建议使用编辑器 vscode 下载插件 ESLint Prettier
+- 因为项目使用husky，t提交git会自动格式化代码，如果eslint不通过是提交不上去的
 - 保存自动格式化，不喜欢的可以在.vscode目录下setting.json修改
 
 
