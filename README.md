@@ -1,12 +1,16 @@
 # 个人博客前台
 
-## 地址
-- 前台：<a href="https://sakura520.co" target="_blank">https://sakura520.co</a>
-- 后台：<a href="https://admin.sakura520.co" target="_blank">https://admin.sakura520.co</a>
+## 在线地址
+- 前台：https://sakura520.co
+- 后台：https://admin.sakura520.co
+
+## 前台项目
+- Github 地址：https://github.com/Vinson07/blog-nuxt
+- Gitee 地址：https://gitee.com/vinson007/blog-nuxt
 
 ## 后台项目
-
-- 源码：https://gitee.com/wu_shengdong/blog
+- Github 地址：https://github.com/ttkican/Blog
+- Gitee 地址：https://gitee.com/wu_shengdong/blog
 
 ## 项目架构
 - nuxt3：https://nuxt.com/
@@ -40,4 +44,4 @@ pnpm build
 ```
 
 ## 部署
-- 部署到服务器：<a href="https://blog.csdn.net/m0_48489737/article/details/127796979" target="_blank">https://blog.csdn.net/m0_48489737/article/details/127796979</a>
+- 部署到服务器：https://blog.csdn.net/m0_48489737/article/details/127796979
