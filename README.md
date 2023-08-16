@@ -29,7 +29,10 @@
 
 ## 启动项目
 ```shell
-#首先安装依赖
+#首先全局安装pnpm
+npm install pnpm -g
+
+#安装依赖
 pnpm install
 
 # 本地运行
