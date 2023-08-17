@@ -18,6 +18,13 @@
   animation: shake-vertical 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 .header-nav .nav-item:hover .icon-4 {
+  -webkit-animatio: swing 0.6s;
+  animation: swing 0.6s;
+}
+.header-nav .nav-item:hover .icon-5 {
+  @apply animate-spin-slow;
+}
+.header-nav .nav-item:hover .icon-6 {
   -webkit-animation: vibrate-1 0.3s linear infinite both;
   animation: vibrate-1 0.3s linear infinite both;
 }
