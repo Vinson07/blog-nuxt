@@ -31,10 +31,9 @@ const titleTop = ref('-50%')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
 
-onMounted(() => {
-  nextTick(() => {
-    titleTop.value = '50%'
-  })
+onMounted(async () => {
+  await nextTick()
+  titleTop.value = '50%'
 })
 
 // 触发播放暂停按钮
@@ -94,7 +93,7 @@ const handleRight = () => {
         class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center transition-[top] duration-700"
       >
         <h1
-          class="tik-tok-shake mb-7 cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
+          class="tik-tok-shake mb-7 animate-[bounce_0.6s_ease_1s] cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
         >
           {{ title }}
         </h1>
