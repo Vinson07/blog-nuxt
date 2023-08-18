@@ -12,7 +12,7 @@ interface Props {
   music?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   videoSrc: '',
   bgSrc: '',
   title: 'Vinson Blog',
@@ -29,21 +29,62 @@ const showVideo = ref(false)
 const showPlay = ref(true)
 const titleTop = ref('-50%')
 const videoRef = ref<HTMLVideoElement | null>(null)
+// const flvRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
+const flvPlayer = ref()
+const flag = ref(true)
 
 onMounted(async () => {
   await nextTick()
   titleTop.value = '50%'
 })
 
+useHead({
+  script: [
+    {
+      src: 'https://cdn.staticfile.org/flv.js/1.6.2/flv.min.js',
+      async onload() {
+        // @ts-ignore
+        if (flvjs.isSupported()) {
+          await nextTick()
+          if (videoRef.value && isFlvFile(props.videoSrc)) {
+            // @ts-ignore
+            flvPlayer.value = flvjs.createPlayer({
+              type: 'flv',
+              url: props.videoSrc
+            })
+            flvPlayer.value.attachMediaElement(videoRef.value)
+            // flvPlayer.value.load()
+            // flvPlayer.play()
+          }
+        }
+      }
+    }
+  ]
+})
+
+// 判断是否flv文件
+function isFlvFile(str: string) {
+  const reg = /\.flv$/
+  return reg.test(str)
+}
+
 // 触发播放暂停按钮
 function handlePlay() {
-  if (videoRef.value) {
+  if (isFlvFile(props.videoSrc)) {
+    if (flag.value) {
+      flag.value = false
+      flvPlayer.value.load()
+    }
+    flvPlayer.value.play()
+  } else if (videoRef.value) {
     videoRef.value.play()
   }
 }
 function handlePause() {
-  if (videoRef.value) {
+  if (isFlvFile(props.videoSrc)) {
+    flvPlayer.value.pause()
+  } else if (videoRef.value) {
     videoRef.value.pause()
   }
 }
@@ -140,6 +181,15 @@ const handleRight = () => {
       </div>
     </figure>
     <div class="absolute top-0 left-0 right-0 h-full">
+      <!-- <video
+        v-if="isFlvFile(videoSrc)"
+        v-show="showVideo"
+        ref="flvRef"
+        class="h-full w-full object-fill"
+        @play="onPlay"
+        @pause="onPause"
+        @ended="onEnded"
+      ></video> -->
       <video
         v-show="showVideo"
         ref="videoRef"
@@ -149,7 +199,7 @@ const handleRight = () => {
         @pause="onPause"
         @ended="onEnded"
       >
-        <source :src="videoSrc" type="video/mp4" />
+        <source v-if="!isFlvFile(videoSrc)" :src="videoSrc" type="video/mp4" />
       </video>
       <div
         class="absolute bottom-4 right-6 z-10 animate-bounce cursor-pointer text-3xl text-[#baac9f] max-md:hidden"
