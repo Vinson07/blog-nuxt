@@ -29,7 +29,6 @@ const showVideo = ref(false)
 const showPlay = ref(true)
 const titleTop = ref('-50%')
 const videoRef = ref<HTMLVideoElement | null>(null)
-// const flvRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
 const flvPlayer = ref()
 const flag = ref(true)
@@ -39,35 +38,32 @@ onMounted(async () => {
   titleTop.value = '50%'
 })
 
-useHead({
-  script: [
-    {
-      src: 'https://cdn.staticfile.org/flv.js/1.6.2/flv.min.js',
-      async onload() {
-        // @ts-ignore
-        if (flvjs.isSupported()) {
-          await nextTick()
-          if (videoRef.value && isFlvFile(props.videoSrc)) {
-            // @ts-ignore
-            flvPlayer.value = flvjs.createPlayer({
-              type: 'flv',
-              url: props.videoSrc
-            })
-            flvPlayer.value.attachMediaElement(videoRef.value)
-            // flvPlayer.value.load()
-            // flvPlayer.play()
-          }
-        }
-      }
-    }
-  ]
-})
-
 // 判断是否flv文件
 function isFlvFile(str: string) {
   const reg = /\.flv$/
   return reg.test(str)
 }
+
+useHead({
+  script: [
+    {
+      src: 'https://cdn.staticfile.org/flv.js/1.6.2/flv.min.js',
+      async onload() {
+        await nextTick()
+        // @ts-ignore
+        if (flvjs.isSupported() && videoRef.value && isFlvFile(props.videoSrc)) {
+          // @ts-ignore
+          flvPlayer.value = flvjs.createPlayer({
+            type: 'flv',
+            url: props.videoSrc
+          })
+          flvPlayer.value.attachMediaElement(videoRef.value)
+          // flvPlayer.value.load()
+        }
+      }
+    }
+  ]
+})
 
 // 触发播放暂停按钮
 function handlePlay() {
@@ -151,17 +147,17 @@ const handleRight = () => {
               color="#3b82f6"
               @click="handleLeft"
             />
-            <nuxt-link target="_blank" :to="gitHub">
+            <nuxt-link v-if="gitHub" target="_blank" :to="gitHub">
               <Icon name="grommet-icons:github" class="mx-1.5 cursor-pointer" />
             </nuxt-link>
-            <nuxt-link target="_blank" :to="gitee">
+            <nuxt-link v-if="gitee" target="_blank" :to="gitee">
               <Icon name="simple-icons:gitee" class="mx-1.5 cursor-pointer" color="#be3020" />
             </nuxt-link>
-            <nuxt-link target="_blank" :to="bilibili">
-              <Icon name="tabler:brand-bilibili" class="mx-1.5 cursor-pointer" color="#fff" />
+            <nuxt-link v-if="bilibili" target="_blank" :to="bilibili">
+              <Icon name="tabler:brand-bilibili" class="mx-1.5 cursor-pointer" color="#38acea" />
             </nuxt-link>
             <!-- <nuxt-link target="_blank" :to="qq">
-              <Icon name="mdi:qqchat" class="mx-1.5 cursor-pointer" color="#fff" />
+              <Icon name="bi:tencent-qq" class="text-22 mx-1.5 cursor-pointer" color="#fff" />
             </nuxt-link> -->
             <!-- <nuxt-link target="_blank" :to="music">
               <Icon
@@ -181,15 +177,6 @@ const handleRight = () => {
       </div>
     </figure>
     <div class="absolute top-0 left-0 right-0 h-full">
-      <!-- <video
-        v-if="isFlvFile(videoSrc)"
-        v-show="showVideo"
-        ref="flvRef"
-        class="h-full w-full object-fill"
-        @play="onPlay"
-        @pause="onPause"
-        @ended="onEnded"
-      ></video> -->
       <video
         v-show="showVideo"
         ref="videoRef"
