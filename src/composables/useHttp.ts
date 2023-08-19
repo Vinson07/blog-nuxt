@@ -53,8 +53,7 @@ function fetch<T>(url: UrlType, option: any) {
       // get方法传递数组形式参数
       options.params = paramsSerializer(options.params)
       // 添加baseURL,从环境变量里面取
-      // 本地需要登录的用这个
-      // options.baseURL = process.server ? baseURL : '/api'
+      // options.baseURL = process.server ? baseURL : '/api' // 本地需要登录的用这个
       options.baseURL = baseURL
       options.headers = new Headers(options.headers)
       const { tokenPrefix, getToken } = useToken()

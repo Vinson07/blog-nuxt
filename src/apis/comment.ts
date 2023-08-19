@@ -21,7 +21,7 @@ export function getCommentList(params: CommentQuery, option?: HttpOption<PageRes
  * @param params 分页参数
  * @returns 回复评论列表
  */
-export function getReplyList(commentId: number, params?: PageQuery, option?: HttpOption<Reply[]>) {
+export function getReplyList(commentId: number, params: PageQuery, option?: HttpOption<Reply[]>) {
   return useHttp.get<Reply[]>(`/comment/${commentId}/reply`, params, option)
 }
 

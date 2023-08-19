@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NDivider, NAvatar, useMessage } from 'naive-ui'
-import type { Comment } from '@/types/comment'
+import type { Comment, Reply } from '@/types/comment'
 import EmojiApi from '@/utils/emoji'
 
 interface Props {
@@ -96,15 +96,42 @@ async function onSubmit() {
   }
 }
 
-// 更新回复
-async function reloadReply(id: number) {
-  const { data } = await comment.getReplyList(id)
-  if (data.value?.data) {
-    const list = data.value.data
+// 更新一级回复
+async function addReply(id: number) {
+  let replyCount = 0
+  let replyList: Reply[] = []
+  recordList.value.forEach((item) => {
+    if (item.id === id) {
+      replyCount = item.replyCount
+      replyList = item.replyVOList
+    }
+  })
+  // 最后一页
+  const lastPage = Math.ceil(replyCount / 5)
+  const { data } = await comment.getReplyList(id, { current: lastPage, size: 5 })
+  if (data.value?.flag && data.value.data) {
+    const length = data.value.data.length
+    // 拿到刚添加的回复
+    const lastReply = data.value.data[length - 1]
+    const list = [...replyList, lastReply]
+    // 更新回复
     recordList.value.forEach((item) => {
-      if (item.id === id) item.replyVOList = list
+      if (item.id === id) {
+        item.replyVOList = list
+        item.replyCount = replyCount + 1
+      }
     })
   }
+}
+
+// 更新二级回复
+function reloadReply(id: number, data: Reply[], count?: number) {
+  recordList.value.forEach((item) => {
+    if (item.id === id) {
+      item.replyVOList = data
+      if (count) item.replyCount = count
+    }
+  })
 }
 </script>
 
@@ -131,13 +158,9 @@ async function reloadReply(id: number) {
     </n-divider>
     <!-- 评论内容 -->
     <ul>
-      <CommentItem
-        v-for="item in recordList"
-        :key="item.id"
-        :data="item"
-        @reload-reply="reloadReply"
-      >
+      <CommentItem v-for="item in recordList" :key="item.id" :data="item" @add-reply="addReply">
         <CommentReply
+          v-if="item.replyVOList"
           :id="item.id"
           :reply-count="item.replyCount"
           :data="item.replyVOList"
@@ -147,13 +170,6 @@ async function reloadReply(id: number) {
     </ul>
     <!-- 加载列表 -->
     <div class="my-8 text-center">
-      <!-- <n-button v-if="isLoad" ghost @click="handleLoading">
-        <template #icon>
-          <Icon v-if="pending" name="eos-icons:bubble-loading" size="16" />
-          <Icon v-else name="uiw:loading" size="16" />
-        </template>
-        加载更多
-      </n-button> -->
       <p v-if="isLoad" class="h-8">
         <img
           v-if="pending"

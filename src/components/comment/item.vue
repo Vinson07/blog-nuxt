@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'reloadReply', id: number): void
+  (e: 'addReply', id: number): void
 }>()
 
 const userStore = useUserStore()
@@ -103,7 +103,7 @@ async function onSubmit() {
 
     // 重新加载回复
     const id = props.reply ? (props.data as Reply).parentId : props.data.id
-    emit('reloadReply', id)
+    emit('addReply', id)
   } else {
     message.error('评论失败！！')
   }
@@ -141,7 +141,7 @@ async function onSubmit() {
             @{{ (data as Reply).toNickname }}
           </NuxtLink>
           <!-- eslint-disable-next-line -->
-          <span v-html="data.commentContent.replace(/(\r\n)|(\n)/g, '<br>')"></span>
+          <span v-html="data.commentContent?.replace(/(\r\n)|(\n)/g, '<br>')"></span>
         </p>
         <div class="flex">
           <div
@@ -149,9 +149,9 @@ async function onSubmit() {
             :class="{ 'text-blue-500': likeActive }"
             @click="handleLike(data.id)"
           >
-            <Icon v-if="likeActive" name="solar:like-bold" size="16" />
-            <Icon v-else name="solar:like-outline" />
-            <span class="ml-1 cursor-pointer">{{ likeCount }}</span>
+            <Icon v-if="likeActive" name="bx:bxs-like" size="16" />
+            <Icon v-else name="bx:like" size="16" />
+            <span class="ml-0.5 cursor-pointer">{{ likeCount }}</span>
           </div>
           <div
             ref="btnRef"

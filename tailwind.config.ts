@@ -38,8 +38,19 @@ export default <Partial<Config>>{
           'linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.9) 40%)'
       },
       fontSize: {
-        15: ['15px', '22px'],
-        22: ['22px', '30px']
+        15: ['0.9375rem', '1.375rem'],
+        22: ['1.375rem', '1.875rem']
+      },
+      spacing: {
+        '5px': '0.3125rem',
+        '10px': '0.625rem',
+        '15px': '0.9375rem',
+        '25px': '1.5625rem',
+        '30px': '1.875rem',
+        '35px': '2.1875rem',
+        '45px': '2.8125rem',
+        '50px': '3.125rem',
+        '55px': '3.4375rem'
       }
     }
   },
