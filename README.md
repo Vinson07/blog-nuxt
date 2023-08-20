@@ -46,6 +46,3 @@ pnpm analyze
 pnpm build
 
 ```
-
-## 部署
-- 部署到服务器：https://blog.csdn.net/m0_48489737/article/details/127796979

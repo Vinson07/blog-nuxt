@@ -102,12 +102,12 @@ async function addReply(id: number) {
   let replyList: Reply[] = []
   recordList.value.forEach((item) => {
     if (item.id === id) {
-      replyCount = item.replyCount
-      replyList = item.replyVOList
+      replyCount = item.replyCount || 0
+      replyList = item.replyVOList || []
     }
   })
-  // 最后一页
-  const lastPage = Math.ceil(replyCount / 5)
+  // 最后一页 默认为1
+  const lastPage = Math.ceil(replyCount / 5) || 1
   const { data } = await comment.getReplyList(id, { current: lastPage, size: 5 })
   if (data.value?.flag && data.value.data) {
     const length = data.value.data.length

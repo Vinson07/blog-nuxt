@@ -77,16 +77,15 @@ onMounted(() => {
             // 比 40 稍微多一点
             currentIndex.value = index
             // 目录item滚动同步
-            if (index === 0) {
-              return
+            if (index > 1) {
+              const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
+              tocLiId &&
+                tocLiId.scrollIntoView({
+                  block: 'center',
+                  inline: 'nearest',
+                  behavior: 'smooth'
+                })
             }
-            const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
-            tocLiId &&
-              tocLiId.scrollIntoView({
-                block: 'center',
-                inline: 'nearest',
-                behavior: 'smooth'
-              })
           }
         }
       })
