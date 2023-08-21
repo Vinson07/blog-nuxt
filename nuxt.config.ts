@@ -1,4 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import compression from 'vite-plugin-compression'
+import type { PluginOption } from 'vite'
+
+// GZIP压缩
+const plugin: PluginOption = [
+  compression({
+    ext: '.gz',
+    deleteOriginFile: false
+  }),
+  compression({
+    ext: '.br',
+    algorithm: 'brotliCompress',
+    deleteOriginFile: false
+  })
+]
+
 export default defineNuxtConfig({
   srcDir: 'src',
   app: {
@@ -55,11 +71,13 @@ export default defineNuxtConfig({
         }
       }
     },
+    plugins: process.env.NODE_ENV === 'development' ? [] : plugin,
     optimizeDeps: {
       include:
         process.env.NODE_ENV === 'development'
           ? ['naive-ui', 'vueuc', 'date-fns-tz/esm/formatInTimeZone']
-          : []
+          : [],
+      exclude: ['fsevents']
     }
   },
   css: ['@/assets/css/animation.css', '@/assets/css/component.css', '@/assets/css/cyanosis.css'],
