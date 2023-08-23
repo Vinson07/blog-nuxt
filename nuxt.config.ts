@@ -37,11 +37,11 @@ export default defineNuxtConfig({
         {
           src: 'https://cdn.sakura520.co/static/blog-plugin/js/starrySky.min.js', // 星空背景
           defer: true
+        },
+        {
+          src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+          defer: true
         }
-        // {
-        //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
-        //   defer: true
-        // }
       ]
     }
   },
@@ -80,7 +80,7 @@ export default defineNuxtConfig({
       exclude: ['fsevents']
     }
   },
-  css: ['@/assets/css/animation.css', '@/assets/css/component.css', '@/assets/css/cyanosis.css'],
+  css: ['@/assets/css/animation.css', '@/assets/css/common.css', '@/assets/css/cyanosis.css'],
   // 代理
   nitro: {
     devProxy: {

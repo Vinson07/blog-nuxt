@@ -48,7 +48,7 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
         >
           だいすき
         </h3>
-        <div class="my-5 ml-3 flex flex-wrap">
+        <div class="grid grid-cols-1 gap-2 py-5 px-3 md:grid-cols-3">
           <LinkBuddy
             v-for="item in linkList?.data"
             :key="item.id"
