@@ -27,16 +27,16 @@ const props = withDefaults(defineProps<Props>(), {
 
 const showVideo = ref(false)
 const showPlay = ref(true)
-const titleTop = ref('-50%')
+const titleTop = ref('50%')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
 const flvPlayer = ref()
 const flag = ref(true)
 
-onMounted(async () => {
-  await nextTick()
-  titleTop.value = '50%'
-})
+// onMounted(async () => {
+//   await nextTick()
+//   titleTop.value = '50%'
+// })
 
 // 判断是否flv文件
 function isFlvFile(str: string) {
@@ -120,9 +120,9 @@ const handleRight = () => {
 </script>
 
 <template>
-  <div id="headertop" class="relative h-screen" :class="bgMask">
+  <div id="headertop" class="relative h-screen overflow-hidden" :class="bgMask">
     <figure
-      class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
+      class="headertop-bg relative h-full w-full animate-[home-bg_2s] bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
       :style="{ backgroundImage: bgSrc ? `url(${bgSrc})` : '' }"
     >
       <div
@@ -130,7 +130,7 @@ const handleRight = () => {
         class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center transition-[top] duration-700"
       >
         <h1
-          class="tik-tok-shake mb-7 animate-[myBounce_0.6s_ease_1s] cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
+          class="mb-5 animate-[my-bounce_1s_2s] cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
         >
           {{ title }}
         </h1>
