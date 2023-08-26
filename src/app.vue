@@ -18,8 +18,10 @@ const el = ref<HTMLDivElement | null>(null)
 const placement = ref<MessageProviderProps['placement']>('top')
 const darkThemeOverrides: GlobalThemeOverrides = {
   common: {
-    primaryColor: '#409eff',
-    primaryColorHover: '#79bbff'
+    // primaryColor: '#409eff',
+    // primaryColorHover: '#79bbff'
+    primaryColor: '#6366f1',
+    primaryColorHover: '#818cf8'
   }
 }
 const lightThemeOverrides: GlobalThemeOverrides = {

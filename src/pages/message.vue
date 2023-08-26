@@ -27,10 +27,16 @@ const styleBgSrc = computed(() => `url(${imageStore.pageList.message})`)
 const getRandomColor = () =>
   imageStore.colors[Math.floor(Math.random() * imageStore.colors.length + 1)]
 
-onMounted(async () => {
-  const { data } = await message.getMessageList()
-  if (data.value?.data) danmus.value = data.value.data
-})
+const { data } = await message.getMessageList()
+watch(
+  data,
+  (messageList) => {
+    if (messageList?.flag) {
+      danmus.value = messageList.data
+    }
+  },
+  { immediate: true }
+)
 
 async function send() {
   if (barrageValue.value.trim() === '') {
@@ -65,7 +71,7 @@ async function send() {
     :style="{ backgroundImage: styleBgSrc }"
   >
     <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2 md:w-96">
-      <n-card title="弹幕" hoverable class="bg-transparent">
+      <n-card title="弹幕" hoverable class="max-md:bg-transparent">
         <n-input-group>
           <n-input
             v-model:value="barrageValue"
