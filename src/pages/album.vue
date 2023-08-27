@@ -16,32 +16,7 @@ useHead({
 })
 
 const imageStore = useImageStore()
-const imgList = ref<List[]>([
-  {
-    src: 'http://view.lixingyong.com/images/2023/05/28/7ed0fb5865b7a71c2c8f8de78055be3504ff7e6e8032e86b.png'
-  },
-  {
-    src: 'http://view.lixingyong.com/images/2023/05/28/1588433642207d4bea005c5c97e0c.webp'
-  },
-  {
-    src: 'http://view.lixingyong.com/images/2023/05/28/id-91881094_iren7d8d297289c6e346.jpeg'
-  },
-  {
-    src: 'http://view.lixingyong.com/images/2023/05/28/id-91882132_Rella86037fa1c53d93d1.jpeg'
-  },
-  {
-    src: 'http://view.lixingyong.com/images/2023/05/28/15709553229786521d54bfc7dfd97.jpeg'
-  },
-  {
-    src: 'http://view.lixingyong.com/images/2023/05/28/0780c7aa5b8ce5ffd1fcd967436b8276fd49eb18717804a4.png'
-  },
-  {
-    src: 'http://view.lixingyong.com/images/2023/05/28/14bfe66dc9b7a833c012bd2e6bae59c4fef7b93840aac0da.jpeg'
-  },
-  {
-    src: 'http://view.lixingyong.com/images/2020/07/20/f24e30fb0b1c77abf0f789de9374314a.png'
-  }
-])
+const imgList = ref<List[]>([])
 const baseImgUrl = 'https://cdn.sakura520.co/'
 const loading = ref(false)
 const imageParams = {
