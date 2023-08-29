@@ -9,7 +9,7 @@ useHead({
 
 const option = reactive({
   title: {
-    text: '文章分类统计图🎉',
+    text: '文章分类统计图',
     x: 'center'
   },
   tooltip: {

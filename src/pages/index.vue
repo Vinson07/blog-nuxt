@@ -107,12 +107,7 @@ const onRight = () => {
       <div class="pt-10">
         <HomeTitle title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
         <ul v-if="articleList.length > 0" class="max-md:px-1">
-          <HomePostItem
-            v-for="(item, index) in articleList"
-            :key="item.id"
-            :item="item"
-            :active="(index + 1) % 2 === 0"
-          />
+          <HomePostItem v-for="item in articleList" :key="item.id" :item="item" />
         </ul>
         <n-empty v-else description="暂无数据~" size="huge"> </n-empty>
         <div class="h-[50px] text-center">

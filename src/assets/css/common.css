@@ -142,23 +142,6 @@
   @apply text-orange-500 dark:text-[#007fff];
 }
 
-/* home  postItem */
-.post__list.active {
-  @apply flex-row-reverse;
-}
-.post__list.active .post__list__content {
-  @apply text-left;
-}
-.post__list.active .post__list__content .content-top {
-  @apply flex-row-reverse;
-}
-.post__list.active .post__list__content .content-info {
-  @apply justify-start;
-}
-.post__list.active .post__list__content .content-ellipsis {
-  @apply justify-start;
-}
-
 /* archives list */
 #archives .arrow-left-ar {
   border-left: 20px solid transparent;

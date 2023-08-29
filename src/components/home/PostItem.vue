@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Article } from '@/types/article'
 
-defineProps<{
-  active: boolean
+interface Props {
   item: Article
-}>()
+}
+
+defineProps<Props>()
 
 const router = useRouter()
 
@@ -15,14 +16,13 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
 
 <template>
   <li
-    class="post__list emergence mb-10 overflow-hidden rounded-lg bg-[rgba(255,255,255,0.9)] shadow-[0_1px_30px_-4px_#e8e8e8] transition-shadow duration-500 hover:shadow-[0_1px_20px_10px_#e8e8e8] dark:bg-[rgba(51,51,51,0.7)] dark:shadow-[0_1px_35px_-8px_rgba(26,26,26,0.6)] dark:hover:shadow-[0_1px_20px_0px_rgb(99,102,241)] md:flex md:h-[300px]"
-    :class="{ active: active }"
+    class="emergence group mb-10 overflow-hidden rounded-lg bg-[rgba(255,255,255,0.9)] shadow-[0_1px_30px_-4px_#e8e8e8] transition-shadow duration-500 even:flex-row-reverse hover:shadow-[0_1px_20px_10px_#e8e8e8] dark:bg-[rgba(51,51,51,0.7)] dark:shadow-[0_1px_35px_-8px_rgba(26,26,26,0.6)] dark:hover:shadow-[0_1px_20px_0px_rgb(99,102,241)] md:flex md:h-[300px]"
   >
     <div class="overflow-hidden max-md:h-56 md:flex-[1.4]">
       <TheImage :src="item.articleCover" />
     </div>
-    <div class="post__list__content px-8 pt-5 text-right md:flex-1">
-      <div class="content-top flex items-center justify-end text-xs">
+    <div class="px-8 pt-5 text-right group-even:text-left md:flex-1">
+      <div class="content-top flex items-center justify-end text-xs group-even:flex-row-reverse">
         <p v-if="item.isTop" class="mx-4 flex items-center">
           <Icon
             name="ant-design:pushpin-filled"
@@ -44,7 +44,7 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
       >
         {{ item.articleTitle }}
       </h4>
-      <div class="content-info flex justify-end text-xs">
+      <div class="flex justify-end text-xs group-even:justify-start">
         <p class="mr-4 flex items-center">
           <Icon name="mdi:eye" size="16" class="text-orange-500 dark:text-indigo-600" />
           <span class="ml-1">181 热度</span>
@@ -65,7 +65,7 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
       <div class="text-15 pt-3 pb-5">
         <p class="multiline-ellipsis">{{ $markdownItContent(item.articleContent) }}</p>
       </div>
-      <div class="content-ellipsis read-article flex justify-end max-md:hidden">
+      <div class="read-article flex justify-end group-even:justify-start max-md:hidden">
         <NuxtLink :to="`/post/${item.id}`">
           <Icon name="ion:ellipsis-horizontal" size="26" />
         </NuxtLink>
