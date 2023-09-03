@@ -31,7 +31,7 @@ watch(
 )
 
 useHead({
-  title: `${data.value?.data.name ?? '文章分类'}-Vinson`
+  title: `${data.value?.data.name ?? '文章分类'}`
 })
 
 function onInfinite() {

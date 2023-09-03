@@ -4,7 +4,7 @@ const router = useRouter()
 
 const { category } = useApi()
 useHead({
-  title: '文章分类-Vinson'
+  title: '文章分类'
 })
 
 const option = reactive({

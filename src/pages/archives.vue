@@ -2,7 +2,7 @@
 import type { Archives } from '@/types/article'
 
 useHead({
-  title: '文章归档-Vinson'
+  title: '文章归档'
 })
 
 const imageStore = useImageStore()

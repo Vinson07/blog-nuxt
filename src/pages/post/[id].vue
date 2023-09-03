@@ -19,7 +19,7 @@ watch(
   (value) => {
     if (value) {
       useHead({
-        title: `${value.data.articleTitle}-Vinson`
+        title: `${value.data.articleTitle}`
       })
       likeCount.value = value.data.likeCount
     }

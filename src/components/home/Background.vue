@@ -28,15 +28,11 @@ const props = withDefaults(defineProps<Props>(), {
 const showVideo = ref(false)
 const showPlay = ref(true)
 const titleTop = ref('50%')
+const wavesTransform = ref('none')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
 const flvPlayer = ref()
 const flag = ref(true)
-
-// onMounted(async () => {
-//   await nextTick()
-//   titleTop.value = '50%'
-// })
 
 // 判断是否flv文件
 function isFlvFile(str: string) {
@@ -89,17 +85,20 @@ function onPlay() {
   showVideo.value = true
   showPlay.value = false
   titleTop.value = '-50%'
+  wavesTransform.value = 'translateY(100%)'
 }
 // 视频暂停
 function onPause() {
   showPlay.value = true
   titleTop.value = '50%'
+  wavesTransform.value = 'none'
 }
 // 视频播放结束触发事件
 function onEnded() {
   showVideo.value = false
   showPlay.value = true
   titleTop.value = '50%'
+  wavesTransform.value = 'none'
 }
 
 function handleDown(selector: string) {
@@ -205,6 +204,6 @@ const handleRight = () => {
         @click="handleDown('.page-content')"
       />
     </div>
-    <BaseWaves />
+    <BaseWaves :style="{ transform: wavesTransform }" />
   </div>
 </template>

@@ -12,7 +12,7 @@ definePageMeta({
   layout: 'no-bottom'
 })
 useHead({
-  title: '图库-Vinson'
+  title: '图库'
 })
 
 const imageStore = useImageStore()

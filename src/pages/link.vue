@@ -2,7 +2,7 @@
 const imageStore = useImageStore()
 
 useHead({
-  title: '友链-Vinson'
+  title: '友链'
 })
 
 const { link } = useApi()

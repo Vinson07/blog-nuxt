@@ -7,7 +7,7 @@ definePageMeta({
   layout: 'no-bottom'
 })
 useHead({
-  title: '留言-Vinson'
+  title: '留言'
 })
 
 const danmus = ref<Message[]>([])

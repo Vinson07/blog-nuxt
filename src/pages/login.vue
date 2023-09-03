@@ -3,7 +3,7 @@ definePageMeta({
   layout: 'no-bottom'
 })
 useHead({
-  title: '登录-Vinson'
+  title: '登录'
 })
 
 const imageStore = useImageStore()

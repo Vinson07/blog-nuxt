@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // 代码高亮 引入个性化的vs2015样式
 // import 'highlight.js/styles/vs2015.css'
-// import 'highlight.js/styles/atom-one-dark.css'
-// import tocbot from 'tocbot'
 import Clipboard from 'clipboard'
 import { useMessage } from 'naive-ui'
 import Viewer from 'viewerjs'

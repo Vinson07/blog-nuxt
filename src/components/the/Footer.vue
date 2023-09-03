@@ -20,7 +20,7 @@ const day = computed(() => {
       <p class="my-3 text-neutral-400">
         <span> 小破站居然运行了 {{ day }} 天</span>
         <Icon class="heart mx-1 pb-1" name="fxemoji:beating-heart" size="22" />
-        <span>访客 {{ blogStore.viewsCount || '--' }}</span>
+        <span>访问量 {{ blogStore.viewsCount || '--' }}</span>
       </p>
       <p class="beian text-neutral-400">
         <span class="mr-1">© 2023 Vinson</span>
