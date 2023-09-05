@@ -56,10 +56,10 @@ function fetch<T>(url: UrlType, option: any) {
       // options.baseURL = process.server ? baseURL : '/api' // 本地需要登录的用这个
       options.baseURL = baseURL
       options.headers = new Headers(options.headers)
-      const { tokenPrefix, getToken } = useToken()
       // 携带token
-      if (getToken()) {
-        options.headers.set('Authorization', tokenPrefix + getToken())
+      const userStore = useUserStore()
+      if (userStore.token) {
+        options.headers.set('Authorization', `Bearer ${userStore.token}`)
       }
     },
     // 响应拦截

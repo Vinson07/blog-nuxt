@@ -1,8 +1,6 @@
 export default defineNuxtRouteMiddleware(() => {
-  if (process.client) {
-    const { getToken } = useToken()
-    if (!getToken()) {
-      return navigateTo({ path: '/login' })
-    }
+  const userStore = useUserStore()
+  if (!userStore.token) {
+    return navigateTo({ path: '/login' })
   }
 })

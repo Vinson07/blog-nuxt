@@ -3,9 +3,15 @@ import type { UserInfo } from '@/types/user'
 export const useUserStore = defineStore(
   'user',
   () => {
+    // token
+    const token = ref<string | null>(null)
     // 用户信息
     const userInfo = ref<UserInfo | null>(null)
 
+    // 设置token
+    function setToken(key: string) {
+      token.value = key
+    }
     // 获取用户信息
     async function getUserInfo() {
       const { user } = useApi()
@@ -16,10 +22,8 @@ export const useUserStore = defineStore(
     }
     // 清除用户信息
     function clearUserInfo() {
-      const { removeToken } = useToken()
-
       userInfo.value = null
-      removeToken()
+      token.value = null
     }
 
     // 文章点赞
@@ -44,9 +48,11 @@ export const useUserStore = defineStore(
     }
 
     return {
+      token,
       userInfo,
-      clearUserInfo,
+      setToken,
       getUserInfo,
+      clearUserInfo,
       setLikeArticle,
       setLikeComment
     }

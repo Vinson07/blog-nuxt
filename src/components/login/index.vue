@@ -5,7 +5,6 @@ const userStore = useUserStore()
 const router = useRouter()
 const message = useMessage()
 
-const { setToken } = useToken()
 const { user } = useApi()
 
 const emit = defineEmits<{
@@ -33,11 +32,10 @@ const handleLogin = async () => {
   const params = Object.assign({}, formLogin)
   const { data } = await user.login(params)
   if (data.value?.flag) {
-    setToken(data.value.data)
+    userStore.setToken(data.value.data)
     message.success('登录成功')
-    router.push('/user').then(() => {
-      userStore.getUserInfo()
-    })
+    userStore.getUserInfo()
+    router.push('/user')
   }
 }
 </script>

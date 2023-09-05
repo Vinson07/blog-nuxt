@@ -107,9 +107,9 @@ export default defineNuxtConfig({
   pinia: {
     autoImports: ['defineStore', 'acceptHMRUpdate']
   },
-  piniaPersistedstate: {
-    storage: 'sessionStorage'
-  },
+  // piniaPersistedstate: {
+  //   storage: 'sessionStorage'
+  // },
   imports: {
     dirs: ['stores']
   },
