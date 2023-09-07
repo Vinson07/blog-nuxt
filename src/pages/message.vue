@@ -71,7 +71,7 @@ async function send() {
     :style="{ backgroundImage: styleBgSrc }"
   >
     <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2 md:w-96">
-      <n-card title="弹幕" hoverable class="max-md:bg-transparent">
+      <n-card title="弹幕" hoverable :bordered="false" class="bg-[rgba(0,0,0,0.3)]">
         <n-input-group>
           <n-input
             v-model:value="barrageValue"

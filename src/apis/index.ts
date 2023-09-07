@@ -7,6 +7,7 @@ import * as poetry from './poetry'
 import * as link from './link'
 import * as qiniu from './qiniu'
 import * as category from './category'
+import * as album from './album'
 
 export default {
   home,
@@ -17,5 +18,6 @@ export default {
   poetry,
   link,
   qiniu,
-  category
+  category,
+  album
 }
