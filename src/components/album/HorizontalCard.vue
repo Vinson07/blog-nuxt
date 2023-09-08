@@ -13,7 +13,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="relative h-[410px] animate-[slideBottomIn_1s] overflow-hidden rounded-3xl">
+  <div
+    class="relative h-[410px] animate-[slideBottomIn_1s] overflow-hidden rounded-3xl bg-sky-400 dark:bg-neutral-800"
+  >
     <!-- <video autoplay muted loop class="h-full w-full object-cover">
       <source src="https://cdn.sakura520.co/static/video/hutao.mp4" type="video/mp4" />
     </video> -->

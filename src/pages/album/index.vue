@@ -22,13 +22,13 @@ const { data: albumData } = await album.getAlbumList()
       tip="相册集"
     />
     <div
-      class="album-card my-7 grid animate-[slideUpIn_1s] grid-cols-1 md:grid-cols-3 lg:grid-cols-4"
+      class="album-card my-7 grid animate-[slideUpIn_1s] grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-4"
     >
       <AlbumVerticalCard
         v-for="item in albumData?.data"
         :key="item.id"
         :album="item"
-        @click="router.push({ path: `/album/${item.id}`, query: { desc: item.albumDesc } })"
+        @click="router.push(`/album/${item.id}`)"
       />
     </div>
   </div>

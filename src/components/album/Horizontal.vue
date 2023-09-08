@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { NImage } from 'naive-ui'
-import type { List } from '@/types/qiniu'
+import type { Photo } from '@/types/album'
 
 interface Props {
-  list: List[]
+  list: Photo[]
 }
 
 defineProps<Props>()
 
-const baseImgUrl = ref('https://cdn.sakura520.co/')
 let count = 0
+const cl = ['slower', 'slower1', 'slower-down', 'faster', 'faster1', 'fastest', 'vertical']
+// const classRandom = () => cl[Math.floor(Math.random() * cl.length + 1)]
 
 const classRandom = () => {
-  const cl = ['slower', 'slower1', 'slower-down', 'faster', 'faster1', 'fastest', 'vertical']
+  // const cl = ['slower', 'slower1', 'slower-down', 'faster', 'faster1', 'fastest', 'vertical']
   if (count === cl.length + 1) {
     count = 0
   }
@@ -37,9 +38,9 @@ onUnmounted(() => {
 
 <template>
   <div class="shell">
-    <div v-for="item in list" :key="item.hash" class="images" :class="classRandom()">
+    <div v-for="item in list" :key="item.id" class="images" :class="classRandom()">
       <!-- <img :src="baseImgUrl + item.key" alt="" /> -->
-      <n-image :src="baseImgUrl + item.key" />
+      <n-image :src="item.photoUrl" />
     </div>
   </div>
 </template>

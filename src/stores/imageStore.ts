@@ -4,13 +4,13 @@ export const useImageStore = defineStore('image', () => {
   const pageList = ref<PageListStore>({
     // home: 'https://www.loliapi.com/acg',
     home: '',
-    message: 'https://cdn.sakura520.co/images/0510.webp',
-    link: 'https://cdn.sakura520.co/images/0517.webp',
-    archive: 'https://cdn.sakura520.co/images/058.jpeg',
-    login: 'https://cdn.sakura520.co/images/055.jpeg',
-    user: 'https://cdn.sakura520.co/images/0304.jpeg',
-    album: 'https://cdn.sakura520.co/images/079.webp',
-    category: 'https://cdn.sakura520.co/images/0512.webp'
+    message: 'https://cdn.sakura520.co/photo/ab82b3035557d2bcd935d9764ad2212d.png',
+    link: 'https://cdn.sakura520.co/photo/e349b2c28635d578b061652afa458e71.jpeg',
+    archive: 'https://cdn.sakura520.co/photo/5d1b7e1378d31c9c18f3b78f34764945.png',
+    login: 'https://cdn.sakura520.co/photo/80e7bae6740bef1383ea079ad7f61b1e.jpeg',
+    user: 'https://cdn.sakura520.co/photo/349b64d1d187c21dc20ba64928a2f866.jpeg',
+    album: 'https://cdn.sakura520.co/photo/390a181f4bcfb107bce504423918c8eb.jpeg',
+    category: 'https://cdn.sakura520.co/photo/a3598f1a90330f4309c212cdf3d0e8b6.jpeg'
   })
   const randomImage = ref([
     'https://api.ghser.com/random/api.php',
