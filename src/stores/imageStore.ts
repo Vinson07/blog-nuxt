@@ -4,13 +4,14 @@ export const useImageStore = defineStore('image', () => {
   const pageList = ref<PageListStore>({
     // home: 'https://www.loliapi.com/acg',
     home: '',
-    message: 'https://cdn.sakura520.co/photo/ab82b3035557d2bcd935d9764ad2212d.png',
-    link: 'https://cdn.sakura520.co/photo/e349b2c28635d578b061652afa458e71.jpeg',
-    archive: 'https://cdn.sakura520.co/photo/5d1b7e1378d31c9c18f3b78f34764945.png',
-    login: 'https://cdn.sakura520.co/photo/80e7bae6740bef1383ea079ad7f61b1e.jpeg',
-    user: 'https://cdn.sakura520.co/photo/349b64d1d187c21dc20ba64928a2f866.jpeg',
-    album: 'https://cdn.sakura520.co/photo/390a181f4bcfb107bce504423918c8eb.jpeg',
-    category: 'https://cdn.sakura520.co/photo/a3598f1a90330f4309c212cdf3d0e8b6.jpeg'
+    message: 'https://cdn.sakura520.co/photo/53033434c3b8a0f50e9cc2d3dfeb0511.jpeg',
+    link: 'https://cdn.sakura520.co/photo/8a61af20803cbca20f17d39f4dd33370.webp',
+    archive: 'https://cdn.sakura520.co/photo/9aec31ec72f9a931cb5ef91de350abe6.jpeg',
+    login: 'https://cdn.sakura520.co/photo/ed99cfa9c3766816833e4e8947175b46.jpeg',
+    user: 'https://cdn.sakura520.co/photo/dd9d1c2e0d08b37ff0c669277b93b718.jpeg',
+    album:
+      'https://cdn.sakura520.co/static/images/tumblr_752e98a41362e1c7e51c7a50a78c179c_187cb60b_1280.gif',
+    category: 'https://cdn.sakura520.co/photo/d2328c7d55058b925dde89d5710b4834.jpg'
   })
   const randomImage = ref([
     'https://api.ghser.com/random/api.php',

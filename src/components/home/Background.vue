@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
   bgSrc: '',
   title: 'Vinson Blog',
   subTitle: '',
-  bgMask: 'filter-dot', // filter-grid filter-dot filter-dim filter-undertint pattern-center
+  bgMask: 'pattern-center', // filter-grid filter-dot filter-dim filter-undertint pattern-center
   gitHub: '',
   gitee: '',
   bilibili: '',
@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const showVideo = ref(false)
 const showPlay = ref(true)
-const titleTop = ref('50%')
+const titleTop = ref('-50%')
 const wavesTransform = ref('none')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const emit = defineEmits(['onLeft', 'onRight'])
@@ -40,6 +40,7 @@ function isFlvFile(str: string) {
   return reg.test(str)
 }
 
+// 引入b站视频播放插件
 useHead({
   script: [
     {
@@ -59,6 +60,11 @@ useHead({
       }
     }
   ]
+})
+
+onMounted(async () => {
+  await nextTick()
+  titleTop.value = '50%'
 })
 
 // 触发播放暂停按钮
@@ -120,8 +126,9 @@ const handleRight = () => {
 
 <template>
   <div id="headertop" class="relative h-screen overflow-hidden" :class="bgMask">
+    <!-- animate-[home-bg_1.5s] -->
     <figure
-      class="headertop-bg relative h-full w-full animate-[home-bg_2s] bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
+      class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
       :style="{ backgroundImage: bgSrc ? `url(${bgSrc})` : '' }"
     >
       <div
@@ -129,7 +136,7 @@ const handleRight = () => {
         class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center transition-[top] duration-700"
       >
         <h1
-          class="mb-5 animate-[my-bounce_1s_2s] cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
+          class="mb-5 animate-[my-bounce_1s_1.3s] cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
         >
           {{ title }}
         </h1>

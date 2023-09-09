@@ -7,6 +7,7 @@ useHead({
 })
 
 const router = useRouter()
+const imageStore = useImageStore()
 
 const { album } = useApi()
 
@@ -17,9 +18,10 @@ const { data: albumData } = await album.getAlbumList()
 <template>
   <div class="mx-auto max-w-7xl px-3 pt-20">
     <AlbumHorizontalCard
-      title="这里是我的相册集哦😯"
+      title="这里是我的相册集哦"
       describe="每一张照片都是一次美好的记忆。"
       tip="相册集"
+      :cover="imageStore.pageList.album"
     />
     <div
       class="album-card my-7 grid animate-[slideUpIn_1s] grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-4"
