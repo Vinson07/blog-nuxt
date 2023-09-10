@@ -46,6 +46,16 @@ export const useUserStore = defineStore(
         }
       }
     }
+    // 说说点赞
+    function setLikeTalk(talkId: number) {
+      if (userInfo.value) {
+        if (userInfo.value.talkLikeSet?.includes(talkId)) {
+          userInfo.value.talkLikeSet.splice(userInfo.value.talkLikeSet.indexOf(talkId), 1)
+        } else {
+          userInfo.value.talkLikeSet?.push(talkId)
+        }
+      }
+    }
 
     return {
       token,
@@ -54,7 +64,8 @@ export const useUserStore = defineStore(
       getUserInfo,
       clearUserInfo,
       setLikeArticle,
-      setLikeComment
+      setLikeComment,
+      setLikeTalk
     }
   },
   {

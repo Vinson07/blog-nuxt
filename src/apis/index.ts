@@ -8,6 +8,7 @@ import * as link from './link'
 import * as qiniu from './qiniu'
 import * as category from './category'
 import * as album from './album'
+import * as talk from './talk'
 
 export default {
   home,
@@ -19,5 +20,6 @@ export default {
   link,
   qiniu,
   category,
-  album
+  album,
+  talk
 }

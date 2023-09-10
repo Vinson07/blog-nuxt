@@ -7,6 +7,7 @@ export interface PageListStore {
   user: string
   album: string
   category: string
+  talk: string
 }
 
 /**

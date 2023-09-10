@@ -37,6 +37,12 @@ export default <Partial<Config>>{
         'link-black-gradien':
           'linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.9) 40%)'
       },
+      boxShadow: {
+        'light-shadow': '0 1px 30px -4px #e8e8e8',
+        'light-shadow-hover': '0 1px 20px 10px #e8e8e8',
+        'dark-shadow': '0 1px 35px -8px rgba(26,26,26,0.6)',
+        'dark-shadow-hover': '0 1px 20px 0px rgb(99,102,241)'
+      },
       fontSize: {
         15: ['0.9375rem', '1.375rem'],
         22: ['1.375rem', '1.875rem']

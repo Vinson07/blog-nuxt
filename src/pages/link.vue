@@ -60,7 +60,7 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
           />
         </div>
       </div>
-      <Comment :type="2" />
+      <Comment :type="2" nodata-tip="快来交换友链吧～" />
     </BaseBox>
   </div>
 </template>

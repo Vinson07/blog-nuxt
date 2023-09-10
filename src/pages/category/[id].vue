@@ -73,7 +73,7 @@ function onInfinite() {
           </div>
         </li>
       </ul>
-      <BaseInfiniteScroll :distance="100" class="text-center" @infinite="onInfinite">
+      <BaseInfiniteScroll :distance="250" class="text-center" @infinite="onInfinite">
         <Icon v-show="pending" name="eos-icons:bubble-loading" class="text-3xl" />
       </BaseInfiniteScroll>
     </BaseBox>

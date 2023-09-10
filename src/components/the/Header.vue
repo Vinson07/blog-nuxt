@@ -86,7 +86,7 @@ function handleSearch() {
           :class="item.class"
         >
           <NuxtLink :to="`${item.path}`" class="flex items-center">
-            <Icon :class="`icon-${index + 1}`" size="20" :name="item.icon" />
+            <Icon size="20" :name="item.icon" />
             <span class="pl-1">{{ item.text }}</span>
           </NuxtLink>
         </li>

@@ -5,11 +5,13 @@ import EmojiApi from '@/utils/emoji'
 
 interface Props {
   id?: number
-  type: number
+  type: number // 评论类型 (1文章 2友链 3说说)
+  nodataTip?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  id: undefined
+  id: undefined,
+  nodataTip: '快来发表评论吧～'
 })
 
 const userStore = useUserStore()
@@ -136,27 +138,20 @@ function reloadReply(id: number, data: Reply[], count?: number) {
 </script>
 
 <template>
-  <!-- 评论 -->
-  <div>
-    <!-- 标题 -->
-    <div class="veditor mt-5 flex items-center">
+  <div class="py-10px">
+    <div class="veditor mb-15px flex items-center">
       <Icon name="iconamoon:comment-remove-light" size="18" />
       <span class="ml-1 text-lg">评论</span>
     </div>
-    <n-divider style="margin: 10px 0 15px" />
-    <!-- 评论区 -->
-    <div class="flex">
+    <div class="my-15px flex">
       <div class="mr-4">
         <n-avatar size="medium" round :src="userStore.userInfo?.avatar" />
       </div>
       <comment-input v-model:value="commentContent" @submit="onSubmit" />
     </div>
-    <!-- 华丽的分割线 -->
-    <n-divider style="margin-top: 30px; margin-bottom: 0">
-      <Icon name="iconamoon:comment-remove-light" size="18" class="dark:text-white" />
-      <span class="ml-1 text-lg dark:text-white">评论区</span>
+    <n-divider dashed style="margin: 0">
+      <span class="ml-1 text-sm dark:text-white">{{ total }} 条评论</span>
     </n-divider>
-    <!-- 评论内容 -->
     <ul>
       <CommentItem v-for="item in recordList" :key="item.id" :data="item" @add-reply="addReply">
         <CommentReply
@@ -168,7 +163,6 @@ function reloadReply(id: number, data: Reply[], count?: number) {
         />
       </CommentItem>
     </ul>
-    <!-- 加载列表 -->
     <div class="my-8 text-center">
       <p v-if="isLoad" class="h-8">
         <img
@@ -185,7 +179,7 @@ function reloadReply(id: number, data: Reply[], count?: number) {
           加载更多
         </span>
       </p>
-      <p v-if="recordList.length === 0">快来发表评论吧～</p>
+      <p v-if="recordList.length === 0">{{ nodataTip }}</p>
     </div>
   </div>
 </template>

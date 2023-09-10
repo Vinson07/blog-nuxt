@@ -33,10 +33,16 @@ export const useBlogStore = defineStore('blog', () => {
       class: 'menu-item-category'
     },
     {
+      icon: 'icon-park:comments',
+      text: '说说',
+      path: '/talk',
+      class: 'menu-item-talk'
+    },
+    {
       icon: 'icon-park:message',
       text: '留言',
       path: '/message',
-      class: ''
+      class: 'menu-item-message'
     },
     {
       icon: 'icon-park:friends-circle',
@@ -48,7 +54,7 @@ export const useBlogStore = defineStore('blog', () => {
       icon: 'flat-color-icons:gallery',
       text: '图库',
       path: '/album',
-      class: ''
+      class: 'menu-item-album'
     }
   ])
   // banner
