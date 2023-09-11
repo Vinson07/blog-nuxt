@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { Talk } from '@/types/talk'
 
+useHead({
+  title: '说说'
+})
+
 const imageStore = useImageStore()
 
 const loadMore = ref(true)
@@ -36,7 +40,7 @@ function onInfinite() {
 <template>
   <div>
     <ThePageBanner :bg-cover="imageStore.pageList.talk" title="说说" />
-    <div class="mx-auto max-w-3xl pt-10">
+    <div class="mx-auto max-w-3xl animate-[slideUpIn_1s] pt-10">
       <TalkItem v-for="item in talkList" :key="item.id" :list="item" />
     </div>
     <BaseInfiniteScroll :distance="250" class="text-center" @infinite="onInfinite">

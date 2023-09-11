@@ -110,6 +110,7 @@ onMounted(() => {
             </div>
           </div>
           <post-toggle-post
+            class="mb-5"
             :last-article="articleInfo.data.lastArticle"
             :next-article="articleInfo.data.nextArticle"
           />

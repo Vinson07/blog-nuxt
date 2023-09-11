@@ -29,7 +29,8 @@ const router = useRouter()
       class="group/previous prev relative h-[150px] flex-1 cursor-pointer"
       @click="router.push(`/post/${lastArticle.id}`)"
     >
-      <img class="h-full w-full object-cover" :src="lastArticle.articleCover" alt="" />
+      <!-- <img class="h-full w-full object-cover" :src="lastArticle.articleCover" alt="" /> -->
+      <TheImage :src="lastArticle.articleCover" />
       <div
         class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/previous:bg-transparent"
       >
@@ -46,7 +47,8 @@ const router = useRouter()
       class="group/next next relative h-[150px] flex-1 cursor-pointer"
       @click="router.push(`/post/${nextArticle.id}`)"
     >
-      <img class="h-full w-full object-cover" :src="nextArticle.articleCover" alt="" />
+      <!-- <img class="h-full w-full object-cover" :src="nextArticle.articleCover" alt="" /> -->
+      <TheImage :src="nextArticle.articleCover" />
       <div
         class="absolute inset-0 bg-[rgba(0,0,0,0.3)] transition-colors duration-500 group-hover/next:bg-transparent"
       >

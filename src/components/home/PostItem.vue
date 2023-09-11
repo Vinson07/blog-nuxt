@@ -16,13 +16,15 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
 
 <template>
   <li
-    class="emergence shadow-light-shadow hover:shadow-light-shadow-hover dark:shadow-dark-shadow dark:hover:shadow-dark-shadow-hover group mb-10 overflow-hidden rounded-lg bg-[rgba(255,255,255,0.9)] transition-shadow duration-500 even:flex-row-reverse dark:bg-[rgba(51,51,51,0.7)] md:flex md:h-[300px]"
+    class="emergence shadow-light-shadow hover:shadow-light-shadow-hover dark:shadow-dark-shadow dark:hover:shadow-dark-shadow-hover group/item mb-10 overflow-hidden rounded-lg bg-[rgba(255,255,255,0.9)] transition-shadow duration-500 even:flex-row-reverse dark:bg-[rgba(51,51,51,0.7)] md:flex md:h-[300px]"
   >
     <div class="overflow-hidden max-md:h-56 md:flex-[1.4]">
       <TheImage :src="item.articleCover" />
     </div>
-    <div class="px-8 pt-5 text-right group-even:text-left md:flex-1">
-      <div class="content-top flex items-center justify-end text-xs group-even:flex-row-reverse">
+    <div class="px-8 pt-5 text-right group-even/item:text-left md:flex-1">
+      <div
+        class="content-top flex items-center justify-end text-xs group-even/item:flex-row-reverse"
+      >
         <p v-if="item.isTop" class="mx-4 flex items-center">
           <Icon
             name="ant-design:pushpin-filled"
@@ -44,7 +46,7 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
       >
         {{ item.articleTitle }}
       </h4>
-      <div class="flex justify-end text-xs group-even:justify-start">
+      <div class="flex justify-end text-xs group-even/item:justify-start">
         <p class="mr-4 flex items-center">
           <Icon name="mdi:eye" size="16" class="text-orange-500 dark:text-indigo-600" />
           <span class="ml-1">181 热度</span>
@@ -65,7 +67,7 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
       <div class="text-15 pt-3 pb-5">
         <p class="multiline-ellipsis">{{ $markdownItContent(item.articleContent) }}</p>
       </div>
-      <div class="read-article flex justify-end group-even:justify-start max-md:hidden">
+      <div class="read-article flex justify-end group-even/item:justify-start max-md:hidden">
         <NuxtLink :to="`/post/${item.id}`">
           <Icon name="ion:ellipsis-horizontal" size="26" />
         </NuxtLink>

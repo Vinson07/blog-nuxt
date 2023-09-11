@@ -72,8 +72,12 @@ img {
   display: inline-block;
 }
 
+/* 看板娘 */
 #waifu-tips {
   color: black;
+}
+#waifu-toggle {
+  z-index: 10;
 }
 
 /* 滚动条样式 */
