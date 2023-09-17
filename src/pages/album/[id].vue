@@ -4,7 +4,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const imageStore = useImageStore()
+// const imageStore = useImageStore()
 
 const albumId = route.params.id as string
 
@@ -19,13 +19,13 @@ if (photoData.value?.flag) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-[1350px] px-3 pt-20">
+  <!-- <div class="mx-auto max-w-[1350px] px-3 pt-20">
     <AlbumHorizontalCard
       :title="photoData?.data.albumName"
       tip="相册集"
       :cover="imageStore.pageList.album"
     />
-    <!-- <AlbumHorizontal :list="photoData?.data.photoVOList ?? []" /> -->
     <AlbumWaterfallflow :list="photoData?.data.photoVOList ?? []" />
-  </div>
+  </div> -->
+  <AlbumWaterfall :list="photoData?.data.photoVOList ?? []" />
 </template>

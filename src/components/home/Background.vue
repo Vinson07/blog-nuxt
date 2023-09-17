@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
   bgSrc: '',
   title: 'Vinson Blog',
   subTitle: '',
-  bgMask: 'pattern-center', // filter-grid filter-dot filter-dim filter-undertint pattern-center
+  bgMask: 'filter-grid pattern-center', // filter-grid filter-dot filter-dim filter-undertint pattern-center
   gitHub: '',
   gitee: '',
   bilibili: '',
