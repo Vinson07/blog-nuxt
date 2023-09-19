@@ -9,6 +9,7 @@ import * as qiniu from './qiniu'
 import * as category from './category'
 import * as album from './album'
 import * as talk from './talk'
+import * as music from './music'
 
 export default {
   home,
@@ -21,5 +22,6 @@ export default {
   qiniu,
   category,
   album,
-  talk
+  talk,
+  music
 }

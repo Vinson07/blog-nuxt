@@ -10,7 +10,7 @@ import type { MessageProviderProps } from 'naive-ui'
 
 const blogStore = useBlogStore()
 const { home } = useApi()
-// const { isDesktop } = useDevice()
+const { isDesktop } = useDevice()
 
 const color = useColorMode()
 const el = ref<HTMLDivElement | null>(null)
@@ -38,19 +38,19 @@ await home.report({ lazy: true })
 // 一言
 blogStore.setYiYan()
 
-// if (isDesktop) {
-//   useHead({
-//     script: [
-//       {
-//         src: 'https://cdn.staticfile.org/sakana-widget/2.6.1/sakana.min.js',
-//         onload: () => {
-//           // @ts-ignore
-//           new SakanaWidget().mount('#sakana-widget')
-//         }
-//       }
-//     ]
-//   })
-// }
+if (isDesktop) {
+  useHead({
+    script: [
+      {
+        src: 'https://cdn.staticfile.org/sakana-widget/2.6.1/sakana.min.js',
+        onload: () => {
+          // @ts-ignore
+          new SakanaWidget().mount('#sakana-widget')
+        }
+      }
+    ]
+  })
+}
 </script>
 
 <template>
@@ -73,7 +73,9 @@ blogStore.setYiYan()
     <!-- 搜索 -->
     <TheSearch />
     <!-- 石蒜模拟器网页小组件 -->
-    <!-- <div id="sakana-widget" class="fixed bottom-0 right-0 z-[9]"></div> -->
+    <div id="sakana-widget" class="fixed bottom-0 right-0 z-[9]"></div>
+    <!-- 音乐 -->
+    <Music v-if="blogStore.siteConfig?.isMusic && isDesktop" />
     <!-- 背景 -->
     <canvas
       id="my-canvas"
