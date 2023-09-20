@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NPopover } from 'naive-ui'
+// import { NPopover } from 'naive-ui'
 import type { PlayList } from '@/types/music'
 
 const musicList = ref<PlayList[]>([])
@@ -11,6 +11,7 @@ const playCount = ref(0)
 const musicTotal = ref(0)
 const lyricText = ref('')
 const isShowLyricText = ref(false)
+const topText = ref('0')
 
 const blogStore = useBlogStore()
 const { lyricMap, format } = useFormatLyric()
@@ -38,11 +39,13 @@ const playItem = computed(() => {
 // 播放
 const onPlay = () => {
   status.value = 'play'
+  topText.value = '-100%'
   isShowLyricText.value = true
 }
 // 暂停
 const onPause = () => {
   status.value = 'pause'
+  topText.value = '0'
   isShowLyricText.value = false
 }
 // 结束
@@ -102,18 +105,25 @@ const handleNext = async () => {
 </script>
 
 <template>
-  <div class="fixed bottom-5 left-5 z-10 w-20 text-center">
-    <div class="py-1 text-sm text-orange-500 dark:text-indigo-500">
-      <n-popover trigger="hover">
-        <template #trigger>
-          <p class="truncate">{{ playItem.name }}</p>
-        </template>
-        <span>{{ playItem.name }}</span>
-      </n-popover>
+  <div class="fixed bottom-5 left-5 z-10">
+    <Transition name="draw">
+      <div
+        v-if="isShowLyricText"
+        class="py-1 text-sm text-orange-500 transition-all duration-500 dark:text-indigo-500"
+      >
+        <!-- <n-popover trigger="hover">
+          <template #trigger>
+          </template>
+          <span>{{ playItem.name }}</span>
+        </n-popover> -->
 
-      <p class="truncate text-xs text-zinc-400">{{ playItem.artist }}</p>
-    </div>
-    <div class="relative inline-block text-orange-500 dark:text-indigo-500">
+        <p class="truncate">{{ playItem.name }}</p>
+        <p class="truncate text-xs text-zinc-400">{{ playItem.artist }}</p>
+      </div>
+    </Transition>
+    <div
+      class="bg-v-background dark:bg-v-background-dark relative inline-block rounded-full border-2 border-white py-1 px-2 text-orange-500 dark:text-indigo-500"
+    >
       <Icon
         :name="status === 'play' ? 'iconamoon:player-pause-fill' : 'iconamoon:player-play-fill'"
         class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
@@ -130,7 +140,7 @@ const handleNext = async () => {
     </div>
     <div
       v-if="isShowLyricText"
-      class="fixed left-28 bottom-1 z-10 text-orange-500 dark:text-indigo-500"
+      class="fixed left-28 bottom-1 z-10 text-sm text-orange-500 dark:text-indigo-500"
     >
       {{ lyricText }}
     </div>
@@ -145,3 +155,15 @@ const handleNext = async () => {
     ></audio>
   </div>
 </template>
+
+<style scoped>
+.draw-enter-active,
+.draw-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.draw-enter-from,
+.draw-leave-to {
+  opacity: 0;
+}
+</style>
