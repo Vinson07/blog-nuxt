@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { NPopover } from 'naive-ui'
+import { NPopover } from 'naive-ui'
 import type { PlayList } from '@/types/music'
 
 const musicList = ref<PlayList[]>([])
@@ -105,42 +105,43 @@ const handleNext = async () => {
 </script>
 
 <template>
-  <div class="fixed bottom-5 left-5 z-10">
-    <Transition name="draw">
+  <div class="fixed bottom-5 left-5 z-10 w-28">
+    <Transition name="slide">
       <div
         v-if="isShowLyricText"
-        class="py-1 text-sm text-orange-500 transition-all duration-500 dark:text-indigo-500"
+        class="py-1 text-center text-sm text-orange-500 transition-all duration-500 dark:text-indigo-500"
       >
-        <!-- <n-popover trigger="hover">
+        <n-popover trigger="hover">
           <template #trigger>
+            <p class="select-none truncate">{{ playItem.name }}</p>
           </template>
           <span>{{ playItem.name }}</span>
-        </n-popover> -->
-
-        <p class="truncate">{{ playItem.name }}</p>
+        </n-popover>
         <p class="truncate text-xs text-zinc-400">{{ playItem.artist }}</p>
       </div>
     </Transition>
     <div
-      class="bg-v-background dark:bg-v-background-dark relative inline-block rounded-full border-2 border-white py-1 px-2 text-orange-500 dark:text-indigo-500"
+      class="bg-v-background shadow-dark-shadow dark:shadow-dark-shadow-hover dark:bg-v-background-dark flex justify-center rounded-full border-2 border-white text-orange-500 dark:text-indigo-500"
     >
-      <Icon
-        :name="status === 'play' ? 'iconamoon:player-pause-fill' : 'iconamoon:player-play-fill'"
-        class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-        @click="handlePlay"
-      />
-      <Icon name="tabler:player-track-prev-filled" class="cursor-pointer" @click="handlePrev" />
-      <img
-        class="mx-1 h-10 w-10 select-none rounded-full border-2 border-white"
-        :class="{ 'animate-spin-slow': status === 'play' }"
-        :src="playItem.pic"
-        alt=""
-      />
-      <Icon name="tabler:player-track-next-filled" class="cursor-pointer" @click="handleNext" />
+      <div class="relative inline-block py-1 px-2">
+        <Icon
+          :name="status === 'play' ? 'iconamoon:player-pause-fill' : 'iconamoon:player-play-fill'"
+          class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+          @click="handlePlay"
+        />
+        <Icon name="tabler:player-track-prev-filled" class="cursor-pointer" @click="handlePrev" />
+        <img
+          class="mx-2 h-10 w-10 select-none rounded-full border-2 border-white"
+          :class="{ 'animate-spin-slow': status === 'play' }"
+          :src="playItem.pic"
+          alt=""
+        />
+        <Icon name="tabler:player-track-next-filled" class="cursor-pointer" @click="handleNext" />
+      </div>
     </div>
     <div
       v-if="isShowLyricText"
-      class="fixed left-28 bottom-1 z-10 text-sm text-orange-500 dark:text-indigo-500"
+      class="fixed left-36 bottom-1 z-10 text-sm text-orange-500 dark:text-indigo-500"
     >
       {{ lyricText }}
     </div>
@@ -157,13 +158,20 @@ const handleNext = async () => {
 </template>
 
 <style scoped>
-.draw-enter-active,
-.draw-leave-active {
-  transition: opacity 0.5s ease;
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 1s;
 }
 
-.draw-enter-from,
-.draw-leave-to {
+.slide-enter-from,
+.slide-leave-to {
   opacity: 0;
+  transform: translateY(50%);
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
