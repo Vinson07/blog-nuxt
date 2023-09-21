@@ -19,6 +19,7 @@ useHead({
   script: [
     {
       src: 'https://cdn.staticfile.org/echarts/5.4.3/echarts.min.js',
+      defer: true,
       onload: () => {
         if (chartDom.value) {
           // 基于准备好的dom，初始化echarts实例

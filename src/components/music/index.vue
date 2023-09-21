@@ -10,8 +10,8 @@ const playCount = ref(0)
 // 音乐总数
 const musicTotal = ref(0)
 const lyricText = ref('')
-const isShowLyricText = ref(false)
-const topText = ref('0')
+const isShowLyricText = ref(true)
+const topText = ref(false)
 
 const blogStore = useBlogStore()
 const { lyricMap, format } = useFormatLyric()
@@ -39,14 +39,12 @@ const playItem = computed(() => {
 // 播放
 const onPlay = () => {
   status.value = 'play'
-  topText.value = '-100%'
-  isShowLyricText.value = true
+  topText.value = true
 }
 // 暂停
 const onPause = () => {
   status.value = 'pause'
-  topText.value = '0'
-  isShowLyricText.value = false
+  topText.value = false
 }
 // 结束
 const onEnded = () => {
@@ -78,7 +76,7 @@ const handlePlay = () => {
 }
 
 // 上一首
-const handlePrev = async () => {
+const handlePrev = useThrottleFn(async () => {
   if (playCount.value === 0) {
     playCount.value = musicTotal.value - 1
   } else {
@@ -88,10 +86,10 @@ const handlePrev = async () => {
   await nextTick()
   // 播放
   musicRef.value && musicRef.value.play()
-}
+}, 500)
 
 // 下一首
-const handleNext = async () => {
+const handleNext = useThrottleFn(async () => {
   if (playCount.value === musicTotal.value - 1) {
     playCount.value = 0
   } else {
@@ -101,19 +99,24 @@ const handleNext = async () => {
   await nextTick()
   // 播放
   musicRef.value && musicRef.value.play()
-}
+}, 500)
 </script>
 
 <template>
   <div class="fixed bottom-5 left-5 z-10 w-24">
     <Transition name="slide">
       <div
-        v-if="isShowLyricText"
+        v-if="topText"
         class="py-1 text-center text-sm text-orange-500 transition-all duration-500 dark:text-indigo-500"
       >
         <n-popover trigger="hover">
           <template #trigger>
-            <p class="select-none truncate">{{ playItem.name }}</p>
+            <p
+              class="cursor-pointer select-none truncate"
+              @click="isShowLyricText = !isShowLyricText"
+            >
+              {{ playItem.name }}
+            </p>
           </template>
           <span>{{ playItem.name }}</span>
         </n-popover>

@@ -28,6 +28,28 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Vinson，Sakura，博客，个人博客，知识库' }
       ],
       link: [
+        {
+          rel: 'preload',
+          as: 'font',
+          type: 'font/ttf',
+          crossorigin: 'anonymous',
+          href: 'https://cdn.sakura520.co/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF'
+        },
+        {
+          rel: 'preload',
+          as: 'font',
+          type: 'font/woff2',
+          crossorigin: 'anonymous',
+          href: 'https://cdn.sakura520.co/static/blog-plugin/font/ZhuZiAWan2.woff2'
+        },
+        {
+          rel: 'preconnect',
+          href: 'sakura520.co'
+        },
+        {
+          rel: 'dns-prefetch',
+          href: 'sakura520.co'
+        }
         // {
         //   rel: 'stylesheet',
         //   href: 'https://cdn.jsdelivr.net/npm/sakana-widget@2.5.0/lib/sakana.min.css'

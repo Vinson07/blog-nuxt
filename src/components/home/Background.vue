@@ -45,6 +45,7 @@ useHead({
   script: [
     {
       src: 'https://cdn.staticfile.org/flv.js/1.6.2/flv.min.js',
+      defer: true,
       async onload() {
         await nextTick()
         // @ts-ignore

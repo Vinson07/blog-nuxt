@@ -4,10 +4,8 @@
 
 @font-face {
   font-family: FrederickaTheGreat;
-  src: url(https://cdn.sakura520.co/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF)
-    format('truetype');
-  font-weight: 400;
-  font-style: normal;
+  src: url(https://cdn.sakura520.co/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF);
+  font-display: swap;
 }
 
 @font-face {

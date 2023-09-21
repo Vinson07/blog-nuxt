@@ -43,6 +43,7 @@ if (isDesktop) {
     script: [
       {
         src: 'https://cdn.staticfile.org/sakana-widget/2.6.1/sakana.min.js',
+        defer: true,
         onload: () => {
           // @ts-ignore
           new SakanaWidget().mount('#sakana-widget')
