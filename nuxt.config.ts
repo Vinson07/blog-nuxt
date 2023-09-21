@@ -19,8 +19,7 @@ export default defineNuxtConfig({
   srcDir: 'src',
   app: {
     head: {
-      viewport:
-        'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover',
+      viewport: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no',
       title: 'Vinson',
       meta: [
         { name: 'keywords', content: 'Vinson，Sakura，博客，前端' },
@@ -28,6 +27,14 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Vinson，Sakura，博客，个人博客，知识库' }
       ],
       link: [
+        {
+          rel: 'preconnect',
+          href: 'sakura520.co'
+        },
+        {
+          rel: 'dns-prefetch',
+          href: 'sakura520.co'
+        },
         {
           rel: 'preload',
           as: 'font',
@@ -41,14 +48,6 @@ export default defineNuxtConfig({
           type: 'font/woff2',
           crossorigin: 'anonymous',
           href: 'https://cdn.sakura520.co/static/blog-plugin/font/ZhuZiAWan2.woff2'
-        },
-        {
-          rel: 'preconnect',
-          href: 'sakura520.co'
-        },
-        {
-          rel: 'dns-prefetch',
-          href: 'sakura520.co'
         }
         // {
         //   rel: 'stylesheet',

@@ -10,7 +10,7 @@ const playCount = ref(0)
 // 音乐总数
 const musicTotal = ref(0)
 const lyricText = ref('')
-const isShowLyricText = ref(true)
+const isShowLyricText = ref(false)
 const topText = ref(false)
 
 const blogStore = useBlogStore()
@@ -69,8 +69,10 @@ const handlePlay = () => {
   if (musicRef.value) {
     if (status.value === 'play') {
       musicRef.value.pause()
+      isShowLyricText.value = false
     } else {
       musicRef.value.play()
+      isShowLyricText.value = true
     }
   }
 }
