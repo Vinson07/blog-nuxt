@@ -105,7 +105,7 @@ const handleNext = async () => {
 </script>
 
 <template>
-  <div class="fixed bottom-5 left-5 z-10 w-28">
+  <div class="fixed bottom-5 left-5 z-10 w-24">
     <Transition name="slide">
       <div
         v-if="isShowLyricText"
@@ -131,7 +131,7 @@ const handleNext = async () => {
         />
         <Icon name="tabler:player-track-prev-filled" class="cursor-pointer" @click="handlePrev" />
         <img
-          class="mx-2 h-10 w-10 select-none rounded-full border-2 border-white"
+          class="mx-2 h-7 w-7 select-none rounded-full border-2 border-white"
           :class="{ 'animate-spin-slow': status === 'play' }"
           :src="playItem.pic"
           alt=""
