@@ -19,7 +19,6 @@ const { data: albumData } = await album.getAlbumList()
   <div class="mx-auto max-w-[1350px] px-3 pt-20">
     <AlbumHorizontalCard
       title="这里是我的相册集哦"
-      describe="每一张照片都是一次美好的记忆。"
       tip="相册集"
       :cover="imageStore.pageList.album"
     />

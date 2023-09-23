@@ -63,7 +63,7 @@ isLike.value = userStore.userInfo?.talkLikeSet?.includes(props.list.id) ?? false
 
 <template>
   <div class="talk-item mb-7 flex">
-    <div class="pt-1">
+    <div class="hidden pt-1 md:block">
       <n-avatar
         class="cursor-pointer shadow-md transition-transform duration-500 hover:rotate-180"
         round
@@ -72,7 +72,7 @@ isLike.value = userStore.userInfo?.talkLikeSet?.includes(props.list.id) ?? false
       />
     </div>
     <div
-      class="card shadow-light-shadow hover:shadow-light-shadow-hover dark:shadow-dark-shadow dark:hover:shadow-dark-shadow-hover relative ml-4 flex-1 rounded-md px-5 py-3 transition-shadow duration-300"
+      class="card shadow-light-shadow hover:shadow-light-shadow-hover dark:shadow-dark-shadow dark:hover:shadow-dark-shadow-hover relative mx-4 flex-1 rounded-md px-5 py-3 transition-shadow duration-300"
       :class="getRandomInt"
     >
       <!-- eslint-disable-next-line -->
