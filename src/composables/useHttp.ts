@@ -20,6 +20,14 @@ function handleError<T>(response: FetchResponse<Result<T>> & FetchResponse<Respo
     err('请求超时，服务器无响应！')
     return
   }
+  if (response._data.code === 402) {
+    // token过期
+    const userStore = useUserStore()
+    userStore.clearUserInfo()
+    err('登录状态已过期，需要重新登录')
+    navigateTo('/login')
+    return
+  }
 
   const handleMap: { [key: number]: () => void } = {
     404: () => err('服务器资源不存在'),
@@ -66,13 +74,7 @@ function fetch<T>(url: UrlType, option: any) {
     onResponse({ response }) {
       if (response.headers.get('content-disposition') && response.status === 200) return response
       // 在这里判断错误
-      if (response._data.code === 402) {
-        // token过期
-        const userStore = useUserStore()
-        userStore.clearUserInfo()
-        navigateTo('/login')
-        return Promise.reject(response._data)
-      } else if (response._data.code !== 200) {
+      if (response._data.code !== 200) {
         handleError<T>(response)
         return Promise.reject(response._data)
       }
