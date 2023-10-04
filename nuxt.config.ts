@@ -101,7 +101,7 @@ export default defineNuxtConfig({
       exclude: ['fsevents']
     }
   },
-  css: ['@/assets/css/animation.css', '@/assets/css/common.css', '@/assets/css/cyanosis.css'],
+  css: ['@/assets/css/animation.css', '@/assets/css/common.css'],
   // 代理
   nitro: {
     devProxy: {

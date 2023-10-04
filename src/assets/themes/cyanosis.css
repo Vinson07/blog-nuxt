@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .markdown-body {
   word-break: break-word;
   line-height: 1.75;
@@ -163,8 +162,16 @@
   margin-bottom: 16px;
 }
 
-.markdown-body img {
+/* .markdown-body img {
   max-width: 100%;
+} */
+.markdown-body img {
+  display: block;
+  max-width: 100%;
+  margin: 1em 0;
+  border-radius: 6px;
+  box-shadow: 2px 4px 7px #999;
+  user-select: none;
 }
 
 .markdown-body hr {
@@ -508,6 +515,47 @@ li > code {
   font-size: 20px;
   font-weight: bold;
   z-index: 2;
+}
+
+.markdown-body .tip {
+  padding-left: 10px;
+  margin: 15px 0;
+  background-color: rgba(52, 152, 219, 0.3);
+  border-left: 4px solid rgb(52, 152, 219);
+  /* color: rgb(52, 152, 219); */
+}
+.markdown-body .success {
+  padding-left: 10px;
+  margin: 15px 0;
+  background-color: rgba(46, 204, 113, 0.3);
+  border-left: 4px solid rgb(46, 204, 113);
+  /* color: rgb(46, 204, 113); */
+}
+.markdown-body .warning {
+  padding-left: 10px;
+  margin: 15px 0;
+  background-color: rgba(241, 196, 15, 0.3);
+  border-left: 4px solid rgb(241, 196, 15);
+  /* color: rgb(241, 196, 15); */
+}
+.markdown-body .danger {
+  padding-left: 10px;
+  margin: 15px 0;
+  background-color: rgba(231, 76, 60, 0.3);
+  border-left: 4px solid rgb(231, 76, 60);
+  /* color: rgb(231, 76, 60); */
+}
+.markdown-body .tip strong {
+  color: rgb(52, 152, 219);
+}
+.markdown-body .success strong {
+  color: rgb(46, 204, 113);
+}
+.markdown-body .warning strong {
+  color: rgb(241, 196, 15);
+}
+.markdown-body .danger strong {
+  color: rgb(231, 76, 60);
 }
 
 @media (max-width: 720px) {

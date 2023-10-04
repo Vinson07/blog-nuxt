@@ -2,14 +2,19 @@ import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js/lib/common'
 // @ts-ignore
 import iterator from 'markdown-it-for-inline'
+// @ts-ignore
+import container from 'markdown-it-container'
+// @ts-ignore
+import checkbox from 'markdown-it-checkbox'
 
 export default defineNuxtPlugin(() => {
   return {
     provide: {
       markdownIt: (data: string) => {
         const md = new MarkdownIt({
-          html: true,
-          linkify: true,
+          html: true, // 在源码中启用HTML标签
+          linkify: true, // 将类似URL的文本自动转换为链接
+          breaks: true, // 转换段落里的 '\n' 到 <br>
           typographer: true,
           highlight: function (str, lang) {
             // 当前时间加随机数生成唯一的id标识
@@ -68,6 +73,33 @@ export default defineNuxtPlugin(() => {
         //     tokens[idx].attrs[aIndex][1] = 'img-preview'
         //   }
         // })
+        // 自定义容器
+        md.use(container, 'tip')
+        md.use(container, 'warning')
+        md.use(container, 'danger')
+        md.use(container, 'success')
+        // 折叠
+        md.use(container, 'spoiler', {
+          validate: function (params: string) {
+            return params.trim().match(/^spoiler\s+(.*)$/)
+          },
+          render: function (tokens: any, idx: number) {
+            const m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/)
+            if (tokens[idx].nesting === 1) {
+              // opening tag
+              return '<details><summary>' + md.utils.escapeHtml(m[1]) + '</summary>\n'
+            } else {
+              // closing tag
+              return '</details>\n'
+            }
+          }
+        })
+        // 复选框
+        md.use(checkbox, {
+          divWrap: true,
+          divClass: 'contains-task-list'
+          // idPrefix: 'cbx_'
+        })
         // 渲染成html
         return md.render(data)
       },
