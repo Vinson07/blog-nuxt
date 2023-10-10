@@ -53,8 +53,8 @@
 body,
 html {
   cursor: url(https://cdn.sakura520.co/static/images/x1.cur), auto;
-  /* @apply font-sans; */
-  font-family: ZhuZiAWan, 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB',
+  /* @apply font-mono; */
+  font-family: LXGW, 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB',
     'Heiti SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
 }
 

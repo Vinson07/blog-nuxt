@@ -69,8 +69,10 @@ export const useUserStore = defineStore(
     }
   },
   {
-    // 持久化
-    persist: true
+    // 持久化 默认存cookie
+    persist: {
+      key: 'user_info'
+    }
   }
 )
 

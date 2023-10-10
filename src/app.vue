@@ -38,20 +38,20 @@ await home.report({ lazy: true })
 // 一言
 blogStore.setYiYan()
 
-if (isDesktop) {
-  useHead({
-    script: [
-      {
-        src: 'https://cdn.staticfile.org/sakana-widget/2.6.1/sakana.min.js',
-        defer: true,
-        onload: () => {
-          // @ts-ignore
-          new SakanaWidget().mount('#sakana-widget')
-        }
-      }
-    ]
-  })
-}
+// if (isDesktop) {
+//   useHead({
+//     script: [
+//       {
+//         src: 'https://cdn.staticfile.org/sakana-widget/2.6.1/sakana.min.js',
+//         defer: true,
+//         onload: () => {
+//           // @ts-ignore
+//           new SakanaWidget().mount('#sakana-widget')
+//         }
+//       }
+//     ]
+//   })
+// }
 </script>
 
 <template>
@@ -76,7 +76,7 @@ if (isDesktop) {
     <!-- 搜索 -->
     <TheSearch />
     <!-- 石蒜模拟器网页小组件 -->
-    <div id="sakana-widget" class="fixed bottom-0 right-0 z-[9]"></div>
+    <!-- <div id="sakana-widget" class="fixed bottom-0 right-0 z-[9]"></div> -->
     <!-- 音乐 -->
     <Music v-if="blogStore.siteConfig?.isMusic && isDesktop" />
     <!-- 背景 -->

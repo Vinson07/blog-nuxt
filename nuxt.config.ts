@@ -47,7 +47,7 @@ export default defineNuxtConfig({
           as: 'font',
           type: 'font/woff2',
           crossorigin: 'anonymous',
-          href: 'https://cdn.sakura520.co/static/blog-plugin/font/ZhuZiAWan2.woff2'
+          href: 'https://sourcebucket.s3.bitiful.net/fonts/霞鹜文楷.woff2'
         }
         // {
         //   rel: 'stylesheet',

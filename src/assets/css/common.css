@@ -106,7 +106,8 @@
 
 /* home background */
 #headertop .headertop-bg {
-  background-image: url(https://www.loliapi.com/acg);
+  /* background-image: url(https://www.loliapi.com/acg); */
+  background-image: url(https://t.mwm.moe/ai);
 }
 #headertop:before {
   content: '';
@@ -361,7 +362,7 @@ pre.hljs .copy-btn:hover {
 }
 
 /* sakana@2.5.0 */
-.sakana-widget-wrapper {
+/* .sakana-widget-wrapper {
   pointer-events: none;
   position: relative;
   width: 100%;
@@ -442,4 +443,4 @@ pre.hljs .copy-btn:hover {
   100% {
     transform: rotate(360deg);
   }
-}
+} */
