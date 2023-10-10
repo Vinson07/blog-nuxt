@@ -15,10 +15,10 @@ export const useImageStore = defineStore('image', () => {
     talk: 'https://cdn.sakura520.co/photo/cbc9a5939dd7742a80fec1873f8b68d4.jpg'
   })
   const randomImage = ref([
-    'https://api.ghser.com/random/api.php',
+    'https://t.mwm.moe/ai',
     'https://t.mwm.moe/ycy/',
     'https://imgapi.xl0408.top/index.php',
-    'https://service-5z0sdahv-1306777571.sh.apigw.tencentcs.com/release/'
+    'https://www.loliapi.com/acg'
   ])
   const videoUrl = ref(['https://cdn.sakura520.co/static/video/007.mp4'])
   const colors = ref([
