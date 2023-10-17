@@ -105,7 +105,7 @@ const handleNext = useThrottleFn(async () => {
 </script>
 
 <template>
-  <div class="fixed bottom-5 left-5 z-10 w-24">
+  <div class="fixed bottom-5 left-5 z-10 w-20">
     <Transition name="slide">
       <div
         v-if="topText"
@@ -126,27 +126,27 @@ const handleNext = useThrottleFn(async () => {
       </div>
     </Transition>
     <div
-      class="bg-v-background shadow-dark-shadow dark:shadow-dark-shadow-hover dark:bg-v-background-dark flex justify-center rounded-full border-2 border-white text-orange-500 dark:text-indigo-500"
+      class="bg-v-background shadow-dark-shadow dark:shadow-dark-shadow-hover dark:bg-v-background-dark relative flex justify-center rounded-full border-2 border-white text-orange-500 dark:text-indigo-500"
     >
-      <div class="relative inline-block py-1 px-2">
+      <img
+        class="my-[2px] h-7 w-7 select-none rounded-full border-2 border-white"
+        :class="{ 'animate-spin-slow': status === 'play' }"
+        :src="playItem.pic"
+        alt=""
+      />
+      <div class="absolute top-0 left-0 flex h-full w-full items-center justify-center">
+        <Icon name="tabler:player-track-prev-filled" class="cursor-pointer" @click="handlePrev" />
         <Icon
           :name="status === 'play' ? 'iconamoon:player-pause-fill' : 'iconamoon:player-play-fill'"
-          class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+          class="mx-2 cursor-pointer"
           @click="handlePlay"
-        />
-        <Icon name="tabler:player-track-prev-filled" class="cursor-pointer" @click="handlePrev" />
-        <img
-          class="mx-2 h-7 w-7 select-none rounded-full border-2 border-white"
-          :class="{ 'animate-spin-slow': status === 'play' }"
-          :src="playItem.pic"
-          alt=""
         />
         <Icon name="tabler:player-track-next-filled" class="cursor-pointer" @click="handleNext" />
       </div>
     </div>
     <div
       v-if="isShowLyricText"
-      class="fixed left-36 bottom-1 z-10 text-sm text-orange-500 dark:text-indigo-500"
+      class="fixed left-24 bottom-1 z-10 text-sm text-orange-500 dark:text-indigo-500"
     >
       {{ lyricText }}
     </div>
