@@ -56,13 +56,13 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: 'https://cdn.sakura520.co/static/blog-plugin/js/starrySky.min.js', // 星空背景
-          defer: true
-        },
-        {
-          src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+          src: '/js/starrySky.min.js', // 星空背景
           defer: true
         }
+        // {
+        //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
+        //   defer: true
+        // }
       ]
     }
   },
