@@ -105,7 +105,7 @@ const handleNext = useThrottleFn(async () => {
 </script>
 
 <template>
-  <div class="fixed bottom-5 left-5 z-10 w-20">
+  <div class="fixed bottom-5 left-5 z-50 w-20">
     <Transition name="slide">
       <div
         v-if="topText"
@@ -138,7 +138,7 @@ const handleNext = useThrottleFn(async () => {
         <Icon name="tabler:player-track-prev-filled" class="cursor-pointer" @click="handlePrev" />
         <Icon
           :name="status === 'play' ? 'iconamoon:player-pause-fill' : 'iconamoon:player-play-fill'"
-          class="mx-2 cursor-pointer"
+          class="mx-2 cursor-pointer text-lg"
           @click="handlePlay"
         />
         <Icon name="tabler:player-track-next-filled" class="cursor-pointer" @click="handleNext" />
@@ -146,7 +146,7 @@ const handleNext = useThrottleFn(async () => {
     </div>
     <div
       v-if="isShowLyricText"
-      class="fixed left-24 bottom-1 z-10 text-sm text-orange-500 dark:text-indigo-500"
+      class="fixed left-1/2 bottom-1 z-10 -translate-x-1/2 text-sm text-orange-500 dark:text-indigo-500"
     >
       {{ lyricText }}
     </div>
