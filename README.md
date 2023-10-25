@@ -3,6 +3,9 @@
 ## 在线地址
 - 前台：https://sakura520.co
 - 后台：https://admin.sakura520.co
+- 截图
+![web](./src/assets/img/banner.png)
+![mobile](./src/assets/img/banner_mobile.png)
 
 ## 前台项目
 > 欢迎大家提交pr，一起改进项目
