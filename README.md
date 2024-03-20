@@ -1,8 +1,8 @@
 # 个人博客前台
 
 ## 在线地址
-- 前台：https://sakura520.co
-- 后台：https://admin.sakura520.co
+- 前台：http://sakura520.cn
+- 后台：http://admin.sakura520.cn
 - 截图
 ![web](./src/assets/img/banner.png)
 ![mobile](./src/assets/img/banner_mobile.png)
