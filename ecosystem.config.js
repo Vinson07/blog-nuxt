@@ -9,7 +9,7 @@ module.exports = {
   apps: [
     {
       name: 'nuxtBlog',
-      port: '3002',
+      port: '3000',
       exec_mode: 'cluster',
       instances: 'max',
       script: './.output/server/index.mjs'

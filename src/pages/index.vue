@@ -19,7 +19,7 @@ const parmas = reactive({
 const { article } = useApi()
 
 // 获取文章列表
-const { data, pending } = await article.getArticleList(parmas)
+const { data, pending } = await article.getArticleList(parmas, { server: false })
 watch(
   data,
   (value) => {

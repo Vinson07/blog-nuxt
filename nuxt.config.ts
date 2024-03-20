@@ -29,18 +29,18 @@ export default defineNuxtConfig({
       link: [
         {
           rel: 'preconnect',
-          href: 'sakura520.co'
+          href: 'sakura520.cn'
         },
         {
           rel: 'dns-prefetch',
-          href: 'sakura520.co'
+          href: 'sakura520.cn'
         },
         {
           rel: 'preload',
           as: 'font',
           type: 'font/ttf',
           crossorigin: 'anonymous',
-          href: 'https://cdn.sakura520.co/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF'
+          href: 'http://cdn.sakura520.cn/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF'
         },
         {
           rel: 'preload',

@@ -63,19 +63,19 @@ export const useBlogStore = defineStore('blog', () => {
       title: 'Web音乐播放器',
       describe: '高颜值的第三方网易云播放器',
       link: 'https://music.sakura520.co/',
-      bgSrc: 'https://cdn.sakura520.co/photo/bb8dbef9abdc2b116e579e9a2bec3571.jpeg'
+      bgSrc: 'http://view.lixingyong.com/images/2020/07/20/53c1c3913427ee7504fd228dbda06d6b.md.png'
     },
     {
       title: '图库',
       describe: '这里有好多图片',
       link: 'https://view.lixingyong.com/explore/trending',
-      bgSrc: 'https://cdn.sakura520.co/photo/2f7abc104efd0b73ad0a3342bebede68.png'
+      bgSrc: 'http://view.lixingyong.com/images/2020/07/15/-----4k_.md.jpg'
     },
     {
       title: 'sakura',
       describe: '本站 Sakura 主题',
       link: '',
-      bgSrc: 'https://cdn.sakura520.co/photo/a69ffebb82629ee86ce7a5fc98d52ebb.jpg'
+      bgSrc: 'http://view.lixingyong.com/images/2020/10/09/wallhaven-6qxrzx.md.png'
     }
   ])
   // 一言

@@ -1,4 +1,4 @@
-const raw = 'https://cdn.sakura520.co/static/'
+const raw = 'http://cdn.sakura520.cn/static/'
 
 const faceList = ['tv_小电视', '小黄脸']
 
