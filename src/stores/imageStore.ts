@@ -4,15 +4,17 @@ export const useImageStore = defineStore('image', () => {
   const pageList = ref<PageListStore>({
     // home: 'https://www.loliapi.com/acg',
     home: '',
-    message: 'https://cdn.sakura520.co/photo/53033434c3b8a0f50e9cc2d3dfeb0511.jpeg',
-    link: 'https://cdn.sakura520.co/photo/8a61af20803cbca20f17d39f4dd33370.webp',
-    archive: 'https://cdn.sakura520.co/photo/9aec31ec72f9a931cb5ef91de350abe6.jpeg',
-    login: 'https://cdn.sakura520.co/photo/ed99cfa9c3766816833e4e8947175b46.jpeg',
-    user: 'https://cdn.sakura520.co/photo/dd9d1c2e0d08b37ff0c669277b93b718.jpeg',
+    message:
+      'http://view.lixingyong.com/images/2020/12/25/Konachan.com---200042-akame-ga-kill-blue-blue-eyes-blue-hair-breasts-esdeath-hat-raizo35b126e52e2f730da78a6ac60a757a588b.png',
+    link: 'http://view.lixingyong.com/images/2020/12/25/Konachan.com---200273-hatsune-miku-jpeg-artifacts-long-hair-sishenfan-twintails-vocaloid04c3c4c625df607f595204f9bd22a37d.jpg',
+    archive: 'http://view.lixingyong.com/images/2020/07/20/39e4b4318197c3df024e302b00bf2b0a.jpg',
+    login: 'http://view.lixingyong.com/images/2021/01/04/2.jpg',
+    user: 'http://view.lixingyong.com/images/2020/10/09/wallhaven-0p1z90.png',
     album:
       'http://cdn.sakura520.cn/static/blog-plugin/imgs/tumblr_752e98a41362e1c7e51c7a50a78c179c_187cb60b_1280.gif',
-    category: 'https://cdn.sakura520.co/photo/d2328c7d55058b925dde89d5710b4834.jpg',
-    talk: 'https://cdn.sakura520.co/photo/cbc9a5939dd7742a80fec1873f8b68d4.jpg'
+    category:
+      'http://view.lixingyong.com/images/2020/12/25/Konachan.com---200344-hatsune-miku-long-hair-tameiki-twintails-vocaloid521bcdde712d923ef5b071142d96ac86.jpg',
+    talk: 'http://view.lixingyong.com/images/2020/10/09/wallhaven-r2l1vw.png'
   })
   const randomImage = ref([
     'https://t.mwm.moe/ai',

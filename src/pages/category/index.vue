@@ -60,11 +60,11 @@ const getRandomColor = () =>
     <ThePageBanner :bg-cover="imageStore.pageList.category" title="文章分类" />
     <div class="mx-auto my-5 max-w-4xl animate-[slideUpIn_1s]">
       <BaseBox>
-        <ul class="flex flex-wrap text-base text-slate-700">
+        <ul class="flex flex-wrap justify-center text-base text-slate-700">
           <li
             v-for="item in data?.data"
             :key="item.id"
-            class="m-1 cursor-pointer rounded-md py-2 px-5 shadow-md hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white"
+            class="m-10px cursor-pointer rounded-md py-2 px-5 shadow-md hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white"
             :style="{ backgroundColor: getRandomColor() }"
             @click="router.push(`/category/${item.id}`)"
           >
