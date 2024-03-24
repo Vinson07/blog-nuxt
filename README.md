@@ -5,17 +5,19 @@
 - 后台：http://admin.sakura520.cn
 - 截图
 ![web](./src/assets/img/banner.png)
-![mobile](./src/assets/img/banner_mobile.png)
+<!-- ![mobile](./src/assets/img/banner_mobile.png) -->
 
 ## 前台项目
 > 欢迎大家提交pr，一起改进项目
 - Github 地址：https://github.com/Vinson07/blog-nuxt
 - Gitee 地址：https://gitee.com/vinson007/blog-nuxt
 
-## 后台项目
-> 特别鸣谢项目：
+## 特别鸣谢项目：
+### 后台项目
 - Github 地址：https://github.com/ttkican/Blog
 - Gitee 地址：https://gitee.com/wu_shengdong/blog
+### Sakura主题
+- 网址：https://lixingyong.com/
 
 ## 项目架构
 - nuxt3：https://nuxt.com/

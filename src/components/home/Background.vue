@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
   bgSrc: '',
   title: 'Vinson Blog',
   subTitle: '',
-  bgMask: 'filter-dot', // filter-grid filter-dot filter-dim filter-undertint pattern-center
+  bgMask: 'filter-grid', // filter-grid filter-dot filter-dim filter-undertint pattern-center
   gitHub: '',
   gitee: '',
   bilibili: '',
@@ -129,7 +129,7 @@ const handleRight = () => {
   <div id="headertop" class="relative h-screen overflow-hidden" :class="bgMask">
     <!-- animate-[home-bg_1.5s] -->
     <figure
-      class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
+      class="headertop-bg relative h-full w-full animate-[home-bg_1.5s] bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
       :style="{ backgroundImage: bgSrc ? `url(${bgSrc})` : '' }"
     >
       <div

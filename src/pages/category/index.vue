@@ -38,7 +38,7 @@ const option = reactive({
 })
 
 const { data } = await category.getCategoryList()
-if (data.value?.data) {
+if (data.value.data) {
   const optionData = data.value.data.map((item) => {
     return {
       value: item.articleCount,
@@ -48,7 +48,7 @@ if (data.value?.data) {
 
   setTimeout(() => {
     option.series[0].data = optionData
-  }, 300)
+  }, 800)
 }
 
 const getRandomColor = () =>
@@ -64,12 +64,14 @@ const getRandomColor = () =>
           <li
             v-for="item in data?.data"
             :key="item.id"
-            class="m-10px cursor-pointer rounded-md py-2 px-5 shadow-md hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white"
+            class="m-10px group cursor-pointer rounded-md py-2 px-5 shadow-md hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white"
             :style="{ backgroundColor: getRandomColor() }"
             @click="router.push(`/category/${item.id}`)"
           >
             <span>{{ item.categoryName }}</span>
-            <span class="ml-1">{{ item.articleCount }}</span>
+            <span class="ml-1 text-orange-500 group-hover:text-white dark:text-indigo-600">
+              {{ item.articleCount }}
+            </span>
           </li>
         </ul>
       </BaseBox>

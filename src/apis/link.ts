@@ -6,5 +6,5 @@ enum Api {
 }
 
 export function getLinkList(option?: HttpOption<Link[]>) {
-  return useHttp.get<Link[]>(Api.link, option)
+  return useHttp.get<Link[]>(Api.link, {}, option)
 }

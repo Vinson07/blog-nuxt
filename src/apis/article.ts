@@ -55,8 +55,8 @@ export function searchArticle(keyword: string) {
  * @param params 查询条件
  * @returns 文章归档
  */
-export function getArchivesList(params?: PageQuery) {
-  return useHttp.get<PageResult<Archives[]>>(Api.archives, params)
+export function getArchivesList(params?: PageQuery, option?: HttpOption<PageResult<Archives[]>>) {
+  return useHttp.get<PageResult<Archives[]>>(Api.archives, params, option)
 }
 
 /**

@@ -18,7 +18,9 @@ const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD')
     >
       <Icon name="material-symbols:event-note-sharp" class="text-xl text-white" />
     </div>
-    <h3 class="mb-5 text-xl italic leading-9 text-orange-400 dark:text-indigo-500">{{ time }}</h3>
+    <h3 class="mb-5 cursor-pointer text-xl italic leading-9 text-orange-400 dark:text-indigo-500">
+      {{ time }}
+    </h3>
     <ol>
       <li
         v-for="archive in list"

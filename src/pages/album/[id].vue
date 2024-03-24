@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { NEmpty } from 'naive-ui'
+
 definePageMeta({
   layout: 'no-bottom'
 })
@@ -19,13 +21,13 @@ if (photoData.value?.flag) {
 </script>
 
 <template>
-  <!-- <div class="mx-auto max-w-[1350px] px-3 pt-20">
-    <AlbumHorizontalCard
-      :title="photoData?.data.albumName"
-      tip="相册集"
-      :cover="imageStore.pageList.album"
+  <div>
+    <AlbumWaterfall
+      v-if="photoData.data.photoVOList && photoData.data.photoVOList.length > 0"
+      :list="photoData.data.photoVOList"
     />
-    <AlbumWaterfallflow :list="photoData?.data.photoVOList ?? []" />
-  </div> -->
-  <AlbumWaterfall :list="photoData?.data.photoVOList ?? []" />
+    <div v-else class="flex h-screen w-screen items-center justify-center">
+      <n-empty description="暂无数据~" size="huge"> </n-empty>
+    </div>
+  </div>
 </template>

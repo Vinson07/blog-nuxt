@@ -7,21 +7,21 @@ interface Props {
 }
 defineProps<Props>()
 
-const { poetry } = useApi()
+// const { poetry } = useApi()
 
 // 古诗
-const { data: gushi } = poetry.getPoetry()
-const poetryText = computed(() => {
-  if (gushi.value) {
-    return `${gushi.value.content} —— ${gushi.value.author}`
-  } else {
-    return ''
-  }
-})
+// const { data: gushi } = poetry.getPoetry()
+// const poetryText = computed(() => {
+//   if (gushi.value) {
+//     return `${gushi.value.content} —— ${gushi.value.author}`
+//   } else {
+//     return ''
+//   }
+// })
 </script>
 
 <template>
-  <div class="relative h-[60vh] animate-[slideBottomIn_1s]">
+  <div class="relative h-[40vh] animate-[slideBottomIn_1s]">
     <UseImage :src="bgCover">
       <template #loading>
         <img
@@ -46,9 +46,9 @@ const poetryText = computed(() => {
     <div class="absolute inset-0 flex items-center justify-center text-white">
       <div class="text-center">
         <h1 class="text-4xl">{{ title }}</h1>
-        <p class="mt-4 text-xl">{{ poetryText }}</p>
+        <!-- <p class="mt-4 text-xl">{{ poetryText }}</p> -->
       </div>
     </div>
-    <BaseWaves />
+    <!-- <BaseWaves /> -->
   </div>
 </template>
