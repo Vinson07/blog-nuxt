@@ -27,7 +27,7 @@ const styleBgSrc = computed(() => `url(${imageStore.pageList.message})`)
 const getRandomColor = () =>
   imageStore.colors[Math.floor(Math.random() * imageStore.colors.length + 1)]
 
-const { data } = await message.getMessageList()
+const { data } = await message.getMessageList({ server: false, lazy: true })
 watch(
   data,
   (messageList) => {

@@ -38,7 +38,7 @@ const option = reactive({
 })
 
 const { data } = await category.getCategoryList()
-if (data.value.data) {
+if (data.value?.data) {
   const optionData = data.value.data.map((item) => {
     return {
       value: item.articleCount,
