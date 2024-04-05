@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NCollapse, NCollapseItem } from 'naive-ui'
+// import { NCollapse, NCollapseItem } from 'naive-ui'
 import type { Archives } from '@/types/article'
 
 useHead({
@@ -28,14 +28,14 @@ if (data.value?.flag) {
   }
 }
 
-const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD').value)
+// const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD').value)
 </script>
 
 <template>
   <div id="archives">
     <ThePageBanner :bg-cover="imageStore.pageList.archive" title="文章归档" />
     <div class="m-auto mt-10 max-w-[844px] animate-[slideUpIn_1s] pl-7 pr-4">
-      <!-- <ul class="border-l border-dashed pb-1">
+      <ul class="border-l border-dashed pb-1">
         <ArchivesList
           v-for="(item, key, index) in archiveList"
           :key="index"
@@ -43,8 +43,8 @@ const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD')
           :time="key"
           :list="item"
         />
-      </ul> -->
-      <n-collapse class="archives-collapse" :default-expanded-names="[0]">
+      </ul>
+      <!-- <n-collapse class="archives-collapse" :default-expanded-names="[0]">
         <template #arrow>
           <div
             class="flex h-9 w-9 items-center justify-center rounded-full bg-orange-400 dark:bg-indigo-500"
@@ -83,7 +83,7 @@ const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD')
             </li>
           </ol>
         </n-collapse-item>
-      </n-collapse>
+      </n-collapse> -->
       <div class="text-center">
         <img
           v-show="pending"

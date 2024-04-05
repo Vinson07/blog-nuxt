@@ -34,8 +34,7 @@ const params = reactive({
   commentType: props.type
 })
 const { data: commentData, pending } = await comment.getCommentList(params, {
-  server: false,
-  lazy: true
+  server: false
 })
 watch(
   commentData,

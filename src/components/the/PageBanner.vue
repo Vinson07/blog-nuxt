@@ -49,6 +49,6 @@ defineProps<Props>()
         <!-- <p class="mt-4 text-xl">{{ poetryText }}</p> -->
       </div>
     </div>
-    <!-- <BaseWaves /> -->
+    <BaseWaves />
   </div>
 </template>

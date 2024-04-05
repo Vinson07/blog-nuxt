@@ -1,5 +1,5 @@
 <template>
-  <nav ref="tocRef" class="toc-nav w-[inherit]">
+  <nav v-if="titleList && titleList.length > 0" ref="tocRef" class="toc-nav w-[inherit]">
     <BaseBox class="max-h-[500px] overflow-y-auto">
       <ul class="catalog-content">
         <li
