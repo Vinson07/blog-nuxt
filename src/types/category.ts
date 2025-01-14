@@ -29,3 +29,8 @@ export interface CategoryVO {
    */
   categoryName: string
 }
+
+export interface OptionData {
+  value: number
+  name: string
+}

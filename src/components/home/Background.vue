@@ -217,3 +217,47 @@ const handleRight = () => {
     <BaseWaves :style="{ transform: wavesTransform }" />
   </div>
 </template>
+
+<style scoped>
+/* #headertop .headertop-bg {
+  background-image: url(https://www.loliapi.com/acg/);
+} */
+#headertop:before {
+  content: '';
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-attachment: fixed;
+  z-index: 9;
+}
+#headertop.pattern-center {
+  animation: header 1.3s;
+}
+#headertop.filter-undertint:before {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+#headertop.filter-dim:before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#headertop.filter-grid:before {
+  background-image: url(~/assets/img/grid.webp);
+}
+#headertop.filter-dot:before {
+  background-image: url(~/assets/img/dot.webp);
+}
+#headertop .centerbg-info {
+  position: relative;
+}
+#headertop .centerbg-info::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 20%;
+  margin-left: -15px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.5) transparent;
+}
+</style>

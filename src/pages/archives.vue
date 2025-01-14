@@ -95,3 +95,12 @@ if (data.value?.flag) {
     </div>
   </div>
 </template>
+
+<style scoped>
+.archives-collapse.n-collapse .n-collapse-item:not(:first-child) {
+  border-top: none;
+}
+.archives-collapse.n-collapse .n-collapse-item {
+  margin-top: 35px;
+}
+</style>

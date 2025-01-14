@@ -1,23 +1,3 @@
-<template>
-  <nav v-if="titleList && titleList.length > 0" ref="tocRef" class="toc-nav w-[inherit]">
-    <BaseBox class="max-h-[500px] overflow-y-auto">
-      <ul class="catalog-content">
-        <li
-          v-for="(anchor, index) of titleList"
-          :id="`toc-li-${anchor.lineIndex}`"
-          :key="anchor.title"
-          class="text-15 block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
-          :class="currentIndex === index ? 'active' : ''"
-          :style="{ paddingLeft: `${anchor.indent * 10}px` }"
-          @click="handleAnchorClick(anchor, index)"
-        >
-          {{ anchor.title }}
-        </li>
-      </ul>
-    </BaseBox>
-  </nav>
-</template>
-
 <script setup lang="ts">
 const titleList = ref<any>([])
 const tocRef = ref<HTMLElement | null>(null)
@@ -119,3 +99,29 @@ onMounted(() => {
   })
 })
 </script>
+
+<template>
+  <nav v-if="titleList && titleList.length > 0" ref="tocRef" class="toc-nav w-[inherit]">
+    <BaseBox class="max-h-[500px] overflow-y-auto">
+      <ul class="catalog-content">
+        <li
+          v-for="(anchor, index) of titleList"
+          :id="`toc-li-${anchor.lineIndex}`"
+          :key="anchor.title"
+          class="text-15 block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
+          :class="currentIndex === index ? 'active' : ''"
+          :style="{ paddingLeft: `${anchor.indent * 10}px` }"
+          @click="handleAnchorClick(anchor, index)"
+        >
+          {{ anchor.title }}
+        </li>
+      </ul>
+    </BaseBox>
+  </nav>
+</template>
+
+<style scoped>
+.toc-nav ul li.active {
+  @apply text-orange-500 dark:text-[#007fff];
+}
+</style>

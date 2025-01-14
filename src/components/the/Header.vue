@@ -105,3 +105,37 @@ function handleSearch() {
     </div>
   </header>
 </template>
+
+<style scoped>
+.header-nav.active {
+  @apply bg-transparent hover:bg-[rgba(255,255,255,0.7)] dark:hover:bg-[rgba(38,38,38,0.7)];
+}
+
+.header-nav .menu-item-home:hover .icon {
+  -webkit-animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-lr 0.7s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.header-nav .menu-item-archives:hover .icon {
+  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.header-nav .menu-item-category:hover .icon {
+  -webkit-animation: shake-vertical 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-vertical 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.header-nav .menu-item-talk:hover .icon {
+  -webkit-animatio: swing 0.6s;
+  animation: swing 0.6s;
+}
+.header-nav .menu-item-message:hover .icon {
+  -webkit-animatio: swing 0.6s;
+  animation: swing 0.6s;
+}
+.header-nav .menu-item-friends:hover .icon {
+  @apply animate-spin-slow;
+}
+.header-nav .menu-item-album:hover .icon {
+  -webkit-animation: vibrate-1 0.3s linear infinite both;
+  animation: vibrate-1 0.3s linear infinite both;
+}
+</style>

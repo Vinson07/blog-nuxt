@@ -21,3 +21,9 @@ defineProps<Props>()
     </div>
   </div>
 </template>
+
+<style scoped>
+.verticla-card:not(:hover) .card-cover {
+  filter: brightness(0.5) saturate(0.9) contrast(1.2) blur(20px);
+}
+</style>

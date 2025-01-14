@@ -55,10 +55,10 @@ export default defineNuxtConfig({
         // }
       ],
       script: [
-        {
-          src: '/js/starrySky.min.js', // 星空背景
-          defer: true
-        }
+        // {
+        //   src: '/js/starrySky.min.js', // 星空背景
+        //   defer: true
+        // }
         // {
         //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
         //   defer: true
@@ -69,7 +69,7 @@ export default defineNuxtConfig({
   build: {
     transpile:
       process.env.NODE_ENV === 'production'
-        ? ['naive-ui', 'vueuc', '@css-render/vue3-ssr', '@juggle/resize-observer']
+        ? ['naive-ui', 'vueuc', '@css-render/vue3-ssr', '@juggle/resize-observer', /echarts/]
         : ['@juggle/resize-observer']
   },
   vite: {
@@ -101,7 +101,7 @@ export default defineNuxtConfig({
       exclude: ['fsevents']
     }
   },
-  css: ['@/assets/css/animation.css', '@/assets/css/common.css'],
+  css: ['@/assets/css/animation.css'],
   // 代理
   nitro: {
     devProxy: {

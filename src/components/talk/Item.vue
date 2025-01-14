@@ -101,3 +101,44 @@ isLike.value = userStore.userInfo?.talkLikeSet?.includes(props.list.id) ?? false
     </div>
   </div>
 </template>
+
+<style scoped>
+.talk-item .gradient1 {
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+.talk-item .card::before {
+  @apply hidden md:inline-block;
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: -20px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #f6d365;
+}
+.talk-item .gradient2 {
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+.talk-item .card.gradient2::before {
+  border-right: 10px solid #e0c3fc;
+}
+.talk-item .gradient3 {
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.talk-item .card.gradient3::before {
+  border-right: 10px solid #667eea;
+}
+.talk-item .gradient4 {
+  background-image: linear-gradient(-225deg, #ac32e4 0%, #7918f2 48%, #4801ff 100%);
+}
+.talk-item .card.gradient4::before {
+  border-right: 10px solid #ac32e4;
+}
+.talk-item .gradient5 {
+  background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+}
+.talk-item .card.gradient5::before {
+  border-right: 10px solid #97d9e1;
+}
+</style>

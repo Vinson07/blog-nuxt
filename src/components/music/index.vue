@@ -2,13 +2,12 @@
 import { NPopover } from 'naive-ui'
 import type { PlayList } from '@/types/music'
 
+const musicStore = useMusicStore()
+
 const musicList = ref<PlayList[]>([])
 const musicRef = ref<HTMLAudioElement | null>(null)
 const status = ref('')
-// 播放第几首
-const playCount = ref(0)
-// 音乐总数
-const musicTotal = ref(0)
+const musicTotal = ref(0) // 音乐总数
 const lyricText = ref('')
 const isShowLyricText = ref(false)
 const topText = ref(false)
@@ -24,11 +23,16 @@ const { data } = await music.getPlayList({
 if (data.value) {
   musicList.value = data.value
   musicTotal.value = data.value.length
+
+  // 如果播放首大于或等于音乐总数 改回第一首
+  if (musicStore.playCount >= musicTotal.value) {
+    musicStore.setPlayCount(0)
+  }
 }
 
 // 当前播放信息
 const playItem = computed(() => {
-  const item = musicList.value[playCount.value]
+  const item = musicList.value[musicStore.playCount]
   // 获取歌词
   $fetch(item.lrc).then((res) => {
     format(res as string)
@@ -79,10 +83,10 @@ const handlePlay = () => {
 
 // 上一首
 const handlePrev = useThrottleFn(async () => {
-  if (playCount.value === 0) {
-    playCount.value = musicTotal.value - 1
+  if (musicStore.playCount === 0) {
+    musicStore.setPlayCount(musicTotal.value - 1)
   } else {
-    playCount.value--
+    musicStore.setPlayCount(musicStore.playCount - 1)
   }
 
   await nextTick()
@@ -92,10 +96,10 @@ const handlePrev = useThrottleFn(async () => {
 
 // 下一首
 const handleNext = useThrottleFn(async () => {
-  if (playCount.value === musicTotal.value - 1) {
-    playCount.value = 0
+  if (musicStore.playCount === musicTotal.value - 1) {
+    musicStore.setPlayCount(0)
   } else {
-    playCount.value++
+    musicStore.setPlayCount(musicStore.playCount + 1)
   }
 
   await nextTick()

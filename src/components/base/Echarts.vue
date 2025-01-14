@@ -1,10 +1,24 @@
 <script setup lang="ts">
-const chartDom = ref<HTMLDivElement | null>(null)
+// 引入 vue-echarts 组件
+import VChart from 'vue-echarts'
+// 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
+import { use } from 'echarts/core'
+// 引入 CanvasRenderer 或者 SVGRenderer 是，这必须的一步
+import { CanvasRenderer } from 'echarts/renderers'
+// 引入饼图
+import { PieChart } from 'echarts/charts'
+// 按需引入组件
+import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
+
+import type { OptionData } from '@/types/category'
+
+// 注册引入的组件
+use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent])
 
 interface Props {
   width?: string
   height?: string
-  options: object
+  optionData: OptionData[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -12,46 +26,59 @@ const props = withDefaults(defineProps<Props>(), {
   height: '400px'
 })
 
-const myChart = ref()
+// 主题切换
+const color = useColorMode()
 
-// 引入Echarts
-useHead({
-  script: [
+const option = {
+  backgroundColor: color.value === 'dark' ? '#262626' : '#fff',
+  title: {
+    text: '文章分类统计图',
+    subtext: '',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b} : {c} ({d}%)'
+  },
+  legend: {
+    top: 'bottom'
+  },
+  series: [
     {
-      src: 'https://cdn.staticfile.org/echarts/5.4.3/echarts.min.js',
-      defer: true,
-      onload: () => {
-        if (chartDom.value) {
-          // 基于准备好的dom，初始化echarts实例
-          // @ts-ignore
-          myChart.value = echarts.init(chartDom.value)
-          // 使用刚指定的配置项和数据显示图表。
-          myChart.value.setOption(props.options)
-          // 监听图表容器的大小并改变图表大小
-          useResizeObserver(chartDom.value, () => {
-            myChart.value.resize()
-          })
-        }
-      }
+      name: '分类统计',
+      type: 'pie',
+      radius: [35, 130],
+      center: ['50%', '47%'],
+      roseType: 'area',
+      itemStyle: {
+        borderRadius: 6
+      },
+      data: props.optionData
     }
   ]
-})
+}
 
-watch(
-  () => props.options,
-  (value) => {
-    if (value && myChart.value) {
-      myChart.value.setOption(value)
-    }
-  },
-  { deep: true }
-)
-
-onUnmounted(() => {
-  myChart.value && myChart.value.dispose()
+// 切换背景
+const theme = computed(() => color.value)
+watch(theme, (val) => {
+  if (val === 'dark') {
+    option.backgroundColor = '#262626'
+  } else {
+    option.backgroundColor = '#fff'
+  }
 })
 </script>
 
 <template>
-  <div ref="chartDom" :style="{ width, height }"></div>
+  <!-- 客户端组件 -->
+  <ClientOnly fallback-tag="div" fallback="Loading...">
+    <VChart
+      class="chart"
+      :option="option"
+      :update-options="{ notMerge: true, lazyUpdate: true }"
+      :theme="color.value"
+      autoresize
+      :style="{ width, height }"
+    />
+  </ClientOnly>
 </template>

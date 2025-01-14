@@ -1,58 +1,28 @@
 <script setup lang="ts">
+import type { OptionData } from '@/types/category'
+
 const imageStore = useImageStore()
 const router = useRouter()
 
 const { category } = useApi()
+
 useHead({
   title: '文章分类'
 })
 
-const option = reactive({
-  title: {
-    text: '文章分类统计图',
-    x: 'center'
-  },
-  tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b} : {c} ({d}%)'
-  },
-  legend: {
-    top: 'bottom'
-  },
-  series: [
-    {
-      name: '分类统计',
-      type: 'pie',
-      radius: [35, 130],
-      center: ['50%', '47%'],
-      roseType: 'area',
-      itemStyle: {
-        borderRadius: 6
-      },
-      data: [] as {
-        value: number
-        name: string
-      }[]
-    }
-  ]
-})
+const optionData = ref<OptionData[]>([])
 
 const { data } = await category.getCategoryList()
 if (data.value?.data) {
-  const optionData = data.value.data.map((item) => {
+  optionData.value = data.value.data.map((item) => {
     return {
       value: item.articleCount,
       name: item.categoryName
     }
   })
-
-  setTimeout(() => {
-    option.series[0].data = optionData
-  }, 800)
 }
 
-const getRandomColor = () =>
-  imageStore.colors[Math.floor(Math.random() * imageStore.colors.length + 1)]
+const getRandomColor = () => imageStore.colors[Math.floor(Math.random() * imageStore.colors.length)]
 </script>
 
 <template>
@@ -76,7 +46,7 @@ const getRandomColor = () =>
         </ul>
       </BaseBox>
       <BaseBox class="mt-5">
-        <BaseEcharts :options="option" />
+        <BaseEcharts :option-data="optionData" />
       </BaseBox>
     </div>
   </div>

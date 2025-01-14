@@ -21,7 +21,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="relative h-[40vh] animate-[slideBottomIn_1s]">
+  <div class="relative h-[50vh] animate-[slideBottomIn_1s]">
     <UseImage :src="bgCover">
       <template #loading>
         <img

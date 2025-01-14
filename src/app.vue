@@ -79,10 +79,11 @@ blogStore.setYiYan()
     <!-- <div id="sakana-widget" class="fixed bottom-0 right-0 z-[9]"></div> -->
     <!-- 音乐 -->
     <Music v-if="blogStore.siteConfig?.isMusic && isDesktop" />
-    <!-- 背景 -->
-    <canvas
+    <!-- 星空粒子背景 -->
+    <BaseStarrySky />
+    <!-- <canvas
       id="my-canvas"
-      class="pointer-events-none fixed top-0 left-0 -z-50 hidden h-full w-full dark:block"
-    ></canvas>
+      class="pointer-events-none fixed top-0 left-0 -z-10 hidden h-full w-full dark:block"
+    ></canvas> -->
   </n-config-provider>
 </template>

@@ -20,7 +20,7 @@ const danmakuRef = ref<any>(null)
 
 const { message } = useApi()
 
-const styleBgSrc = computed(() => `url(${imageStore.pageList.message})`)
+// const styleBgSrc = computed(() => `url(${imageStore.pageList.message})`)
 
 // 随机颜色
 // const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
@@ -66,10 +66,10 @@ async function send() {
 </script>
 
 <template>
-  <div
-    class="barrage-bg relative h-screen w-screen bg-cover bg-center bg-no-repeat pt-14"
-    :style="{ backgroundImage: styleBgSrc }"
-  >
+  <div class="barrage-bg relative h-screen w-screen bg-cover bg-center bg-no-repeat pt-14">
+    <div class="absolute top-0 left-0 -z-20 h-full w-full">
+      <img class="h-full w-full object-cover" :src="imageStore.pageList.message" alt="" />
+    </div>
     <div class="absolute top-1/2 left-1/2 z-10 w-80 -translate-x-1/2 -translate-y-1/2 md:w-96">
       <n-card title="弹幕" hoverable :bordered="false" class="bg-[rgba(0,0,0,0.3)]">
         <n-input-group>

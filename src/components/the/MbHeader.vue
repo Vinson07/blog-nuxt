@@ -91,3 +91,12 @@ function logout() {
     </n-drawer>
   </header>
 </template>
+
+<style scoped>
+.mb-deader-menu::-webkit-scrollbar {
+  display: none;
+}
+.mb-deader-menu .mb-menu .router-link-active {
+  @apply rounded-xl bg-cyan-500 text-white shadow-lg shadow-cyan-500/50 dark:bg-indigo-500 dark:shadow-indigo-500/50;
+}
+</style>
