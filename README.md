@@ -50,6 +50,9 @@
 
 ## 启动项目
 ```shell
+# node 版本
+v16.17.0
+
 #首先全局安装pnpm
 npm install pnpm -g
 
