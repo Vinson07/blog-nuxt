@@ -4,8 +4,10 @@
 - 前台：http://sakura520.cn
 - 后台：http://admin.sakura520.cn
 - 截图
-![web](./src/assets/img/banner.png)
-<!-- ![mobile](./src/assets/img/banner_mobile.png) -->
+  <p>
+    <img src="./src/assets/img/banner.png" width="400"/>
+    <img src="./src/assets/img/banner_mobile.png" width="100" />
+  </p>
 
 ## 前台项目
 > 欢迎大家提交pr，一起改进项目
@@ -31,7 +33,7 @@
 
 ## 使用建议
 - 因为项目使用eslint, 所以建议使用编辑器 vscode 下载插件 ESLint Prettier
-- 因为项目使用husky，t提交git会自动格式化代码，如果eslint不通过是提交不上去的
+- 因为项目使用husky，提交git会自动格式化代码，如果eslint不通过是提交不上去的
 - 保存自动格式化，不喜欢的可以在.vscode目录下setting.json修改
 
 ## git commit message
@@ -58,6 +60,10 @@ npm install pnpm -g
 
 #安装依赖
 pnpm install
+
+# 环境变量（如切换接口）
+- .env.dev 开发环境
+- .env.prod 生产环境
 
 # 本地运行
 pnpm dev

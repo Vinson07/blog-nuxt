@@ -103,19 +103,19 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/css/animation.css'],
   // 代理
-  nitro: {
-    devProxy: {
-      '/qiniuApi': {
-        target: 'https://sakura520.co/qiniuApi',
-        changeOrigin: true
-        // prependPath: true
-      },
-      '/api': {
-        target: 'https://sakura520.co/api',
-        changeOrigin: true
-      }
-    }
-  },
+  // nitro: {
+  //   devProxy: {
+  //     '/qiniuApi': {
+  //       target: 'https://sakura520.co/qiniuApi',
+  //       changeOrigin: true
+  //       // prependPath: true
+  //     },
+  //     '/api': {
+  //       target: 'https://sakura520.co/api',
+  //       changeOrigin: true
+  //     }
+  //   }
+  // },
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
