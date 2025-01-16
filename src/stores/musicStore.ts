@@ -14,7 +14,9 @@ export const useMusicStore = defineStore(
   {
     // 持久化 默认存cookie
     persist: {
-      key: 'music_info'
+      key: 'music_info',
+      // 设置 cookie 有效期为 30 天
+      storage: persistedState.cookiesWithOptions({ maxAge: 30 * 24 * 60 * 60 })
     }
   }
 )

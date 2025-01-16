@@ -129,7 +129,10 @@ export default defineNuxtConfig({
     autoImports: ['defineStore', 'acceptHMRUpdate']
   },
   // piniaPersistedstate: {
-  //   storage: 'sessionStorage'
+  //   storage: 'cookies', // 使用 cookies 作为存储
+  //   cookieOptions: {
+  //     maxAge: 7 * 24 * 60 * 60 // 设置 cookie 有效期为 7 天
+  //   }
   // },
   imports: {
     dirs: ['stores']
