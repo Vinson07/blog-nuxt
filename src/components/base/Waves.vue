@@ -35,7 +35,7 @@
         y="5"
       ></use>
       <use
-        class="use fill-[#fdfdfd] dark:fill-[#21252b]"
+        class="use dark:fill-v-background-dark fill-v-background"
         xlink:href="#gentle-wave"
         x="48"
         y="7"
@@ -53,7 +53,7 @@
   height: 12vh;
   min-height: 3.125rem;
   max-height: 9.375rem;
-  /* z-index: 1; */
+  z-index: 9;
   transition: all 0.6s;
 }
 .waves .parallax .use {

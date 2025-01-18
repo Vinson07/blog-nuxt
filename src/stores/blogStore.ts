@@ -62,7 +62,7 @@ export const useBlogStore = defineStore('blog', () => {
     {
       title: 'Web音乐播放器',
       describe: '高颜值的第三方网易云播放器',
-      link: 'https://music.sakura520.co/',
+      link: 'https://music.qier222.com/',
       bgSrc: 'http://view.lixingyong.com/images/2020/07/20/53c1c3913427ee7504fd228dbda06d6b.md.png'
     },
     {

@@ -13,7 +13,7 @@ const articleList = ref<Article[]>([])
 const articleCount = ref(0)
 const parmas = reactive({
   current: 1,
-  size: 5
+  size: 10
 })
 
 const { article } = useApi()
@@ -106,26 +106,28 @@ const onRight = () => {
       </div>
       <div class="pt-10">
         <HomeTitle title="記事一覧" icon-name="ep:collection-tag" wavy-color="#fccd00" />
-        <ul v-if="articleList.length > 0" class="max-md:px-1">
-          <HomePostItem v-for="item in articleList" :key="item.id" :item="item" />
-        </ul>
+        <template v-if="articleList.length > 0">
+          <ul class="max-md:px-1">
+            <HomePostItem v-for="item in articleList" :key="item.id" :item="item" />
+          </ul>
+          <div class="h-[50px] text-center">
+            <img
+              v-if="pending"
+              src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
+              class="mx-auto w-11 py-3"
+              alt=""
+            />
+            <button
+              v-else-if="isLoad"
+              class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
+              @click="handleNextPage"
+            >
+              下一页
+            </button>
+            <p v-else class="text-gray-400">我也是有底线的～</p>
+          </div>
+        </template>
         <n-empty v-else description="暂无数据~" size="huge"> </n-empty>
-        <div class="h-[50px] text-center">
-          <img
-            v-if="pending"
-            src="~/assets/img/svg/wordpress-rotating-ball-o.svg"
-            class="mx-auto w-11 py-3"
-            alt=""
-          />
-          <button
-            v-else-if="isLoad"
-            class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
-            @click="handleNextPage"
-          >
-            Previous
-          </button>
-          <p v-else class="text-sm text-gray-400">我也是有底线的～</p>
-        </div>
       </div>
     </div>
   </div>

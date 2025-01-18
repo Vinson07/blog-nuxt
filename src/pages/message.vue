@@ -24,8 +24,7 @@ const { message } = useApi()
 
 // 随机颜色
 // const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
-const getRandomColor = () =>
-  imageStore.colors[Math.floor(Math.random() * imageStore.colors.length + 1)]
+const getRandomColor = () => imageStore.colors[Math.floor(Math.random() * imageStore.colors.length)]
 
 const { data } = await message.getMessageList({ server: false, lazy: true })
 watch(

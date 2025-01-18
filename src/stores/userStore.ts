@@ -71,7 +71,9 @@ export const useUserStore = defineStore(
   {
     // 持久化 默认存cookie
     persist: {
-      key: 'user_info'
+      key: 'user_info',
+      // 设置 cookie 有效期为 7 天
+      storage: persistedState.cookiesWithOptions({ maxAge: 7 * 24 * 60 * 60 })
     }
   }
 )

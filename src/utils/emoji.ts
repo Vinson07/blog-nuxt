@@ -1,4 +1,4 @@
-const raw = 'http://cdn.sakura520.cn/static/'
+const raw = import.meta.env.VITE_APP_EMOJI_BASE_URL as string
 
 const faceList = ['tv_小电视', '小黄脸']
 

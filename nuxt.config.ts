@@ -40,7 +40,7 @@ export default defineNuxtConfig({
           as: 'font',
           type: 'font/ttf',
           crossorigin: 'anonymous',
-          href: 'http://cdn.sakura520.cn/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF'
+          href: 'https://cdn.sakura520.cn/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF'
         },
         {
           rel: 'preload',
@@ -88,6 +88,9 @@ export default defineNuxtConfig({
             if (id.includes('markdown-it')) {
               return 'markdown_it'
             }
+            if (id.includes('echarts')) {
+              return 'echarts'
+            }
           }
         }
       }
@@ -105,13 +108,8 @@ export default defineNuxtConfig({
   // 代理
   // nitro: {
   //   devProxy: {
-  //     '/qiniuApi': {
-  //       target: 'https://sakura520.co/qiniuApi',
-  //       changeOrigin: true
-  //       // prependPath: true
-  //     },
   //     '/api': {
-  //       target: 'https://sakura520.co/api',
+  //       target: 'http://127.0.0.1:8080/',
   //       changeOrigin: true
   //     }
   //   }

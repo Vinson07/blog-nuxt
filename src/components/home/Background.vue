@@ -129,15 +129,16 @@ const handleRight = () => {
   <div id="headertop" class="relative h-screen overflow-hidden" :class="bgMask">
     <!-- animate-[home-bg_1.5s] -->
     <figure
-      class="headertop-bg relative h-full w-full animate-[home-bg_1.5s] bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
+      class="headertop-bg relative h-full w-full bg-sky-400 bg-cover bg-center bg-no-repeat dark:bg-neutral-800 md:bg-fixed"
       :style="{ backgroundImage: bgSrc ? `url(${bgSrc})` : '' }"
     >
       <div
         :style="{ top: titleTop }"
         class="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center transition-[top] duration-700"
       >
+        <!-- animate-[my-bounce_1s_1.3s] -->
         <h1
-          class="mb-5 animate-[my-bounce_1s_1.3s] cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
+          class="tik-tok-shake mb-5 cursor-pointer select-none font-[FrederickaTheGreat] text-7xl font-bold text-slate-50"
         >
           {{ title }}
         </h1>

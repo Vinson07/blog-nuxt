@@ -30,11 +30,11 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
           ★ Name: Vinson <br />
           ★ Bio: 梦想是一个天真的词，实现梦想是一个残酷的词<br />
           ★ Color: #409eff<br />
-          ★ URL: https://sakura520.co/<br />
+          ★ URL: https://sakura520.cn/<br />
           ★ Avatar:
           <a
             class="text-red-400 hover:text-orange-400 dark:text-indigo-600 dark:hover:text-blue-600"
-            href="https://static.sakura520.co/config/4cf0a0ba668d5195007ec1b4c902f500.png"
+            href="//cdn.sakura520.cn/config/4cf0a0ba668d5195007ec1b4c902f500.png"
             target="_blank"
             rel="nofollow"
           >

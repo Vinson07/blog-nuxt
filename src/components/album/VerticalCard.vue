@@ -16,8 +16,8 @@ defineProps<Props>()
       alt=""
     />
     <div class="absolute top-0 left-0 p-6">
-      <p class="my-3 text-base text-gray-300">{{ album.albumName }}</p>
-      <p class="text-2xl text-white">{{ album.albumDesc }}</p>
+      <p class="my-3 text-2xl text-white">{{ album.albumName }}</p>
+      <p class="text-base text-gray-300">{{ album.albumDesc }}</p>
     </div>
   </div>
 </template>

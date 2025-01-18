@@ -23,7 +23,7 @@ if (photoData.value?.flag) {
 <template>
   <div>
     <AlbumWaterfall
-      v-if="photoData.data.photoVOList && photoData.data.photoVOList.length > 0"
+      v-if="photoData && photoData.data.photoVOList && photoData.data.photoVOList.length > 0"
       :list="photoData.data.photoVOList"
     />
     <div v-else class="flex h-screen w-screen items-center justify-center">

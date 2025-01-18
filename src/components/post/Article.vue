@@ -31,7 +31,7 @@ onMounted(async () => {
 
   // 复制代码
   clipboard = new Clipboard('.copy-btn')
-  // 复制成功失败的提示
+  // 复制成功与失败的提示
   clipboard.on('success', () => {
     message.success('复制成功')
   })

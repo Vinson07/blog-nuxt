@@ -69,7 +69,11 @@ const createTime = computed(() => (time: string) => useDateFormat(time, 'YYYY-MM
       </div>
       <div class="read-article flex justify-end group-even/item:justify-start max-md:hidden">
         <NuxtLink :to="`/post/${item.id}`">
-          <Icon name="ion:ellipsis-horizontal" size="26" />
+          <Icon
+            class="hover:text-orange-500 hover:dark:text-indigo-500"
+            name="ion:ellipsis-horizontal"
+            size="26"
+          />
         </NuxtLink>
       </div>
     </div>

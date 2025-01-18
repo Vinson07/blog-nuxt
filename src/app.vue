@@ -12,10 +12,12 @@ const blogStore = useBlogStore()
 const { home } = useApi()
 const { isDesktop } = useDevice()
 
-const color = useColorMode()
+const color = useColorMode() // 主题模式
 const el = ref<HTMLDivElement | null>(null)
 
-const placement = ref<MessageProviderProps['placement']>('top')
+// 提示框位置
+const placement = ref<MessageProviderProps['placement']>('bottom-right')
+// 定制主题
 const darkThemeOverrides: GlobalThemeOverrides = {
   common: {
     // primaryColor: '#409eff',
