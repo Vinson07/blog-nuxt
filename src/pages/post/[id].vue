@@ -116,7 +116,7 @@ onMounted(() => {
           />
           <Comment :id="id" :type="1" />
         </BaseBox>
-        <div class="absolute top-0 right-0 w-[300px] max-xl:hidden">
+        <div class="absolute top-0 right-0 h-full w-[300px] max-xl:hidden">
           <PostRecommend :list="articleRecommend?.data ?? null" />
           <PostToc />
         </div>

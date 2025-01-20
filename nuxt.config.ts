@@ -38,16 +38,9 @@ export default defineNuxtConfig({
         {
           rel: 'preload',
           as: 'font',
-          type: 'font/ttf',
-          crossorigin: 'anonymous',
-          href: 'https://cdn.sakura520.cn/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF'
-        },
-        {
-          rel: 'preload',
-          as: 'font',
           type: 'font/woff2',
           crossorigin: 'anonymous',
-          href: 'https://sourcebucket.s3.bitiful.net/fonts/霞鹜文楷.woff2'
+          href: 'https://sourcebucket.s3.bitiful.net/fonts/ZhuZiAWan2.woff2'
         }
         // {
         //   rel: 'stylesheet',
@@ -55,10 +48,6 @@ export default defineNuxtConfig({
         // }
       ],
       script: [
-        // {
-        //   src: '/js/starrySky.min.js', // 星空背景
-        //   defer: true
-        // }
         // {
         //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
         //   defer: true

@@ -43,15 +43,6 @@ onMounted(() => {
   top: 0;
   left: 0;
   z-index: -10;
-  /* background: radial-gradient(200% 100% at bottom center, #f7f7b6, #e96f92, #75517d, #1b2947);
-  background: radial-gradient(
-    220% 105% at top center,
-    #1b2947 10%,
-    #75517d 40%,
-    #e96f92 65%,
-    #f7f7b6
-  );
-  background-attachment: fixed; */
 }
 
 @keyframes rotate {

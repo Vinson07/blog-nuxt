@@ -83,9 +83,5 @@ blogStore.setYiYan()
     <Music v-if="blogStore.siteConfig?.isMusic && isDesktop" />
     <!-- 星空粒子背景 -->
     <BaseStarrySky />
-    <!-- <canvas
-      id="my-canvas"
-      class="pointer-events-none fixed top-0 left-0 -z-10 hidden h-full w-full dark:block"
-    ></canvas> -->
   </n-config-provider>
 </template>

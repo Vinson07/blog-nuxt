@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-family: FrederickaTheGreat;
-  src: url(https://cdn.sakura520.cn/static/blog-plugin/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF);
+  src: url(~/assets/font/FREDERICKATHEGREAT-REGULAR-2.990272de.TTF);
   font-display: swap;
-}
+} */
 
 @font-face {
   font-family: YSHST;
@@ -46,15 +46,15 @@
 
 @font-face {
   font-family: ZhuZiAWan;
-  src: url(https://cdn.sakura520.cn/static/blog-plugin/font/ZhuZiAWan2.woff2);
+  src: url(https://sourcebucket.s3.bitiful.net/fonts/ZhuZiAWan2.woff2);
   font-display: swap;
 }
 
 body,
 html {
-  cursor: url(https://cdn.sakura520.cn/static/blog-plugin/imgs/x1.cur), auto;
+  cursor: url(~/assets/font/x1.cur), auto;
   /* @apply font-mono; */
-  font-family: LXGW, 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB',
+  font-family: ZhuZiAWan, 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB',
     'Heiti SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
 }
 

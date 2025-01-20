@@ -1,127 +1,266 @@
 <script setup lang="ts">
-const titleList = ref<any>([])
-const tocRef = ref<HTMLElement | null>(null)
-const currentIndex = ref(0)
-// 推荐文章dom高度
-const recommendHeight = ref(0)
-// 文章顶部固定图高度
-const patternHeight = ref(0)
-const articleRef = ref<HTMLElement | null>(null)
-
-const getTitles = () => {
-  if (articleRef.value) {
-    const anchors = articleRef.value.querySelectorAll('h1,h2,h3')
-    const titles = Array.from(anchors).filter((t: any) => !!t.innerText.trim())
-    if (!titles.length) titleList.value = []
-    const hTags = Array.from(new Set(titles.map((t: any) => t.tagName))).sort()
-    titleList.value = titles.map((el: any, index) => {
-      el.dataset.id = index
-      return {
-        title: el.innerText,
-        lineIndex: el.dataset.id,
-        indent: hTags.indexOf(el.tagName)
-      }
-    })
-  }
+interface Title {
+  children: Title[]
+  id: string
+  isVisible?: boolean
+  level: number
+  name?: string
+  parent: Title | null
+  rawName: string
+  scrollTop: number
 }
-
-// 点击锚点目录
-function handleAnchorClick(anchor: any, index: number) {
-  if (articleRef.value) {
-    const heading = articleRef.value.querySelector(`[data-id="${anchor.lineIndex}"]`) as HTMLElement
-    // const heading = preview.querySelector(`#${anchor.title}`)
-    if (heading) {
-      window.scrollTo({
-        behavior: 'smooth',
-        top: heading.offsetTop + patternHeight.value - 40
-      })
-      setTimeout(() => (currentIndex.value = index), 500)
-    }
-  }
+interface Props {
+  container?: string
 }
-
-// * 实现目录高亮当前位置的标题
-// 思路: 循环的方式将标题距离顶部距离与滚动条当前位置对比, 来确定高亮的标题
-onMounted(() => {
-  const { y } = useScroll(window)
-  watchThrottled(
-    y,
-    () => {
-      titleList.value.forEach((titleItem: any, index: number) => {
-        if (articleRef.value) {
-          const heading = articleRef.value.querySelector(
-            `[data-id="${titleItem.lineIndex}"]`
-          ) as HTMLElement
-          // const tocNavDom = document.querySelector('.toc-nav') as HTMLElement
-          if (y.value >= heading.offsetTop + patternHeight.value - 50) {
-            // 比 40 稍微多一点
-            currentIndex.value = index
-            // 目录item滚动同步
-            if (index > 1) {
-              const tocLiId = document.getElementById(`toc-li-${titleItem.lineIndex}`)
-              tocLiId &&
-                tocLiId.scrollIntoView({
-                  block: 'center',
-                  inline: 'nearest',
-                  behavior: 'smooth'
-                })
-            }
-          }
-        }
-      })
-    },
-    { throttle: 200 }
-  )
-
-  // 固定目录
-  watchThrottled(y, () => {
-    if (tocRef.value) {
-      if (y.value > patternHeight.value + recommendHeight.value) {
-        tocRef.value.style.position = 'fixed'
-        tocRef.value.style.top = '80px'
-      } else {
-        tocRef.value.style.position = ''
-        tocRef.value.style.top = ''
-      }
-    }
-  })
+const props = withDefaults(defineProps<Props>(), {
+  container: '.post-main .markdown-body'
 })
 
-onMounted(() => {
-  nextTick(() => {
-    const articleDom = document.querySelector('.markdown-body') as HTMLElement
-    const recommendDom = document.querySelector('.recommend') as HTMLElement
-    const patternDom = document.querySelector('.articlePattern') as HTMLElement
-    if (recommendDom) recommendHeight.value = recommendDom?.offsetHeight ?? 0
-    if (patternDom) patternHeight.value = patternDom?.offsetHeight ?? 0
-    if (articleDom) articleRef.value = articleDom
-    getTitles()
-  })
+const titles = ref<Title[]>([])
+const currentTitle = ref<Partial<Title>>({})
+const progress = ref(0)
+
+// 获取目录的标题
+function getTitles(): Title[] {
+  const titles: Title[] = []
+  const levels = ['h1', 'h2', 'h3']
+
+  const articleElement = document.querySelector(props.container)
+  if (!articleElement) {
+    return titles
+  }
+
+  const elements: HTMLElement[] = Array.from(articleElement.querySelectorAll('*'))
+
+  // 调整标签等级
+  const tagNames = new Set(elements.map((el) => el.tagName.toLowerCase()))
+  for (let i = levels.length - 1; i >= 0; i--) {
+    if (!tagNames.has(levels[i])) {
+      levels.splice(i, 1)
+    }
+  }
+
+  const serialNumbers = levels.map(() => 0)
+  for (let i = 0; i < elements.length; i++) {
+    const element = elements[i]
+    const tagName = element.tagName.toLowerCase()
+    const level = levels.indexOf(tagName)
+    if (level === -1) continue
+
+    const id = tagName + '-' + element.innerText + '-' + i
+    const node: Title = {
+      id,
+      level,
+      parent: null,
+      children: [],
+      rawName: element.innerText,
+      scrollTop: element.offsetTop
+    }
+
+    if (titles.length > 0) {
+      const lastNode = titles.at(-1)
+
+      if (lastNode) {
+        // 遇到子标题
+        if (lastNode.level < node.level) {
+          node.parent = lastNode
+          lastNode.children.push(node)
+        }
+        // 遇到上一级标题
+        else if (lastNode.level > node.level) {
+          serialNumbers.fill(0, level + 1)
+          let parent = lastNode.parent
+          while (parent) {
+            if (parent.level < node.level) {
+              parent.children.push(node)
+              node.parent = parent
+              break
+            }
+            parent = parent.parent
+          }
+        }
+        // 遇到平级
+        else if (lastNode.parent) {
+          node.parent = lastNode.parent
+          lastNode.parent.children.push(node)
+        }
+      }
+    }
+
+    serialNumbers[level] += 1
+    const serialNumber = serialNumbers.slice(0, level + 1).join('.')
+
+    node.isVisible = node.parent == null
+    node.name = serialNumber + '. ' + element.innerText
+    titles.push(node)
+  }
+
+  return titles
+}
+
+// 监听滚动事件并更新样式
+function onScroll() {
+  const _progress = (window.scrollY / document.documentElement.scrollHeight) * 100
+  progress.value = parseInt(_progress.toString())
+
+  const visibleTitles = []
+
+  for (let i = titles.value.length - 1; i >= 0; i--) {
+    const title = titles.value[i]
+    if (title.scrollTop <= window.scrollY) {
+      if (currentTitle.value.id === title.id) return
+
+      Object.assign(currentTitle.value, title)
+
+      // 目录高亮item滚动同步
+      const currentElement = document.getElementById(title.id)
+      if (currentElement) {
+        currentElement.scrollIntoView({
+          block: 'nearest'
+        })
+      }
+
+      // 展开节点
+      setChildrenVisible(title, true)
+      visibleTitles.push(title)
+
+      // 展开父节点
+      let parent = title.parent
+      while (parent) {
+        setChildrenVisible(parent, true)
+        visibleTitles.push(parent)
+        parent = parent.parent
+      }
+
+      // 折叠其余节点
+      for (const t of titles.value) {
+        if (!visibleTitles.includes(t)) {
+          setChildrenVisible(t, false)
+        }
+      }
+
+      return
+    }
+  }
+}
+
+// 设置子节点的可见性
+function setChildrenVisible(title: Title, isVisible: boolean) {
+  for (const child of title.children) {
+    child.isVisible = isVisible
+  }
+}
+
+// 滚动到指定的位置
+function scrollToView(scrollTop: number) {
+  window.scrollTo({ top: scrollTop, behavior: 'smooth' })
+}
+
+// onMounted中才能拿到dom
+onMounted(async () => {
+  await nextTick()
+  // 获取标题目录
+  titles.value = getTitles()
+  // 注册滚动事件
+  window.addEventListener('scroll', onScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
 })
 </script>
 
 <template>
-  <nav v-if="titleList && titleList.length > 0" ref="tocRef" class="toc-nav w-[inherit]">
-    <BaseBox class="max-h-[500px] overflow-y-auto">
-      <ul class="catalog-content">
-        <li
-          v-for="(anchor, index) of titleList"
-          :id="`toc-li-${anchor.lineIndex}`"
-          :key="anchor.title"
-          class="text-15 block overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 hover:bg-gray-200 dark:hover:bg-indigo-500"
-          :class="currentIndex === index ? 'active' : ''"
-          :style="{ paddingLeft: `${anchor.indent * 10}px` }"
-          @click="handleAnchorClick(anchor, index)"
+  <nav v-if="Object.keys(titles).length > 0" class="catalog-card">
+    <BaseBox>
+      <div class="catalog-card-header">
+        <div>
+          <span>
+            <Icon class="catalog-icon" name="fa6-solid:bars-staggered" />
+          </span>
+          <span>目录</span>
+        </div>
+        <span v-show="progress > 0" class="progress">{{ progress + '%' }}</span>
+      </div>
+      <div class="catalog-content">
+        <div
+          v-for="title in titles"
+          v-show="title.isVisible"
+          :id="title.id"
+          :key="title.id"
+          :class="['catalog-item', currentTitle.id == title.id ? 'active' : 'not-active']"
+          :style="{ marginLeft: title.level * 20 + 'px' }"
+          :title="title.rawName"
+          @click="scrollToView(title.scrollTop)"
         >
-          {{ anchor.title }}
-        </li>
-      </ul>
+          {{ title.name }}
+        </div>
+      </div>
     </BaseBox>
   </nav>
 </template>
 
 <style scoped>
-.toc-nav ul li.active {
+.catalog-card {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 76px;
+  width: inherit;
+}
+
+.catalog-card-header {
+  text-align: left !important;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.catalog-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  margin-bottom: 5px;
   @apply text-orange-500 dark:text-[#007fff];
+}
+
+.catalog-card-header div > span {
+  font-size: 17px;
+}
+
+.progress {
+  color: #a9a9a9;
+  font-style: italic;
+  font-size: 140%;
+}
+
+.catalog-content {
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+  margin-right: -24px;
+  padding-right: 20px;
+}
+
+.catalog-item {
+  margin: 5px 0;
+  line-height: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 14px;
+  padding: 2px 6px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.catalog-item:hover {
+  @apply text-orange-500 dark:text-[#007fff];
+}
+
+.active {
+  @apply rounded-sm bg-orange-500 text-white dark:bg-indigo-500;
+}
+.active:hover {
+  @apply bg-orange-600 text-white dark:bg-indigo-600 dark:text-white;
 }
 </style>

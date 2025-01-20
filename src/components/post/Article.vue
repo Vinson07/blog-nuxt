@@ -2,7 +2,7 @@
 import Clipboard from 'clipboard'
 import { useMessage } from 'naive-ui'
 import { v3ImgPreviewFn } from 'v3-img-preview'
-import '@/assets/themes/cyanosis.css'
+import '@/assets/themes/cyanosis.css' // 文章css主题
 
 interface Props {
   articleContent: string
