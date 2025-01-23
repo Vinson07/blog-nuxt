@@ -8,7 +8,7 @@ useHead({
 const { link } = useApi()
 
 // 友链列表
-const { data: linkList } = await link.getLinkList({ lazy: true })
+const { data: linkList } = await link.getLinkList()
 </script>
 
 <template>
@@ -48,9 +48,9 @@ const { data: linkList } = await link.getLinkList({ lazy: true })
         >
           だいすき
         </h3>
-        <div class="grid grid-cols-1 gap-2 py-5 px-3 md:grid-cols-3">
+        <div v-if="linkList?.flag" class="grid grid-cols-1 gap-2 py-5 px-3 md:grid-cols-3">
           <LinkBuddy
-            v-for="item in linkList?.data"
+            v-for="item in linkList.data"
             :key="item.id"
             :avatar="item.avatar"
             :title="item.name"

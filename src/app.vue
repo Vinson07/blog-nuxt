@@ -72,7 +72,7 @@ blogStore.setYiYan()
     </n-message-provider>
     <!-- 回到顶部 -->
     <TheBackTop />
-    <n-back-top :right="20" class="z-40 md:hidden">
+    <n-back-top :right="20" class="z-40 lg:hidden">
       <Icon name="material-symbols:rocket" class="text-2xl text-orange-500 dark:text-indigo-500" />
     </n-back-top>
     <!-- 搜索 -->

@@ -40,27 +40,18 @@ function isFlvFile(str: string) {
   return reg.test(str)
 }
 
-// 引入b站视频播放插件
-useHead({
-  script: [
-    {
-      src: 'https://cdn.staticfile.org/flv.js/1.6.2/flv.min.js',
-      defer: true,
-      async onload() {
-        await nextTick()
-        // @ts-ignore
-        if (flvjs.isSupported() && videoRef.value && isFlvFile(props.videoSrc)) {
-          // @ts-ignore
-          flvPlayer.value = flvjs.createPlayer({
-            type: 'flv',
-            url: props.videoSrc
-          })
-          flvPlayer.value.attachMediaElement(videoRef.value)
-          // flvPlayer.value.load()
-        }
-      }
-    }
-  ]
+// 使用b站视频播放插件
+onMounted(() => {
+  // @ts-ignore
+  if (flvjs.isSupported() && videoRef.value && isFlvFile(props.videoSrc)) {
+    // @ts-ignore
+    flvPlayer.value = flvjs.createPlayer({
+      type: 'flv',
+      url: props.videoSrc
+    })
+    flvPlayer.value.attachMediaElement(videoRef.value)
+    // flvPlayer.value.load()
+  }
 })
 
 onMounted(async () => {

@@ -7,32 +7,32 @@ useHead({
 
 const imageStore = useImageStore()
 
-const loadMore = ref(true)
 const talkList = ref<Talk[]>([])
-const params = reactive({
-  current: 1,
-  size: 5
-})
 
 const { talk } = useApi()
+const params = {
+  current: 1,
+  size: 5
+}
+const { data, pending, execute } = await talk.getTalkList(params)
+if (data.value?.flag) {
+  talkList.value = data.value.data.recordList
+}
 
-const { data, pending } = await talk.getTalkList(params)
-watch(
-  data,
-  (value) => {
-    if (value?.flag) {
-      talkList.value = [...talkList.value, ...value.data.recordList]
-      if (value.data.count === talkList.value.length) {
-        loadMore.value = false
-      }
-    }
-  },
-  { immediate: true }
-)
+/**
+ * 是否还要加载
+ * 列表数和总数不相同 加载 反之则不加载
+ * */
+const isLoad = computed(() => talkList.value.length !== data.value?.data.count)
 
-function onInfinite() {
-  if (!pending.value && loadMore.value) {
+async function onInfinite() {
+  if (!pending.value && isLoad.value) {
     params.current++
+    // 手动触发请求
+    await execute()
+    if (data.value?.flag) {
+      talkList.value = [...talkList.value, ...data.value.data.recordList]
+    }
   }
 }
 </script>

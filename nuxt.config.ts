@@ -41,6 +41,10 @@ export default defineNuxtConfig({
           type: 'font/woff2',
           crossorigin: 'anonymous',
           href: 'https://sourcebucket.s3.bitiful.net/fonts/ZhuZiAWan2.woff2'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://cdn.staticfile.org/highlight.js/11.7.0/styles/atom-one-dark.min.css' // 代码块高亮样式
         }
         // {
         //   rel: 'stylesheet',
@@ -48,6 +52,10 @@ export default defineNuxtConfig({
         // }
       ],
       script: [
+        {
+          src: 'https://cdn.staticfile.org/flv.js/1.6.2/flv.min.js', // 引入b站视频播放插件
+          defer: true
+        }
         // {
         //   src: 'https://cdn.sakura520.co/static/live2d/autoload.js', // 看板娘
         //   defer: true

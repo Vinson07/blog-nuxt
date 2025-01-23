@@ -21,31 +21,23 @@ const recordList = ref<Comment[]>([])
 const total = ref(0)
 const commentContent = ref('')
 
-const { comment } = useApi()
+const { comment: commentApi } = useApi()
 
 provide<number>('type', props.type)
 provide<number | undefined>('id', props.id)
 
 // 获取评论列表
-const params = reactive({
+const params = {
   current: 1,
   size: 10,
   typeId: props.id,
   commentType: props.type
-})
-const { data: commentData, pending } = await comment.getCommentList(params, {
-  server: false
-})
-watch(
-  commentData,
-  (value) => {
-    if (value?.flag && value.data.recordList) {
-      total.value = value.data.count
-      recordList.value = [...recordList.value, ...value.data.recordList]
-    }
-  },
-  { immediate: true }
-)
+}
+const { data: commentData, pending, execute } = await commentApi.getCommentList(params)
+if (commentData.value?.flag && commentData.value.data.recordList) {
+  total.value = commentData.value.data.count
+  recordList.value = commentData.value.data.recordList
+}
 
 /**
  * 是否还要加载
@@ -54,8 +46,13 @@ watch(
 const isLoad = computed(() => recordList.value.length !== total.value)
 
 // 加载更多
-const handleLoading = () => {
+const handleLoading = async () => {
   params.current++
+
+  await execute()
+  if (commentData.value?.flag && commentData.value.data.recordList) {
+    recordList.value = [...recordList.value, ...commentData.value.data.recordList]
+  }
 }
 
 // 添加评论
@@ -71,7 +68,7 @@ async function onSubmit() {
   // 解析表情
   const content = useEmojiParse(EmojiApi.allEmoji, commentContent.value)
   // 添加评论
-  const { data } = await comment.addComment({
+  const { data } = await commentApi.addComment({
     commentContent: content,
     typeId: props.id,
     commentType: props.type
@@ -85,7 +82,7 @@ async function onSubmit() {
       message.success('评论成功！！')
     }
     // 获取添加评论
-    const { data } = await comment.getCommentList({
+    const { data } = await commentApi.getCommentList({
       current: 1,
       size: 1,
       typeId: props.id,
@@ -112,7 +109,7 @@ async function addReply(id: number) {
   })
   // 最后一页 默认为1
   const lastPage = Math.ceil(replyCount / 5) || 1
-  const { data } = await comment.getReplyList(id, { current: lastPage, size: 5 })
+  const { data } = await commentApi.getReplyList(id, { current: lastPage, size: 5 })
   if (data.value?.flag && data.value.data) {
     const length = data.value.data.length
     // 拿到刚添加的回复

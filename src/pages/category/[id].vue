@@ -7,7 +7,7 @@ const router = useRouter()
 
 const id = route.params.id
 const articleList = ref<ArticleCondition[]>([])
-const loadMore = ref(true)
+let isLoad = true
 
 const { category } = useApi()
 const params = {
@@ -15,29 +15,28 @@ const params = {
   current: 1,
   size: 10
 }
-const { data, pending, refresh } = await category.getCategoryArticleList(params)
-watch(
-  data,
-  (category) => {
-    if (category?.flag) {
-      if (category.data.articleConditionVOList && category.data.articleConditionVOList.length > 0) {
-        articleList.value = [...articleList.value, ...category.data.articleConditionVOList]
-      } else {
-        loadMore.value = false
-      }
-    }
-  },
-  { immediate: true }
-)
+const { data, pending, execute } = await category.getCategoryArticleList(params)
+
+if (data.value?.flag) {
+  articleList.value = data.value.data.articleConditionVOList
+}
 
 useHead({
   title: `${data.value?.data.name ?? '文章分类'}`
 })
 
-function onInfinite() {
-  if (!pending.value && loadMore.value) {
+async function onInfinite() {
+  if (!pending.value && isLoad) {
     params.current++
-    refresh()
+    await execute()
+    if (data.value?.flag) {
+      const list = data.value.data.articleConditionVOList
+      if (list && list.length > 0) {
+        articleList.value = [...articleList.value, ...list]
+      } else {
+        isLoad = false
+      }
+    }
   }
 }
 </script>

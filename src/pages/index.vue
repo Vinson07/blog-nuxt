@@ -10,39 +10,35 @@ const blogStore = useBlogStore()
 const imageStore = useImageStore()
 
 const articleList = ref<Article[]>([])
-const articleCount = ref(0)
-const parmas = reactive({
+
+const params = {
   current: 1,
   size: 10
-})
-
+}
 const { article } = useApi()
 
 // 获取文章列表
-const { data, pending } = await article.getArticleList(parmas)
-watch(
-  data,
-  (value) => {
-    if (value && value.data) {
-      articleCount.value = value.data.count
-      if (value.data.recordList.length > 0) {
-        articleList.value = [...articleList.value, ...value.data.recordList]
-      }
-    }
-  },
-  { immediate: true }
-)
+const { data, pending, execute } = await article.getArticleList(params)
+
+if (data.value?.flag) {
+  articleList.value = data.value.data.recordList
+}
 
 /**
  * 是否还要加载
- * 文章数和列表数不相同 加载 反之则不加载
+ * 文章列表数和文章总数不相同 加载 反之则不加载
  * */
-const isLoad = computed(() => articleList.value.length !== articleCount.value)
+const isLoad = computed(() => articleList.value.length !== data.value?.data.count)
 
 // 下一页
-function handleNextPage() {
+async function handleNextPage() {
   if (isLoad.value && !pending.value) {
-    parmas.current++
+    params.current++
+    // 手动触发请求
+    await execute()
+    if (data.value?.flag) {
+      articleList.value = [...articleList.value, ...data.value.data.recordList]
+    }
   }
 }
 

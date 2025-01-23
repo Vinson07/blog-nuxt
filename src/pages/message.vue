@@ -26,16 +26,10 @@ const { message } = useApi()
 // const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
 const getRandomColor = () => imageStore.colors[Math.floor(Math.random() * imageStore.colors.length)]
 
-const { data } = await message.getMessageList({ server: false, lazy: true })
-watch(
-  data,
-  (messageList) => {
-    if (messageList?.flag) {
-      danmus.value = messageList.data
-    }
-  },
-  { immediate: true }
-)
+const { data } = await message.getMessageList()
+if (data.value?.flag) {
+  danmus.value = data.value.data
+}
 
 async function send() {
   if (barrageValue.value.trim() === '') {

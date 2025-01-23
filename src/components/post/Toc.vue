@@ -258,9 +258,9 @@ onUnmounted(() => {
 }
 
 .active {
-  @apply rounded-sm bg-orange-500 text-white dark:bg-indigo-500;
+  @apply rounded-sm bg-gray-200  dark:bg-indigo-500;
 }
 .active:hover {
-  @apply bg-orange-600 text-white dark:bg-indigo-600 dark:text-white;
+  @apply bg-gray-300 dark:bg-indigo-600;
 }
 </style>
