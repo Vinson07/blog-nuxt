@@ -8,7 +8,7 @@
 
 <style scoped>
 #loading {
-  @apply bg-v-background dark:bg-v-background-dark;
+  @apply bg-v-bg dark:bg-v-bg-dark;
   position: fixed;
   z-index: 999;
   top: 0;

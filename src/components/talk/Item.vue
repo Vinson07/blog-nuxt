@@ -72,7 +72,7 @@ isLike.value = userStore.userInfo?.talkLikeSet?.includes(props.list.id) ?? false
       />
     </div>
     <div
-      class="card shadow-light-shadow hover:shadow-light-shadow-hover dark:shadow-dark-shadow dark:hover:shadow-dark-shadow-hover relative mx-4 flex-1 rounded-md px-5 py-3 transition-shadow duration-300"
+      class="card shadow-v-box-sh hover:shadow-v-box-sh-hover dark:shadow-v-box-sh-dark dark:hover:shadow-v-box-sh-hover-dark relative mx-4 flex-1 rounded-md px-5 py-3 transition-shadow duration-300"
       :class="getRandomInt"
     >
       <!-- eslint-disable-next-line -->

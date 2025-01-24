@@ -13,11 +13,28 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       colors: {
-        // 主题背景和字体颜色
-        'v-fontcolor': '#363636',
-        'v-background': '#f7f9fe',
-        'v-fontcolor-dark': '#f7f7fa',
-        'v-background-dark': '#18171d'
+        // 字体颜色
+        'v-fc': '#363636',
+        'v-fc-dark': '#f7f7fa', // 暗黑模式
+        // 主题背景颜色
+        'v-bg': '#f7f9fe',
+        'v-bg-dark': '#18171d',
+        // 透明背景
+        'v-bg-trans': 'rgba(255,255,255,0.7)',
+        'v-bg-trans-dark': 'rgba(38,38,38,0.7)',
+        // 容器背景颜色
+        'v-box-bg': 'white',
+        'v-box-bg-dark': '#262626',
+        // 高亮颜色
+        'v-hc': '#f97316',
+        'v-hc-dark': '#6366f1'
+      },
+      boxShadow: {
+        // 容器阴影
+        'v-box-sh': '0 1px 30px -4px #e8e8e8',
+        'v-box-sh-dark': '0 1px 35px -8px rgba(26,26,26,0.6)', // 暗黑模式
+        'v-box-sh-hover': '0 1px 20px 10px #e8e8e8',
+        'v-box-sh-hover-dark': '0 1px 20px 0px rgb(99,102,241)'
       },
       animation: {
         'bounce-slow': 'bounce 3s ease infinite',
@@ -36,12 +53,6 @@ export default <Partial<Config>>{
           'linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.8) 40%)',
         'link-black-gradien':
           'linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.9) 40%)'
-      },
-      boxShadow: {
-        'light-shadow': '0 1px 30px -4px #e8e8e8',
-        'light-shadow-hover': '0 1px 20px 10px #e8e8e8',
-        'dark-shadow': '0 1px 35px -8px rgba(26,26,26,0.6)',
-        'dark-shadow-hover': '0 1px 20px 0px rgb(99,102,241)'
       },
       fontSize: {
         15: ['0.9375rem', '1.375rem'],

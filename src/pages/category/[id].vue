@@ -58,7 +58,7 @@ async function onInfinite() {
           />
           <div class="pl-3">
             <h4
-              class="cursor-pointer text-lg font-bold hover:text-orange-500 hover:dark:text-indigo-500"
+              class="hover:text-v-hc hover:dark:text-v-hc-dark cursor-pointer text-lg font-bold"
               @click="router.push(`/post/${item.id}`)"
             >
               {{ item.articleTitle }}

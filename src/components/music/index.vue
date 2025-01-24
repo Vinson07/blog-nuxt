@@ -113,7 +113,7 @@ const handleNext = useThrottleFn(async () => {
     <Transition name="slide">
       <div
         v-if="topText"
-        class="py-1 text-center text-sm text-orange-500 transition-all duration-500 dark:text-indigo-500"
+        class="text-v-hc dark:text-v-hc-dark py-1 text-center text-sm transition-all duration-500"
       >
         <n-popover trigger="hover">
           <template #trigger>
@@ -130,7 +130,7 @@ const handleNext = useThrottleFn(async () => {
       </div>
     </Transition>
     <div
-      class="bg-v-background shadow-dark-shadow dark:shadow-dark-shadow-hover dark:bg-v-background-dark relative flex justify-center rounded-full border-2 border-white text-orange-500 dark:text-indigo-500"
+      class="bg-v-bg shadow-v-box-sh dark:shadow-v-box-sh-dark dark:bg-v-bg-dark text-v-hc dark:text-v-hc-dark relative flex justify-center rounded-full border-2 border-white"
     >
       <img
         class="my-[2px] h-7 w-7 select-none rounded-full border-2 border-white"
@@ -150,7 +150,7 @@ const handleNext = useThrottleFn(async () => {
     </div>
     <div
       v-if="isShowLyricText"
-      class="fixed left-1/2 bottom-1 z-10 -translate-x-1/2 text-sm text-orange-500 dark:text-indigo-500"
+      class="text-v-hc dark:text-v-hc-dark fixed left-1/2 bottom-1 z-10 -translate-x-1/2 text-sm"
     >
       {{ lyricText }}
     </div>

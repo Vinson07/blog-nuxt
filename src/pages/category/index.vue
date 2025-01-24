@@ -39,7 +39,7 @@ const getRandomColor = () => imageStore.colors[Math.floor(Math.random() * imageS
             @click="router.push(`/category/${item.id}`)"
           >
             <span>{{ item.categoryName }}</span>
-            <span class="ml-1 text-orange-500 group-hover:text-white dark:text-indigo-600">
+            <span class="text-v-hc dark:text-v-hc-dark ml-1 group-hover:text-white">
               {{ item.articleCount }}
             </span>
           </li>

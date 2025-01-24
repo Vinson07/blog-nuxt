@@ -70,13 +70,13 @@ export const useBlogStore = defineStore('blog', () => {
       describe: '这里有好多图片',
       link: 'https://view.lixingyong.com/explore/trending',
       bgSrc: 'http://view.lixingyong.com/images/2020/07/15/-----4k_.md.jpg'
-    },
-    {
-      title: 'sakura',
-      describe: '本站 Sakura 主题',
-      link: '',
-      bgSrc: 'http://view.lixingyong.com/images/2020/10/09/wallhaven-6qxrzx.md.png'
     }
+    // {
+    //   title: 'sakura',
+    //   describe: '本站 Sakura 主题',
+    //   link: '',
+    //   bgSrc: 'http://view.lixingyong.com/images/2020/10/09/wallhaven-6qxrzx.md.png'
+    // }
   ])
   // 一言
   const yiYan = ref('梦想是一个天真的词，实现梦想是一个残酷的词')

@@ -34,6 +34,35 @@
   animation: main 0.3s linear;
 }
 
+/* svg描边动画 */
+.svg-stroke path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  fill: transparent;
+  animation: drawSignature 10s linear infinite both;
+  stroke-width: 1px;
+  stroke: black;
+}
+
+@keyframes drawSignature {
+  0% {
+    stroke-dashoffset: 400;
+  }
+  15% {
+    fill: transparent;
+  }
+  35%,
+  75% {
+    stroke-dashoffset: 0;
+    fill: black;
+  }
+  90%,
+  to {
+    stroke-dashoffset: 400;
+    fill: transparent;
+  }
+}
+
 /* 跳动 */
 @keyframes heartbit {
   0% {

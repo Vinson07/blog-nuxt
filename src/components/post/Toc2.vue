@@ -127,7 +127,7 @@ onUnmounted(() => {
           ref="liRef"
           :key="menu.id"
           :class="[`level_${menu.level}`, { active: active === index }]"
-          class="single-line-ellipsis cursor-pointer rounded py-2 px-2 text-sm hover:bg-gray-200 dark:hover:bg-indigo-500"
+          class="single-line-ellipsis dark:hover:bg-v-hc-dark cursor-pointer rounded py-2 px-2 text-sm hover:bg-gray-200"
           @click="handleScroll(menu.id)"
         >
           {{ menu.text }}
@@ -146,7 +146,7 @@ onUnmounted(() => {
   height: 80px;
 }
 .toc-nav .catalog-content::-webkit-scrollbar-track {
-  @apply bg-white  dark:bg-neutral-800;
+  @apply bg-v-box-bg dark:bg-v-box-bg-dark;
 }
 .toc-nav .catalog-content .level_1 {
   padding-left: 20px;
@@ -158,6 +158,6 @@ onUnmounted(() => {
   padding-left: 40px;
 }
 .toc-nav .catalog-content > li.active {
-  @apply text-orange-500 dark:text-[#007fff];
+  @apply text-v-hc dark:text-v-hc-dark;
 }
 </style>

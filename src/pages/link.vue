@@ -5,6 +5,7 @@ useHead({
   title: '友链'
 })
 
+const blogStore = useBlogStore()
 const { link } = useApi()
 
 // 友链列表
@@ -27,14 +28,14 @@ const { data: linkList } = await link.getLinkList()
         </p>
         <p>
           For Example：<br />
-          ★ Name: Vinson <br />
-          ★ Bio: 梦想是一个天真的词，实现梦想是一个残酷的词<br />
+          ★ Name: {{ blogStore.siteConfig?.siteName }} <br />
+          ★ Bio: {{ blogStore.siteConfig?.siteIntro }}<br />
           ★ Color: #409eff<br />
-          ★ URL: https://sakura520.cn/<br />
+          ★ URL: {{ blogStore.siteConfig?.siteAddress }}<br />
           ★ Avatar:
           <a
-            class="text-red-400 hover:text-orange-400 dark:text-indigo-600 dark:hover:text-blue-600"
-            href="//cdn.sakura520.cn/config/4cf0a0ba668d5195007ec1b4c902f500.png"
+            class="text-v-hc dark:text-v-hc-dark"
+            :href="blogStore.siteConfig?.authorAvatar"
             target="_blank"
             rel="nofollow"
           >
@@ -44,7 +45,7 @@ const { data: linkList } = await link.getLinkList()
       </div>
       <div class="my-10">
         <h3
-          class="border-l-[3px] border-orange-400 pl-3 text-xl text-[#fe9600] dark:border-indigo-600 dark:text-blue-600"
+          class="border-v-hc text-v-hc dark:border-v-hc-dark dark:text-v-hc-dark border-l-[3px] pl-3 text-xl"
         >
           だいすき
         </h3>

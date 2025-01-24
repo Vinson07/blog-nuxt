@@ -59,11 +59,11 @@ html {
 }
 
 html.light {
-  @apply text-v-fontcolor bg-v-background;
+  @apply text-v-fc bg-v-bg;
 }
 
 html.dark {
-  @apply text-v-fontcolor-dark bg-v-background-dark;
+  @apply text-v-fc-dark bg-v-bg-dark;
 }
 
 img {
@@ -80,13 +80,13 @@ img {
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {
-  @apply h-[6px] w-[6px] bg-gray-200 dark:bg-[#202124];
+  @apply h-[6px] w-[6px];
 }
 ::-webkit-scrollbar-track {
-  @apply bg-gray-200 dark:bg-[#202124];
+  @apply bg-v-bg dark:bg-v-bg-dark;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-orange-400 dark:bg-indigo-500;
+  @apply bg-v-hc dark:bg-v-hc-dark;
 }
 
 /* 单行省略号 */

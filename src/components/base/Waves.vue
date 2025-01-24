@@ -34,12 +34,7 @@
         x="48"
         y="5"
       ></use>
-      <use
-        class="use dark:fill-v-background-dark fill-v-background"
-        xlink:href="#gentle-wave"
-        x="48"
-        y="7"
-      ></use>
+      <use class="use dark:fill-v-bg-dark fill-v-bg" xlink:href="#gentle-wave" x="48" y="7"></use>
     </g>
   </svg>
 </template>

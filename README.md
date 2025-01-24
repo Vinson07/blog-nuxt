@@ -36,6 +36,10 @@
 - 因为项目使用husky，提交git会自动格式化代码，如果eslint不通过是提交不上去的
 - 保存自动格式化，不喜欢的可以在.vscode目录下setting.json修改
 
+## 配置主题样式
+- `tailwind.config.ts`文件中可配置主题颜色
+- `app.vue`文件中可以配置`naive-ui`主题颜色
+
 ## git commit message
 
 - feat - 新功能 feature

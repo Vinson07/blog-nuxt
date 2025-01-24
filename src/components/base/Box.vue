@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="bg-white p-3 shadow-[0_0_1rem_rgba(0,0,0,0.1)] dark:bg-neutral-800 dark:shadow-[0_0_1rem_#000000] md:rounded-lg md:p-5"
+    class="bg-v-box-bg dark:bg-v-box-bg-dark shadow-v-box-sh dark:shadow-v-box-sh-dark p-3 md:rounded-lg md:p-5"
   >
     <slot />
   </div>

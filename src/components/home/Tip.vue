@@ -8,10 +8,10 @@ defineProps<Props>()
 
 <template>
   <div
-    class="flex items-center rounded-lg border border-dashed border-gray-300 p-3 dark:border-indigo-500 md:p-5"
+    class="border-v-hc dark:border-v-hc-dark flex items-center rounded-lg border border-dashed p-3 md:p-5"
   >
     <Icon
-      class="heart text-xl text-orange-400 dark:text-indigo-600"
+      class="heart text-v-hc dark:text-v-hc-dark text-xl"
       name="icon-park-outline:volume-notice"
     />
     <!-- eslint-disable-next-line -->

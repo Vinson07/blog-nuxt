@@ -69,27 +69,19 @@ const onRight = () => {
       <HomeTip :tip="blogStore.siteConfig?.siteNotice ?? ''" />
       <div class="pt-10">
         <HomeTitle title="メイン" icon-name="ic:baseline-computer" wavy-color="#a0daa9" />
-        <n-carousel draggable autoplay class="relative h-40 rounded-md md:hidden">
-          <NuxtLink
+        <!-- 移动端轮播图 -->
+        <n-carousel draggable autoplay class="h-40 rounded-md md:hidden">
+          <HomeBanner
             v-for="(item, index) in blogStore.bannerList"
             :key="index"
-            target="_blank"
-            :to="item.link"
-          >
-            <TheImage :src="item.bgSrc" />
-            <div
-              class="absolute top-0 left-0 right-0 bottom-0 bg-[rgba(255,255,255,0.4)] text-center dark:bg-[rgba(51,51,51,0.7)]"
-            >
-              <h4
-                class="mt-7 mb-5 bg-[rgba(255,255,255,0.4)] py-3 text-lg uppercase text-[#505050] dark:bg-[rgb(0,0,0,0.2)] dark:text-[#CCCCCC]"
-              >
-                {{ item.title }}
-              </h4>
-              <p class="text-xs italic text-[#505050] dark:text-[#CCCCCC]">{{ item.describe }}</p>
-            </div>
-          </NuxtLink>
+            :title="item.title"
+            :describe="item.describe"
+            :link="item.link"
+            :bg-src="item.bgSrc"
+            active
+          />
         </n-carousel>
-        <div class="flex justify-between max-md:hidden">
+        <div class="flex h-40 justify-between max-md:hidden">
           <HomeBanner
             v-for="(item, index) in blogStore.bannerList"
             :key="index"
@@ -115,7 +107,7 @@ const onRight = () => {
             />
             <button
               v-else-if="isLoad"
-              class="rounded-full border px-9 py-3 text-gray-400 hover:border-amber-500 hover:text-amber-500 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)] hover:shadow-orange-400 dark:hover:border-indigo-500 dark:hover:text-indigo-500 dark:hover:shadow-indigo-500"
+              class="hover:border-v-hc hover:text-v-hc hover:shadow-v-hc dark:hover:border-v-hc-dark dark:hover:text-v-hc-dark dark:hover:shadow-v-hc-dark rounded-full border px-9 py-3 text-gray-400 hover:shadow-[0_0_4px_rgba(0,0,0,0.3)]"
               @click="handleNextPage"
             >
               下一页
