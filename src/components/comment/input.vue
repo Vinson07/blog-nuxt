@@ -53,14 +53,16 @@ function onAddEmoji(key: string) {
     class="flex-1"
     @trigger="onClickOutsideHandler"
   >
+    <!-- n-input使用了autosize需要加上高度，然后会有报错 -->
     <n-input
       :value="value"
       :autosize="{
-        minRows: 3
+        minRows: 3,
+        maxRows: 6
       }"
       type="textarea"
       :placeholder="placeholder"
-      class="comment_textarea"
+      class="comment_textarea min-h-[80.5px]"
       @input="onInput"
     />
 

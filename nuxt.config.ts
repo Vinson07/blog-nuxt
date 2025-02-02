@@ -19,6 +19,13 @@ const plugin: PluginOption = [
 
 export default defineNuxtConfig({
   srcDir: 'src',
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
+      emojiUrl: process.env.NUXT_PUBLIC_EMOJI_URL
+    }
+  },
   app: {
     head: {
       viewport: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no',
@@ -104,8 +111,8 @@ export default defineNuxtConfig({
     }
   },
   css: ['@/assets/css/animation.css'],
-  // 代理
   // nitro: {
+  //   // 代理
   //   devProxy: {
   //     '/api': {
   //       target: 'http://127.0.0.1:8080/',

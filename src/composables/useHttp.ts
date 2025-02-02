@@ -9,8 +9,6 @@ export type HttpOption<T> = UseFetchOptions<Result<T>>
 
 const { message } = createDiscreteApi(['message'])
 
-const baseURL = import.meta.env.VITE_APP_BASE_URL as string
-
 function handleError<T>(response: FetchResponse<Result<T>> & FetchResponse<ResponseType>) {
   const err = (text: string) => {
     console.log(response?._data?.msg ?? text)
@@ -41,6 +39,7 @@ function handleError<T>(response: FetchResponse<Result<T>> & FetchResponse<Respo
   }
   handleMap[response.status] ? handleMap[response.status]() : err('未知错误！')
 }
+
 // get方法传递数组形式参数
 function paramsSerializer(params?: SearchParameters) {
   if (!params) return
@@ -54,15 +53,19 @@ function paramsSerializer(params?: SearchParameters) {
   })
   return query
 }
+
 function fetch<T>(url: UrlType, option: any) {
+  const runtimeConfig = useRuntimeConfig()
+  const { apiBaseUrl } = runtimeConfig.public
+
   return useFetch<Result<T>>(url, {
     // 请求拦截器
     onRequest({ options }) {
       // get方法传递数组形式参数
       options.params = paramsSerializer(options.params)
       // 添加baseURL,从环境变量里面取
-      // options.baseURL = process.server ? baseURL : '/api' // 本地需要登录的用这个
-      options.baseURL = baseURL
+      // options.baseURL = process.server ? apiBaseUrl : '/api' // 本地需要登录的用这个
+      options.baseURL = apiBaseUrl
       options.headers = new Headers(options.headers)
       // 携带token
       const userStore = useUserStore()

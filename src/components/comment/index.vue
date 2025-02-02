@@ -33,11 +33,18 @@ const params = {
   typeId: props.id,
   commentType: props.type
 }
-const { data: commentData, pending, execute } = await commentApi.getCommentList(params)
-if (commentData.value?.flag && commentData.value.data.recordList) {
-  total.value = commentData.value.data.count
-  recordList.value = commentData.value.data.recordList
-}
+const {
+  data: commentData,
+  pending,
+  execute
+} = await commentApi.getCommentList(params, { immediate: false })
+onMounted(async () => {
+  await execute()
+  if (commentData.value?.flag && commentData.value.data.recordList) {
+    total.value = commentData.value.data.count
+    recordList.value = commentData.value.data.recordList
+  }
+})
 
 /**
  * 是否还要加载
