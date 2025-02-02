@@ -12,7 +12,7 @@ const archiveList = ref<{ [key: string]: Archives[] }>({})
 const { article } = useApi()
 
 // 获取全部文章归档
-const { data, pending } = await article.getArchivesList({ current: 1, size: 500 })
+const { data, pending } = await article.getArchivesList({ current: 1, size: 1000 })
 if (data.value?.flag) {
   const { recordList } = data.value.data
   if (recordList.length > 0) {
@@ -27,8 +27,6 @@ if (data.value?.flag) {
     }, {})
   }
 }
-
-// const filterTime = computed(() => (time: string) => useDateFormat(time, 'MM-DD').value)
 </script>
 
 <template>

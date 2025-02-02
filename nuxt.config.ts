@@ -2,6 +2,8 @@
 import compression from 'vite-plugin-compression'
 import type { PluginOption } from 'vite'
 
+const siteURL = import.meta.env.VITE_APP_WEBSITE as string
+
 // GZIP压缩
 const plugin: PluginOption = [
   compression({
@@ -20,20 +22,20 @@ export default defineNuxtConfig({
   app: {
     head: {
       viewport: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no',
-      title: 'Vinson',
+      title: 'Vinson Blog',
       meta: [
-        { name: 'keywords', content: 'Vinson，Sakura，博客，前端' },
+        { name: 'keywords', content: 'vinson,blog,个人博客,博客,sakura,主题,前端,知识库' },
         { name: 'author', content: 'Vinson' },
-        { name: 'description', content: 'Vinson，Sakura，博客，个人博客，知识库' }
+        { name: 'description', content: 'Vinson & 梦想是一个天真的词，实现梦想是一个残酷的词' }
       ],
       link: [
         {
           rel: 'preconnect',
-          href: 'sakura520.cn'
+          href: siteURL
         },
         {
           rel: 'dns-prefetch',
-          href: 'sakura520.cn'
+          href: siteURL
         },
         {
           rel: 'preload',

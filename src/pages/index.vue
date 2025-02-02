@@ -2,9 +2,9 @@
 import { NCarousel, NEmpty } from 'naive-ui'
 import type { Article } from '@/types/article'
 
-useHead({
-  title: 'Vinson'
-})
+// useHead({
+//   title: 'Vinson'
+// })
 
 const blogStore = useBlogStore()
 const imageStore = useImageStore()
