@@ -111,15 +111,16 @@ export default defineNuxtConfig({
     }
   },
   css: ['@/assets/css/animation.css'],
-  // nitro: {
-  //   // 代理
-  //   devProxy: {
-  //     '/api': {
-  //       target: 'http://127.0.0.1:8080/',
-  //       changeOrigin: true
-  //     }
-  //   }
-  // },
+  nitro: {
+    // 代理
+    devProxy: {
+      '/api': {
+        // target: 'http://127.0.0.1:8080/',
+        target: 'https://sakura520.cn/api/',
+        changeOrigin: true
+      }
+    }
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',

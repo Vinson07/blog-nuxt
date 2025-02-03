@@ -25,6 +25,7 @@ const likeCount = ref(props.data.likeCount || 0)
 const isLike = ref(false)
 const type = inject<number>('type', 1)
 const id = inject<number>('id')
+const addPending = ref(false)
 
 const { comment } = useApi()
 
@@ -95,7 +96,9 @@ async function onSubmit() {
     replyId: props.data.id,
     toUid: props.data.fromUid
   }
+  addPending.value = true
   const { data } = await comment.addComment(params)
+  addPending.value = false
   if (data.value?.flag) {
     commentContent.value = ''
     isShowInput.value = false
@@ -168,6 +171,7 @@ async function onSubmit() {
             v-model:value="commentContent"
             class="mt-3"
             :placeholder="`回复 @${data.fromNickname}`"
+            :loading="addPending"
             @submit="onSubmit"
             @hide="onHide"
           />

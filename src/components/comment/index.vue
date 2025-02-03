@@ -20,6 +20,7 @@ const message = useMessage()
 const recordList = ref<Comment[]>([])
 const total = ref(0)
 const commentContent = ref('')
+const addPending = ref(false) // 添加评论加载状态，防治重复评论
 
 const { comment: commentApi } = useApi()
 
@@ -75,11 +76,13 @@ async function onSubmit() {
   // 解析表情
   const content = useEmojiParse(EmojiApi.allEmoji, commentContent.value)
   // 添加评论
+  addPending.value = true
   const { data } = await commentApi.addComment({
     commentContent: content,
     typeId: props.id,
     commentType: props.type
   })
+  addPending.value = false
   if (data.value?.flag) {
     // 清空输入框
     commentContent.value = ''
@@ -153,7 +156,7 @@ function reloadReply(id: number, data: Reply[], count?: number) {
       <div class="mr-4">
         <n-avatar size="medium" round :src="userStore.userInfo?.avatar" />
       </div>
-      <comment-input v-model:value="commentContent" @submit="onSubmit" />
+      <comment-input v-model:value="commentContent" :loading="addPending" @submit="onSubmit" />
     </div>
     <n-divider dashed style="margin: 0">
       <span class="ml-1 text-sm dark:text-white">{{ total }} 条评论</span>

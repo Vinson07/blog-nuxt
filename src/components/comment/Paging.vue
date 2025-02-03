@@ -81,7 +81,7 @@ const changePage = (type: boolean | number) => {
 
 <template>
   <div class="paging select-none text-xs">
-    <span>共{{ total }}页</span>
+    <span>共{{ pages }}页</span>
     <span
       v-show="currentPage !== 1"
       class="mx-1 cursor-pointer hover:text-orange-500"

@@ -6,11 +6,13 @@ interface Props {
   placeholder?: string
   btnText?: string
   value: string
+  loading?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: '来发一针见血的评论吧!',
-  btnText: '提交评论'
+  btnText: '提交评论',
+  loading: false
 })
 
 const disabled = ref(true)
@@ -68,7 +70,7 @@ function onAddEmoji(key: string) {
 
     <div class="mt-2 flex justify-between">
       <CommentEmoji @add-emoji="onAddEmoji" />
-      <n-button ghost :disabled="disabled" class="vsubmit" @click="onSubmit">
+      <n-button ghost :disabled="disabled" :loading="loading" class="vsubmit" @click="onSubmit">
         {{ btnText }}
       </n-button>
     </div>
