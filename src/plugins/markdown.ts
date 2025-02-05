@@ -117,6 +117,7 @@ export default defineNuxtPlugin(() => {
           .replace(/<\/?[^>]*>/g, '')
           .replace(/[|]*\n/, '')
           .replace(/&npsp;/gi, '')
+          .replace(/\s/g, '')
       }
     }
   }

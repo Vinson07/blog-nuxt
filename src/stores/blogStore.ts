@@ -84,7 +84,7 @@ export const useBlogStore = defineStore('blog', () => {
   // 查看博客信息
   async function blogInfoData() {
     const { home } = useApi()
-    const { data } = await home.getBlogInfo({ lazy: true })
+    const { data } = await home.getBlogInfo()
     if (data.value) {
       viewsCount.value = data.value.data.viewCount
       tagCount.value = data.value.data.tagCount

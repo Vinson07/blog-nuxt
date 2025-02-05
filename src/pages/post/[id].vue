@@ -5,20 +5,31 @@ const route = useRoute()
 const userStore = useUserStore()
 const blogStore = useBlogStore()
 const message = useMessage()
+const { $markdownItContent } = useNuxtApp()
 
-const likeCount = ref(0)
+const likeNum = ref(0)
 const isLike = ref(false)
 
 const id = +route.params.id
 const { article } = useApi()
 
+// 截取字符串
+function truncateString(str: string, maxLength: number) {
+  if (str.length > maxLength) {
+    return str.slice(0, maxLength) + '...'
+  }
+  return str
+}
+
 // 获取文章详情
-const { data: articleInfo, pending } = await article.getArticle(id, { lazy: true })
+const { data: articleInfo } = await article.getArticle(id)
 if (articleInfo.value?.flag) {
-  useHead({
-    title: `${articleInfo.value.data.articleTitle}`
+  const { articleTitle, articleContent, likeCount } = articleInfo.value.data
+  useSeoMeta({
+    title: articleTitle,
+    description: truncateString($markdownItContent(articleContent), 150)
   })
-  likeCount.value = articleInfo.value.data.likeCount
+  likeNum.value = likeCount
 }
 
 // 获取推荐文章
@@ -33,11 +44,11 @@ const handleLike = useThrottleFn(async (id: number) => {
   const { data } = await article.likeArticle(id)
   if (data.value?.flag) {
     if (userStore.userInfo.articleLikeSet?.includes(id)) {
-      likeCount.value--
+      likeNum.value--
       isLike.value = false
       message.warning('取消点赞！！')
     } else {
-      likeCount.value++
+      likeNum.value++
       isLike.value = true
       message.success('点赞成功！！')
     }
@@ -98,7 +109,7 @@ onMounted(() => {
                   @click="handleLike(id)"
                 >
                   <Icon name="bx:bxs-like" class="cursor-pointer" size="20" />
-                  <span class="ml-1 text-sm">{{ likeCount }}</span>
+                  <span class="ml-1 text-sm">{{ likeNum }}</span>
                 </div>
               </div>
             </div>
@@ -116,7 +127,7 @@ onMounted(() => {
         </div>
       </div>
     </template>
-    <BaseLoading v-else-if="pending" />
+    <!-- <BaseLoading v-else-if="pending" /> -->
     <div v-else class="flex h-screen items-center justify-center text-lg">暂无数据</div>
   </main>
 </template>
