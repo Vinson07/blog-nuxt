@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { NPopover, NTabs, NTabPane } from 'naive-ui'
-import EmojiApi from '@/utils/emoji'
+import { emojiList, faceList } from '@/utils/emoji'
 
+// emoji基地址
 const runtimeConfig = useRuntimeConfig()
-const { emojiUrl } = runtimeConfig.public
-const { emojiList, faceList } = EmojiApi
+const { emojiUrl: emojiBaseUrl } = runtimeConfig.public
 
 const emojis = ref(new Array(2))
 
@@ -47,7 +47,12 @@ function onPopUpdate(value: boolean) {
             class="cursor-pointer rounded p-1 hover:bg-zinc-200"
             @click="emit('addEmoji', key as unknown as string)"
           >
-            <img class="h-6 w-6" draggable="false" :title="String(key)" :src="emojiUrl + value" />
+            <img
+              class="h-6 w-6"
+              draggable="false"
+              :title="String(key)"
+              :src="emojiBaseUrl + value"
+            />
           </li>
         </ul>
       </n-tab-pane>

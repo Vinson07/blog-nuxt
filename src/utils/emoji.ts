@@ -82,10 +82,12 @@ const emojiList = [
 ]
 
 // 把emojiList数组中的每一个对象，放到emojiMap中方便取用
-function allEmoji(): {} {
+function useEmojiMap(): {} {
   let emojiMap = {}
-  emojiList.map((emojis) => (emojiMap = { ...emojiMap, ...emojis }))
+  emojiList.forEach((emojis) => {
+    emojiMap = { ...emojiMap, ...emojis }
+  })
   return emojiMap
 }
 
-export default { faceList, emojiList, allEmoji: allEmoji() }
+export { faceList, emojiList, useEmojiMap }

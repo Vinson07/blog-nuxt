@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NDivider, NAvatar, useMessage } from 'naive-ui'
 import type { Comment, Reply } from '@/types/comment'
-import EmojiApi from '@/utils/emoji'
+import { useEmojiMap } from '@/utils/emoji'
 
 interface Props {
   id?: number
@@ -17,6 +17,8 @@ const props = withDefaults(defineProps<Props>(), {
 const userStore = useUserStore()
 const blogStore = useBlogStore()
 const message = useMessage()
+const emojiMap = useEmojiMap()
+
 const recordList = ref<Comment[]>([])
 const total = ref(0)
 const commentContent = ref('')
@@ -74,7 +76,7 @@ async function onSubmit() {
     return
   }
   // 解析表情
-  const content = useEmojiParse(EmojiApi.allEmoji, commentContent.value)
+  const content = useEmojiParse(emojiMap, commentContent.value)
   // 添加评论
   addPending.value = true
   const { data } = await commentApi.addComment({

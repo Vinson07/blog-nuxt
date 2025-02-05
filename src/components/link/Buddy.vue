@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { NAvatar } from 'naive-ui'
+import errorAvatarImg from '@/assets/img/default-avatar.png'
+
 interface Props {
   avatar: string
   title: string
@@ -22,6 +24,7 @@ defineProps<Props>()
         object-fit="cover"
         :size="60"
         :src="avatar"
+        :fallback-src="errorAvatarImg"
       />
       <div class="ml-2">
         <h4

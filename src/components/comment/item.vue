@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NAvatar, useMessage } from 'naive-ui'
 import type { Comment, Reply } from '@/types/comment'
-import EmojiApi from '@/utils/emoji'
+import { useEmojiMap } from '@/utils/emoji'
 
 interface Props {
   reply?: boolean
@@ -18,6 +18,8 @@ const emit = defineEmits<{
 
 const userStore = useUserStore()
 const message = useMessage()
+const emojiMap = useEmojiMap()
+
 const isShowInput = ref(false)
 const btnRef = ref<HTMLElement | null>(null)
 const commentContent = ref('')
@@ -85,7 +87,7 @@ async function onSubmit() {
   }
 
   // 解析表情
-  const content = useEmojiParse(EmojiApi.allEmoji, commentContent.value)
+  const content = useEmojiParse(emojiMap, commentContent.value)
   // 添加评论
   const parentId = props.reply ? (props.data as Reply).parentId : props.data.id
   const params = {
