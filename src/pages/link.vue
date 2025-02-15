@@ -47,7 +47,7 @@ const { data: linkList } = await link.getLinkList()
         <h3
           class="border-v-hc text-v-hc dark:border-v-hc-dark dark:text-v-hc-dark border-l-[3px] pl-3 text-xl"
         >
-          だいすき
+          朋友们
         </h3>
         <div v-if="linkList?.flag" class="grid grid-cols-1 gap-2 py-5 px-3 md:grid-cols-3">
           <LinkBuddy
